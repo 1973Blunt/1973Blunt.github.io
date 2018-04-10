@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="参考： 归一化与标准化 中心化（mean normalization）、归一化（normalization）和标准化（standardization）对原始数据进行处理，有利于后续的训练与分析工作。 中心化处理后的数据均值为 0： $$ x’ = x-\mu $$ 归一化将数据映射到 [0, 1] 之间： $$ x’ = \frac{x-x{min}}{x{max}-x_{min}} $$ 标准化">
+<meta name="description" content="参考： 归一化与标准化 中心化（mean normalization）、归一化（normalization）和标准化（standardization）对原始数据进行处理，有利于后续的训练与分析工作。 中心化处理后的数据均值为 0： \[ x&amp;#39; = x-\mu \] 归一化将数据映射到 [0, 1] 之间： \[ x&amp;#39; = \frac{x-x_{min}}{x_{max}-">
 <meta name="keywords" content="ML,Preprocess">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据预处理——中心化、归一化与标准化">
 <meta property="og:url" content="http://yoursite.com/2017/01/15/ML-Preprcs-NormStd/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="参考： 归一化与标准化 中心化（mean normalization）、归一化（normalization）和标准化（standardization）对原始数据进行处理，有利于后续的训练与分析工作。 中心化处理后的数据均值为 0： $$ x’ = x-\mu $$ 归一化将数据映射到 [0, 1] 之间： $$ x’ = \frac{x-x{min}}{x{max}-x_{min}} $$ 标准化">
+<meta property="og:description" content="参考： 归一化与标准化 中心化（mean normalization）、归一化（normalization）和标准化（standardization）对原始数据进行处理，有利于后续的训练与分析工作。 中心化处理后的数据均值为 0： \[ x&amp;#39; = x-\mu \] 归一化将数据映射到 [0, 1] 之间： \[ x&amp;#39; = \frac{x-x_{min}}{x_{max}-">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-01-20T05:00:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据预处理——中心化、归一化与标准化">
-<meta name="twitter:description" content="参考： 归一化与标准化 中心化（mean normalization）、归一化（normalization）和标准化（standardization）对原始数据进行处理，有利于后续的训练与分析工作。 中心化处理后的数据均值为 0： $$ x’ = x-\mu $$ 归一化将数据映射到 [0, 1] 之间： $$ x’ = \frac{x-x{min}}{x{max}-x_{min}} $$ 标准化">
+<meta name="twitter:description" content="参考： 归一化与标准化 中心化（mean normalization）、归一化（normalization）和标准化（standardization）对原始数据进行处理，有利于后续的训练与分析工作。 中心化处理后的数据均值为 0： \[ x&amp;#39; = x-\mu \] 归一化将数据映射到 [0, 1] 之间： \[ x&amp;#39; = \frac{x-x_{min}}{x_{max}-">
 
 
 
@@ -301,12 +301,12 @@
         <p>参考： <a href="http://www.zhaokv.com/2016/01/normalization-and-standardization.html" target="_blank" rel="noopener">归一化与标准化</a></p>
 <p>中心化（mean normalization）、归一化（normalization）和标准化（standardization）对原始数据进行处理，有利于后续的训练与分析工作。</p>
 <p>中心化处理后的数据均值为 0：</p>
-<p>$$ x’ = x-\mu $$</p>
+<p><span class="math display">\[ x&#39; = x-\mu \]</span></p>
 <p>归一化将数据映射到 <code>[0, 1]</code> 之间：</p>
-<p>$$ x’ = \frac{x-x<em>{min}}{x</em>{max}-x_{min}} $$</p>
+<p><span class="math display">\[ x&#39; = \frac{x-x_{min}}{x_{max}-x_{min}} \]</span></p>
 <p>标准化处理后的数据均值为 0，方差为 1：</p>
-<p>$$ x’ = \frac{x-\mu}{\sigma} $$</p>
-<p>以上 $\mu, \sigma$ 分别为原始数据的均值与方差。</p>
+<p><span class="math display">\[ x&#39; = \frac{x-\mu}{\sigma} \]</span></p>
+<p>以上 <span class="math inline">\(\mu, \sigma\)</span> 分别为原始数据的均值与方差。</p>
 <p>对于标准化和归一化，sklearn 提供了函数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line">x = np.array([[ <span class="number">1.</span>, <span class="number">-1.</span>,  <span class="number">2.</span>],[ <span class="number">2.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>],[ <span class="number">0.</span>,  <span class="number">1.</span>, <span class="number">-1.</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个中心化处理调用</span></span><br><span class="line">mean_x = x - x.mean(axis=<span class="number">0</span>)</span><br><span class="line">mean_x = preprocessing.StandardScaler(with_std=<span class="keyword">False</span>).fit_transform(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个标准化处理调用</span></span><br><span class="line">std_x = preprocessing.scale(x)</span><br><span class="line">std_x = preprocessing.StandardScaler().fit_transform(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 归一化处理</span></span><br><span class="line">norm_x = preprocessing.MinMaxScaler().fit_transform(x)</span><br></pre></td></tr></table></figure>
 

@@ -84,13 +84,13 @@
 
 
 
-<meta name="description" content="声明先导知识：随机梯度下降法，矩阵分解，并行/并发计算。 本文是对学习 LIBMF 2.01 的备忘录，其中相当多的内容直接来自于论文: W.-S. Chin, Y. Zhuang, Y.-C. Juan, and C.-J. Lin. A Fast Parallel Stochastic Gradient Method for Matrix Factorization in Shared Mem">
+<meta name="description" content="声明 先导知识：随机梯度下降法，矩阵分解，并行/并发计算。 本文是对学习 LIBMF 2.01 的备忘录，其中相当多的内容直接来自于论文: W.-S. Chin, Y. Zhuang, Y.-C. Juan, and C.-J. Lin. A Fast Parallel Stochastic Gradient Method for Matrix Factorization in Shared">
 <meta name="keywords" content="ML,LIBMF,Matrix Factorization,FPSG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FPSG 算法与 LIBMF API 浅析">
 <meta property="og:url" content="http://yoursite.com/2016/05/09/ML-libmf/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="声明先导知识：随机梯度下降法，矩阵分解，并行/并发计算。 本文是对学习 LIBMF 2.01 的备忘录，其中相当多的内容直接来自于论文: W.-S. Chin, Y. Zhuang, Y.-C. Juan, and C.-J. Lin. A Fast Parallel Stochastic Gradient Method for Matrix Factorization in Shared Mem">
+<meta property="og:description" content="声明 先导知识：随机梯度下降法，矩阵分解，并行/并发计算。 本文是对学习 LIBMF 2.01 的备忘录，其中相当多的内容直接来自于论文: W.-S. Chin, Y. Zhuang, Y.-C. Juan, and C.-J. Lin. A Fast Parallel Stochastic Gradient Method for Matrix Factorization in Shared">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2016/05/09/ML-libmf/R2sxsBlocks.PNG">
 <meta property="og:image" content="http://yoursite.com/2016/05/09/ML-libmf/s_plus_1_blocks.PNG">
@@ -102,7 +102,7 @@
 <meta property="og:updated_time" content="2016-10-15T16:12:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FPSG 算法与 LIBMF API 浅析">
-<meta name="twitter:description" content="声明先导知识：随机梯度下降法，矩阵分解，并行/并发计算。 本文是对学习 LIBMF 2.01 的备忘录，其中相当多的内容直接来自于论文: W.-S. Chin, Y. Zhuang, Y.-C. Juan, and C.-J. Lin. A Fast Parallel Stochastic Gradient Method for Matrix Factorization in Shared Mem">
+<meta name="twitter:description" content="声明 先导知识：随机梯度下降法，矩阵分解，并行/并发计算。 本文是对学习 LIBMF 2.01 的备忘录，其中相当多的内容直接来自于论文: W.-S. Chin, Y. Zhuang, Y.-C. Juan, and C.-J. Lin. A Fast Parallel Stochastic Gradient Method for Matrix Factorization in Shared">
 <meta name="twitter:image" content="http://yoursite.com/2016/05/09/ML-libmf/R2sxsBlocks.PNG">
 
 
@@ -306,27 +306,41 @@
       
 
       
-        <h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>先导知识：随机梯度下降法，矩阵分解，并行/并发计算。</p>
+        <h3 id="声明">声明</h3>
+<p>先导知识：随机梯度下降法，矩阵分解，并行/并发计算。</p>
 <p>本文是对学习 <a href="http://www.csie.ntu.edu.tw/~cjlin/libmf/" target="_blank" rel="noopener">LIBMF 2.01</a> 的备忘录，其中相当多的内容直接来自于论文: <a href="http://www.csie.ntu.edu.tw/~cjlin/papers/libmf/libmf_journal.pdf" target="_blank" rel="noopener">W.-S. Chin, Y. Zhuang, Y.-C. Juan, and C.-J. Lin. A Fast Parallel Stochastic Gradient Method for Matrix Factorization in Shared Memory Systems. ACM TIST, 2015.</a></p>
 <p>文中的计算单元可理解为一条线程或进程。</p>
 <p>相关资料备份：<a href="/2016/05/09/ML-libmf/ML-libmf2.01.7z" title="论文 PDF 及源代码">论文 PDF 及源代码</a></p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a href="http://www.csie.ntu.edu.tw/~cjlin/libmf/" target="_blank" rel="noopener">LIBMF</a>（2.01）由台湾大学机器学习团队开发，是用于矩阵分解的开源API。LIBMF 主要使用了作者所提出的 FPSG 与 RPCS （可参考LIBMF分析的姊妹篇：<a href="/2016/05/11/ML-SGD-RPCS/" title="RPCS —— SGD 下降速率方案与 LIBMF 分析">RPCS —— SGD 下降速率方案与 LIBMF 分析</a>）算法。LIBMF 的源代码本身没有多少注释，但是官网上公布了三篇相关论文介绍其算法，而且源码附带的 README 文件对关键数据结构与 API 做了较详细的解释。所以可以说“注释”是相当详尽的。</p>
-<h4 id="矩阵分解"><a href="#矩阵分解" class="headerlink" title="矩阵分解"></a>矩阵分解</h4><p>以推荐系统为例。矩阵 $R<em>{u \times v}$ 记录了u个用户对v项商品的购买评分，推荐系统根据已有的评分预测用户对未评商品的评分，从而向用户做商品推荐。矩阵分解所做的，给定 k ，把 $R</em>{u \times v}$ 分解成 $P<em>{k \times u}$ 和 $Q</em>{k \times v}$ ，用 $P^\mathrm{T} Q = \hat{R}$ 近似表示 $R$ ，而 $\hat{R}$ 填充了 ${R}$ 中未知的部分。<br>其核心是解决最优化问题：<br>$$\min<em>{P, Q} \sum</em>{u, v}((r_{u,v} - p_u^\mathrm{T}q_v)^2 - \lambda_p ||p_u||^2 - \lambda_q ||q_v||^2) \label{opt} \tag{1}$$<br>其中 ${\lambda_p}$ 与 $\lambda_q$ 是正则化参数。</p>
-<h4 id="随机梯度下降"><a href="#随机梯度下降" class="headerlink" title="随机梯度下降"></a>随机梯度下降</h4><p>随机梯度下降法求解最优化问题 $\ref{opt}$，相对梯度下降法更快。求解出 $p_u$, $q_v$ 下降公式：<br>$$p_u \leftarrow p<em>u + \gamma ((r</em>{u,v} - p_u^\mathrm{T}q_v)q_v - \lambda_p p_u) \label{sgdP} \tag{2}$$<br>$$q_v \leftarrow q<em>v + \gamma ((r</em>{u,v} - p_u^\mathrm{T}q_v)p_u - \lambda_q q_v) \label{sgdQ} \tag{3}$$</p>
-<h4 id="FPSG"><a href="#FPSG" class="headerlink" title="FPSG"></a>FPSG</h4><p>即Fast Parallel Stochastic Gradient，快速的并行梯度下降算法。顾名思义，在求解 $P$, $Q$ 时，运用并行计算和梯度下降算法实现对矩阵的快速分解。</p>
-<h3 id="相关算法"><a href="#相关算法" class="headerlink" title="相关算法"></a>相关算法</h3><h4 id="HogWild"><a href="#HogWild" class="headerlink" title="HogWild"></a>HogWild</h4><p>运用并行计算和梯度下降算法。并行计算实现方法是将公式 $\ref{sgdP}$ 与公式  $\ref{sgdQ}$ 分别交由2个计算单元P1, P2处理，重要的是，P1、P2之间无需进行同步，避免了P1、P2对资源的竞争。</p>
-<p>其隐藏的问题是，当2个计算单元同时选取了相同的u或v，可能出现数据的污染。比如，P1、P2同时选取了同一个u值，当P1写入 $p_u$ 时，P2可能同时读取 $p_u$ 的数据，P2可能读入只完成了部分写入的 $p_u$，即读入了错误的数据。然而，这个问题被证明是极少出现的。</p>
-<h4 id="DSGD"><a href="#DSGD" class="headerlink" title="DSGD"></a>DSGD</h4><p>同样运用并行计算和梯度下降算法。它将 $R$ 划分成 $s \times s$ 的分块，再将其中的s个分块分给s个计算单元对 $P$、$Q$ 进行随机梯度下降计算，每个计算单元只被允许选取分块中的 (u, v)。为了避免数据污染，每个被分配的分块u、v值不能重合。例图：<br><img src="/2016/05/09/ML-libmf/R2sxsBlocks.PNG" title="Divide R to s*s blocks"><br>其中，每一个大矩阵视作一次迭代，每次迭代中，R被分为了3X3的分块，灰色分块被选中分配给计算单元，而且明显每个灰色区域间u、v不重合。</p>
-<h3 id="FPSG-1"><a href="#FPSG-1" class="headerlink" title="FPSG"></a>FPSG</h3><p>FPSG 主要在DSGD上做了2处重要改进。</p>
-<h4 id="无锁调度"><a href="#无锁调度" class="headerlink" title="无锁调度"></a>无锁调度</h4><h5 id="增加分块"><a href="#增加分块" class="headerlink" title="增加分块"></a>增加分块</h5><p>在 DSGD 中，由于 $R$ 被划分成 $s \times s$ 的分块后，最多只能分配给s个计算单元，当某个计算单元完成了一个分块计算后，只能等待其他所有计算单元完成任务重新随机分块进行下一次迭代。显然这造成了资源浪费。</p>
-<p>FPSG 的方案是至少划分 $(s+1) \times (s+1)$ 的分块，当某个计算单元完成了一个分块计算，它可以马上选择其他分块而无需等待。例图：<br><img src="/2016/05/09/ML-libmf/s_plus_1_blocks.PNG" title="(3+1)X(3+1) blocks with 3 computation units"><br>其中有 $(3+1) \times (3+1)$ 个分块，3个非白色块是当前正在计算的分块，此时红色分块计算完成，有3个分块可以直接进行下一步计算。</p>
-<h5 id="均衡分块"><a href="#均衡分块" class="headerlink" title="均衡分块"></a>均衡分块</h5><p>同时，研发者发现，分块内记录（ $r_{u,v} \neq 0$ ）的稀疏程度影响了块内(u,v)被选中更新的概率。因为，如果分块内记录稀疏，意味着分块计算更快，使得分块更新的频率更高，进而增加了该分块内(u,v)更新的频率。这可能导致某些记录稠密的分块内 $p$、$q$ 更新不足。</p>
-<p>为解决以上问题，FPSG在分块前将 $R$ 分别按行、按列打乱，使得记录分布更均匀。例图：<br><img src="/2016/05/09/ML-libmf/shuffle_blocks.PNG" title="shuffle blocks"><br>其中，黑点表示记录，在”After the random shuffle”中，黑点分布较为均匀，甚至在分块后，每个块的记录都是一个。</p>
+<h3 id="简介">简介</h3>
+<p><a href="http://www.csie.ntu.edu.tw/~cjlin/libmf/" target="_blank" rel="noopener">LIBMF</a>（2.01）由台湾大学机器学习团队开发，是用于矩阵分解的开源API。LIBMF 主要使用了作者所提出的 FPSG 与 RPCS （可参考LIBMF分析的姊妹篇：<a href="/2016/05/11/ML-SGD-RPCS/" title="RPCS —— SGD 下降速率方案与 LIBMF 分析">RPCS —— SGD 下降速率方案与 LIBMF 分析</a>）算法。LIBMF 的源代码本身没有多少注释，但是官网上公布了三篇相关论文介绍其算法，而且源码附带的 README 文件对关键数据结构与 API 做了较详细的解释。所以可以说“注释”是相当详尽的。</p>
+<h4 id="矩阵分解">矩阵分解</h4>
+<p>以推荐系统为例。矩阵 <span class="math inline">\(R_{u \times v}\)</span> 记录了u个用户对v项商品的购买评分，推荐系统根据已有的评分预测用户对未评商品的评分，从而向用户做商品推荐。矩阵分解所做的，给定 k ，把 <span class="math inline">\(R_{u \times v}\)</span> 分解成 <span class="math inline">\(P_{k \times u}\)</span> 和 <span class="math inline">\(Q_{k \times v}\)</span> ，用 <span class="math inline">\(P^\mathrm{T} Q = \hat{R}\)</span> 近似表示 <span class="math inline">\(R\)</span> ，而 <span class="math inline">\(\hat{R}\)</span> 填充了 <span class="math inline">\({R}\)</span> 中未知的部分。 其核心是解决最优化问题： <span class="math display">\[\min_{P, Q} \sum_{u, v}((r_{u,v} - p_u^\mathrm{T}q_v)^2 - \lambda_p ||p_u||^2 - \lambda_q ||q_v||^2) \label{opt} \tag{1}\]</span> 其中 <span class="math inline">\({\lambda_p}\)</span> 与 <span class="math inline">\(\lambda_q\)</span> 是正则化参数。</p>
+<h4 id="随机梯度下降">随机梯度下降</h4>
+<p>随机梯度下降法求解最优化问题 <span class="math inline">\(\ref{opt}\)</span>，相对梯度下降法更快。求解出 <span class="math inline">\(p_u\)</span>, <span class="math inline">\(q_v\)</span> 下降公式： <span class="math display">\[p_u \leftarrow p_u + \gamma ((r_{u,v} - p_u^\mathrm{T}q_v)q_v - \lambda_p p_u) \label{sgdP} \tag{2}\]</span> <span class="math display">\[q_v \leftarrow q_v + \gamma ((r_{u,v} - p_u^\mathrm{T}q_v)p_u - \lambda_q q_v) \label{sgdQ} \tag{3}\]</span></p>
+<h4 id="fpsg">FPSG</h4>
+<p>即Fast Parallel Stochastic Gradient，快速的并行梯度下降算法。顾名思义，在求解 <span class="math inline">\(P\)</span>, <span class="math inline">\(Q\)</span> 时，运用并行计算和梯度下降算法实现对矩阵的快速分解。</p>
+<h3 id="相关算法">相关算法</h3>
+<h4 id="hogwild">HogWild</h4>
+<p>运用并行计算和梯度下降算法。并行计算实现方法是将公式 <span class="math inline">\(\ref{sgdP}\)</span> 与公式 <span class="math inline">\(\ref{sgdQ}\)</span> 分别交由2个计算单元P1, P2处理，重要的是，P1、P2之间无需进行同步，避免了P1、P2对资源的竞争。</p>
+<p>其隐藏的问题是，当2个计算单元同时选取了相同的u或v，可能出现数据的污染。比如，P1、P2同时选取了同一个u值，当P1写入 <span class="math inline">\(p_u\)</span> 时，P2可能同时读取 <span class="math inline">\(p_u\)</span> 的数据，P2可能读入只完成了部分写入的 <span class="math inline">\(p_u\)</span>，即读入了错误的数据。然而，这个问题被证明是极少出现的。</p>
+<h4 id="dsgd">DSGD</h4>
+<p>同样运用并行计算和梯度下降算法。它将 <span class="math inline">\(R\)</span> 划分成 <span class="math inline">\(s \times s\)</span> 的分块，再将其中的s个分块分给s个计算单元对 <span class="math inline">\(P\)</span>、<span class="math inline">\(Q\)</span> 进行随机梯度下降计算，每个计算单元只被允许选取分块中的 (u, v)。为了避免数据污染，每个被分配的分块u、v值不能重合。例图： <img src="/2016/05/09/ML-libmf/R2sxsBlocks.PNG" title="Divide R to s*s blocks"> 其中，每一个大矩阵视作一次迭代，每次迭代中，R被分为了3X3的分块，灰色分块被选中分配给计算单元，而且明显每个灰色区域间u、v不重合。</p>
+<h3 id="fpsg-1">FPSG</h3>
+<p>FPSG 主要在DSGD上做了2处重要改进。</p>
+<h4 id="无锁调度">无锁调度</h4>
+<h5 id="增加分块">增加分块</h5>
+<p>在 DSGD 中，由于 <span class="math inline">\(R\)</span> 被划分成 <span class="math inline">\(s \times s\)</span> 的分块后，最多只能分配给s个计算单元，当某个计算单元完成了一个分块计算后，只能等待其他所有计算单元完成任务重新随机分块进行下一次迭代。显然这造成了资源浪费。</p>
+<p>FPSG 的方案是至少划分 <span class="math inline">\((s+1) \times (s+1)\)</span> 的分块，当某个计算单元完成了一个分块计算，它可以马上选择其他分块而无需等待。例图： <img src="/2016/05/09/ML-libmf/s_plus_1_blocks.PNG" title="(3+1)X(3+1) blocks with 3 computation units"> 其中有 <span class="math inline">\((3+1) \times (3+1)\)</span> 个分块，3个非白色块是当前正在计算的分块，此时红色分块计算完成，有3个分块可以直接进行下一步计算。</p>
+<h5 id="均衡分块">均衡分块</h5>
+<p>同时，研发者发现，分块内记录（ <span class="math inline">\(r_{u,v} \neq 0\)</span> ）的稀疏程度影响了块内(u,v)被选中更新的概率。因为，如果分块内记录稀疏，意味着分块计算更快，使得分块更新的频率更高，进而增加了该分块内(u,v)更新的频率。这可能导致某些记录稠密的分块内 <span class="math inline">\(p\)</span>、<span class="math inline">\(q\)</span> 更新不足。</p>
+<p>为解决以上问题，FPSG在分块前将 <span class="math inline">\(R\)</span> 分别按行、按列打乱，使得记录分布更均匀。例图： <img src="/2016/05/09/ML-libmf/shuffle_blocks.PNG" title="shuffle blocks"> 其中，黑点表示记录，在”After the random shuffle”中，黑点分布较为均匀，甚至在分块后，每个块的记录都是一个。</p>
 <p>之后，FPSG做了更进一步优化。它启用了一个调度程序，用一个优先级队列记录每个分块被更新的次数，每当一个计算单元完成任务请求下一个分块时，调度程序分配给它更新最少（且未被占用）的分块。</p>
-<h4 id="按序更新"><a href="#按序更新" class="headerlink" title="按序更新"></a>按序更新</h4><p>程序读取连续的数据相比读取分散的数据更快，所以FPSG的计算单元按行顺序更新分块，放弃了随机选择的方式。在 <em>均衡分块</em> 部分的配图“shuffle blocks”中，“Sort row indices in each block”部分在更新开始前对分块内的行进行了排序。例图：<br><img src="/2016/05/09/ML-libmf/ordered_update_by_row.PNG" title="Ordered method to select rating instances for update."><br>其中按行选取分块内 $r_{u,v}$，这样，基本上 $p^\mathrm{T}$ 是被连续读取的。</p>
+<h4 id="按序更新">按序更新</h4>
+<p>程序读取连续的数据相比读取分散的数据更快，所以FPSG的计算单元按行顺序更新分块，放弃了随机选择的方式。在 <em>均衡分块</em> 部分的配图“shuffle blocks”中，“Sort row indices in each block”部分在更新开始前对分块内的行进行了排序。例图： <img src="/2016/05/09/ML-libmf/ordered_update_by_row.PNG" title="Ordered method to select rating instances for update."> 其中按行选取分块内 <span class="math inline">\(r_{u,v}\)</span>，这样，基本上 <span class="math inline">\(p^\mathrm{T}\)</span> 是被连续读取的。</p>
 <p>这样处理似乎失去了采样的随机性，但FPSG已经在 <em>无锁调度</em> 中保证了一定程度的随机性。</p>
-<h3 id="LIBMF"><a href="#LIBMF" class="headerlink" title="LIBMF"></a>LIBMF</h3><p>作者给出了伪代码：<img src="/2016/05/09/ML-libmf/libmf_pseudo_code.PNG" title="FPSG overall procedure"></p>
-<p>其中的 scheduler 程序：<img src="/2016/05/09/ML-libmf/FPSG_scheduler_code.PNG" title="FPSG scheduler procedure"><br>在 GET_JOB 子程序中，scheduler 只抽取了优先级最高的空闲的块，而在 PUT_JOB 子程序中，为了避免出现2个分块优先级相同的情况，它为每个分块优先级加上一个随机小数。</p>
+<h3 id="libmf">LIBMF</h3>
+<p>作者给出了伪代码：<img src="/2016/05/09/ML-libmf/libmf_pseudo_code.PNG" title="FPSG overall procedure"></p>
+<p>其中的 scheduler 程序：<img src="/2016/05/09/ML-libmf/FPSG_scheduler_code.PNG" title="FPSG scheduler procedure"> 在 GET_JOB 子程序中，scheduler 只抽取了优先级最高的空闲的块，而在 PUT_JOB 子程序中，为了避免出现2个分块优先级相同的情况，它为每个分块优先级加上一个随机小数。</p>
 <p>工作线程程序：<img src="/2016/05/09/ML-libmf/FPSG_worker_code.PNG" title="FPSG working thread procedure"></p>
 
       
@@ -485,7 +499,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明"><span class="nav-number">1.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#矩阵分解"><span class="nav-number">2.1.</span> <span class="nav-text">矩阵分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随机梯度下降"><span class="nav-number">2.2.</span> <span class="nav-text">随机梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FPSG"><span class="nav-number">2.3.</span> <span class="nav-text">FPSG</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关算法"><span class="nav-number">3.</span> <span class="nav-text">相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HogWild"><span class="nav-number">3.1.</span> <span class="nav-text">HogWild</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DSGD"><span class="nav-number">3.2.</span> <span class="nav-text">DSGD</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FPSG-1"><span class="nav-number">4.</span> <span class="nav-text">FPSG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无锁调度"><span class="nav-number">4.1.</span> <span class="nav-text">无锁调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#增加分块"><span class="nav-number">4.1.1.</span> <span class="nav-text">增加分块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#均衡分块"><span class="nav-number">4.1.2.</span> <span class="nav-text">均衡分块</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按序更新"><span class="nav-number">4.2.</span> <span class="nav-text">按序更新</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LIBMF"><span class="nav-number">5.</span> <span class="nav-text">LIBMF</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明"><span class="nav-number">1.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#矩阵分解"><span class="nav-number">2.1.</span> <span class="nav-text">矩阵分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随机梯度下降"><span class="nav-number">2.2.</span> <span class="nav-text">随机梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fpsg"><span class="nav-number">2.3.</span> <span class="nav-text">FPSG</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关算法"><span class="nav-number">3.</span> <span class="nav-text">相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hogwild"><span class="nav-number">3.1.</span> <span class="nav-text">HogWild</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dsgd"><span class="nav-number">3.2.</span> <span class="nav-text">DSGD</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fpsg-1"><span class="nav-number">4.</span> <span class="nav-text">FPSG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无锁调度"><span class="nav-number">4.1.</span> <span class="nav-text">无锁调度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#增加分块"><span class="nav-number">4.1.1.</span> <span class="nav-text">增加分块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#均衡分块"><span class="nav-number">4.1.2.</span> <span class="nav-text">均衡分块</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按序更新"><span class="nav-number">4.2.</span> <span class="nav-text">按序更新</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#libmf"><span class="nav-number">5.</span> <span class="nav-text">LIBMF</span></a></li></ol></div>
             
           </div>
         </section>

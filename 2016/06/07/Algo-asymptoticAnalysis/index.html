@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="Coursera 上 Algorithms: Design and Analysis, Part 1 by Tim Roughgarden 的学习笔记。第二课，有关时间复杂度。 The Gist时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms” Big-Oh NotationFormal Definition: $T(n)">
+<meta name="description" content="Coursera 上 Algorithms: Design and Analysis, Part 1 by Tim Roughgarden 的学习笔记。第二课，有关时间复杂度。 The Gist 时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms” Big-Oh Notation Formal Definition:">
 <meta name="keywords" content="Algo,算法分析与设计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法时间复杂度">
 <meta property="og:url" content="http://yoursite.com/2016/06/07/Algo-asymptoticAnalysis/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="Coursera 上 Algorithms: Design and Analysis, Part 1 by Tim Roughgarden 的学习笔记。第二课，有关时间复杂度。 The Gist时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms” Big-Oh NotationFormal Definition: $T(n)">
+<meta property="og:description" content="Coursera 上 Algorithms: Design and Analysis, Part 1 by Tim Roughgarden 的学习笔记。第二课，有关时间复杂度。 The Gist 时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms” Big-Oh Notation Formal Definition:">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法时间复杂度">
-<meta name="twitter:description" content="Coursera 上 Algorithms: Design and Analysis, Part 1 by Tim Roughgarden 的学习笔记。第二课，有关时间复杂度。 The Gist时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms” Big-Oh NotationFormal Definition: $T(n)">
+<meta name="twitter:description" content="Coursera 上 Algorithms: Design and Analysis, Part 1 by Tim Roughgarden 的学习笔记。第二课，有关时间复杂度。 The Gist 时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms” Big-Oh Notation Formal Definition:">
 
 
 
@@ -299,13 +299,22 @@
 
       
         <p>Coursera 上 <a href="https://class.coursera.org/algo-009/lecture" target="_blank" rel="noopener">Algorithms: Design and Analysis, Part 1 by Tim Roughgarden</a> 的学习笔记。第二课，有关时间复杂度。</p>
-<h4 id="The-Gist"><a href="#The-Gist" class="headerlink" title="The Gist"></a>The Gist</h4><p>时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms”</p>
-<h4 id="Big-Oh-Notation"><a href="#Big-Oh-Notation" class="headerlink" title="Big-Oh Notation"></a>Big-Oh Notation</h4><p>Formal Definition: $T(n) = O(f(n))$ \<br>if and only if exist constants $c, n_0$ such that $T(n) \le cf(n)$ \<br>for all $n \gt n_0$</p>
-<p>即 $n \rightarrow +\infty$ 时，$cf(n)$ 为 $T(n)$ 上限</p>
-<h4 id="Omega-Notation"><a href="#Omega-Notation" class="headerlink" title="Omega Notation"></a>Omega Notation</h4><p>Formal Definition: $T(n) = \Omega(f(n))$ \<br>if and only if exist constants $c, n_0$ such that $T(n) \ge cf(n)$ \<br>for all $n \gt n_0$</p>
-<p>即 $n \rightarrow +\infty$ 时，$cf(n)$ 为 $T(n)$ 下限</p>
-<h4 id="Theta-Notation"><a href="#Theta-Notation" class="headerlink" title="Theta Notation"></a>Theta Notation</h4><p>Formal Definition: $T(n) = \Theta(f(n))$ \<br>if and only if $T(n)=O(f(n))$ and $\Omega(n)=O(f(n))$</p>
-<p>即 $n \rightarrow +\infty$ 时，$cf(n)$ 既能作 $T(n)$ 下限也能作上限，</p>
+<h4 id="the-gist">The Gist</h4>
+<p>时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms”</p>
+<h4 id="big-oh-notation">Big-Oh Notation</h4>
+<p>Formal Definition: <span class="math inline">\(T(n) = O(f(n))\)</span><br>
+if and only if exist constants <span class="math inline">\(c, n_0\)</span> such that <span class="math inline">\(T(n) \le cf(n)\)</span><br>
+for all <span class="math inline">\(n \gt n_0\)</span></p>
+<p>即 <span class="math inline">\(n \rightarrow +\infty\)</span> 时，<span class="math inline">\(cf(n)\)</span> 为 <span class="math inline">\(T(n)\)</span> 上限</p>
+<h4 id="omega-notation">Omega Notation</h4>
+<p>Formal Definition: <span class="math inline">\(T(n) = \Omega(f(n))\)</span><br>
+if and only if exist constants <span class="math inline">\(c, n_0\)</span> such that <span class="math inline">\(T(n) \ge cf(n)\)</span><br>
+for all <span class="math inline">\(n \gt n_0\)</span></p>
+<p>即 <span class="math inline">\(n \rightarrow +\infty\)</span> 时，<span class="math inline">\(cf(n)\)</span> 为 <span class="math inline">\(T(n)\)</span> 下限</p>
+<h4 id="theta-notation">Theta Notation</h4>
+<p>Formal Definition: <span class="math inline">\(T(n) = \Theta(f(n))\)</span><br>
+if and only if <span class="math inline">\(T(n)=O(f(n))\)</span> and <span class="math inline">\(\Omega(n)=O(f(n))\)</span></p>
+<p>即 <span class="math inline">\(n \rightarrow +\infty\)</span> 时，<span class="math inline">\(cf(n)\)</span> 既能作 <span class="math inline">\(T(n)\)</span> 下限也能作上限，</p>
 
       
     </div>
@@ -463,7 +472,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Gist"><span class="nav-number">1.</span> <span class="nav-text">The Gist</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Big-Oh-Notation"><span class="nav-number">2.</span> <span class="nav-text">Big-Oh Notation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Omega-Notation"><span class="nav-number">3.</span> <span class="nav-text">Omega Notation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Theta-Notation"><span class="nav-number">4.</span> <span class="nav-text">Theta Notation</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#the-gist"><span class="nav-number">1.</span> <span class="nav-text">The Gist</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#big-oh-notation"><span class="nav-number">2.</span> <span class="nav-text">Big-Oh Notation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#omega-notation"><span class="nav-number">3.</span> <span class="nav-text">Omega Notation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#theta-notation"><span class="nav-number">4.</span> <span class="nav-text">Theta Notation</span></a></li></ol></div>
             
           </div>
         </section>

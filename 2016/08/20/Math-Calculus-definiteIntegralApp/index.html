@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="微积分笔记 微元法分割、近似、求和、取极限的简略过程，微元 $dx \sim \Delta x$ 可以看作一个“无限小的过程。 几何应用函数面积微元   坐标系 微元     直角坐标系   $y=y(x)$ $y(x)dx$   极坐标   $r=r(\theta)$ $\frac{1}{2} r^2(\theta)d\theta$   含参  $y=y(t),\,x=x(t)$ $y(t)x’">
+<meta name="description" content="微积分笔记 微元法 分割、近似、求和、取极限的简略过程，微元 \(dx \sim \Delta x\) 可以看作一个“无限小的过程。 几何应用 函数面积微元    坐标系 微元     直角坐标系 \(y=y(x)\) \(y(x)dx\)   极坐标 \(r=r(\theta)\) \(\frac{1}{2} r^2(\theta)d\theta\)">
 <meta name="keywords" content="Math,Calculus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="定积分的应用">
 <meta property="og:url" content="http://yoursite.com/2016/08/20/Math-Calculus-definiteIntegralApp/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="微积分笔记 微元法分割、近似、求和、取极限的简略过程，微元 $dx \sim \Delta x$ 可以看作一个“无限小的过程。 几何应用函数面积微元   坐标系 微元     直角坐标系   $y=y(x)$ $y(x)dx$   极坐标   $r=r(\theta)$ $\frac{1}{2} r^2(\theta)d\theta$   含参  $y=y(t),\,x=x(t)$ $y(t)x’">
+<meta property="og:description" content="微积分笔记 微元法 分割、近似、求和、取极限的简略过程，微元 \(dx \sim \Delta x\) 可以看作一个“无限小的过程。 几何应用 函数面积微元    坐标系 微元     直角坐标系 \(y=y(x)\) \(y(x)dx\)   极坐标 \(r=r(\theta)\) \(\frac{1}{2} r^2(\theta)d\theta\)">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-16T06:51:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="定积分的应用">
-<meta name="twitter:description" content="微积分笔记 微元法分割、近似、求和、取极限的简略过程，微元 $dx \sim \Delta x$ 可以看作一个“无限小的过程。 几何应用函数面积微元   坐标系 微元     直角坐标系   $y=y(x)$ $y(x)dx$   极坐标   $r=r(\theta)$ $\frac{1}{2} r^2(\theta)d\theta$   含参  $y=y(t),\,x=x(t)$ $y(t)x’">
+<meta name="twitter:description" content="微积分笔记 微元法 分割、近似、求和、取极限的简略过程，微元 \(dx \sim \Delta x\) 可以看作一个“无限小的过程。 几何应用 函数面积微元    坐标系 微元     直角坐标系 \(y=y(x)\) \(y(x)dx\)   极坐标 \(r=r(\theta)\) \(\frac{1}{2} r^2(\theta)d\theta\)">
 
 
 
@@ -299,72 +299,78 @@
 
       
         <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="微元法"><a href="#微元法" class="headerlink" title="微元法"></a>微元法</h3><p>分割、近似、求和、取极限的简略过程，微元 $dx \sim \Delta x$ 可以看作一个“无限小的过程。</p>
-<h3 id="几何应用"><a href="#几何应用" class="headerlink" title="几何应用"></a>几何应用</h3><h4 id="函数面积微元"><a href="#函数面积微元" class="headerlink" title="函数面积微元"></a>函数面积微元</h4><table>
+<h3 id="微元法">微元法</h3>
+<p>分割、近似、求和、取极限的简略过程，微元 <span class="math inline">\(dx \sim \Delta x\)</span> 可以看作一个“无限小的过程。</p>
+<h3 id="几何应用">几何应用</h3>
+<h4 id="函数面积微元">函数面积微元</h4>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>坐标系</th>
-<th style="text-align:center">微元</th>
+<th style="text-align: center;">微元</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>直角坐标系   $y=y(x)$</td>
-<td style="text-align:center">$y(x)dx$</td>
+<tr class="odd">
+<td>直角坐标系 <span class="math inline">\(y=y(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y(x)dx\)</span></td>
 </tr>
-<tr>
-<td>极坐标   $r=r(\theta)$</td>
-<td style="text-align:center">$\frac{1}{2} r^2(\theta)d\theta$</td>
+<tr class="even">
+<td>极坐标 <span class="math inline">\(r=r(\theta)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{2} r^2(\theta)d\theta\)</span></td>
 </tr>
-<tr>
-<td>含参  $y=y(t),\,x=x(t)$</td>
-<td style="text-align:center">$y(t)x’(t)dt$</td>
+<tr class="odd">
+<td>含参 <span class="math inline">\(y=y(t),\,x=x(t)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(y(t)x&#39;(t)dt\)</span></td>
 </tr>
 </tbody>
 </table>
 <p>注意掌握心形线，双纽线方程</p>
-<h4 id="函数体积微元"><a href="#函数体积微元" class="headerlink" title="函数体积微元"></a>函数体积微元</h4><table>
+<h4 id="函数体积微元">函数体积微元</h4>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>场景</th>
-<th style="text-align:center">微元</th>
+<th style="text-align: center;">微元</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>已知 $x$ 轴截面 $S(x)$</td>
-<td style="text-align:center">$S(x)dx$</td>
+<tr class="odd">
+<td>已知 <span class="math inline">\(x\)</span> 轴截面 <span class="math inline">\(S(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(S(x)dx\)</span></td>
 </tr>
-<tr>
-<td>旋转体，绕 $x$ 轴</td>
-<td style="text-align:center">$\pi y^2(x) dx$</td>
+<tr class="even">
+<td>旋转体，绕 <span class="math inline">\(x\)</span> 轴</td>
+<td style="text-align: center;"><span class="math inline">\(\pi y^2(x) dx\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>补充，旋转体曲面侧面积微元： $2\pi y(x) \sqrt{1+{y’}^2(x)}dx$</p>
-<h4 id="弧长"><a href="#弧长" class="headerlink" title="弧长"></a>弧长</h4><table>
+<p>补充，旋转体曲面侧面积微元： <span class="math inline">\(2\pi y(x) \sqrt{1+{y&#39;}^2(x)}dx\)</span></p>
+<h4 id="弧长">弧长</h4>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>坐标系</th>
-<th style="text-align:center">微元</th>
+<th style="text-align: center;">微元</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>直角坐标系   $y=y(x)$</td>
-<td style="text-align:center">$\sqrt{d^2x+d^2y}=\sqrt{1+{y’}^2}dx$</td>
+<tr class="odd">
+<td>直角坐标系 <span class="math inline">\(y=y(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\sqrt{d^2x+d^2y}=\sqrt{1+{y&#39;}^2}dx\)</span></td>
 </tr>
-<tr>
-<td>极坐标 $r=r(\theta)$</td>
-<td style="text-align:center">$\sqrt{r^2(\theta)+{r’}^2(\theta)}d\theta$</td>
+<tr class="even">
+<td>极坐标 <span class="math inline">\(r=r(\theta)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\sqrt{r^2(\theta)+{r&#39;}^2(\theta)}d\theta\)</span></td>
 </tr>
-<tr>
-<td>含参  $y=y(t),\,x=x(t)$</td>
-<td style="text-align:center">$\sqrt{ {x’}^2(t)+{y’}^2(t)}dt$</td>
+<tr class="odd">
+<td>含参 <span class="math inline">\(y=y(t),\,x=x(t)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\sqrt{ {x&#39;}^2(t)+{y&#39;}^2(t)}dt\)</span></td>
 </tr>
 </tbody>
 </table>
-<h3 id="函数平均值"><a href="#函数平均值" class="headerlink" title="函数平均值"></a>函数平均值</h3><p>$$ \frac{1}{b-a} \int_a^b f(x) dx $$</p>
+<h3 id="函数平均值">函数平均值</h3>
+<p><span class="math display">\[ \frac{1}{b-a} \int_a^b f(x) dx \]</span></p>
 
       
     </div>

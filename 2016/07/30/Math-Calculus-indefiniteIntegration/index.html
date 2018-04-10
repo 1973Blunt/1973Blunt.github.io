@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="微积分笔记 第一类换元法（凑微分）将 积分变量 视作换元方程的 自变量$$\int f[u(x)]u’(x) dx = \int f[u(x)] du(x)$$ 第二类换元法将 积分变量 视作换元方程的 函数$$\int f(x) dx = \int f[x(t)]x’(t) dt$$对 根式 可考虑第二类换元。 三角换元存在下列类型的 根式，做三角换元： $$\sqrt{a^2 - x^2},\">
+<meta name="description" content="微积分笔记 第一类换元法（凑微分） 将 积分变量 视作换元方程的 自变量 \[\int f[u(x)]u&amp;#39;(x) dx = \int f[u(x)] du(x)\] 第二类换元法 将 积分变量 视作换元方程的 函数 \[\int f(x) dx = \int f[x(t)]x&amp;#39;(t) dt\] 对 根式 可考虑第二类换元。 三角换元 存在下列类型的 根式，做三角换元：">
 <meta name="keywords" content="Math,Calculus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微积分——不定积分计算">
 <meta property="og:url" content="http://yoursite.com/2016/07/30/Math-Calculus-indefiniteIntegration/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="微积分笔记 第一类换元法（凑微分）将 积分变量 视作换元方程的 自变量$$\int f[u(x)]u’(x) dx = \int f[u(x)] du(x)$$ 第二类换元法将 积分变量 视作换元方程的 函数$$\int f(x) dx = \int f[x(t)]x’(t) dt$$对 根式 可考虑第二类换元。 三角换元存在下列类型的 根式，做三角换元： $$\sqrt{a^2 - x^2},\">
+<meta property="og:description" content="微积分笔记 第一类换元法（凑微分） 将 积分变量 视作换元方程的 自变量 \[\int f[u(x)]u&amp;#39;(x) dx = \int f[u(x)] du(x)\] 第二类换元法 将 积分变量 视作换元方程的 函数 \[\int f(x) dx = \int f[x(t)]x&amp;#39;(t) dt\] 对 根式 可考虑第二类换元。 三角换元 存在下列类型的 根式，做三角换元：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-09T10:07:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微积分——不定积分计算">
-<meta name="twitter:description" content="微积分笔记 第一类换元法（凑微分）将 积分变量 视作换元方程的 自变量$$\int f[u(x)]u’(x) dx = \int f[u(x)] du(x)$$ 第二类换元法将 积分变量 视作换元方程的 函数$$\int f(x) dx = \int f[x(t)]x’(t) dt$$对 根式 可考虑第二类换元。 三角换元存在下列类型的 根式，做三角换元： $$\sqrt{a^2 - x^2},\">
+<meta name="twitter:description" content="微积分笔记 第一类换元法（凑微分） 将 积分变量 视作换元方程的 自变量 \[\int f[u(x)]u&amp;#39;(x) dx = \int f[u(x)] du(x)\] 第二类换元法 将 积分变量 视作换元方程的 函数 \[\int f(x) dx = \int f[x(t)]x&amp;#39;(t) dt\] 对 根式 可考虑第二类换元。 三角换元 存在下列类型的 根式，做三角换元：">
 
 
 
@@ -299,29 +299,39 @@
 
       
         <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="第一类换元法（凑微分）"><a href="#第一类换元法（凑微分）" class="headerlink" title="第一类换元法（凑微分）"></a>第一类换元法（凑微分）</h3><p>将 <strong>积分变量</strong> 视作换元方程的 <strong>自变量</strong><br>$$\int f[u(x)]u’(x) dx = \int f[u(x)] du(x)$$</p>
-<h3 id="第二类换元法"><a href="#第二类换元法" class="headerlink" title="第二类换元法"></a>第二类换元法</h3><p>将 <strong>积分变量</strong> 视作换元方程的 <strong>函数</strong><br>$$\int f(x) dx = \int f[x(t)]x’(t) dt$$<br>对 <strong>根式</strong> 可考虑第二类换元。</p>
-<h4 id="三角换元"><a href="#三角换元" class="headerlink" title="三角换元"></a>三角换元</h4><p>存在下列类型的 <strong>根式</strong>，做三角换元：<br> $$\sqrt{a^2 - x^2},\quad let\; x=a\sin t$$<br> $$\sqrt{x^2 + a^2},\quad let\; x=a\tan t \quad (\tan^2t + 1 = \sec^2 t)$$<br> $$\sqrt{x^2 - a^2},\quad let\; x=a\sec t \quad (\sec^2t - 1 = \tan^2t )$$<br> 实际上，只要存在 <strong>变量平方与常数和</strong> 的因子，都可以考虑三角代换，（$x^2+bx+c$ 可变换成 $x^2+c$ 形式）</p>
-<h4 id="例代换"><a href="#例代换" class="headerlink" title="例代换"></a>例代换</h4><p>新旧变量之间互为倒数换元。一般适用于 <strong>被积函数分母的幂至少比分子的高二次</strong>。</p>
-<h3 id="分部积分法"><a href="#分部积分法" class="headerlink" title="分部积分法"></a>分部积分法</h3><p>$$\int u dv = uv - \int v du$$</p>
+<h3 id="第一类换元法凑微分">第一类换元法（凑微分）</h3>
+<p>将 <strong>积分变量</strong> 视作换元方程的 <strong>自变量</strong> <span class="math display">\[\int f[u(x)]u&#39;(x) dx = \int f[u(x)] du(x)\]</span></p>
+<h3 id="第二类换元法">第二类换元法</h3>
+<p>将 <strong>积分变量</strong> 视作换元方程的 <strong>函数</strong> <span class="math display">\[\int f(x) dx = \int f[x(t)]x&#39;(t) dt\]</span> 对 <strong>根式</strong> 可考虑第二类换元。</p>
+<h4 id="三角换元">三角换元</h4>
+<p>存在下列类型的 <strong>根式</strong>，做三角换元： <span class="math display">\[\sqrt{a^2 - x^2},\quad let\; x=a\sin t\]</span> <span class="math display">\[\sqrt{x^2 + a^2},\quad let\; x=a\tan t \quad (\tan^2t + 1 = \sec^2 t)\]</span> <span class="math display">\[\sqrt{x^2 - a^2},\quad let\; x=a\sec t \quad (\sec^2t - 1 = \tan^2t )\]</span> 实际上，只要存在 <strong>变量平方与常数和</strong> 的因子，都可以考虑三角代换，（<span class="math inline">\(x^2+bx+c\)</span> 可变换成 <span class="math inline">\(x^2+c\)</span> 形式）</p>
+<h4 id="例代换">例代换</h4>
+<p>新旧变量之间互为倒数换元。一般适用于 <strong>被积函数分母的幂至少比分子的高二次</strong>。</p>
+<h3 id="分部积分法">分部积分法</h3>
+<p><span class="math display">\[\int u dv = uv - \int v du\]</span></p>
 <ul>
-<li>适用 <strong><em>两类函数相乘的结构</em></strong>，同类的两个函数也可考虑，如 $\sqrt{x}/(x-1)^2$</li>
-<li>按 <strong>反、对、幂、三、指</strong> 的顺序选择 $u$ 效果较好</li>
+<li>适用 <strong><em>两类函数相乘的结构</em></strong>，同类的两个函数也可考虑，如 <span class="math inline">\(\sqrt{x}/(x-1)^2\)</span></li>
+<li>按 <strong>反、对、幂、三、指</strong> 的顺序选择 <span class="math inline">\(u\)</span> 效果较好</li>
 <li>注意 <strong>循环、递推公式</strong></li>
 </ul>
-<p>分部积分中，<strong>首要任务</strong> 是发现被积函数是由两类函数构成的，而分式结构容易让人忽略这点，以下列举几个例子：<br>$$\frac{\arcsin x}{\sqrt{1+x}}, \quad \frac{\arctan e^x}{e^x}$$</p>
-<h3 id="有理公式"><a href="#有理公式" class="headerlink" title="有理公式"></a>有理公式</h3><p>两个实系数多项式的商所表示的函数，如 $x / (x^2+1)$。积分方法是</p>
-<ol>
+<p>分部积分中，<strong>首要任务</strong> 是发现被积函数是由两类函数构成的，而分式结构容易让人忽略这点，以下列举几个例子： <span class="math display">\[\frac{\arcsin x}{\sqrt{1+x}}, \quad \frac{\arctan e^x}{e^x}\]</span></p>
+<h3 id="有理公式">有理公式</h3>
+<p>两个实系数多项式的商所表示的函数，如 <span class="math inline">\(x / (x^2+1)\)</span>。积分方法是</p>
+<ol type="1">
 <li>化为多个 <strong>真分式</strong> 的和，真分式有：</li>
 </ol>
-<p>$$ \frac{A}{x+a},\quad \frac{A}{(x+a)^k},\quad \frac{Mx + N}{x^2+px+q},\quad \frac{Mx + N}{(x^2+px+q)^k} $$</p>
-<ol>
+<p><span class="math display">\[ \frac{A}{x+a},\quad \frac{A}{(x+a)^k},\quad \frac{Mx + N}{x^2+px+q},\quad \frac{Mx + N}{(x^2+px+q)^k} \]</span></p>
+<ol start="2" type="1">
 <li>对真分式分别积分</li>
 </ol>
-<h4 id="三角函数有理式"><a href="#三角函数有理式" class="headerlink" title="三角函数有理式"></a>三角函数有理式</h4><p>其分母总能用 $sin x, cos x$ 表示，可令 $\tan \frac{x}{2} = t$ 做换元积分，因为 $\arctan x$ 求导为有理式，所以被积函数可转化为有理式，被称为 <strong>万能代换</strong>。</p>
-<h3 id="无法用初等函数表示的积分"><a href="#无法用初等函数表示的积分" class="headerlink" title="无法用初等函数表示的积分"></a>无法用初等函数表示的积分</h3><p>$$\sin x^2,\quad e^{-x^2},\quad \sqrt{1+x^2},\quad \frac{\sin x}{x},\quad \frac{x}{\ln x}$$</p>
-<h3 id="连续必可积"><a href="#连续必可积" class="headerlink" title="连续必可积"></a>连续必可积</h3><p>连续函数必可积，但可积函数未必连续。</p>
-<h4 id="分段函数积分（包括绝对值函数）"><a href="#分段函数积分（包括绝对值函数）" class="headerlink" title="分段函数积分（包括绝对值函数）"></a>分段函数积分（包括绝对值函数）</h4><p>如果分段函数连续则可积。分段求出原函数后，注意，因为原函数可导必连续，分段的常数 $C$ 应该有关联。</p>
+<h4 id="三角函数有理式">三角函数有理式</h4>
+<p>其分母总能用 <span class="math inline">\(sin x, cos x\)</span> 表示，可令 <span class="math inline">\(\tan \frac{x}{2} = t\)</span> 做换元积分，因为 <span class="math inline">\(\arctan x\)</span> 求导为有理式，所以被积函数可转化为有理式，被称为 <strong>万能代换</strong>。</p>
+<h3 id="无法用初等函数表示的积分">无法用初等函数表示的积分</h3>
+<p><span class="math display">\[\sin x^2,\quad e^{-x^2},\quad \sqrt{1+x^2},\quad \frac{\sin x}{x},\quad \frac{x}{\ln x}\]</span></p>
+<h3 id="连续必可积">连续必可积</h3>
+<p>连续函数必可积，但可积函数未必连续。</p>
+<h4 id="分段函数积分包括绝对值函数">分段函数积分（包括绝对值函数）</h4>
+<p>如果分段函数连续则可积。分段求出原函数后，注意，因为原函数可导必连续，分段的常数 <span class="math inline">\(C\)</span> 应该有关联。</p>
 
       
     </div>
@@ -479,7 +489,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一类换元法（凑微分）"><span class="nav-number">1.</span> <span class="nav-text">第一类换元法（凑微分）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二类换元法"><span class="nav-number">2.</span> <span class="nav-text">第二类换元法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三角换元"><span class="nav-number">2.1.</span> <span class="nav-text">三角换元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例代换"><span class="nav-number">2.2.</span> <span class="nav-text">例代换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分部积分法"><span class="nav-number">3.</span> <span class="nav-text">分部积分法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有理公式"><span class="nav-number">4.</span> <span class="nav-text">有理公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三角函数有理式"><span class="nav-number">4.1.</span> <span class="nav-text">三角函数有理式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无法用初等函数表示的积分"><span class="nav-number">5.</span> <span class="nav-text">无法用初等函数表示的积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续必可积"><span class="nav-number">6.</span> <span class="nav-text">连续必可积</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分段函数积分（包括绝对值函数）"><span class="nav-number">6.1.</span> <span class="nav-text">分段函数积分（包括绝对值函数）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一类换元法凑微分"><span class="nav-number">1.</span> <span class="nav-text">第一类换元法（凑微分）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二类换元法"><span class="nav-number">2.</span> <span class="nav-text">第二类换元法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三角换元"><span class="nav-number">2.1.</span> <span class="nav-text">三角换元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例代换"><span class="nav-number">2.2.</span> <span class="nav-text">例代换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分部积分法"><span class="nav-number">3.</span> <span class="nav-text">分部积分法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有理公式"><span class="nav-number">4.</span> <span class="nav-text">有理公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三角函数有理式"><span class="nav-number">4.1.</span> <span class="nav-text">三角函数有理式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无法用初等函数表示的积分"><span class="nav-number">5.</span> <span class="nav-text">无法用初等函数表示的积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续必可积"><span class="nav-number">6.</span> <span class="nav-text">连续必可积</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分段函数积分包括绝对值函数"><span class="nav-number">6.1.</span> <span class="nav-text">分段函数积分（包括绝对值函数）</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

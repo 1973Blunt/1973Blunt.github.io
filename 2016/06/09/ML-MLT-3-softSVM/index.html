@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="此文是本人学习林轩田老师的机器学习技法第四课——Soft-Margin Support Vector Machine——的课堂笔记。 前几节课的 SVM 不能容忍错误——包括不可分错误及可分分却在 margin 内的错误，这节课要解决这个问题，推导出 Soft Margin SVM。 参考 机器学习技法 课件 支持向量机 Dual Support Vector Machine   松弛变量引入松弛">
+<meta name="description" content="此文是本人学习林轩田老师的机器学习技法第四课——Soft-Margin Support Vector Machine——的课堂笔记。 前几节课的 SVM 不能容忍错误——包括不可分错误及可分分却在 margin 内的错误，这节课要解决这个问题，推导出 Soft Margin SVM。 参考  机器学习技法 课件 支持向量机 Dual Support Vector Machine">
 <meta name="keywords" content="ML,SVM,机器学习技法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习技法第四课——Soft-Margin SVM">
 <meta property="og:url" content="http://yoursite.com/2016/06/09/ML-MLT-3-softSVM/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="此文是本人学习林轩田老师的机器学习技法第四课——Soft-Margin Support Vector Machine——的课堂笔记。 前几节课的 SVM 不能容忍错误——包括不可分错误及可分分却在 margin 内的错误，这节课要解决这个问题，推导出 Soft Margin SVM。 参考 机器学习技法 课件 支持向量机 Dual Support Vector Machine   松弛变量引入松弛">
+<meta property="og:description" content="此文是本人学习林轩田老师的机器学习技法第四课——Soft-Margin Support Vector Machine——的课堂笔记。 前几节课的 SVM 不能容忍错误——包括不可分错误及可分分却在 margin 内的错误，这节课要解决这个问题，推导出 Soft Margin SVM。 参考  机器学习技法 课件 支持向量机 Dual Support Vector Machine">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习技法第四课——Soft-Margin SVM">
-<meta name="twitter:description" content="此文是本人学习林轩田老师的机器学习技法第四课——Soft-Margin Support Vector Machine——的课堂笔记。 前几节课的 SVM 不能容忍错误——包括不可分错误及可分分却在 margin 内的错误，这节课要解决这个问题，推导出 Soft Margin SVM。 参考 机器学习技法 课件 支持向量机 Dual Support Vector Machine   松弛变量引入松弛">
+<meta name="twitter:description" content="此文是本人学习林轩田老师的机器学习技法第四课——Soft-Margin Support Vector Machine——的课堂笔记。 前几节课的 SVM 不能容忍错误——包括不可分错误及可分分却在 margin 内的错误，这节课要解决这个问题，推导出 Soft Margin SVM。 参考  机器学习技法 课件 支持向量机 Dual Support Vector Machine">
 
 
 
@@ -300,24 +300,44 @@
       
         <p>此文是本人学习林轩田老师的机器学习技法第四课——Soft-Margin Support Vector Machine——的课堂笔记。</p>
 <p>前几节课的 SVM 不能容忍错误——包括不可分错误及可分分却在 margin 内的错误，这节课要解决这个问题，推导出 Soft Margin SVM。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/204_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 <li><a href="http://taop.marchtea.com/07.02.svm.html" target="_blank" rel="noopener">支持向量机</a></li>
-<li><a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a>
-</li>
+<li><a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a></li>
 </ul>
-<h3 id="松弛变量"><a href="#松弛变量" class="headerlink" title="松弛变量"></a>松弛变量</h3><p>引入松弛变量 $\xi$，放宽条件，同时避免过度放宽，在最小化公式中也加入 $\xi$：<br>$$  \min<em>{b,\mathbf{w},\xi} \frac{1}{2}\mathbf{w^Tw} + C \sum</em>{n=1}^{N}\xi_n \\<br>s.t.\ y_n(\mathbf{w^Tz_n} + b) \ge 1 - \xi_n \\<br>s.t.\ \xi_n \ge 0<br>$$<br>此处 $C$ 是一个常量，作为平衡“large margin”与”margin violation”的参数。<br>$\xi$ 在限制条件中确实减小了下限，放宽了条件，但至于这背后为何能使 SVM 容忍错误，这可能要从头开始推导了。很明显，这已经可以用二次规划求解。</p>
-<h3 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h3><p>转换成对偶问题，用前面课程 <a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a> 中同样的方法。</p>
-<h4 id="拉格朗日乘数"><a href="#拉格朗日乘数" class="headerlink" title="拉格朗日乘数"></a>拉格朗日乘数</h4><p>$$  L(b,\mathbf{w},\alpha,\beta) = \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}\xi<em>n + \sum</em>{n=1}^N \alpha_n(1-\xi_n-y_n(\mathbf{w^T z<em>n} + b)) + \sum</em>{n=1}^N \beta_n (-\xi<em>n)<br>$$<br>求解：<br>$$   \max</em>{\alpha_n \ge 0,\ \beta<em>n \ge 0} (min</em>{b,\mathbf{w},\xi} L(b,\mathbf{w},\alpha,\beta))<br>$$</p>
-<h4 id="求导化简成关于-alpha-的函数"><a href="#求导化简成关于-alpha-的函数" class="headerlink" title="求导化简成关于 $\alpha$ 的函数"></a>求导化简成关于 $\alpha$ 的函数</h4><p>$$    \frac{\partial L}{\partial \xi_n} = C - \alpha_n - \beta_n\\<br>let\ \ \beta_n= C -\alpha_n<br>$$<br>因为条件中有 $\alpha_n \ge 0$，故 $C \ge \alpha<em>n \ge 0$。如此原式变换为：<br>$$    \max</em>{$0 \le \alpha_n \le C,\ \beta_n=C-\alpha<em>n} (\min</em>{b,\mathbf{w},\xi} \frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n(\mathbf{w^T \mathbf{z_n}} + b)))<br>$$<br>这一步增加了限制条件，但消去了 $\beta, \xi, C$。接下来与 <a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a> 的过程相同，令 $\frac{\partial L}{\partial b} = 0, \frac{\partial L}{\partial w<em>i} = 0$ 化简得：<br>$$<br>\min</em>{\alpha<em>n} (\frac{1}{2}\sum</em>{m=1}^{N} \sum_{n=1}^{N} y_m  y_n \mathbf{z_m^T} \mathbf{z_n} \alpha_m \alpha<em>n - \sum</em>{n=1}^{N}\alpha<em>n) \\<br>s.t.\ \ \sum</em>{n=1}^N y_n \alpha_n = 0,\ \ all\ 0 \le \alpha_n \le C<br>$$<br>看上去与之前的差别只有对 $\alpha$ 加上上限 C。</p>
-<h4 id="求解-b"><a href="#求解-b" class="headerlink" title="求解 $b$"></a>求解 $b$</h4><p>部分 KKT 条件：<br>$$  \alpha_n(1-\xi_n-y_n(\mathbf{w^T z_n} + b)) = 0 \\<br>(C - \alpha_n) \xi_n = 0  $$<br>因为除 $\xi,\ b$ 其他都是已知量，所以只要求解方程组就能得到解。而多数情况下，当 $0 \lt \alpha_n \lt C$ 时，被称为 free Support Vector，可推导出<br>$$  b = y_s - \mathbf{w^T z_s}<br>$$<br>之后的求解过程与前面课程没什么不同。</p>
-<h3 id="alpha-n-与向量角色"><a href="#alpha-n-与向量角色" class="headerlink" title="$\alpha_n$ 与向量角色"></a>$\alpha_n$ 与向量角色</h3><p>根据 KKT 条件，当 $\alpha_n = 0$ 时，松弛变量 $\xi_n=0$，没有错误，被称为非支持向量，<strong><em>non SV</em></strong>，处于 margin 外界；</p>
-<p>当 $0 \lt \alpha \lt C$ 时，$\xi_n=0$，没有错误，而且可以求解 $b$，被称为 <strong><em>free SV</em></strong>，位于 margin 上；</p>
-<p>当 $\alpha = C$ 时， $\xi_n \ne 0$，有错误，同样可以帮助求解，被称为 <strong><em>bounded SV</em></strong>，位于 margin 内部或越过了超平面。</p>
-<h3 id="LOOC-帮助模型选择"><a href="#LOOC-帮助模型选择" class="headerlink" title="LOOC 帮助模型选择"></a>LOOC 帮助模型选择</h3><p>模型选择时，可以用 Cross Validation 做参考，其中特别的有 Leave-One-Out CV，即只留一个数据点做验证。</p>
-<p>将 Leave-One-Out CV 与全数据集（不留验证数据）的训练做比较。如果验证数据是一个 non-SV，那么，2 者的错误是相同的，而如果验证数据是一个 SV，那么有可能分类错误。所以有<br>$$  E_{loocv} \le \frac{num(SV)}{N} $$<br>这里存在疑问的是，如果验证数据是一个很关键的 SV，可能极大地影响超平面的训练结果，这个 bound 是否成立。</p>
-<p>这个上限可以用做安全检查，在训练模型之后便能得到 $E_{loocv}$ 的上限，可以排除一些结果太差的模型，节省时间，但它的作用有限，不能断定一个模型的好坏。</p>
+<h3 id="松弛变量">松弛变量</h3>
+<p>引入松弛变量 <span class="math inline">\(\xi\)</span>，放宽条件，同时避免过度放宽，在最小化公式中也加入 <span class="math inline">\(\xi\)</span>： <span class="math display">\[  \min_{b,\mathbf{w},\xi} \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}\xi_n \\\\
+s.t.\ y_n(\mathbf{w^Tz_n} + b) \ge 1 - \xi_n \\\\
+s.t.\ \xi_n \ge 0
+\]</span> 此处 <span class="math inline">\(C\)</span> 是一个常量，作为平衡“large margin”与“margin violation”的参数。 <span class="math inline">\(\xi\)</span> 在限制条件中确实减小了下限，放宽了条件，但至于这背后为何能使 SVM 容忍错误，这可能要从头开始推导了。很明显，这已经可以用二次规划求解。</p>
+<h3 id="对偶问题">对偶问题</h3>
+<p>转换成对偶问题，用前面课程 <a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a> 中同样的方法。</p>
+<h4 id="拉格朗日乘数">拉格朗日乘数</h4>
+<p><span class="math display">\[  L(b,\mathbf{w},\alpha,\beta) = \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}\xi_n + \sum_{n=1}^N \alpha_n(1-\xi_n-y_n(\mathbf{w^T z_n} + b)) + \sum_{n=1}^N \beta_n (-\xi_n)
+\]</span> 求解： <span class="math display">\[   \max_{\alpha_n \ge 0,\ \beta_n \ge 0} (min_{b,\mathbf{w},\xi} L(b,\mathbf{w},\alpha,\beta))
+\]</span></p>
+<h4 id="求导化简成关于-alpha-的函数">求导化简成关于 <span class="math inline">\(\alpha\)</span> 的函数</h4>
+<p><span class="math display">\[    \frac{\partial L}{\partial \xi_n} = C - \alpha_n - \beta_n\\\\
+let\ \ \beta_n= C -\alpha_n
+\]</span> 因为条件中有 <span class="math inline">\(\alpha_n \ge 0\)</span>，故 <span class="math inline">\(C \ge \alpha_n \ge 0\)</span>。如此原式变换为： <span class="math display">\[    \max_{$0 \le \alpha_n \le C,\ \beta_n=C-\alpha_n} (\min_{b,\mathbf{w},\xi} \frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n(\mathbf{w^T \mathbf{z_n}} + b)))
+\]</span> 这一步增加了限制条件，但消去了 <span class="math inline">\(\beta, \xi, C\)</span>。接下来与 <a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a> 的过程相同，令 <span class="math inline">\(\frac{\partial L}{\partial b} = 0, \frac{\partial L}{\partial w_i} = 0\)</span> 化简得： <span class="math display">\[
+\min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m  y_n \mathbf{z_m^T} \mathbf{z_n} \alpha_m \alpha_n - \sum_{n=1}^{N}\alpha_n) \\\\
+s.t.\ \ \sum_{n=1}^N y_n \alpha_n = 0,\ \ all\ 0 \le \alpha_n \le C
+\]</span> 看上去与之前的差别只有对 <span class="math inline">\(\alpha\)</span> 加上上限 C。</p>
+<h4 id="求解-b">求解 <span class="math inline">\(b\)</span></h4>
+<p>部分 KKT 条件： <span class="math display">\[  \alpha_n(1-\xi_n-y_n(\mathbf{w^T z_n} + b)) = 0 \\\\
+(C - \alpha_n) \xi_n = 0  \]</span> 因为除 <span class="math inline">\(\xi,\ b\)</span> 其他都是已知量，所以只要求解方程组就能得到解。而多数情况下，当 <span class="math inline">\(0 \lt \alpha_n \lt C\)</span> 时，被称为 free Support Vector，可推导出 <span class="math display">\[  b = y_s - \mathbf{w^T z_s}
+\]</span> 之后的求解过程与前面课程没什么不同。</p>
+<h3 id="alpha_n-与向量角色"><span class="math inline">\(\alpha_n\)</span> 与向量角色</h3>
+<p>根据 KKT 条件，当 <span class="math inline">\(\alpha_n = 0\)</span> 时，松弛变量 <span class="math inline">\(\xi_n=0\)</span>，没有错误，被称为非支持向量，<strong><em>non SV</em></strong>，处于 margin 外界；</p>
+<p>当 <span class="math inline">\(0 \lt \alpha \lt C\)</span> 时，<span class="math inline">\(\xi_n=0\)</span>，没有错误，而且可以求解 <span class="math inline">\(b\)</span>，被称为 <strong><em>free SV</em></strong>，位于 margin 上；</p>
+<p>当 <span class="math inline">\(\alpha = C\)</span> 时， <span class="math inline">\(\xi_n \ne 0\)</span>，有错误，同样可以帮助求解，被称为 <strong><em>bounded SV</em></strong>，位于 margin 内部或越过了超平面。</p>
+<h3 id="looc-帮助模型选择">LOOC 帮助模型选择</h3>
+<p>模型选择时，可以用 Cross Validation 做参考，其中特别的有 Leave-One-Out CV，即只留一个数据点做验证。</p>
+<p>将 Leave-One-Out CV 与全数据集（不留验证数据）的训练做比较。如果验证数据是一个 non-SV，那么，2 者的错误是相同的，而如果验证数据是一个 SV，那么有可能分类错误。所以有 <span class="math display">\[  E_{loocv} \le \frac{num(SV)}{N} \]</span> 这里存在疑问的是，如果验证数据是一个很关键的 SV，可能极大地影响超平面的训练结果，这个 bound 是否成立。</p>
+<p>这个上限可以用做安全检查，在训练模型之后便能得到 <span class="math inline">\(E_{loocv}\)</span> 的上限，可以排除一些结果太差的模型，节省时间，但它的作用有限，不能断定一个模型的好坏。</p>
 
       
     </div>
@@ -477,7 +497,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#松弛变量"><span class="nav-number">2.</span> <span class="nav-text">松弛变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对偶问题"><span class="nav-number">3.</span> <span class="nav-text">对偶问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拉格朗日乘数"><span class="nav-number">3.1.</span> <span class="nav-text">拉格朗日乘数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求导化简成关于-alpha-的函数"><span class="nav-number">3.2.</span> <span class="nav-text">求导化简成关于 $\alpha$ 的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求解-b"><span class="nav-number">3.3.</span> <span class="nav-text">求解 $b$</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alpha-n-与向量角色"><span class="nav-number">4.</span> <span class="nav-text">$\alpha_n$ 与向量角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LOOC-帮助模型选择"><span class="nav-number">5.</span> <span class="nav-text">LOOC 帮助模型选择</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#松弛变量"><span class="nav-number">2.</span> <span class="nav-text">松弛变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对偶问题"><span class="nav-number">3.</span> <span class="nav-text">对偶问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#拉格朗日乘数"><span class="nav-number">3.1.</span> <span class="nav-text">拉格朗日乘数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求导化简成关于-alpha-的函数"><span class="nav-number">3.2.</span> <span class="nav-text">求导化简成关于 \(\alpha\) 的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求解-b"><span class="nav-number">3.3.</span> <span class="nav-text">求解 \(b\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alpha_n-与向量角色"><span class="nav-number">4.</span> <span class="nav-text">\(\alpha_n\) 与向量角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#looc-帮助模型选择"><span class="nav-number">5.</span> <span class="nav-text">LOOC 帮助模型选择</span></a></li></ol></div>
             
           </div>
         </section>

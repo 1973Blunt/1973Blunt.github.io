@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="此文是本人学习林轩田老师的机器学习技法第六课——Support Vector Regression——的课堂笔记。 这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是”kernel ridge regression”，另一个比较重要，是”Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。 参考 机器学习技法 课件 Ke">
+<meta name="description" content="此文是本人学习林轩田老师的机器学习技法第六课——Support Vector Regression——的课堂笔记。 这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是“kernel ridge regression”，另一个比较重要，是“Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。 参考  机器学习技法">
 <meta name="keywords" content="ML,SVM,机器学习技法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习技法第六课——Support Vector Regression">
 <meta property="og:url" content="http://yoursite.com/2016/07/10/ML-MLT-5-supportVectorRegression/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="此文是本人学习林轩田老师的机器学习技法第六课——Support Vector Regression——的课堂笔记。 这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是”kernel ridge regression”，另一个比较重要，是”Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。 参考 机器学习技法 课件 Ke">
+<meta property="og:description" content="此文是本人学习林轩田老师的机器学习技法第六课——Support Vector Regression——的课堂笔记。 这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是“kernel ridge regression”，另一个比较重要，是“Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。 参考  机器学习技法">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习技法第六课——Support Vector Regression">
-<meta name="twitter:description" content="此文是本人学习林轩田老师的机器学习技法第六课——Support Vector Regression——的课堂笔记。 这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是”kernel ridge regression”，另一个比较重要，是”Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。 参考 机器学习技法 课件 Ke">
+<meta name="twitter:description" content="此文是本人学习林轩田老师的机器学习技法第六课——Support Vector Regression——的课堂笔记。 这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是“kernel ridge regression”，另一个比较重要，是“Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。 参考  机器学习技法">
 
 
 
@@ -299,83 +299,107 @@
 
       
         <p>此文是本人学习林轩田老师的机器学习技法第六课——Support Vector Regression——的课堂笔记。</p>
-<p>这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是”kernel ridge regression”，另一个比较重要，是”Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<p>这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是“kernel ridge regression”，另一个比较重要，是“Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。</p>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/206_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 <li><a href="/2016/06/26/ML-MLT-4-kernelLogisticRegression/" title="Kernel Logistic Regression">Kernel Logistic Regression</a></li>
 <li><a href="http://blog.csdn.net/google19890102/article/details/27228279" target="_blank" rel="noopener">岭回归</a></li>
-<li><a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a>
-</li>
+<li><a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a></li>
 </ul>
-<h3 id="Kernel-Ridge-Regression"><a href="#Kernel-Ridge-Regression" class="headerlink" title="Kernel Ridge Regression"></a>Kernel Ridge Regression</h3><p>ridge regression，即<a href="http://blog.csdn.net/google19890102/article/details/27228279" target="_blank" rel="noopener">岭回归</a>，简单地讲，是“在平方误差的基础上增加 L2 正则项的回归”。以下是基本公式，这部分目标是将其 kernel 化。<br>$$  \min<em>{\mathbf{w}} \frac{\lambda}{N}\mathbf{w^Tw} + \frac{1}{N} \sum</em>{n=1}^{N}{ (y_n - w^T z_n)^2 }<br>$$</p>
-<p>在上节课”“中的“Kernel Logistic Regression”一节，已经讲过“带 L2 正则化的线性模型”可以被 kernel 化，而且 $\mathbf{w}$ 可以被 $\mathbf{z}$ 线性表示，即 $\mathbf{w} = \sum \beta_n z_n$。</p>
-<p>因为这部分推导与”Kernel Logistic Regression”的推导相似，在此给出结果：<br>$$  \min<em>{\beta} { \frac{\lambda}{N} \sum</em>{n=1}^{N}\sum_{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x<em>m})<br> +\frac{1}{N} \sum</em>{n=1}^{N}{ ( y<em>n - \sum</em>{m=1}^N {\beta_m K(\mathbf{x_m, x_n})} )^2 }}<br>$$</p>
-<p>接下来求解。首先矩阵化，代入 $\mathbf{\beta, y}$ 列矩阵，$\mathbf{K<em>{n \times n}}$ 矩阵，$\mathbf{K</em>{m,n}} = K(\mathbf(x_m, x<em>n)$：<br>$$  \min</em>{\beta} {\frac{\lambda}{N} \mathbf{\beta^T K \beta} + \frac{1}{N} ( \beta^T K \beta K - 2 \beta^T K^Ty + y^T y )}<br>$$</p>
-<p>求导，梯度为：<br>$$ \nabla = \frac{2}{N} \mathbf{K^T}( (\lambda \mathbf{I} + \mathbf{K}) \mathbf{\beta} - \mathbf{y} )<br>$$</p>
-<p>令梯度为 0, 则解得：<br>$$  \mathbf{\beta} = (\lambda \mathbf{I} + \mathbf{K})^{-1} \mathbf{y}<br>$$</p>
-<p>推导过程中省略了许多步骤 :-P。需要注意的是，该求解方法时间复杂度为 $O(N^3)$，而且 $\beta$ 内元素值多不为 0。课中讲到，用于分类的”Kernel Ridge Regression”被称作“least squares SVM (LSSVM)”。因为 $\beta_n$ 多数非 0，它求解得到的”Support Vector”非常多。</p>
-<h3 id="Support-Vector-Regression"><a href="#Support-Vector-Regression" class="headerlink" title="Support Vector Regression"></a>Support Vector Regression</h3><p>“Support Vector Regression (SVR)”尝试避免”Kernel Ridge Regression”的“Support Vector” dense 问题，同时保留类似二次误差(least squares error)的形式。</p>
-<p>相对于 SVM 的 <strong>hinge regression</strong>，Support Vector Regression 采用 <strong>tube regression</strong>（在上节课”“介绍过）。令 $s=w^T z + b$，两者加上 <strong>squared error</strong> 的 error function 表达式为：</p>
+<h3 id="kernel-ridge-regression">Kernel Ridge Regression</h3>
+<p>ridge regression，即<a href="http://blog.csdn.net/google19890102/article/details/27228279" target="_blank" rel="noopener">岭回归</a>，简单地讲，是“在平方误差的基础上增加 L2 正则项的回归”。以下是基本公式，这部分目标是将其 kernel 化。 <span class="math display">\[  \min_{\mathbf{w}} \frac{\lambda}{N}\mathbf{w^Tw} + \frac{1}{N} \sum_{n=1}^{N}{ (y_n - w^T z_n)^2 }
+\]</span></p>
+<p>在上节课“”中的“Kernel Logistic Regression”一节，已经讲过“带 L2 正则化的线性模型”可以被 kernel 化，而且 <span class="math inline">\(\mathbf{w}\)</span> 可以被 <span class="math inline">\(\mathbf{z}\)</span> 线性表示，即 <span class="math inline">\(\mathbf{w} = \sum \beta_n z_n\)</span>。</p>
+<p>因为这部分推导与“Kernel Logistic Regression”的推导相似，在此给出结果： <span class="math display">\[  \min_{\beta} { \frac{\lambda}{N} \sum_{n=1}^{N}\sum_{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x_m})
+ +\frac{1}{N} \sum_{n=1}^{N}{ ( y_n - \sum_{m=1}^N {\beta_m K(\mathbf{x_m, x_n})} )^2 }}
+\]</span></p>
+<p>接下来求解。首先矩阵化，代入 <span class="math inline">\(\mathbf{\beta, y}\)</span> 列矩阵，<span class="math inline">\(\mathbf{K_{n \times n}}\)</span> 矩阵，<span class="math inline">\(\mathbf{K_{m,n}} = K(\mathbf(x_m, x_n)\)</span>： <span class="math display">\[  \min_{\beta} {\frac{\lambda}{N} \mathbf{\beta^T K \beta} + \frac{1}{N} ( \beta^T K \beta K - 2 \beta^T K^Ty + y^T y )}
+\]</span></p>
+<p>求导，梯度为： <span class="math display">\[ \nabla = \frac{2}{N} \mathbf{K^T}( (\lambda \mathbf{I} + \mathbf{K}) \mathbf{\beta} - \mathbf{y} )
+\]</span></p>
+<p>令梯度为 0, 则解得： <span class="math display">\[  \mathbf{\beta} = (\lambda \mathbf{I} + \mathbf{K})^{-1} \mathbf{y}
+\]</span></p>
+<p>推导过程中省略了许多步骤 :-P。需要注意的是，该求解方法时间复杂度为 <span class="math inline">\(O(N^3)\)</span>，而且 <span class="math inline">\(\beta\)</span> 内元素值多不为 0。课中讲到，用于分类的“Kernel Ridge Regression”被称作“least squares SVM (LSSVM)”。因为 <span class="math inline">\(\beta_n\)</span> 多数非 0，它求解得到的“Support Vector”非常多。</p>
+<h3 id="support-vector-regression">Support Vector Regression</h3>
+<p>“Support Vector Regression (SVR)”尝试避免“Kernel Ridge Regression”的“Support Vector” dense 问题，同时保留类似二次误差(least squares error)的形式。</p>
+<p>相对于 SVM 的 <strong>hinge regression</strong>，Support Vector Regression 采用 <strong>tube regression</strong>（在上节课“”介绍过）。令 <span class="math inline">\(s=w^T z + b\)</span>，两者加上 <strong>squared error</strong> 的 error function 表达式为：</p>
 <table>
 <thead>
-<tr>
-<th style="text-align:center">err type</th>
-<th style="text-align:center">function</th>
+<tr class="header">
+<th style="text-align: center;">err type</th>
+<th style="text-align: center;">function</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">squared err</td>
-<td style="text-align:center">$(s-y)^2$</td>
+<tr class="odd">
+<td style="text-align: center;">squared err</td>
+<td style="text-align: center;"><span class="math inline">\((s-y)^2\)</span></td>
 </tr>
-<tr>
-<td style="text-align:center">tube err</td>
-<td style="text-align:center">$\max(abs(s - y) - \epsilon,\; 0)$</td>
+<tr class="even">
+<td style="text-align: center;">tube err</td>
+<td style="text-align: center;"><span class="math inline">\(\max(abs(s - y) - \epsilon,\; 0)\)</span></td>
 </tr>
-<tr>
-<td style="text-align:center">hinge err</td>
-<td style="text-align:center">$\max(1-ys,\; 0)$</td>
+<tr class="odd">
+<td style="text-align: center;">hinge err</td>
+<td style="text-align: center;"><span class="math inline">\(\max(1-ys,\; 0)\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>（abs 取绝对值函数）很明显，squared err 与 tube err 的变化趋势相近，当 $s \rightarrow +\infty$，$err \rightarrow +\infty$，当 $s \rightarrow -\infty$，$err \rightarrow +\infty$。如果作图，两者都呈一个山谷状。</p>
-<p>在 <a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a> 中，使用了 hinge error，在此将其替换成 tube error 重新推导。<br>$$  \min<em>{b, \mathbf{w}} \frac{1}{2}\mathbf{w^Tw} + C \sum</em>{n=1}^{N}{\max(0, |w^T z_n + b - y_n| - \epsilon)}<br>$$</p>
-<p>首先，引入松弛变量 $\xi_n^\bigwedge, \xi<em>n^\bigvee$，同时去掉绝对值：<br>$$  \min</em>{b,\mathbf{w},\xi_n^\bigwedge, \xi_n^\bigvee} \frac{1}{2}\mathbf{w^Tw} + C \sum{ (\xi_n^\bigwedge + \xi_n^\bigvee) } \\<br>s.t.\quad  -\epsilon - \xi_n^\bigvee \le y_n - w^T z_n - b \le \epsilon + \xi_n^\bigwedge \\<br>\xi_n^\bigwedge \ge 0,\quad \xi_n^\bigvee \ge 0<br>$$</p>
-<p>之后，引入拉格朗日乘数 $\alpha_n^\bigwedge, \alpha<em>n^\bigvee$，分别对应限制条件的上限与下限，又经过一系列求导、KKT 条件、化简等处理（参考“<a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a>” :-P），得到最终公式：<br>$$  \min  \frac{1}{2} \sum</em>{n=1}^{n}\sum_{m=1}^{n} (\alpha_n^\bigwedge - \alpha_n^\bigvee)(\alpha_m^\bigwedge - \alpha_m^\bigvee)K(x_n, x<em>m) + \sum</em>{n=1}^N( (\epsilon - y_n) \alpha_n^\bigwedge + (\epsilon ＋ y_n) \alpha_n^\bigvee) \\<br>s.t.\quad \sum(\alpha_n^\bigwedge - \alpha_n^\bigvee) = 0 \\<br>0 \le \alpha_n^\bigwedge \le C, 0 \le \alpha_n^\bigvee \le C<br>$$<br>同样是 QP 问题，求解得出<br>$$  \mathbf{w} = \sum(\alpha_n^\bigwedge - \alpha_n^\bigvee)\mathbf{z_n}<br>$$<br>Support Vector 为 $\alpha_n^\bigwedge - \alpha_n^\bigvee \ne 0$ 对应的数据点，SVR 保证了 SV 的稀疏性。</p>
-<h3 id="分类器小结"><a href="#分类器小结" class="headerlink" title="分类器小结"></a>分类器小结</h3><p>目前学习的（二）分类器，可以“线性的”与“kernel化的”，从 error function 看，可分为 “0/1 error”, “hinge error”, “squared/tube error”, “logistic error”。</p>
+<p>（abs 取绝对值函数）很明显，squared err 与 tube err 的变化趋势相近，当 <span class="math inline">\(s \rightarrow +\infty\)</span>，<span class="math inline">\(err \rightarrow +\infty\)</span>，当 <span class="math inline">\(s \rightarrow -\infty\)</span>，<span class="math inline">\(err \rightarrow +\infty\)</span>。如果作图，两者都呈一个山谷状。</p>
+<p>在 <a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a> 中，使用了 hinge error，在此将其替换成 tube error 重新推导。 <span class="math display">\[  \min_{b, \mathbf{w}} \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}{\max(0, |w^T z_n + b - y_n| - \epsilon)}
+\]</span></p>
+<p>首先，引入松弛变量 <span class="math inline">\(\xi_n^\bigwedge, \xi_n^\bigvee\)</span>，同时去掉绝对值： <span class="math display">\[  \min_{b,\mathbf{w},\xi_n^\bigwedge, \xi_n^\bigvee} \frac{1}{2}\mathbf{w^Tw} + C \sum{ (\xi_n^\bigwedge + \xi_n^\bigvee) } \\\\
+s.t.\quad  -\epsilon - \xi_n^\bigvee \le y_n - w^T z_n - b \le \epsilon + \xi_n^\bigwedge \\\\
+\xi_n^\bigwedge \ge 0,\quad \xi_n^\bigvee \ge 0
+\]</span></p>
+<p>之后，引入拉格朗日乘数 <span class="math inline">\(\alpha_n^\bigwedge, \alpha_n^\bigvee\)</span>，分别对应限制条件的上限与下限，又经过一系列求导、KKT 条件、化简等处理（参考“<a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a>” :-P），得到最终公式： <span class="math display">\[  \min  \frac{1}{2} \sum_{n=1}^{n}\sum_{m=1}^{n} (\alpha_n^\bigwedge - \alpha_n^\bigvee)(\alpha_m^\bigwedge - \alpha_m^\bigvee)K(x_n, x_m) + \sum_{n=1}^N( (\epsilon - y_n) \alpha_n^\bigwedge + (\epsilon ＋ y_n) \alpha_n^\bigvee) \\\\
+s.t.\quad \sum(\alpha_n^\bigwedge - \alpha_n^\bigvee) = 0 \\\\
+0 \le \alpha_n^\bigwedge \le C, 0 \le \alpha_n^\bigvee \le C
+\]</span> 同样是 QP 问题，求解得出 <span class="math display">\[  \mathbf{w} = \sum(\alpha_n^\bigwedge - \alpha_n^\bigvee)\mathbf{z_n}
+\]</span> Support Vector 为 <span class="math inline">\(\alpha_n^\bigwedge - \alpha_n^\bigvee \ne 0\)</span> 对应的数据点，SVR 保证了 SV 的稀疏性。</p>
+<h3 id="分类器小结">分类器小结</h3>
+<p>目前学习的（二）分类器，可以“线性的”与“kernel化的”，从 error function 看，可分为 “0/1 error”, “hinge error”, “squared/tube error”, “logistic error”。</p>
 <table>
+<colgroup>
+<col style="width: 19%">
+<col style="width: 25%">
+<col style="width: 28%">
+<col style="width: 26%">
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:center">linear / kernel</th>
-<th style="text-align:center">0/1 or hinge error</th>
-<th style="text-align:center">squared/tube error</th>
-<th style="text-align:center">　logistic error</th>
+<tr class="header">
+<th style="text-align: center;">linear / kernel</th>
+<th style="text-align: center;">0/1 or hinge error</th>
+<th style="text-align: center;">squared/tube error</th>
+<th style="text-align: center;">　logistic error</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">linear</td>
-<td style="text-align:center">PLA/pocket</td>
-<td style="text-align:center">linear SVR</td>
+<tr class="odd">
+<td style="text-align: center;">linear</td>
+<td style="text-align: center;">PLA/pocket</td>
+<td style="text-align: center;">linear SVR</td>
+<td style="text-align: center;"></td>
 </tr>
-<tr>
-<td style="text-align:center">linear</td>
-<td style="text-align:center">linear soft-margin SVM</td>
-<td style="text-align:center">linear ridge regression</td>
-<td style="text-align:center">regularized logistic regression</td>
+<tr class="even">
+<td style="text-align: center;">linear</td>
+<td style="text-align: center;">linear soft-margin SVM</td>
+<td style="text-align: center;">linear ridge regression</td>
+<td style="text-align: center;">regularized logistic regression</td>
 </tr>
-<tr>
-<td style="text-align:center">kernel</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">kernel ridge regression</td>
-<td style="text-align:center">kernel regularized logistic regression</td>
+<tr class="odd">
+<td style="text-align: center;">kernel</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">kernel ridge regression</td>
+<td style="text-align: center;">kernel regularized logistic regression</td>
 </tr>
-<tr>
-<td style="text-align:center">kernel</td>
-<td style="text-align:center">SVM</td>
-<td style="text-align:center">SVR</td>
-<td style="text-align:center">probabilistic SVM</td>
+<tr class="even">
+<td style="text-align: center;">kernel</td>
+<td style="text-align: center;">SVM</td>
+<td style="text-align: center;">SVR</td>
+<td style="text-align: center;">probabilistic SVM</td>
 </tr>
 </tbody>
 </table>
@@ -539,7 +563,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel-Ridge-Regression"><span class="nav-number">2.</span> <span class="nav-text">Kernel Ridge Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Support-Vector-Regression"><span class="nav-number">3.</span> <span class="nav-text">Support Vector Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类器小结"><span class="nav-number">4.</span> <span class="nav-text">分类器小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel-ridge-regression"><span class="nav-number">2.</span> <span class="nav-text">Kernel Ridge Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#support-vector-regression"><span class="nav-number">3.</span> <span class="nav-text">Support Vector Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类器小结"><span class="nav-number">4.</span> <span class="nav-text">分类器小结</span></a></li></ol></div>
             
           </div>
         </section>

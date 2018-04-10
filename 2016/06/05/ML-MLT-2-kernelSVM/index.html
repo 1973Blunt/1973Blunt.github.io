@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="此文是学习林轩田老师的机器学习技法第三课——Kernel Support Vector Machine——的课堂笔记。 给定上节课的公式：$$\min_{\alphan} (\frac{1}{2}\sum{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alphan - \sum{n=1}^{N}\alp">
+<meta name="description" content="此文是学习林轩田老师的机器学习技法第三课——Kernel Support Vector Machine——的课堂笔记。 给定上节课的公式： \[ \min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alpha_n - \sum_{n=1}">
 <meta name="keywords" content="ML,SVM,机器学习技法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习技法第三课——Kernel SVM">
 <meta property="og:url" content="http://yoursite.com/2016/06/05/ML-MLT-2-kernelSVM/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="此文是学习林轩田老师的机器学习技法第三课——Kernel Support Vector Machine——的课堂笔记。 给定上节课的公式：$$\min_{\alphan} (\frac{1}{2}\sum{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alphan - \sum{n=1}^{N}\alp">
+<meta property="og:description" content="此文是学习林轩田老师的机器学习技法第三课——Kernel Support Vector Machine——的课堂笔记。 给定上节课的公式： \[ \min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alpha_n - \sum_{n=1}">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习技法第三课——Kernel SVM">
-<meta name="twitter:description" content="此文是学习林轩田老师的机器学习技法第三课——Kernel Support Vector Machine——的课堂笔记。 给定上节课的公式：$$\min_{\alphan} (\frac{1}{2}\sum{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alphan - \sum{n=1}^{N}\alp">
+<meta name="twitter:description" content="此文是学习林轩田老师的机器学习技法第三课——Kernel Support Vector Machine——的课堂笔记。 给定上节课的公式： \[ \min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alpha_n - \sum_{n=1}">
 
 
 
@@ -299,25 +299,54 @@
 
       
         <p>此文是学习林轩田老师的机器学习技法第三课——Kernel Support Vector Machine——的课堂笔记。</p>
-<p>给定上节课的公式：<br>$$<br>\min_{\alpha<em>n} (\frac{1}{2}\sum</em>{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alpha<em>n - \sum</em>{n=1}^{N}\alpha_n) \\<br>s.t.\ all\ \alpha<em>n \ge 0,\ \sum</em>{n=1}^N \alpha_n y_n = 0<br>$$<br>这里 $\mathbf{z}$ 是由 $\mathbf{x}$ 变换得到。在 $\mathbf{x}$ 向量所处的空间里，如果所有超平面都不能对数据进行分类，可以将 $\mathbf{x}$ 映射到高维空间，也就是 $\mathbf{x}$ 变换成 $\mathbf{z}$。这次课的目标包括：了解这种变换带来的求解问题，引入核函数、多项式核函数、高斯核函数，及了解如何选择核 SVM 或线性 SVM。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<p>给定上节课的公式： <span class="math display">\[
+\min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alpha_n - \sum_{n=1}^{N}\alpha_n) \\\\
+s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
+\]</span> 这里 <span class="math inline">\(\mathbf{z}\)</span> 是由 <span class="math inline">\(\mathbf{x}\)</span> 变换得到。在 <span class="math inline">\(\mathbf{x}\)</span> 向量所处的空间里，如果所有超平面都不能对数据进行分类，可以将 <span class="math inline">\(\mathbf{x}\)</span> 映射到高维空间，也就是 <span class="math inline">\(\mathbf{x}\)</span> 变换成 <span class="math inline">\(\mathbf{z}\)</span>。这次课的目标包括：了解这种变换带来的求解问题，引入核函数、多项式核函数、高斯核函数，及了解如何选择核 SVM 或线性 SVM。</p>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/203_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 </ul>
-<h3 id="求解复杂度"><a href="#求解复杂度" class="headerlink" title="求解复杂度"></a>求解复杂度</h3><p>考虑将 $\mathbf{x}$ 从一次变换到二次：<br>$$\mathbf{x} = (x_1, x_2, …, x_d) \ \ \rightarrow \\<br>\mathbf{z} = (1, x_1, x_2, …, x_d, x_1 x_1, x_1 x_2, …, x_1 x_d, x_2 x_1, x_2 x_2, …, x_2 x_d, …, x_d x_d)$$</p>
-<p>向量长度增加了 $d^2 + 1$，由于在求解公式中需要计算任意2个 $\mathbf{x}$ 的内积（$\mathbf{z_m^T z_n}$），计算复杂度从 $o(d^2)$ 增加到 $o(d^4)$，陡增了不少困难。而这仅是变换到二次的情况。</p>
-<h3 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h3><p>就 <strong><em>求解复杂度</em></strong> 一节所举一次变二次，有以下推导：<br>$$\mathbf{z^T z’} = 1 + \sum_{i=1}^d x_i x’<em>i + \sum</em>{i=1}^d \sum_{j=1}^d x_i x_j x’_i x’<em>j \\<br>=1 + \sum</em>{i=1}^d x_i x’<em>i + (\sum</em>{i=1}^d x_i x’<em>i) (\sum</em>{j=1}^d x_j x’_j) \\<br>=1 + \mathbf{x^T x’} + (\mathbf{x^T x’})(\mathbf{x^T x’})$$<br>可见任意2个 $\mathbf{w}$ 的内积（$\mathbf{z^T z’}$）可以用 $\mathbf{x}$ 的内积表示。这可以推广到更高次变换。</p>
-<p>这种处理有何好处？复杂度大幅降低，从原来的 $o(d^4)$ 回降到 $o(d^2)$。</p>
-<h4 id="核函数-1"><a href="#核函数-1" class="headerlink" title="核函数"></a>核函数</h4><p>简单来说，核函数（核）应该是：<br>$$\mathbf{z^T z’} = K(\mathbf{x}, \mathbf{x’})$$<br>在一次变二次例子中 $K(\mathbf{x}, \mathbf{x’}) =1 + \mathbf{x^T x’} + (\mathbf{x^T x’})(\mathbf{x^T x’})$。</p>
-<p>原求解公式变换为：<br>$$<br>\min_{\alpha<em>n} (\frac{1}{2}\sum</em>{m=1}^{N} \sum_{n=1}^{N} y_m y_n K(\mathbf{x}_m, \mathbf{x}_n) \alpha_m \alpha<em>n - \sum</em>{n=1}^{N}\alpha_n) \\<br>s.t.\ all\ \alpha<em>n \ge 0,\ \sum</em>{n=1}^N \alpha_n y_n = 0<br>$$<br>设 $(\mathbf{x}_s, y_s)$ 为支持向量（$\alpha_s = 0$）解出 $b$:<br>$$<br>b = y_s - \mathbf{w^T \mathbf{z_s}} \\<br>= y<em>s - (\sum</em>{n=1}^{N} \alpha_n y_n \mathbf{z_n})^\mathbf{T} \mathbf{z}_s \\<br>= y<em>s - \sum</em>{n=1}^{N} \alpha_n y_n K(\mathbf{x}_n, \mathbf{x}<em>s)<br>$$<br>求解 $\mathbf{w}$ 似乎有点复杂，但不影响最终分类。分类公式变换为<br>$$g</em>{svm}(\mathbf{x}) = sign(\mathbf{w^T z} + b)<br>=sign(\sum_{n=1}^{N} \alpha_n y_n K(\mathbf{x}_n, \mathbf{x}) + b)$$</p>
-<h4 id="多项式核函数"><a href="#多项式核函数" class="headerlink" title="多项式核函数"></a>多项式核函数</h4><p>$$K(\mathbf{x}, \mathbf{x’}) = (\zeta + \gamma \mathbf{x^T x’})^q,\ with\ \zeta \ge 0,\ \gamma \gt 0$$<br>例如，当 $q = 2$ 时，<br>$$\mathbf{z^T z’} = K(\mathbf{x}, \mathbf{x’}) =1 + 2\zeta\gamma\mathbf{x^T x’} + \gamma^2(\mathbf{x^T x’})^2 \\<br>\Rightarrow \mathbf{z} = (1, \sqrt{2\zeta\gamma}x_1,  \sqrt{2\zeta\gamma}x_2, …,  \sqrt{2\zeta\gamma}x_n, \gamma x_1 x_1, \gamma x_1 x_2, …, \gamma x_n x_n)$$<br>感觉这个核不能满足所有从 $\mathbf{x}$ 到 $\mathbf{z}$ 的多项式变换，比如 $\mathbf{z}$ 中至少所有一次项系数都相等（在上例中为 $\sqrt{2\zeta\gamma}$）。</p>
-<h4 id="高斯核函数"><a href="#高斯核函数" class="headerlink" title="高斯核函数"></a>高斯核函数</h4><p>$$K(\mathbf{x}, \mathbf{x’}) = exp(-\gamma |\mathbf{x - x’}|^2),\ with\ \gamma \gt 0$$<br>高斯（Gaussian）核函数可以将 $\mathbf{x}$ 扩展到无限维。</p>
-<p>课上只给了 $\gamma = 1,\ \mathbf{x} = (x)$（$\mathbf{x}$ 只有一个维度）时的推导：<br>$$K(\mathbf{x}, \mathbf{x’}) = exp(-(\mathbf{x - x’})^2) \\<br>=exp(-x^2)exp(-x’^2)exp(2xx’)\\<br>=exp(-(x)^2)exp(-(x’)^2) \sum<em>{i=0}^\infty \frac{(2xx’)^i}{i!},\ \ taylor\ expansion \\<br>=\sum</em>{i=0}^\infty(exp(-x^2)exp(-x’^2) \sqrt{\frac{2^i}{i!}} \sqrt{\frac{2^i}{i!}} x^i x’^i) \\<br>=\mathbf{z^T z’} \\<br>with\ \mathbf{z}=exp(-x^2)(1, \sqrt{\frac{2}{1!}} x, \sqrt{\frac{2^2}{2!}}x^2, …)<br>$$</p>
-<p>如果 $\gamma$ 取值过大（方差过大），高斯核会过拟合。</p>
-<h3 id="核函数并非万能"><a href="#核函数并非万能" class="headerlink" title="核函数并非万能"></a>核函数并非万能</h3><p>线性 SVM 指原始的，$\mathbf{x}$ 未经变换的 SVM，求解相对多项式核 SVM 简单（系数矩阵为对角矩阵），而且，参数选择较少。而高斯核的模型难以解释，且容易过拟合。</p>
-<p>对于高次的多项式 kernel，可以考虑用原始的方法，将 $\mathbf{x}$ 转化成 $\mathbf{z}$ 之后代入线性 SVM 求解，如果维度不高，求解速度会更快。</p>
-<h3 id="其他核函数"><a href="#其他核函数" class="headerlink" title="其他核函数"></a>其他核函数</h3><p>课上指出，能成为核函数的充要条件是，核函数导出的矩阵 $\mathbf{K}$，$k_{i,j}=K(\mathbf{x_i, x_j})$，是对称且半正定的。这2个条件被称为 Mercer’s condition。</p>
+<h3 id="求解复杂度">求解复杂度</h3>
+<p>考虑将 <span class="math inline">\(\mathbf{x}\)</span> 从一次变换到二次： <span class="math display">\[\mathbf{x} = (x_1, x_2, ..., x_d) \ \ \rightarrow \\\\
+\mathbf{z} = (1, x_1, x_2, ..., x_d, x_1 x_1, x_1 x_2, ..., x_1 x_d, x_2 x_1, x_2 x_2, ..., x_2 x_d, ..., x_d x_d)\]</span></p>
+<p>向量长度增加了 <span class="math inline">\(d^2 + 1\)</span>，由于在求解公式中需要计算任意2个 <span class="math inline">\(\mathbf{x}\)</span> 的内积（<span class="math inline">\(\mathbf{z_m^T z_n}\)</span>），计算复杂度从 <span class="math inline">\(o(d^2)\)</span> 增加到 <span class="math inline">\(o(d^4)\)</span>，陡增了不少困难。而这仅是变换到二次的情况。</p>
+<h3 id="核函数">核函数</h3>
+<p>就 <strong><em>求解复杂度</em></strong> 一节所举一次变二次，有以下推导： <span class="math display">\[\mathbf{z^T z&#39;} = 1 + \sum_{i=1}^d x_i x&#39;_i + \sum_{i=1}^d \sum_{j=1}^d x_i x_j x&#39;_i x&#39;_j \\\\
+=1 + \sum_{i=1}^d x_i x&#39;_i + (\sum_{i=1}^d x_i x&#39;_i) (\sum_{j=1}^d x_j x&#39;_j) \\\\
+=1 + \mathbf{x^T x&#39;} + (\mathbf{x^T x&#39;})(\mathbf{x^T x&#39;})\]</span> 可见任意2个 <span class="math inline">\(\mathbf{w}\)</span> 的内积（<span class="math inline">\(\mathbf{z^T z&#39;}\)</span>）可以用 <span class="math inline">\(\mathbf{x}\)</span> 的内积表示。这可以推广到更高次变换。</p>
+<p>这种处理有何好处？复杂度大幅降低，从原来的 <span class="math inline">\(o(d^4)\)</span> 回降到 <span class="math inline">\(o(d^2)\)</span>。</p>
+<h4 id="核函数-1">核函数</h4>
+<p>简单来说，核函数（核）应该是： <span class="math display">\[\mathbf{z^T z&#39;} = K(\mathbf{x}, \mathbf{x&#39;})\]</span> 在一次变二次例子中 <span class="math inline">\(K(\mathbf{x}, \mathbf{x&#39;}) =1 + \mathbf{x^T x&#39;} + (\mathbf{x^T x&#39;})(\mathbf{x^T x&#39;})\)</span>。</p>
+<p>原求解公式变换为： <span class="math display">\[
+\min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m y_n K(\mathbf{x}_m, \mathbf{x}_n) \alpha_m \alpha_n - \sum_{n=1}^{N}\alpha_n) \\\\
+s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
+\]</span> 设 <span class="math inline">\((\mathbf{x}_s, y_s)\)</span> 为支持向量（<span class="math inline">\(\alpha_s = 0\)</span>）解出 <span class="math inline">\(b\)</span>: <span class="math display">\[
+b = y_s - \mathbf{w^T \mathbf{z_s}} \\\\
+= y_s - (\sum_{n=1}^{N} \alpha_n y_n \mathbf{z_n})^\mathbf{T} \mathbf{z}_s \\\\
+= y_s - \sum_{n=1}^{N} \alpha_n y_n K(\mathbf{x}_n, \mathbf{x}_s)
+\]</span> 求解 <span class="math inline">\(\mathbf{w}\)</span> 似乎有点复杂，但不影响最终分类。分类公式变换为 <span class="math display">\[g_{svm}(\mathbf{x}) = sign(\mathbf{w^T z} + b)
+=sign(\sum_{n=1}^{N} \alpha_n y_n K(\mathbf{x}_n, \mathbf{x}) + b)\]</span></p>
+<h4 id="多项式核函数">多项式核函数</h4>
+<p><span class="math display">\[K(\mathbf{x}, \mathbf{x&#39;}) = (\zeta + \gamma \mathbf{x^T x&#39;})^q,\ with\ \zeta \ge 0,\ \gamma \gt 0\]</span> 例如，当 <span class="math inline">\(q = 2\)</span> 时， <span class="math display">\[\mathbf{z^T z&#39;} = K(\mathbf{x}, \mathbf{x&#39;}) =1 + 2\zeta\gamma\mathbf{x^T x&#39;} + \gamma^2(\mathbf{x^T x&#39;})^2 \\\\
+\Rightarrow \mathbf{z} = (1, \sqrt{2\zeta\gamma}x_1,  \sqrt{2\zeta\gamma}x_2, ...,  \sqrt{2\zeta\gamma}x_n, \gamma x_1 x_1, \gamma x_1 x_2, ..., \gamma x_n x_n)\]</span> 感觉这个核不能满足所有从 <span class="math inline">\(\mathbf{x}\)</span> 到 <span class="math inline">\(\mathbf{z}\)</span> 的多项式变换，比如 <span class="math inline">\(\mathbf{z}\)</span> 中至少所有一次项系数都相等（在上例中为 <span class="math inline">\(\sqrt{2\zeta\gamma}\)</span>）。</p>
+<h4 id="高斯核函数">高斯核函数</h4>
+<p><span class="math display">\[K(\mathbf{x}, \mathbf{x&#39;}) = exp(-\gamma |\mathbf{x - x&#39;}|^2),\ with\ \gamma \gt 0\]</span> 高斯（Gaussian）核函数可以将 <span class="math inline">\(\mathbf{x}\)</span> 扩展到无限维。</p>
+<p>课上只给了 <span class="math inline">\(\gamma = 1,\ \mathbf{x} = (x)\)</span>（<span class="math inline">\(\mathbf{x}\)</span> 只有一个维度）时的推导： <span class="math display">\[K(\mathbf{x}, \mathbf{x&#39;}) = exp(-(\mathbf{x - x&#39;})^2) \\\\
+=exp(-x^2)exp(-x&#39;^2)exp(2xx&#39;)\\\\
+=exp(-(x)^2)exp(-(x&#39;)^2) \sum_{i=0}^\infty \frac{(2xx&#39;)^i}{i!},\ \ taylor\ expansion \\\\
+=\sum_{i=0}^\infty(exp(-x^2)exp(-x&#39;^2) \sqrt{\frac{2^i}{i!}} \sqrt{\frac{2^i}{i!}} x^i x&#39;^i) \\\\
+=\mathbf{z^T z&#39;} \\\\
+with\ \mathbf{z}=exp(-x^2)(1, \sqrt{\frac{2}{1!}} x, \sqrt{\frac{2^2}{2!}}x^2, ...)
+\]</span></p>
+<p>如果 <span class="math inline">\(\gamma\)</span> 取值过大（方差过大），高斯核会过拟合。</p>
+<h3 id="核函数并非万能">核函数并非万能</h3>
+<p>线性 SVM 指原始的，<span class="math inline">\(\mathbf{x}\)</span> 未经变换的 SVM，求解相对多项式核 SVM 简单（系数矩阵为对角矩阵），而且，参数选择较少。而高斯核的模型难以解释，且容易过拟合。</p>
+<p>对于高次的多项式 kernel，可以考虑用原始的方法，将 <span class="math inline">\(\mathbf{x}\)</span> 转化成 <span class="math inline">\(\mathbf{z}\)</span> 之后代入线性 SVM 求解，如果维度不高，求解速度会更快。</p>
+<h3 id="其他核函数">其他核函数</h3>
+<p>课上指出，能成为核函数的充要条件是，核函数导出的矩阵 <span class="math inline">\(\mathbf{K}\)</span>，<span class="math inline">\(k_{i,j}=K(\mathbf{x_i, x_j})\)</span>，是对称且半正定的。这2个条件被称为 Mercer’s condition。</p>
 
       
     </div>

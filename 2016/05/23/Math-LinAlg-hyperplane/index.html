@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="参考： 空间解析几何 在 n 维空间中，满足方程$$a_1 x_1 + a_2 x_2 + … + a_n x_n = b $$的向量 $(x_1, x_2,…,x_n)$ 构成的空间称为 超平面。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 $(n-1)$ 个维度值确定时，剩下的一个维度也确定了。 参数的取值范围与 Perceptron单层感知器（Perce">
+<meta name="description" content="参考： 空间解析几何 在 n 维空间中，满足方程 \[a_1 x_1 + a_2 x_2 + ... + a_n x_n = b \] 的向量 \((x_1, x_2,...,x_n)\) 构成的空间称为 超平面。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 \((n-1)\) 个维度值确定时，剩下的一个维度也确定了。 参数的取值范围与 Perceptro">
 <meta name="keywords" content="Math,Linear Algebra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="超平面">
 <meta property="og:url" content="http://yoursite.com/2016/05/23/Math-LinAlg-hyperplane/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="参考： 空间解析几何 在 n 维空间中，满足方程$$a_1 x_1 + a_2 x_2 + … + a_n x_n = b $$的向量 $(x_1, x_2,…,x_n)$ 构成的空间称为 超平面。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 $(n-1)$ 个维度值确定时，剩下的一个维度也确定了。 参数的取值范围与 Perceptron单层感知器（Perce">
+<meta property="og:description" content="参考： 空间解析几何 在 n 维空间中，满足方程 \[a_1 x_1 + a_2 x_2 + ... + a_n x_n = b \] 的向量 \((x_1, x_2,...,x_n)\) 构成的空间称为 超平面。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 \((n-1)\) 个维度值确定时，剩下的一个维度也确定了。 参数的取值范围与 Perceptro">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="超平面">
-<meta name="twitter:description" content="参考： 空间解析几何 在 n 维空间中，满足方程$$a_1 x_1 + a_2 x_2 + … + a_n x_n = b $$的向量 $(x_1, x_2,…,x_n)$ 构成的空间称为 超平面。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 $(n-1)$ 个维度值确定时，剩下的一个维度也确定了。 参数的取值范围与 Perceptron单层感知器（Perce">
+<meta name="twitter:description" content="参考： 空间解析几何 在 n 维空间中，满足方程 \[a_1 x_1 + a_2 x_2 + ... + a_n x_n = b \] 的向量 \((x_1, x_2,...,x_n)\) 构成的空间称为 超平面。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 \((n-1)\) 个维度值确定时，剩下的一个维度也确定了。 参数的取值范围与 Perceptro">
 
 
 
@@ -299,14 +299,16 @@
 
       
         <p>参考： <a href="/2016/09/28/Math-LinAlg-analyticGeometry/" title="空间解析几何">空间解析几何</a></p>
-<p>在 n 维空间中，满足方程<br>$$a_1 x_1 + a_2 x_2 + … + a_n x_n = b $$<br>的向量 $(x_1, x_2,…,x_n)$ 构成的空间称为 <strong>超平面</strong>。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 $(n-1)$ 个维度值确定时，剩下的一个维度也确定了。</p>
-<h4 id="参数的取值范围与-Perceptron"><a href="#参数的取值范围与-Perceptron" class="headerlink" title="参数的取值范围与 Perceptron"></a>参数的取值范围与 Perceptron</h4><p>单层感知器（Perceptron）利用超平面分类数据。输入训练数据为向量 $\mathbf{x} = (x_1, x_2,…, x_n)$， 其目标是训练出权重向量 $\mathbf{w} = (w_1, w_2,…, w_n)$ 与偏值 $b$， 使得所有满足 $\mathbf{w}\cdot \mathbf{x}\ge b$ 的数据同为一类，而满足 $\mathbf{w}\cdot \mathbf{x}&lt; b$ 的数据同为另一类。形象地理解就是，给定 n 维空间的许多点，分为两种类型，要求找到一个超平面，将这两种类型的点分开。再形象点，在二维空间中，有许多红点和蓝点，Perceptron 需要划一条直线将红点蓝点分开。（当然，Perceptron 往往不能对数据完全正确分类，所以有后续的处理。这里只是理想情况）</p>
-<p>值得注意的是，偏值 $b$ 容易被误认为无需训练，直接设为定值就行（比如零）。实际上，将权重向量的任何一个元素及偏值 $b$ 固定为常量，都会导致（ $\mathbf{w}, b$ ）所能表示的超平面减少，从而导致分类的能力下降。可以参考平面下直线的表达式： $ax+by=c$ ，如果固定 $c=0$， 该直线必定过原点，不能表示许多不过原点的直线。</p>
-<h4 id="点到超平面距离与-SVM"><a href="#点到超平面距离与-SVM" class="headerlink" title="点到超平面距离与 SVM"></a>点到超平面距离与 SVM</h4><p>支持向量机（SVM）也是利用超平面分类向量的，它关注的是点与超平面的距离。</p>
-<p>已知超平面的法向量 $\mathbf{w}=(w_1,w_2,…,w_n)$ 和数 $b$， 超平面表示为：</p>
-<p>$$ \mathbf{w}\cdot\mathbf{x} + b=0 $$</p>
-<p>$\mathbf{x}= (x_1, x_2,…, x_n)$ 表示超平面上的任意一点。设 $\mathbf{y}_0= (y_1, y_2,…, y_n)$ 为超平面上一点，则有 $\mathbf{w}\cdot\mathbf{y}_0 = -b$。可得点 $\mathbf{s}= (s_1, s_2,…, s_n)$ 与超平面的距离 $d$：</p>
-<p>$$ d=\left| \frac{\mathbf{w}\cdot(\mathbf{s}_0 - \mathbf{y}_0)}{||\mathbf{w}||} \right|=\left| \frac{\mathbf{w}\cdot\mathbf{s}_0 + b}{||\mathbf{w}||} \right| $$</p>
+<p>在 n 维空间中，满足方程 <span class="math display">\[a_1 x_1 + a_2 x_2 + ... + a_n x_n = b \]</span> 的向量 <span class="math inline">\((x_1, x_2,...,x_n)\)</span> 构成的空间称为 <strong>超平面</strong>。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 <span class="math inline">\((n-1)\)</span> 个维度值确定时，剩下的一个维度也确定了。</p>
+<h4 id="参数的取值范围与-perceptron">参数的取值范围与 Perceptron</h4>
+<p>单层感知器（Perceptron）利用超平面分类数据。输入训练数据为向量 <span class="math inline">\(\mathbf{x} = (x_1, x_2,..., x_n)\)</span>， 其目标是训练出权重向量 <span class="math inline">\(\mathbf{w} = (w_1, w_2,..., w_n)\)</span> 与偏值 <span class="math inline">\(b\)</span>， 使得所有满足 <span class="math inline">\(\mathbf{w}\cdot \mathbf{x}\ge b\)</span> 的数据同为一类，而满足 <span class="math inline">\(\mathbf{w}\cdot \mathbf{x}&lt; b\)</span> 的数据同为另一类。形象地理解就是，给定 n 维空间的许多点，分为两种类型，要求找到一个超平面，将这两种类型的点分开。再形象点，在二维空间中，有许多红点和蓝点，Perceptron 需要划一条直线将红点蓝点分开。（当然，Perceptron 往往不能对数据完全正确分类，所以有后续的处理。这里只是理想情况）</p>
+<p>值得注意的是，偏值 <span class="math inline">\(b\)</span> 容易被误认为无需训练，直接设为定值就行（比如零）。实际上，将权重向量的任何一个元素及偏值 <span class="math inline">\(b\)</span> 固定为常量，都会导致（ <span class="math inline">\(\mathbf{w}, b\)</span> ）所能表示的超平面减少，从而导致分类的能力下降。可以参考平面下直线的表达式： <span class="math inline">\(ax+by=c\)</span> ，如果固定 <span class="math inline">\(c=0\)</span>， 该直线必定过原点，不能表示许多不过原点的直线。</p>
+<h4 id="点到超平面距离与-svm">点到超平面距离与 SVM</h4>
+<p>支持向量机（SVM）也是利用超平面分类向量的，它关注的是点与超平面的距离。</p>
+<p>已知超平面的法向量 <span class="math inline">\(\mathbf{w}=(w_1,w_2,...,w_n)\)</span> 和数 <span class="math inline">\(b\)</span>， 超平面表示为：</p>
+<p><span class="math display">\[ \mathbf{w}\cdot\mathbf{x} + b=0 \]</span></p>
+<p><span class="math inline">\(\mathbf{x}= (x_1, x_2,..., x_n)\)</span> 表示超平面上的任意一点。设 <span class="math inline">\(\mathbf{y}_0= (y_1, y_2,..., y_n)\)</span> 为超平面上一点，则有 <span class="math inline">\(\mathbf{w}\cdot\mathbf{y}_0 = -b\)</span>。可得点 <span class="math inline">\(\mathbf{s}= (s_1, s_2,..., s_n)\)</span> 与超平面的距离 <span class="math inline">\(d\)</span>：</p>
+<p><span class="math display">\[ d=\left| \frac{\mathbf{w}\cdot(\mathbf{s}_0 - \mathbf{y}_0)}{||\mathbf{w}||} \right|=\left| \frac{\mathbf{w}\cdot\mathbf{s}_0 + b}{||\mathbf{w}||} \right| \]</span></p>
 
       
     </div>
@@ -464,7 +466,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数的取值范围与-Perceptron"><span class="nav-number">1.</span> <span class="nav-text">参数的取值范围与 Perceptron</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#点到超平面距离与-SVM"><span class="nav-number">2.</span> <span class="nav-text">点到超平面距离与 SVM</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数的取值范围与-perceptron"><span class="nav-number">1.</span> <span class="nav-text">参数的取值范围与 Perceptron</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#点到超平面距离与-svm"><span class="nav-number">2.</span> <span class="nav-text">点到超平面距离与 SVM</span></a></li></ol></div>
             
           </div>
         </section>

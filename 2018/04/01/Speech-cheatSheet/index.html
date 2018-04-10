@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/04/01/Speech-cheatSheet/DFT-matrix.PNG">
 <meta property="og:image" content="http://yoursite.com/2018/04/01/Speech-cheatSheet/DCT.PNG">
 <meta property="og:image" content="http://yoursite.com/2018/04/01/Speech-cheatSheet/IDCT.PNG">
-<meta property="og:updated_time" content="2018-04-07T01:42:15.165Z">
+<meta property="og:updated_time" content="2018-04-08T01:31:27.841Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Speech Cheat Sheet">
 <meta name="twitter:description" content="复数 \[z=a+bi\] 复数的表示 坐标表示，分为实部\(a\)，虚部\(b\)： \[z=a+bi\] 三角形式，\(r\)表示模，\(\theta\)为幅角 \[z=r(\cos\theta + i\sin \theta)\] 指数形式 \[z=re^{i\theta}\] 欧拉公式 \[ e^{ix}=\cos x+i\sin x \]  共轭复数 \[z=a-bi\] 四则">
@@ -323,6 +323,8 @@
 <p><span class="math display">\[ C_x(k) = \sum_{n=0}^{N-1} 2x(n) \cos(\frac{\pi}{2N} k (2n+1) ) \]</span> 其中<span class="math inline">\(x\)</span>是信号。用<span class="math inline">\(W_{2N}\)</span>表示<span class="math inline">\(2N\)</span>长度的DFT转换矩阵基本元素，<span class="math inline">\(Y(k)\)</span>表示DFT频点，则有： <span class="math display">\[ C_x(k) = W_{2N}^{k/2} Y(k)  \]</span></p>
 <p>利用DFT计算DCT的过程： <img src="/2018/04/01/Speech-cheatSheet/DCT.PNG" title="用DFT计算DCT"></p>
 <p>用IDFT计算DCT逆运算（IDCT）： <img src="/2018/04/01/Speech-cheatSheet/IDCT.PNG" title="用IDFT计算IDCT"></p>
+<h4 id="复数与幅度相位">复数与幅度、相位</h4>
+<p>用<span class="math inline">\(R\)</span>表示幅度，<span class="math inline">\(φ\)</span>表示相位，则有： <span class="math display">\[ a+ib = R e^{jφ} = R\cos φ + iR\sin φ  \]</span> 所以有： <span class="math display">\[ a=R\cos φ, \quad b = R\sin φ \]</span> 得到： <span class="math display">\[ R=\sqrt{a^2+b^2}, \quad φ=\arctan \frac{b}{a} \]</span></p>
 
       
     </div>
@@ -476,7 +478,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#复数"><span class="nav-number">1.</span> <span class="nav-text">复数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复数的表示"><span class="nav-number">1.1.</span> <span class="nav-text">复数的表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共轭复数"><span class="nav-number">1.2.</span> <span class="nav-text">共轭复数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四则运算"><span class="nav-number">1.3.</span> <span class="nav-text">四则运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四则运算的推论"><span class="nav-number">1.4.</span> <span class="nav-text">四则运算的推论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模"><span class="nav-number">1.5.</span> <span class="nav-text">模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散傅里叶变换dft"><span class="nav-number">1.6.</span> <span class="nav-text">离散傅里叶变换（DFT）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散余弦变换dct"><span class="nav-number">1.7.</span> <span class="nav-text">离散余弦变换（DCT）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#复数"><span class="nav-number">1.</span> <span class="nav-text">复数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复数的表示"><span class="nav-number">1.1.</span> <span class="nav-text">复数的表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共轭复数"><span class="nav-number">1.2.</span> <span class="nav-text">共轭复数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四则运算"><span class="nav-number">1.3.</span> <span class="nav-text">四则运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四则运算的推论"><span class="nav-number">1.4.</span> <span class="nav-text">四则运算的推论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模"><span class="nav-number">1.5.</span> <span class="nav-text">模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散傅里叶变换dft"><span class="nav-number">1.6.</span> <span class="nav-text">离散傅里叶变换（DFT）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散余弦变换dct"><span class="nav-number">1.7.</span> <span class="nav-text">离散余弦变换（DCT）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复数与幅度相位"><span class="nav-number">1.8.</span> <span class="nav-text">复数与幅度、相位</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

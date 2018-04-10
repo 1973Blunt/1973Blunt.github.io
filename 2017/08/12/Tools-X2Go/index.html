@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="X2Go是一款支持远程控制Ubuntu桌面的开源软件，基于ssh连接，多平台Windows/Mac OS/Linux客户端支持，支持多用户多session同时在线，支持session保持后台运行与恢复（再次登陆同一session）。 Ubuntu16.06服务器端安装1234567891011# 安装ssh服务器sudo apt install openssh-server# 安装x2go服务器s">
+<meta name="description" content="X2Go是一款支持远程控制Ubuntu桌面的开源软件，基于ssh连接，多平台Windows/Mac OS/Linux客户端支持，支持多用户多session同时在线，支持session保持后台运行与恢复（再次登陆同一session）。 Ubuntu16.06服务器端安装 1234567891011# 安装ssh服务器sudo apt install openssh-server# 安装x2go服">
 <meta name="keywords" content="Tools,Ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu下远程控制X2Go">
 <meta property="og:url" content="http://yoursite.com/2017/08/12/Tools-X2Go/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="X2Go是一款支持远程控制Ubuntu桌面的开源软件，基于ssh连接，多平台Windows/Mac OS/Linux客户端支持，支持多用户多session同时在线，支持session保持后台运行与恢复（再次登陆同一session）。 Ubuntu16.06服务器端安装1234567891011# 安装ssh服务器sudo apt install openssh-server# 安装x2go服务器s">
+<meta property="og:description" content="X2Go是一款支持远程控制Ubuntu桌面的开源软件，基于ssh连接，多平台Windows/Mac OS/Linux客户端支持，支持多用户多session同时在线，支持session保持后台运行与恢复（再次登陆同一session）。 Ubuntu16.06服务器端安装 1234567891011# 安装ssh服务器sudo apt install openssh-server# 安装x2go服">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-08-12T03:15:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu下远程控制X2Go">
-<meta name="twitter:description" content="X2Go是一款支持远程控制Ubuntu桌面的开源软件，基于ssh连接，多平台Windows/Mac OS/Linux客户端支持，支持多用户多session同时在线，支持session保持后台运行与恢复（再次登陆同一session）。 Ubuntu16.06服务器端安装1234567891011# 安装ssh服务器sudo apt install openssh-server# 安装x2go服务器s">
+<meta name="twitter:description" content="X2Go是一款支持远程控制Ubuntu桌面的开源软件，基于ssh连接，多平台Windows/Mac OS/Linux客户端支持，支持多用户多session同时在线，支持session保持后台运行与恢复（再次登陆同一session）。 Ubuntu16.06服务器端安装 1234567891011# 安装ssh服务器sudo apt install openssh-server# 安装x2go服">
 
 
 
@@ -299,8 +299,10 @@
 
       
         <p>X2Go是一款支持远程控制Ubuntu桌面的开源软件，基于ssh连接，多平台Windows/Mac OS/Linux客户端支持，支持多用户多session同时在线，支持session保持后台运行与恢复（再次登陆同一session）。</p>
-<h4 id="Ubuntu16-06服务器端安装"><a href="#Ubuntu16-06服务器端安装" class="headerlink" title="Ubuntu16.06服务器端安装"></a>Ubuntu16.06服务器端安装</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装ssh服务器</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment"># 安装x2go服务器</span></span><br><span class="line">sudo apt-get install software-properties-common</span><br><span class="line">sudo add-apt-repository ppa:x2go/stable</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install x2goserver x2goserver-xsession</span><br><span class="line"><span class="comment"># 安装xfce桌面</span></span><br><span class="line">sudo apt install xfce4</span><br><span class="line"><span class="comment"># 或者可以安装mate桌面，两者也可并存</span></span><br><span class="line">sudo apt-get install ubuntu-mate-core ubuntu-mate-desktop</span><br></pre></td></tr></table></figure>
-<h4 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h4><p>安装好客户端后启动，在Session选项卡创建新的session，在弹出Session preferences框中，设置Host（主机地址）, Login（ssh用户名），session Type（远程桌面环境xfce或mate）。在Media选项卡，可选择禁用“Client side printing support”。</p>
+<h4 id="ubuntu16.06服务器端安装">Ubuntu16.06服务器端安装</h4>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装ssh服务器</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment"># 安装x2go服务器</span></span><br><span class="line">sudo apt-get install software-properties-common</span><br><span class="line">sudo add-apt-repository ppa:x2go/stable</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install x2goserver x2goserver-xsession</span><br><span class="line"><span class="comment"># 安装xfce桌面</span></span><br><span class="line">sudo apt install xfce4</span><br><span class="line"><span class="comment"># 或者可以安装mate桌面，两者也可并存</span></span><br><span class="line">sudo apt-get install ubuntu-mate-core ubuntu-mate-desktop</span><br></pre></td></tr></table></figure>
+<h4 id="客户端配置">客户端配置</h4>
+<p>安装好客户端后启动，在Session选项卡创建新的session，在弹出Session preferences框中，设置Host（主机地址）, Login（ssh用户名），session Type（远程桌面环境xfce或mate）。在Media选项卡，可选择禁用“Client side printing support”。</p>
 
       
     </div>
@@ -458,7 +460,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ubuntu16-06服务器端安装"><span class="nav-number">1.</span> <span class="nav-text">Ubuntu16.06服务器端安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端配置"><span class="nav-number">2.</span> <span class="nav-text">客户端配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ubuntu16.06服务器端安装"><span class="nav-number">1.</span> <span class="nav-text">Ubuntu16.06服务器端安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端配置"><span class="nav-number">2.</span> <span class="nav-text">客户端配置</span></a></li></ol></div>
             
           </div>
         </section>
