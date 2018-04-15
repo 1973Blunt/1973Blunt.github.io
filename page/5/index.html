@@ -240,6 +240,152 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/23/ML-MLT-6-blendingBagging/" itemprop="url">
+                  机器学习技法第七课——Blending and Bagging
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-23T11:03:24+08:00" content="2016-07-23">
+              2016-07-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文是本人学习林轩田老师的机器学习技法第七课——Blending and Bagging。第七至第十一课学习 ML 中的各种集成学习（<a href="https://en.wikipedia.org/wiki/Ensemble_learning" target="_blank" rel="noopener">Ensemble Learning</a>）算法。简单地讲，Ensemble 集成各种模型为一个最终模型。</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/207_handout.pdf" target="_blank" rel="noopener">课件</a></li>
+<li><a href="http://mlwave.com/kaggle-ensembling-guide/" target="_blank" rel="noopener">Kaggle Ensembling Guide</a></li>
+<li><a href="http://scott.fortmann-roe.com/docs/BiasVariance.html" target="_blank" rel="noopener">Understanding the Bias-Variance Tradeoff</a></li>
+<li><a href="/2016/08/12/ML-validation/" title="模型验证">模型验证</a></li>
+<li><a href="/2016/08/14/Math-PrStats-bootstrapping/" title="Bootstrapping">Bootstrapping</a></li>
+</ul>
+<h3 id="误差的-bias-和-variance">误差的 bias 和 variance</h3>
+<p>在此文——<a href="http://scott.fortmann-roe.com/docs/BiasVariance.html" target="_blank" rel="noopener">Understanding the Bias-Variance Tradeoff</a>——中有介绍，同种模型训练由于参数、抽样等不同，得到的模型的误差会有一定的随机性，所以有了模型误差的 bias 与 variance 的概念。</p>
+<p>简单地讲，bias 指误差的期望，即模型的预测偏离正确值的期望。而 variance 即误差的方差，衡量模型误差的分散程度。这两个值当然是越小越好。</p>
+<h3 id="blending">Blending</h3>
+<p>Blending 是十分自然的集成方法。简单地讲，就是将各模型的预测作为数据进行回归或分类训练将其结合。训练过程如下：</p>
+<ol type="1">
+<li>将训练集 <span class="math inline">\(D_{train}\)</span> 分为 <span class="math inline">\(D_{train}^-\)</span> 和 <span class="math inline">\(D_{val}\)</span>，每条数据可表示为 <span class="math inline">\((x_1, x_2,...,y)\)</span></li>
+<li>在 <span class="math inline">\(D_{train}^-\)</span> 上，训练出各模型 <span class="math inline">\(G^-=(g_1^-(\mathbf{x}), g_2^-(\mathbf{x}), g_3^-(\mathbf{x}),...)\)</span></li>
+<li>在 <span class="math inline">\(D_{val}\)</span>，各模型分别做出预测，组合成新的数据集 <span class="math inline">\(D_{pred}\)</span>，每条数据可表示为 <span class="math inline">\(\Phi(\mathbf{x}) = (g_1(\mathbf{x}),g_2(\mathbf{x}),g_3(\mathbf{x}),...,y)\)</span></li>
+<li>在 <span class="math inline">\(D_{train}\)</span> 上，训练出各模型 <span class="math inline">\(G=(g_1(\mathbf{x}), g_2(\mathbf{x}), g_3(\mathbf{x}),...)\)</span></li>
+<li>在 <span class="math inline">\(D_{pred}\)</span> 上，进行分类或回归训练，得到 Blending 模型参数，结合 <span class="math inline">\(G\)</span> 得到最终模型</li>
+</ol>
+<p>(注：<span class="math inline">\(x_i\)</span> 表示数值，加粗 <span class="math inline">\(\mathbf{x}\)</span> 表示一个向量，<span class="math inline">\(\mathbf{x}=(x_1, x_2,...,x_n)\)</span>) 进行测试时，先用 <span class="math inline">\(G\)</span> 做出预测作为输入代入 Blending 模型得到最终预测值。这里有2个问题。</p>
+<p>为什么要把 <span class="math inline">\(D_{train}\)</span> 分为 <span class="math inline">\(D_{train}^-\)</span> 和 <span class="math inline">\(D_{val}\)</span>，而不直接在训练集上做训练同时做预测，然后作为 Blending 的训练数据？因为训练得到的模型已经“知道了”其训练数据，在其训练数据上做预测不能反映其预测能力的真实情况，会付出复杂度方面的代价。所以，跟模型选择中所做的验证一样，需要使用模型未知的数据做验证。</p>
+<p>为什么使用 <span class="math inline">\(G\)</span> 而非 <span class="math inline">\(G^-\)</span> 得到最终模型？<span class="math inline">\(G\)</span> 在 <span class="math inline">\(D_{train}\)</span> 上训练得到，比在更小的训练集 <span class="math inline">\(D_{train}^-\)</span> 得到的 <span class="math inline">\(G^-\)</span> 更优。</p>
+<p>在课上，老师证明了各模型 <span class="math inline">\(E_{out}\)</span> 的期望大于 Blending 模型 <span class="math inline">\(E_{out}\)</span> 的期望，也就是说，Blending 模型的预测优于各模型的“平均水平”。（实际上只证明了 uniform blending，在此不细究）</p>
+<h4 id="stacking">Stacking</h4>
+<p>根据博文 <a href="http://mlwave.com/kaggle-ensembling-guide/" target="_blank" rel="noopener">Kaggle Ensembling Guide</a>，Blending 可视为 Stacking 的简化。（Stacking 远早于 Blending 被提出）现在很多研究者视两者等同。</p>
+<p>可以很容易发现，Blending 的一至三步与 <a href="https://zh.wikipedia.org/wiki/%E4%BA%A4%E5%8F%89%E9%A9%97%E8%AD%89#Holdout_.E9.A9.97.E8.AD.89" target="_blank" rel="noopener">Hold-out Validation</a> 的步骤是相同的。存在多个模型时，常使用验证来选择模型，而 Hold-out 就是其中最基本的一种。而 Stacking 使用 <a href="https://zh.wikipedia.org/wiki/%E4%BA%A4%E5%8F%89%E9%A9%97%E8%AD%89#Holdout_.E9.A9.97.E8.AD.89" target="_blank" rel="noopener">Cross-Validation</a>。</p>
+<p>在 <a href="/2016/08/12/ML-validation/" title="模型验证">模型验证</a> 中， Cross-Validation 虽然比使用 Hold-out Validation 复杂，但是 Stacking 得到的 <span class="math inline">\(D_{pred}\)</span> 与 <span class="math inline">\(D_{train}\)</span> 数据量相等，而 Blending 得到的 <span class="math inline">\(D_{pred}\)</span> 与 <span class="math inline">\(D_{val}\)</span> （一般取 <span class="math inline">\(D_{train}\)</span> 的10%）等量，较小。</p>
+<h3 id="bagging">Bagging</h3>
+<p>又称 Bootstrap Aggregation, 基于统计学上的 <strong><a href="/2016/08/14/Math-PrStats-bootstrapping/" title="Bootstrapping">Bootstrapping</a></strong> 方法。简单地讲，就是从一个样本集中有放回地抽样得到多个样本集。</p>
+<p>Bagging 利用 Bootstrapping 的原理，在训练集 <span class="math inline">\(D_{train}\)</span> 上有放回地抽样得到多个训练集 <span class="math inline">\(D_1^-\)</span>, <span class="math inline">\(D_2^-\)</span>, <span class="math inline">\(D_3^-\)</span>,…，然后用抽取的训练集训练模型，由于抽取得到的训练集各不相同，得到的模型也各不相同（除非训练不受训练集影响，那还训练干嘛）。在预测时，取所有模型预测的均值。</p>
+<p>Bagging 能够降低模型预测的 varaince 误差，特别适用于对样本敏感的波动比较大的模型。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/10/ML-MLT-5-supportVectorRegression/" itemprop="url">
                   机器学习技法第六课——Support Vector Regression
                 </a>
@@ -2012,158 +2158,11 @@ b = y_n - \mathbf{w^T \mathbf{x_n}}\ ,\  s.t.\ \alpha_n \ne 0
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/25/ML-MLT-0-deductionSVM/" itemprop="url">
-                  机器学习技法第一课——Linear Support Vector Machine
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-25T13:01:10+08:00" content="2016-05-25">
-              2016-05-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>此文是学习林轩田老师的机器学习技法第一课——Linear Support Vector Machine——的课堂笔记，有关 SVM 公式推导。</p>
-<h3 id="参考">参考</h3>
-<ul>
-<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
-<li><a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a></li>
-<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/201_handout.pdf" target="_blank" rel="noopener">课件</a></li>
-</ul>
-<h3 id="单层感知器">（单层）感知器</h3>
-<p>感知器 (Perceptron) 利用超平面 <span class="math display">\[\mathbf{w} \cdot \mathbf{x} = b \]</span> 进行二元分类。其中，<span class="math inline">\(\mathbf{x} = (x_1, x_2, ..., x_n)\)</span>，<span class="math inline">\(\mathbf{w} = (w_1, w_2, ..., w_n)\)</span>。</p>
-<p>一个数据 <span class="math inline">\((\mathbf{x},y)\)</span> 中，<span class="math inline">\(\mathbf{x}\)</span> 作为输入，一个特征向量，可代表一个实体，而输出 <span class="math inline">\(y \in \{-1, 1\}\)</span> 则标记该实体的类别。Perceptron 希望找到一个超平面，即确定参数 <span class="math inline">\(\mathbf{w}, b\)</span>， 能对一组数据 <span class="math inline">\(\{(\mathbf{x_1}, y_1), (\mathbf{x_2}, y_2),...,(\mathbf{x_n}, y_n),\}\)</span> 进行分类，使得对每组 <span class="math inline">\((\mathbf{x}, y)\)</span> 都有：当 <span class="math inline">\(y &gt; 0\)</span> 时，<span class="math inline">\(\mathbf{w} \cdot \mathbf{x} &gt; b\)</span>, 否则，<span class="math inline">\(\mathbf{w} \cdot \mathbf{x} &lt; b\)</span>。</p>
-<p>例子，考虑输入为二维向量，每个数据表现为一个点，而超平面视作一条直线，Perceptron 所做的是，对多个数据点，找到一条直线将有不同标记（-1或1）的点分开。</p>
-<h3 id="公式推导">公式推导</h3>
-<p>SVM 在 Perceptron 上更进一步，不仅要求能够找到一个超平面，而且要求这个超平面能能够尽量容忍误差。就 <em>Perceptron</em> 一节所举例子，SVM 要求该直线尽可能远离数据点，使得如果数据点因为误差而偏移，该直线也可能正确分类。</p>
-<p>这可以理解成要求向量到超平面的距离尽可能大。在 <a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a> 的 <em>点与超平面距离与 SVM</em> 一节中已经说明距离可以表示为 <span class="math display">\[
-d = \left| \frac{\mathbf{w \cdot x}}{\mathbf{|w|}} - \frac{b}{\mathbf{|w|}} \right| = \frac {1} {|\mathbf{w}|} |\mathbf{w \cdot x} - b|
-\]</span> 这时，目标可以转换成求使“最小的 d” “最大” 的 <span class="math inline">\(\mathbf{w}, b\)</span>，“最小的d”指所有向量与某组 <span class="math inline">\(\mathbf{w}, b\)</span> 所确定的超平面的距离的最小值，“最大” 则指所有 <span class="math inline">\(\mathbf{w}, b\)</span> 组各自对应的 “最小的 d” 中最大的。翻译成符号： <span class="math display">\[
-\max_{b, \mathbf{w}} margin(b, \mathbf{w})  \\\\
-subject\ to \ every\ y_n(\mathbf{w^T x_n} - b) &gt; 0  \\\\
-margin(b, \mathbf{w}) = \min_{n=1,..,N} \frac {1}{|\mathbf{w}|} |\mathbf{w^T x_n} - b|
-\]</span> 其中，margin 可理解成距离，subject to 表示限制。即要求在可分类的情况下，求解出每组 <span class="math inline">\((b, \mathbf{w})\)</span> 最小的距离，再选取其中最大的。注：<span class="math inline">\(\min\)</span> 内部，<span class="math inline">\(n\)</span> 作为变量，而 <span class="math inline">\(\max\)</span> 内部， <span class="math inline">\(\mathbf{w}, b\)</span> 作为变量。</p>
-<p>课程中将其转换为二次规划（Quadratic programming）问题求解。</p>
-<p><strong><em>去绝对值</em></strong>，<span class="math inline">\(|\mathbf{w^T x_n} - b|\)</span> 转换成 <span class="math inline">\(y_n(\mathbf{w^T x_n} - b)\)</span>。</p>
-<p><strong><em>令 <span class="math inline">\(y_n(\mathbf{w^T x_n} - b)=1\)</span></em></strong>（可以等于任一大于0常数），考虑到 <span class="math inline">\(\mathbf{w}, b\)</span> 作为求解变量可以乘以一个常数 k 进行放缩同时保持超平面不变，而 <span class="math inline">\(|\mathbf{w}|\)</span> 会抵消 k 带来的影响并保持 margin 不变，所以这步变换与原式等价。这使得 <span class="math display">\[margin = \min_{n=1,..,N} \frac {1}{|\mathbf{w}|} \]</span> 而且，这可以去除限制 <span class="math inline">\(y_n(\mathbf{w^T x_n} - b) &gt; 0\)</span>，变换为： <span class="math display">\[
-\max_{b, \mathbf{w}} \frac {1}{|\mathbf{w}|} \\\\
-subject\ to \ [\min_{n=1,..,N} y_n(\mathbf{w^T x_n} - b)]=1
-\]</span></p>
-<p><strong><em>令 <span class="math inline">\(y_n(\mathbf{w^T x_n} - b) \ge 1\)</span></em></strong>，要求对于所有的 <span class="math inline">\(n\)</span> 都成立（上步仅要求最小值处成立）。这是合乎情理的，因为对于被放缩的某组 <span class="math inline">\(\mathbf{w}, b\)</span>，距离最小值为1，则该组所有值都应不小于1。好处是限制条件不必做最小化操作。课程中也给出证明，说明此步与原式等价，在此不赘述。</p>
-<p><strong><em>求最大值变为求最小值，去掉倒数与绝对值</em></strong>。最终变换成一个所谓简单的二次规划问题为 <span class="math display">\[
-\min_{b, \mathbf{w}} \mathbf{w^T w} \\\\
-subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
-\]</span></p>
-<h3 id="支持向量">支持向量</h3>
-<p>所谓支持向量，即距离最佳超平面最近的向量。它们“支持”了最佳超平面，而丢失其他向量对最佳超平面没有影响。对最佳 <span class="math inline">\((\mathbf{w}, b)\)</span> 支持向量满足： <span class="math display">\[y(\mathbf{w^T x} - b) = 1\]</span></p>
-<h3 id="更强容错能力">更强容错能力</h3>
-<p>直觉上认为 SVM 有更强的容错能力。课程中比较了一般正则仳与 SVM： | | minimize | constraint| |:—–:|:—–:|:——-:| regularization | <span class="math inline">\(E_{in}\)</span> | <span class="math inline">\(\mathbf{w^T w} \le C\)</span> SVM | <span class="math inline">\(\mathbf{w^T w}\)</span> | <span class="math inline">\(E_{in} = 0\)</span> [and more] 可看出 SVM 实际上做了与正则化相似的工作，而正则化能提高模型的容错能力。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2204,7 +2203,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2221,7 +2220,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -240,6 +240,159 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/10/Math-PrStats-largeNumbers/" itemprop="url">
+                  大数定律与中心极限定理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-10T22:08:47+08:00" content="2016-09-10">
+              2016-09-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Math/" itemprop="url" rel="index">
+                    <span itemprop="name">Math</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="概率论与数理统计">概率论与数理统计</a>
+<p>参考： <a href="http://www.cnblogs.com/vamei/p/3460965.html" target="_blank" rel="noopener">中心极限定律 - Vamei</a></p>
+<h3 id="随机变量序列收敛的定义">随机变量序列收敛的定义</h3>
+<h4 id="依概率收敛">依概率收敛</h4>
+<p>有随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span>， 和随机变量（或常数） X，如果对任意给定的正数 <span class="math inline">\(\epsilon\)</span>， 有</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} P\{ |X_n-X| &lt; \epsilon \} = 1 \]</span></p>
+<p>则称 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 依概率收敛于 <span class="math inline">\(X\)</span></p>
+<h4 id="依分布收敛">依分布收敛</h4>
+<p>有随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span>， 和随机变量（或常数） X，分别对应分布函数 <span class="math inline">\(F_n(x)\)</span> 和 <span class="math inline">\(F(x)\)</span>， 如果在 <span class="math inline">\(F(x)\)</span> 的连续点 <span class="math inline">\(x\)</span> 处均有：</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} F_n(x) = F(x) \]</span></p>
+<p>则称 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 依分布收敛于 <span class="math inline">\(X\)</span></p>
+<h3 id="大数定律">大数定律</h3>
+<p>随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 对应期望 <span class="math inline">\(E(X_i)\)</span> 都存在，对任意正实数 <span class="math inline">\(\epsilon\)</span> 有</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} P\{|\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i) | &lt; \epsilon \} = 1 \]</span></p>
+<p>即 <span class="math inline">\(Y_n=\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i)\)</span> （n=1, 2, 3…）依概率收敛于零，则称该随机变量序列服从大数定律。</p>
+<h4 id="切比雪夫大数定律">切比雪夫大数定律</h4>
+<p>随机变量序列中每个变量期望与方差存在，且方差有界，则该随机变量序列服从大数定律</p>
+<h4 id="辛软大数定律">辛软大数定律</h4>
+<p>随机变量序列 <strong>相互独立同分布</strong> (IID, Independent and Identically Distributed)，数学期望存在，则该随机变量序列服从大数定律</p>
+<h4 id="伯努利大数定律">伯努利大数定律</h4>
+<p>设 m 是 n 重伯努利试验中事件 A 出现的次数， p 是 A 在每次试验中发生的频率，则对任意给定的正数 <span class="math inline">\(\epsilon\)</span>， 有</p>
+<p><span class="math display">\[ \lim_{n \rightarrow \infty} P\{ |\frac{m}{n} - p| &lt; \epsilon \} = 1 \]</span></p>
+<p>其实是随机变量服从伯努利分布的辛软大数定律的形式</p>
+<h3 id="中心极限定理">中心极限定理</h3>
+<p>随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 的 <strong>标准化随机变量序列</strong> 通项为</p>
+<p><span class="math display">\[ Z_n = \frac{\sum X_i - \sum E(X_i)}{\sqrt{\sum D(X_i)}},\quad (n = 1,\;2,\;...) \]</span></p>
+<p>记 <span class="math inline">\(Z_n\)</span> 的分布函数为 <span class="math inline">\(F_n(z)\)</span>， 如果满足</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} F_n(z) = \Phi(z) \]</span></p>
+<p>即随机变量序列 <strong><span class="math inline">\(\{Z_n\}\)</span> 依分布收敛于标准正态分布</strong>，则称随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 服从中心极限定理。</p>
+<h4 id="独立同分布中心极限定理">独立同分布中心极限定理</h4>
+<p>随机变量序列相互独立同分布，且期望与方差存在，则服从中心极限定理。</p>
+<p><span class="math inline">\(E(X)=\mu,\;D(x)=\sigma\)</span>， 常用计算公式：</p>
+<p><span class="math display">\[ P\{ x_1 \le \sum_{i=1}^n X_i \le x_2 \} = P\{ \frac{x_1 - n\mu}{\sqrt{n\sigma}} \le Z_n \le \frac{x_2 - n\mu}{\sqrt{n\sigma}}\} \approx \Phi(\frac{x_2 - n\mu}{\sqrt{n\sigma}}) - \Phi(\frac{x_1 - n\mu}{\sqrt{n\sigma}}) \]</span></p>
+<h4 id="棣莫弗拉普拉斯中心极限定理">棣莫弗——拉普拉斯中心极限定理</h4>
+<p>随机变量 <span class="math inline">\(Y_n \sim B(n,p),\; (n=1,\;2,...)\)</span>， 则对任意实数 <span class="math inline">\(x\)</span> 有</p>
+<p><span class="math display">\[ \lim_{n \rightarrow \infty} P\{ \frac{Y_n - np}{\sqrt{np(1-p)}} \le x\} = \Phi(x) \]</span></p>
+<p>其实是随机变量序列相互独立同伯努利分布的中心极限定理表现形式</p>
+<h3 id="相关">相关</h3>
+<h4 id="切比雪夫不等式">切比雪夫不等式</h4>
+<p>随机变量 X 的期望与方差存在，则对任意正常数 <span class="math inline">\(\epsilon\)</span>， 下列不等式成立：</p>
+<p><span class="math display">\[ P\{ |X - E(x)| \ge \epsilon \} \le \frac{D(X)}{\epsilon^2}, \quad 即\; P\{ |X - E(x)| &lt; \epsilon \} \ge 1 - \frac{D(X)}{\epsilon^2} \]</span></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/08/Math-PrStats-twoVariable/" itemprop="url">
                   二维随机变量及其概率分布
                 </a>
@@ -1873,134 +2026,11 @@ Y=y+3
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/14/Math-PrStats-bootstrapping/" itemprop="url">
-                  Bootstrapping
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-14T16:12:50+08:00" content="2016-08-14">
-              2016-08-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Bootstrapping 是统计学上通过对样本 <strong>重采样（re-sampling）</strong> 来估计样本分布情况，并将结果作为总体分布的参考。其背后的思想是样本与总体独立同分布，用样本分布估计总体分布似乎合理。重采样方式是，对样本做 <em>有放回的随机抽取</em> 以得到“新样本”。</p>
-<p>Bootstrapping 取名自美国俚语 “pull oneself up by one’s bootstraps”，呵呵，用自己的提靴带把自己提起来，现指做事充分利用自身条件，所以被称为自助法，又称提靴法。</p>
-<p><a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)" target="_blank" rel="noopener">Bootstrapping (statistics)——wikipedia</a> 上有个估计世界上人的身高均值的例子。当然，统计所有人身高是不现实的，所以可以抽取容量为 N 的样本，算出均值。但是，这个值有多可信呢？这需要知道总体的分布情况。这时可以采用 Bootstrapping。通过在样本中做有放回的随机抽样，抽取到容量为 N 的“新样本”，计算其均值。重复该步骤许多次（典型的1000或10000次），得到一系列身高均值数据，也就能估计总体均值的大致分布了，进而计算均值的置信区间。</p>
-<p>Bootstrapping 的优势在于对一系列估计量——如相关系数的置信区间——的简单直接的计算方式，引自 Wikipedia ：</p>
-<blockquote>
-<p>A great advantage of bootstrap is its simplicity. It is a straightforward way to derive estimates of standard errors and confidence intervals for complex estimators of complex parameters of the distribution, such as percentile points, proportions, odds ratio, and correlation coefficients.</p>
-</blockquote>
-<h3 id="参考">参考</h3>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)" target="_blank" rel="noopener">Bootstrapping (statistics)——Wikipedia</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2041,7 +2071,7 @@ Y=y+3
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2058,7 +2088,7 @@ Y=y+3
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

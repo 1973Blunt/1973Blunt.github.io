@@ -96,7 +96,8 @@
 <meta property="og:image" content="http://yoursite.com/2018/04/01/Speech-cheatSheet/DFT-matrix.PNG">
 <meta property="og:image" content="http://yoursite.com/2018/04/01/Speech-cheatSheet/DCT.PNG">
 <meta property="og:image" content="http://yoursite.com/2018/04/01/Speech-cheatSheet/IDCT.PNG">
-<meta property="og:updated_time" content="2018-04-08T01:31:27.841Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/01/Speech-cheatSheet/two-wave-same-samples.PNG">
+<meta property="og:updated_time" content="2018-04-14T14:19:28.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Speech Cheat Sheet">
 <meta name="twitter:description" content="复数 \[z=a+bi\] 复数的表示 坐标表示，分为实部\(a\)，虚部\(b\)： \[z=a+bi\] 三角形式，\(r\)表示模，\(\theta\)为幅角 \[z=r(\cos\theta + i\sin \theta)\] 指数形式 \[z=re^{i\theta}\] 欧拉公式 \[ e^{ix}=\cos x+i\sin x \]  共轭复数 \[z=a-bi\] 四则">
@@ -315,16 +316,29 @@
 <p><span class="math display">\[ a \cdot (c+di) = ac + adi \]</span> <span class="math display">\[ {(a+bi)}^2 = (a^2 - b^2) + 2abi \]</span></p>
 <h4 id="模">模</h4>
 <p><span class="math display">\[ |a + bi| = \sqrt{a^2 + b^2} \]</span> 模的平方 <span class="math display">\[ {|a + bi|}^2 = a^2 + b^2 \]</span></p>
+<h4 id="复数与幅度相位">复数与幅度、相位</h4>
+<p>用<span class="math inline">\(R\)</span>表示幅度，<span class="math inline">\(φ\)</span>表示相位，则有： <span class="math display">\[ a+ib = R e^{jφ} = R\cos φ + iR\sin φ  \]</span> 所以有： <span class="math display">\[ a=R\cos φ, \quad b = R\sin φ \]</span> 得到： <span class="math display">\[ R=\sqrt{a^2+b^2}, \quad φ=\arctan \frac{b}{a} \]</span></p>
+<h3 id="时频域变换">时频域变换</h3>
+<p>为什么要将时域信号转换到频域？因为一些在时域上不显著的特征，在频域上表现很明显。</p>
 <h4 id="离散傅里叶变换dft">离散傅里叶变换（DFT）</h4>
-<p>参考<a href="http://www.robots.ox.ac.uk/~sjrob/Teaching/SP/l7.pdf" target="_blank" rel="noopener">网上课件</a> <span class="math display">\[ F[n] = \sum_{k=0}^{N-1} f[k] e^{-i \frac{2\pi}{N} n k} \quad (n=0:N-1) \]</span> <img src="/2018/04/01/Speech-cheatSheet/DFT-matrix.PNG" title="DFT equation in matrix"></p>
+<p>参考<a href="http://www.robots.ox.ac.uk/~sjrob/Teaching/SP/l7.pdf" target="_blank" rel="noopener">网上课件</a> <span class="math display">\[ F[n] = \sum_{k=0}^{N-1} f[k] e^{-i \frac{2\pi}{N} n k} \quad (n=0:N-1) \]</span> 上式计算了长度为<span class="math inline">\(N\)</span>的信号<span class="math inline">\(f(k)\)</span>的频域表示<span class="math inline">\(F(n)\)</span>。注意<span class="math inline">\(F(n)\)</span>的长度也是<span class="math inline">\(N\)</span>，这是从连续傅里叶变换推导出DFT确定的。 <img src="/2018/04/01/Speech-cheatSheet/DFT-matrix.PNG" title="DFT equation in matrix"></p>
 <p>逆变换： <span class="math display">\[ f[k] = \frac{1}{N} \sum_{n=0}^{N-1} F[n] e^{+i \frac{2\pi}{N} n k} \]</span> 对应的逆矩阵是原始（对称）矩阵的复共轭的<span class="math inline">\(\frac{1}{N}\)</span>倍</p>
 <h4 id="离散余弦变换dct">离散余弦变换（DCT）</h4>
 <p>参考<a href="http://www.ecsutton.ece.ufl.edu/dip/handouts/dct.pdf" target="_blank" rel="noopener">网上课件1</a>，<a href="https://adeetc.thothapp.com/classes/PSTR/1516i/MI1N-MT3N/resources/7115" target="_blank" rel="noopener">课件2</a></p>
 <p><span class="math display">\[ C_x(k) = \sum_{n=0}^{N-1} 2x(n) \cos(\frac{\pi}{2N} k (2n+1) ) \]</span> 其中<span class="math inline">\(x\)</span>是信号。用<span class="math inline">\(W_{2N}\)</span>表示<span class="math inline">\(2N\)</span>长度的DFT转换矩阵基本元素，<span class="math inline">\(Y(k)\)</span>表示DFT频点，则有： <span class="math display">\[ C_x(k) = W_{2N}^{k/2} Y(k)  \]</span></p>
 <p>利用DFT计算DCT的过程： <img src="/2018/04/01/Speech-cheatSheet/DCT.PNG" title="用DFT计算DCT"></p>
 <p>用IDFT计算DCT逆运算（IDCT）： <img src="/2018/04/01/Speech-cheatSheet/IDCT.PNG" title="用IDFT计算IDCT"></p>
-<h4 id="复数与幅度相位">复数与幅度、相位</h4>
-<p>用<span class="math inline">\(R\)</span>表示幅度，<span class="math inline">\(φ\)</span>表示相位，则有： <span class="math display">\[ a+ib = R e^{jφ} = R\cos φ + iR\sin φ  \]</span> 所以有： <span class="math display">\[ a=R\cos φ, \quad b = R\sin φ \]</span> 得到： <span class="math display">\[ R=\sqrt{a^2+b^2}, \quad φ=\arctan \frac{b}{a} \]</span></p>
+<h3 id="信号处理原理">信号处理原理</h3>
+<h4 id="采样定理">采样定理</h4>
+<p>采样是将一个信号（例如时间或空间上连续的函数）转换为数字序列（时间或空间上离散的函数）的过程。定义：为了能由离散信号恢复原来的连续信号，采样频率应该不小于连续信号频谱中最高频率的2倍。可直觉上理解为一个信号周期内，需要由两个点确定波形的走向。</p>
+<h5 id="混叠现象">混叠现象</h5>
+<p>如果采样频率低于模拟信号最高频率的2倍，会产生混叠现象，即高于采样频率一半的频率成分将被重建成低于采样频率一半的信号。在直觉上可以理解，如果采样频率过低，高频信号采样点可能与低频信号重叠，我们无法根据这些采样点分辨是高频或低频信号。 <img src="/2018/04/01/Speech-cheatSheet/two-wave-same-samples.PNG" title="两个高低频信号的采样点可能相同"></p>
+<h4 id="不确定性原理">不确定性原理</h4>
+<p><strong><em>频率分辨率</em></strong> 是指频谱分析中能够分辨的两个相邻频率点谱线的最小间距。在DFT中，用<span class="math inline">\(Fs\)</span>表示采样频率，<span class="math inline">\(N\)</span>表示采样点数目，<span class="math inline">\(t\)</span>表示序列的时长，则频率分辨率可以表示为： <span class="math display">\[ \Delta f = \frac{F_s}{N} = \frac{F_s}{F_s t} = \frac{1}{t}\]</span></p>
+<p>不确定性原理最初定义在量子力学领域，后来被用于其他领域，包括信号处理。在DFT中，表现为频率分辨率与时间分辨率不能同时无限提升。（<a href="http://blog.sciencenet.cn/blog-347232-498666.html" target="_blank" rel="noopener">参考博文</a>）</p>
+<h3 id="信号处理技术">信号处理技术</h3>
+<h4 id="压缩感知">压缩感知</h4>
+<p>压缩感知（Compressed sensing），也被称为压缩采样（Compressive sampling）或稀疏采样（Sparse sampling），是一种寻找欠定线性系统的稀疏解的技术。这个方法利用讯号稀疏的特性，相较于奈奎斯特理论（采样定理），得以从较少的测量值还原出原来整个欲得知的讯号。（<a href="https://zh.wikipedia.org/wiki/%E5%A3%93%E7%B8%AE%E6%84%9F%E7%9F%A5" target="_blank" rel="noopener">wikipedia</a>）</p>
 
       
     </div>
@@ -365,6 +379,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/12/Tensorflow-cheatSheet/" rel="prev" title="Tensorflow-cheatSheet">
+                Tensorflow-cheatSheet <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -432,7 +450,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -449,7 +467,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -478,7 +496,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#复数"><span class="nav-number">1.</span> <span class="nav-text">复数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复数的表示"><span class="nav-number">1.1.</span> <span class="nav-text">复数的表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共轭复数"><span class="nav-number">1.2.</span> <span class="nav-text">共轭复数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四则运算"><span class="nav-number">1.3.</span> <span class="nav-text">四则运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四则运算的推论"><span class="nav-number">1.4.</span> <span class="nav-text">四则运算的推论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模"><span class="nav-number">1.5.</span> <span class="nav-text">模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散傅里叶变换dft"><span class="nav-number">1.6.</span> <span class="nav-text">离散傅里叶变换（DFT）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散余弦变换dct"><span class="nav-number">1.7.</span> <span class="nav-text">离散余弦变换（DCT）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复数与幅度相位"><span class="nav-number">1.8.</span> <span class="nav-text">复数与幅度、相位</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#复数"><span class="nav-number">1.</span> <span class="nav-text">复数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复数的表示"><span class="nav-number">1.1.</span> <span class="nav-text">复数的表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共轭复数"><span class="nav-number">1.2.</span> <span class="nav-text">共轭复数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四则运算"><span class="nav-number">1.3.</span> <span class="nav-text">四则运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四则运算的推论"><span class="nav-number">1.4.</span> <span class="nav-text">四则运算的推论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模"><span class="nav-number">1.5.</span> <span class="nav-text">模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复数与幅度相位"><span class="nav-number">1.6.</span> <span class="nav-text">复数与幅度、相位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时频域变换"><span class="nav-number">2.</span> <span class="nav-text">时频域变换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#离散傅里叶变换dft"><span class="nav-number">2.1.</span> <span class="nav-text">离散傅里叶变换（DFT）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#离散余弦变换dct"><span class="nav-number">2.2.</span> <span class="nav-text">离散余弦变换（DCT）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号处理原理"><span class="nav-number">3.</span> <span class="nav-text">信号处理原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#采样定理"><span class="nav-number">3.1.</span> <span class="nav-text">采样定理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#混叠现象"><span class="nav-number">3.1.1.</span> <span class="nav-text">混叠现象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不确定性原理"><span class="nav-number">3.2.</span> <span class="nav-text">不确定性原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号处理技术"><span class="nav-number">4.</span> <span class="nav-text">信号处理技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩感知"><span class="nav-number">4.1.</span> <span class="nav-text">压缩感知</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
