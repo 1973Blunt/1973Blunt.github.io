@@ -240,6 +240,183 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/31/ML-MLT-1-dualSVM/" itemprop="url">
+                  机器学习技法第二课——Dual Support Vector Machine
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-31T10:49:11+08:00" content="2016-05-31">
+              2016-05-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文是学习林轩田老师的机器学习技法第二课——Dual Support Vector Machine——的课堂笔记，有关 SVM 公式推导。</p>
+<p>给定原公式： <span class="math display">\[
+\frac{1}{2}\min_{b, \mathbf{w}} \mathbf{w^T w} \\\\
+s.t. \ y_n(\mathbf{w^T \mathbf{x_n}} + b) \ge 1
+\]</span> （为简化求解，公式与前次笔记稍有不同，但等价）这节课做了一系列的变换，最终有什么效果呢？</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
+<li><a href="/2016/05/25/ML-MLT-0-deductionSVM/" title="linear SVM">linear SVM</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0" target="_blank" rel="noopener">拉格朗日乘数</a></li>
+<li><a href="http://www.cnblogs.com/90zeng/p/Lagrange_duality.html" target="_blank" rel="noopener">简易解说拉格朗日对偶（Lagrange duality）</a></li>
+<li><a href="http://xiaoyc.com/duality-theory-for-optimization/" target="_blank" rel="noopener">优化问题中的对偶性理论</a></li>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/202_handout.pdf" target="_blank" rel="noopener">课件</a></li>
+</ul>
+<h3 id="拉格朗日乘数法">拉格朗日乘数法</h3>
+<p>拉格朗日乘数法可以把限制条件和目标函数结合成一个整体。原公式整合成： <span class="math display">\[
+L(b, \mathbf{w}, \alpha) = \frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n(\mathbf{w^T \mathbf{x_n}} + b))
+\]</span> SVM 求解公式变为： <span class="math display">\[
+\min_{b,\mathbf{w}} (\max_{all\ \alpha_n \ge 0}L(b, \mathbf{w}, \alpha)) = \min_{b, \mathbf{w}}(\infty\ if\ violate;\ \mathbf{w^T w}\ if\ feasible)
+\]</span></p>
+<h3 id="拉格朗日对偶问题">拉格朗日对偶问题</h3>
+<p>利用对偶问题，对上步的求解公式取下限： <span class="math display">\[
+\min_{b,\mathbf{w}} (\max_{all\ \alpha_n \ge 0}L(b, \mathbf{w}, \alpha)) \ge \max_{all\ \alpha’_n \ge 0} (\min_{b,\mathbf{w}} L(b, \mathbf{w}, \alpha&#39;))
+\]</span> 至于为何成立我没有细究，只能说这符合直觉。因为，考虑 <span class="math inline">\(L(b, \mathbf{w}, \alpha)\)</span> 为一个波动的函数，视 <span class="math inline">\(\max\)</span> 为取波峰， <span class="math inline">\(\min\)</span> 取波谷，那么从波峰中最小的应该不小于波谷中最大的。</p>
+<p>有证明表示，对拉格朗日对偶问题，如果满足 <strong><em>强对偶</em></strong> 的三个条件，原始函数为凸函数、原始问题可解、原始限制条件是线性的，就可以在上式中取等，而 SVM 刚好满足。 : P</p>
+<h3 id="关于-alpha-函数">关于 <span class="math inline">\(\alpha\)</span> 函数</h3>
+<p>接下来对求解公式做2步“简化”，使之成为仅关于 <span class="math inline">\(\alpha\)</span> 的函数。</p>
+<p><strong><em>去 <span class="math inline">\(b\)</span>：</em></strong> 考虑在极值点，变量的梯度都应该为 <span class="math inline">\(0\)</span>，所以 <span class="math inline">\(b\)</span> 的梯度 <span class="math display">\[-\sum_{n=1}^N \alpha_n y_n = 0\]</span> 把该式置于条件中并化简，得到求解公式等价式： <span class="math display">\[
+\max_{\alpha_n} \min_\mathbf{w}(\frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n \mathbf{w^T \mathbf{x_n}})) \\\\
+s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
+\]</span></p>
+<p><strong><em>去 <span class="math inline">\(\mathbf{w}\)</span>：</em></strong>　<span class="math inline">\(\mathbf{w}\)</span> 的梯度 <span class="math display">\[\mathbf{w}_i - \sum_{n=1}^N \alpha_n y_n x_{n,i} = 0 \\\\
+\Rightarrow \mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}\]</span> 把该式置于条件中并经过化简，得到最终的求解公式： <span class="math display">\[
+\max_{\alpha_n} (-\frac{1}{2}|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 + \sum_{n=1}^{N}\alpha_n) \\\\
+s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0,\ \mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}
+\]</span> 注意其中的 <span class="math inline">\(\mathbf{x_n}\)</span> 及其求和均为向量，原本的求最小因为消去 <span class="math inline">\(b, \mathbf{w}\)</span> 而除去。</p>
+<h3 id="kkt-条件">KKT 条件</h3>
+<p>对凸优化问题，KKT 条件是一组解成为最优解的充分必要条件。（见<a href="http://xiaoyc.com/duality-theory-for-optimization/" target="_blank" rel="noopener">“优化问题中的对偶性理论”</a>）而 SVM 求解原式和对偶式（强对偶）都有最优解，所以最优解满足 KKT 条件。 这其中有 2 个条件可以用于从最最优 <span class="math inline">\(\alpha\)</span> 中解出最做优 <span class="math inline">\(b, \mathbf{w}\)</span> <span class="math display">\[
+\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n} \\\\
+\alpha_n(1 - y_n(\mathbf{w^T \mathbf{x_n}} + b)) = 0
+\]</span></p>
+<h3 id="二次规划求解">二次规划求解</h3>
+<p>与上一课一样，因为求解问题是一个二次规划问题，所以可以借助相关的工具。在此之前，需要做一些变换。</p>
+<p><strong><em>最大化变最小化</em></strong>　　最优化工具往往求最小值。求解公式取相反数： <span class="math display">\[
+\min_{\alpha_n} (\frac{1}{2}|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 - \sum_{n=1}^{N}\alpha_n) \\\\
+\]</span></p>
+<p><strong><em>隐藏 <span class="math inline">\(\mathbf{w}\)</span> 的限制条件</em></strong>　　使公式完全变为关于 <span class="math inline">\(\alpha\)</span> 的函数，剩下的 <span class="math inline">\(x, y\)</span> 都是已知量 <span class="math display">\[
+s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
+\]</span></p>
+<p><strong><em>展露二次项系数</em></strong>　　求解公式中二次项系数不易发现，做拆分： <span class="math display">\[|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 \\\\
+=(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})^\mathbf{T}(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})
+=(\sum_{m=1}^{N} \alpha_m y_m \mathbf{x_m^T})(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})\\\\
+=\sum_{m=1}^{N} \sum_{n=1}^{N} y_m \mathbf{x_m^T}  y_n \mathbf{x_n} \alpha_m \alpha_n
+\]</span> 注意该式原始是2个（由多个向量求和得到的）向量的内积，最后一步变换使用了向量的分配律。可见，二次项 <span class="math inline">\(\alpha_m \alpha_n\)</span> 的系数为 <span class="math inline">\(y_m \mathbf{x_m^T} y_n \mathbf{x_n}\)</span>。</p>
+<p>最后给出 <strong><em>完整公式</em></strong>： <span class="math display">\[
+\min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m \mathbf{x_m^T}  y_n \mathbf{x_n} \alpha_m \alpha_n - \sum_{n=1}^{N}\alpha_n) \\\\
+s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
+\]</span> 利用二次规划工具解决该问题，解出 <span class="math inline">\(\alpha\)</span> 后，再利用 KKT 公式的2个条件，解出 <span class="math inline">\(\mathbf{w}, b\)</span>: <span class="math display">\[
+\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n} \\\\
+b = y_n - \mathbf{w^T \mathbf{x_n}}\ ,\  s.t.\ \alpha_n \ne 0
+\]</span></p>
+<p>值得注意的是，二次项系数矩阵是 <span class="math inline">\(N \times N\)</span> 的大型矩阵，而且并非上节课的对角矩阵，需要专为 SVM 设计的二次规划求解工具。</p>
+<h3 id="sv-与后续">SV 与后续</h3>
+<p>很明显，利用 <span class="math inline">\(\alpha\)</span> 求解 <span class="math inline">\(\mathbf{w}, b\)</span> 时，如果 <span class="math inline">\(\alpha_i\)</span> 为0，对求解没有影响。也就是说，对应 <span class="math inline">\(\alpha_i = 0\)</span> 的向量（数据点）对求解没有影响。联系上节课，即对应 <span class="math inline">\(\alpha_i \gt 0\)</span> 的向量为支持向量（SV）。</p>
+<p>课程中对原始向量 <span class="math inline">\(\mathbf{x}\)</span> 做了向N维向量 <span class="math inline">\(\mathbf{z}\)</span> 的映射，<span class="math inline">\(\mathbf{x}\)</span> 替换成 <span class="math inline">\(\mathbf{z}\)</span> 后对推导没有影响。而这节课的变换似乎没有简化求解，至于为何目的，只有后续揭晓了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/25/ML-MLT-0-deductionSVM/" itemprop="url">
                   机器学习技法第一课——Linear Support Vector Machine
                 </a>
@@ -706,6 +883,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global -l # 查看全局配置</span><br><span class="line">git diff HEAD -- filename # 比较</span><br></pre></td></tr></table></figure>
 <h4 id="撤销操作">撤销操作</h4>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD    # 撤销上次 add 操作</span><br></pre></td></tr></table></figure>
+<p>更详细的教程<a href="https://github.com/geeeeeeeeek/git-recipes/wiki/5.2-%E4%BB%A3%E7%A0%81%E5%9B%9E%E6%BB%9A%EF%BC%9AReset%E3%80%81Checkout%E3%80%81Revert-%E7%9A%84%E9%80%89%E6%8B%A9" target="_blank" rel="noopener">代码回滚：Reset、Checkout、Revert-的选择</a></p>
 <h4 id="diff-比较">diff 比较</h4>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git diff  # 比较工作区与缓存区</span><br><span class="line">git diff --cached   # 比较缓存区与仓库（HEAD）</span><br><span class="line">git diff HEAD   # 比较工作区与仓库（HEAD）</span><br></pre></td></tr></table></figure>
 <h4 id="换行符差异">换行符差异</h4>
@@ -1709,154 +1887,6 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/10/C-Cpp-baseDataType/" itemprop="url">
-                  C/C++ 基本数据类型
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-10T20:37:14+08:00" content="2016-05-10">
-              2016-05-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="整型">整型</h3>
-<h4 id="占用-bits">占用 bits</h4>
-<ul>
-<li>char <span class="math inline">\(\leq\)</span> short <span class="math inline">\(\leq\)</span> int <span class="math inline">\(\leq\)</span> long <span class="math inline">\(\leq\)</span> long long</li>
-<li>char 占用1字节，unsigned最大值255</li>
-<li>short 至少占用16 bit，unsigned最大值65535，6万多</li>
-<li>long 至少占用32 bit，unsigned最大值4294967295，40多亿</li>
-</ul>
-<h4 id="相关库">相关库</h4>
-<p>用&lt;climits&gt;, &lt;limits.h&gt;头文件查看最值 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;limits.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> max = INT_MAX;</span><br><span class="line"><span class="keyword">int</span> min = INT_MIN;</span><br></pre></td></tr></table></figure></p>
-<h4 id="signed-与-unsigned">signed 与 unsigned</h4>
-<p>整型默认signed，只有char由实现定义</p>
-<h4 id="其它">其它</h4>
-<ul>
-<li>int 被编译器认为是“最自然”的整型。在运算时，比 int “低级”的类型会转换成int类型处理</li>
-<li>% 运算符，对于负整数的处理，可视为：a % b = a - (a/b) * b</li>
-</ul>
-<h3 id="浮点数">浮点数</h3>
-<h4 id="占用-bits-1">占用 bits</h4>
-<ul>
-<li>浮点数的指数部分至少从-37取到37，也就是取值范围（正数）至少是E-37 ~ E+37</li>
-<li>float <span class="math inline">\(\leq\)</span> double <span class="math inline">\(\leq\)</span> long double</li>
-<li>float 至少占用32 bit</li>
-<li>double 至少占用48 bit</li>
-</ul>
-<h4 id="存储结构">存储结构</h4>
-<p>分为2部分，一是指数部分 <span class="math inline">\(e\)</span>，二是尾数部分 <span class="math inline">\(r\)</span>，所表示的值为 <span class="math inline">\(r \times 10^e\)</span>，这就像把 <span class="math inline">\(r\)</span> 作为整数的小数点移动 <span class="math inline">\(e\)</span> 位一样，所以称为浮点数。</p>
-<h4 id="相关库-1">相关库</h4>
-<p>&lt;cfloat&gt;, &lt;float.h&gt;对浮点数有相关限定 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;float.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> max = FLT_MAX; <span class="comment">// double: DBL_MAX, long dboule: LDBL_MAX</span></span><br><span class="line"><span class="keyword">float</span> min = FLT_MIN; <span class="comment">// double: DBL_MIN, long dboule: LDBL_MIN</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="其它-1">其它</h4>
-<p>常量小数默认为 double，如需float加f或F，需long double加L</p>
-<h3 id="参考">参考</h3>
-<ul>
-<li>《C++ primer plus》 6th Edition by Stephen Prata.</li>
-<li><a href="http://en.cppreference.com/w/cpp/language/types" target="_blank" rel="noopener">cppreference.com: Fundamental types</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1902,7 +1932,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

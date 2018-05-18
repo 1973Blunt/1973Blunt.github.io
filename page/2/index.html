@@ -240,6 +240,163 @@
             
               
                 
+                <a class="post-title-link" href="/2017/01/19/ML-F-PCA/" itemprop="url">
+                  主成分分析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-19T17:07:22+08:00" content="2017-01-19">
+              2017-01-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="http://www.qiujiawei.com/linear-algebra-17/" target="_blank" rel="noopener">线性代数之主成分分析(PCA)算法</a></li>
+<li><a href="http://ufldl.stanford.edu/wiki/index.php/%E7%99%BD%E5%8C%96" target="_blank" rel="noopener">白化</a></li>
+<li><a href="https://my.oschina.net/findbill/blog/543485" target="_blank" rel="noopener">白化（Whitening）：PCA vs. ZCA</a></li>
+</ul>
+<h3 id="原理">原理</h3>
+<p>PCA最终目的是对表示 <span class="math inline">\(m\)</span> 条 <span class="math inline">\(n\)</span> 维（n个特征）数据的矩阵 <span class="math inline">\(X_{m \times n}\)</span> 做线性变换，得到矩阵 <span class="math inline">\(Y_{m \times n}\)</span>，再从中选取 k 维：</p>
+<p><span class="math display">\[ Y_{m \times n} = X_{m \times n} P_{n \times n} \]</span></p>
+<p><strong>怎样求解变换矩阵 <span class="math inline">\(P\)</span>？</strong> 我们想要的理想效果是 <span class="math inline">\(Y\)</span> 的 <span class="math inline">\(n\)</span> 个维度相互独立，这样每个维度保留各自的特征互不干扰，然后选取 <span class="math inline">\(n\)</span> 个维度中方差最大的 k 个维度，包含最丰富的信息。</p>
+<p>先介绍矩阵 <span class="math inline">\(X\)</span> 协方差矩阵的计算公式，这里假设已经处理 <span class="math inline">\(X\)</span> 每个维度使之均值为0：</p>
+<p><span class="math display">\[ C_X = \frac{1}{n}\sum_{i=1}^{m}(X[:,i]^T X[:,i]) = \frac{1}{n} X^TX \]</span></p>
+<p>其中 <span class="math inline">\(X[:,i]\)</span> 表示取 <span class="math inline">\(X\)</span> 的第 <span class="math inline">\(i\)</span> 列特征。这里引入 <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="协方差">协方差</a> 的概念，如果两个随机变量相互独立，那么它们的协方差为0。协方差矩阵的每个元素 <span class="math inline">\(c_{ij}\)</span> 等于对应 <span class="math inline">\(i,j\)</span> 维度的协方差，而对角元素等于对应维度的方差，所以我们的目标是 <strong>使 <span class="math inline">\(Y\)</span> 的协方差矩阵为对角矩阵</strong>。</p>
+<p>同样，有：</p>
+<p><span class="math display">\[ C_Y = \frac{1}{n} Y^T Y = \frac{1}{n} (XP)^T(XP) = P^T (\frac{1}{n}X^TX) P \\
+= P^T C_X P \]</span></p>
+<p>因为 <span class="math inline">\(C_X\)</span> 为实对称矩阵，故能够进行对角化：</p>
+<p><span class="math display">\[ C_X = S\Lambda S^{-1} = S\Lambda S^{T}\]</span></p>
+<p>其中 <span class="math inline">\(\Lambda\)</span> 为对角矩阵，其对角线元素为 <span class="math inline">\(C_X\)</span> 的特征值，而 <span class="math inline">\(S\)</span> 是正交矩阵，有 <span class="math inline">\(S^TS=I\)</span>。容易想到，如果令 <span class="math inline">\(P=S\)</span>：</p>
+<p><span class="math display">\[ C_Y = (P^TS) \Lambda (P^TS)^T = \Lambda \]</span></p>
+<p>这就成功将 <span class="math inline">\(C_Y\)</span> 变换为对角矩阵，所以顺利解得 <span class="math inline">\(P=S\)</span>。</p>
+<p>最后一步选取 <span class="math inline">\(n\)</span> 维中方差最大的 <span class="math inline">\(k\)</span> 维以达到降维的最终目的。<span class="math inline">\(C_Y\)</span> 的对角元素对应 <span class="math inline">\(Y\)</span> 每个维度的方差，所以我们只需保留 <span class="math inline">\(k\)</span> 个最大对角元对应的 <span class="math inline">\(P\)</span> 的 <span class="math inline">\(k\)</span> 个列向量，同时也是 <span class="math inline">\(C_X\)</span> 的 <span class="math inline">\(k\)</span> 个最大特征值对应的特征向量，得到 <span class="math inline">\(n \times k\)</span> 的变换矩阵 <span class="math inline">\(P\)</span>，最后做线性变换 <span class="math inline">\(Y=XP\)</span>。</p>
+<h3 id="实战">实战</h3>
+<p><span class="math inline">\(m\)</span> 条 <span class="math inline">\(n\)</span> 维数据由矩阵 <span class="math inline">\(X_{m \times n}\)</span> 表示。以下是处理步骤：</p>
+<ol type="1">
+<li>对 <span class="math inline">\(X\)</span> 每个维度做中心化（可进一步做标准化）</li>
+<li>求协方差矩阵 <span class="math inline">\(C_X = X^TX\)</span></li>
+<li>对角化： <span class="math inline">\(C_X = S\Lambda S^{T}\)</span></li>
+<li>从 <span class="math inline">\(S\)</span> 中挑选 <span class="math inline">\(k\)</span> 列特征值（<span class="math inline">\(\Lambda\)</span> 对角元）最大的特征向量得到 <span class="math inline">\(P\)</span></li>
+<li><span class="math inline">\(Y_{m\times k}=X_{m\times n}P_{n\times k}\)</span></li>
+</ol>
+<p>调用 sklearn API： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data  <span class="comment"># 加载实验数据，有 4 维</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> decomposition</span><br><span class="line"><span class="comment"># 调用只需这一句，n_components 指定降维后的维度数 3</span></span><br><span class="line">pX = decomposition.PCA(n_components=<span class="number">3</span>).fit_transform(X)</span><br></pre></td></tr></table></figure></p>
+<p>python 实现： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data <span class="comment"># 加载实验数据，有 4 维</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line">n_components = <span class="number">3</span> <span class="comment"># 指定降维后的维度数 3</span></span><br><span class="line"></span><br><span class="line">Xm = X - X.mean(axis=<span class="number">0</span>) <span class="comment"># 中心化</span></span><br><span class="line">Cx = Xm.T.dot(Xm) <span class="comment"># 协方差矩阵</span></span><br><span class="line">ev, S = LA.eigh(Cx) <span class="comment"># 对角化，S 特征向量按特征值升序排列</span></span><br><span class="line">P = S[:, [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>-n_components, <span class="number">4</span>)]] <span class="comment"># 选取特征向量，构造变换矩阵</span></span><br><span class="line">pX = Xm.dot(P)  <span class="comment"># 线性变换</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="白化">白化</h3>
+<p>白化的目的：</p>
+<ul>
+<li>特征之间相关性较低</li>
+<li>所有特征具有相同的方差</li>
+</ul>
+<p>前者可以用 <strong>不降维</strong> 的PCA做到。假设已经通过PCA得到变换矩阵 <span class="math inline">\(P_{n\times n}\)</span>，则 <span class="math inline">\(Y_{m \times n}=X_{m \times n}P_{n \times n}\)</span>。接下来需要达到后一个目标，使 <span class="math inline">\(C_Y=I\)</span>。</p>
+<h4 id="pca白化">PCA白化</h4>
+<p>由于 <span class="math inline">\(C_Y = \frac{1}{n} Y^T Y= \Lambda\)</span>，所以只需更新 <span class="math inline">\(Y_{PCAwhite}=Y\Lambda^{-1/2}\)</span></p>
+<h4 id="zca白化">ZCA白化</h4>
+<p>ZCA (Zero-phase Component Analysis Whitening) 在PCA白化的基础上，把数据变换回原空间。更新公式 <span class="math inline">\(Y_{ZCAwhite}=Y_{PCAwhite}P^T\)</span>，可检验 <span class="math inline">\(C_Y\)</span>，仍满足单位矩阵。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/01/18/ML-NN-backpropagation/" itemprop="url">
                   神经网络之反向传播与自编码器
                 </a>
@@ -1752,224 +1909,6 @@ F_\lambda = \varphi(x,y) = 0
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/13/Math-Calculus-multiIntegral/" itemprop="url">
-                  重积分
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-13T20:42:19+08:00" content="2016-09-13">
-              2016-09-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="意义">意义</h3>
-<table>
-<thead>
-<tr class="header">
-<th>微元 <span class="math inline">\(d\Omega\)</span></th>
-<th style="text-align: center;">典型具象</th>
-<th style="text-align: center;"><span class="math inline">\(f(x) \cdot d\Omega\)</span> 典型具象</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(dx\)</span></td>
-<td style="text-align: center;">线段微元</td>
-<td style="text-align: center;">面积或线质量</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(dx\;dy\)</span></td>
-<td style="text-align: center;">面积微元</td>
-<td style="text-align: center;">体积或面质量</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(dx\;dy\;dz\)</span></td>
-<td style="text-align: center;">体积微元</td>
-<td style="text-align: center;">体积质量</td>
-</tr>
-</tbody>
-</table>
-<p>用 <span class="math inline">\(f(x) dx\)</span> 或 <span class="math inline">\(1\cdot dx\,dy\)</span> 都可以在数值上求面积，类似的还有体积</p>
-<h3 id="性质">性质</h3>
-<p><strong>线性</strong>， <strong>区域可加性</strong>， <strong>保序性</strong> 可见微积分笔记中定积分性质。</p>
-<h4 id="估值定理">估值定理</h4>
-<p>设 K 与 k 分别为 f(M) 在闭区间 <span class="math inline">\(\Omega\)</span> 上的最大最小值，则</p>
-<p><span class="math display">\[ k \cdot (\Omega 的度量) \le \int_\Omega f(M) d\Omega  \le K \cdot (\Omega 的度量) \]</span></p>
-<h4 id="积分中值定理">积分中值定理</h4>
-<p>设 <span class="math inline">\(f(M)\)</span> 在闭区间 <span class="math inline">\(\Omega\)</span> 上连续，则 <span class="math inline">\(\exists M_0 \in \Omega\)</span>， 使得</p>
-<p><span class="math display">\[ \int_\Omega f(M) d\Omega = f(M_0) \cdot (\Omega 的度量) \]</span></p>
-<h4 id="对称性">对称性</h4>
-<p>当积分域 <span class="math inline">\(\Omega\)</span> 关于 <span class="math inline">\(x=0\)</span> 对称时，<br>
-若被积函数 <span class="math inline">\(f(M)\)</span> 关于变量 <span class="math inline">\(x\)</span> 为奇函数，则 <span class="math inline">\(\int_\Omega f(M) d\Omega=0\)</span><br>
-若被积函数 <span class="math inline">\(f(M)\)</span> 关于变量 <span class="math inline">\(x\)</span> 为偶函数，则 <span class="math inline">\(\int_\Omega f(M) d\Omega=2\int_{\Omega(x&gt;0)} f(M) d\Omega\)</span></p>
-<h3 id="二重积分计算">二重积分计算</h3>
-<h4 id="直角坐标系">直角坐标系</h4>
-<p>以下以先 x 后 y 为例：<br>
-先积 x 的积分区域应该 <strong>可沿 x 轴投影而不重叠</strong> —— 所有平行于 x 轴的直线与积分区域的交点不超过 2 个 —— 如果不是，可考虑交换积分顺序或对区域分割。</p>
-<ol type="1">
-<li>作 x - y 图</li>
-<li>画 x 轴平行线，探测 x 积分区间 <span class="math inline">\((x_1(y),\; x_2(y))\)</span></li>
-<li>将积分区域沿 x 轴投影，得到 y 积分区间 <span class="math inline">\((y_1, y_2)\)</span></li>
-<li>用公式积分，注意对 x 积分时，视 y 为常数</li>
-</ol>
-<p>积分公式：</p>
-<p><span class="math display">\[ \int_{y_1}^{y_2} \int_{x_1(y)}^{x_2(y)} f(x, y) dx\,dy \]</span></p>
-<h4 id="极坐标系">极坐标系</h4>
-<p>r 表示到原点距离， <span class="math inline">\(\theta\)</span> 表示与 x 轴夹角。如果被积函数含有 <span class="math inline">\(x^2+y^2\)</span>， <span class="math inline">\(\frac{y}{x}\)</span> 或 D 的边界含有圆弧时，可以考虑用极坐标。直角坐标与极坐标互换：</p>
-<p><span class="math display">\[ \underset{D}{\int\int} f(x,y) dx\,dy = \underset{D}{\int\int} f(r \cos \theta, r \sin \theta) r \,dr\,d\theta \]</span></p>
-<p>极坐标系积分思想与直角坐标系积分类似。习惯先积 <span class="math inline">\(r\)</span> 再积 <span class="math inline">\(\theta\)</span>。</p>
-<h3 id="三重积分计算">三重积分计算</h3>
-<h4 id="直角坐标-投影法">直角坐标 —— 投影法</h4>
-<p>又称 <strong>先一后二</strong>。 参考二重积分，其积分过程大概是：作轴平行线，找积分区间，沿轴投影，如此循环。以下以先 z 后 x、y 的顺序积分。<br>
-同样，先积 z 的积分区域应该可沿 z 轴投影而不重叠，如果不是，可考虑交换积分顺序或对区域分割。</p>
-<ol type="1">
-<li>作 x - y - z 图</li>
-<li>画 z 轴平行线，探测 z 积分区间 <span class="math inline">\((z_1(x,y), z_2(x,y))\)</span></li>
-<li>将积分区域沿 z 轴投影，同时对 z 积分</li>
-<li>对 x、y 继续做二重积分</li>
-</ol>
-<p>积分公式：</p>
-<p><span class="math display">\[ \underset{D_{xy}}{\int\int}dx\,dy\int_{z_1(x,y)}^{z_2(x,y)} f(x,y,z) dz \]</span></p>
-<h4 id="直角坐标-截面法">直角坐标 —— 截面法</h4>
-<p>又称 <strong>切片法</strong> 或 <strong>先二后一</strong>。 以下以先 x、y 后 z 为例：</p>
-<p>习惯上满足 2 个条件，先二后一比先一后二更容易：</p>
-<ol type="1">
-<li>被积函数是关于 z 的一元函数 <span class="math inline">\(f(z)\)</span></li>
-<li>垂直于 z 轴的截面易知，可含参数 z</li>
-</ol>
-<p>计算步骤：</p>
-<ol type="1">
-<li>作 x - y -z 图</li>
-<li>作垂直于 z 轴的截面，计算 x、y 积分区域 <span class="math inline">\(D_{xy}\)</span>, 其中 z 可视作常数</li>
-<li>将整个积分区域投影到 z 轴，得到 z 的积分区间 <span class="math inline">\((z_1, z_2)\)</span></li>
-<li>用积分公式计算</li>
-</ol>
-<p><span class="math display">\[ \int_{z_1}^{z_2} f(z) dz \underset{D_{xy}}{\int\int} dx\,dy \]</span></p>
-<h4 id="柱面坐标系">柱面坐标系</h4>
-<p>底面为极坐标系，z 轴与之垂直。与直角坐标系的转化：</p>
-<p><span class="math display">\[ \underset{D}{\int\int\int} f(x,y,z) dx\,dy\,dz= \underset{D}{\int\int\int} f(r\cos \theta, r\sin \theta, z) r \, dr\, d\theta\,dz \]</span></p>
-<p>如果被积函数含有如 <span class="math inline">\(x^2+y^2\)</span> 形式，或 D 的边界含有圆柱时，使用柱面积分可能比较容易。积分步骤参考直角坐标系的投影法及截面法。</p>
-<h4 id="球面坐标系">球面坐标系</h4>
-<ul>
-<li><span class="math inline">\(\rho\)</span> —— 点到原点距离</li>
-<li><span class="math inline">\(\varphi\)</span> —— 与正 z 轴夹角 <span class="math inline">\(\in [0,\pi]\)</span></li>
-<li><span class="math inline">\(\theta\)</span> —— 与 x 轴夹角</li>
-</ul>
-<p>与直角坐标系的转化：</p>
-<p><span class="math display">\[ \underset{D}{\int\int\int} f(x,y,z) dx\,dy\,dz= \underset{D}{\int\int\int} f(\rho \sin \varphi \cos \theta,\; \rho \sin \varphi \sin \theta,\; \rho \cos \varphi) \rho^2 \sin \varphi \, d\rho \, d\varphi\,d\theta \]</span></p>
-<p>如果被积函数含有如 <span class="math inline">\(x^2+y^2+z^2\)</span> 形式，或 D 的边界含有球时，使用球面积分可能比较容易。积分步骤参考直角体系的投影法。</p>
-<h3 id="物理应用">物理应用</h3>
-<h4 id="质心">质心</h4>
-<p><strong>密度均匀</strong> 时，有</p>
-<p><span class="math display">\[ \overline{x} = \frac{\int_{\Omega} x \,d\Omega}{\int_{\Omega} \,d\Omega},\quad \overline{y} = \frac{\int_{\Omega} y \,d\Omega}{\int_{\Omega} \,d\Omega},\quad \overline{z} = \frac{\int_{\Omega} z \,d\Omega}{\int_{\Omega} \,d\Omega} \]</span></p>
-<h3 id="解题技巧">解题技巧</h3>
-<h4 id="变换积分顺序或方法">变换积分顺序或方法</h4>
-<p>证明题中可能用上</p>
-<h4 id="轮换">轮换</h4>
-<p>被积函数与积分区域可轮换时适用</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2015,7 +1954,7 @@ F_\lambda = \varphi(x,y) = 0
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

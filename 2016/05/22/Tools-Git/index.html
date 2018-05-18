@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="HotSummer">
 <meta property="og:description" content="gitignore 项目下 .gitignore 文件与项目下 .git/info/exclude 文件都可以使 git 在文件或目录未添加进记录前被忽略。前者应该被团队共享，而后者应该作为个人的配置。因为后者在 .git 目录下，其改变被 git 忽略，不会影响其他人。  .gitignore 模板 使用 .git/info/exclude 作为个人配置，.gitignore 作为团队配">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-06T08:09:03.097Z">
+<meta property="og:updated_time" content="2018-05-16T19:28:50.222Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="My Git Cheat Sheet">
 <meta name="twitter:description" content="gitignore 项目下 .gitignore 文件与项目下 .git/info/exclude 文件都可以使 git 在文件或目录未添加进记录前被忽略。前者应该被团队共享，而后者应该作为个人的配置。因为后者在 .git 目录下，其改变被 git 忽略，不会影响其他人。  .gitignore 模板 使用 .git/info/exclude 作为个人配置，.gitignore 作为团队配">
@@ -310,6 +310,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global -l # 查看全局配置</span><br><span class="line">git diff HEAD -- filename # 比较</span><br></pre></td></tr></table></figure>
 <h4 id="撤销操作">撤销操作</h4>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD    # 撤销上次 add 操作</span><br></pre></td></tr></table></figure>
+<p>更详细的教程<a href="https://github.com/geeeeeeeeek/git-recipes/wiki/5.2-%E4%BB%A3%E7%A0%81%E5%9B%9E%E6%BB%9A%EF%BC%9AReset%E3%80%81Checkout%E3%80%81Revert-%E7%9A%84%E9%80%89%E6%8B%A9" target="_blank" rel="noopener">代码回滚：Reset、Checkout、Revert-的选择</a></p>
 <h4 id="diff-比较">diff 比较</h4>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git diff  # 比较工作区与缓存区</span><br><span class="line">git diff --cached   # 比较缓存区与仓库（HEAD）</span><br><span class="line">git diff HEAD   # 比较工作区与仓库（HEAD）</span><br></pre></td></tr></table></figure>
 <h4 id="换行符差异">换行符差异</h4>
@@ -429,7 +430,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

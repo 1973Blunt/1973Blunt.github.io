@@ -240,6 +240,122 @@
             
               
                 
+                <a class="post-title-link" href="/2018/05/18/Speech-tech/" itemprop="url">
+                  Speech相关技术基础
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-18T22:27:45+08:00" content="2018-05-18">
+              2018-05-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Speech/" itemprop="url" rel="index">
+                    <span itemprop="name">Speech</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="安装librosa">安装librosa</h4>
+<p>Windows Anaconda环境下安装librosa： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge librosa</span><br></pre></td></tr></table></figure></p>
+<p>Ubuntu下报错 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to <span class="built_in">set</span> LLVM_CONFIG to the right executable path.</span><br></pre></td></tr></table></figure></p>
+<p>解决办法，确认<code>ls /usr/bin/ | grep llvm-config</code>后缀版本是否是<code>6.0.x</code>，如果不是则属于版本不对应的问题，方案一是升级或降级llvmlite，方案二是安装对应版本的llvmlite和librosa。比如，当llvmlite版本是<code>0.5</code>，方案二应该安装： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install llvmlite==0.22 numba==0.36.1 librosa==0.5</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/04/12/Tensorflow-cheatSheet/" itemprop="url">
                   Tensorflow-cheatSheet
                 </a>
@@ -304,9 +420,10 @@
         
           
             <h4 id="卷积padding参数">卷积padding参数</h4>
-<p>参考<a href="https://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t" target="_blank" rel="noopener">stackoverflow上的问答</a>，输入向量长13，卷积核长6，步长5，以此为例： + <code>&quot;VALID&quot;</code> = without padding: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)</span><br><span class="line">               |________________|                dropped</span><br><span class="line">                              |_________________|</span><br></pre></td></tr></table></figure></p>
+<p>参考<a href="https://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t" target="_blank" rel="noopener">stackoverflow上的问答</a>，输入向量长13，卷积核长6，步长5，以此为例：</p>
 <ul>
-<li><code>&quot;SAME&quot;</code> = with zero padding: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">            pad|                                      |pad</span><br><span class="line">inputs:      0 |1  2  3  4  5  6  7  8  9  10 11 12 13|0  0</span><br><span class="line">            |________________|</span><br><span class="line">                           |_________________|</span><br><span class="line">                                          |________________|</span><br></pre></td></tr></table></figure></li>
+<li><p><code>&quot;VALID&quot;</code> = without padding: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)</span><br><span class="line">               |________________|                dropped</span><br><span class="line">                              |_________________|</span><br></pre></td></tr></table></figure></p></li>
+<li><p><code>&quot;SAME&quot;</code> = with zero padding: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">            pad|                                      |pad</span><br><span class="line">inputs:      0 |1  2  3  4  5  6  7  8  9  10 11 12 13|0  0</span><br><span class="line">            |________________|</span><br><span class="line">                           |_________________|</span><br><span class="line">                                          |________________|</span><br></pre></td></tr></table></figure></p></li>
 </ul>
 
           
@@ -1328,163 +1445,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/19/ML-F-PCA/" itemprop="url">
-                  主成分分析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-01-19T17:07:22+08:00" content="2017-01-19">
-              2017-01-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。</p>
-<h3 id="参考">参考</h3>
-<ul>
-<li><a href="http://www.qiujiawei.com/linear-algebra-17/" target="_blank" rel="noopener">线性代数之主成分分析(PCA)算法</a></li>
-<li><a href="http://ufldl.stanford.edu/wiki/index.php/%E7%99%BD%E5%8C%96" target="_blank" rel="noopener">白化</a></li>
-<li><a href="https://my.oschina.net/findbill/blog/543485" target="_blank" rel="noopener">白化（Whitening）：PCA vs. ZCA</a></li>
-</ul>
-<h3 id="原理">原理</h3>
-<p>PCA最终目的是对表示 <span class="math inline">\(m\)</span> 条 <span class="math inline">\(n\)</span> 维（n个特征）数据的矩阵 <span class="math inline">\(X_{m \times n}\)</span> 做线性变换，得到矩阵 <span class="math inline">\(Y_{m \times n}\)</span>，再从中选取 k 维：</p>
-<p><span class="math display">\[ Y_{m \times n} = X_{m \times n} P_{n \times n} \]</span></p>
-<p><strong>怎样求解变换矩阵 <span class="math inline">\(P\)</span>？</strong> 我们想要的理想效果是 <span class="math inline">\(Y\)</span> 的 <span class="math inline">\(n\)</span> 个维度相互独立，这样每个维度保留各自的特征互不干扰，然后选取 <span class="math inline">\(n\)</span> 个维度中方差最大的 k 个维度，包含最丰富的信息。</p>
-<p>先介绍矩阵 <span class="math inline">\(X\)</span> 协方差矩阵的计算公式，这里假设已经处理 <span class="math inline">\(X\)</span> 每个维度使之均值为0：</p>
-<p><span class="math display">\[ C_X = \frac{1}{n}\sum_{i=1}^{m}(X[:,i]^T X[:,i]) = \frac{1}{n} X^TX \]</span></p>
-<p>其中 <span class="math inline">\(X[:,i]\)</span> 表示取 <span class="math inline">\(X\)</span> 的第 <span class="math inline">\(i\)</span> 列特征。这里引入 <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="协方差">协方差</a> 的概念，如果两个随机变量相互独立，那么它们的协方差为0。协方差矩阵的每个元素 <span class="math inline">\(c_{ij}\)</span> 等于对应 <span class="math inline">\(i,j\)</span> 维度的协方差，而对角元素等于对应维度的方差，所以我们的目标是 <strong>使 <span class="math inline">\(Y\)</span> 的协方差矩阵为对角矩阵</strong>。</p>
-<p>同样，有：</p>
-<p><span class="math display">\[ C_Y = \frac{1}{n} Y^T Y = \frac{1}{n} (XP)^T(XP) = P^T (\frac{1}{n}X^TX) P \\
-= P^T C_X P \]</span></p>
-<p>因为 <span class="math inline">\(C_X\)</span> 为实对称矩阵，故能够进行对角化：</p>
-<p><span class="math display">\[ C_X = S\Lambda S^{-1} = S\Lambda S^{T}\]</span></p>
-<p>其中 <span class="math inline">\(\Lambda\)</span> 为对角矩阵，其对角线元素为 <span class="math inline">\(C_X\)</span> 的特征值，而 <span class="math inline">\(S\)</span> 是正交矩阵，有 <span class="math inline">\(S^TS=I\)</span>。容易想到，如果令 <span class="math inline">\(P=S\)</span>：</p>
-<p><span class="math display">\[ C_Y = (P^TS) \Lambda (P^TS)^T = \Lambda \]</span></p>
-<p>这就成功将 <span class="math inline">\(C_Y\)</span> 变换为对角矩阵，所以顺利解得 <span class="math inline">\(P=S\)</span>。</p>
-<p>最后一步选取 <span class="math inline">\(n\)</span> 维中方差最大的 <span class="math inline">\(k\)</span> 维以达到降维的最终目的。<span class="math inline">\(C_Y\)</span> 的对角元素对应 <span class="math inline">\(Y\)</span> 每个维度的方差，所以我们只需保留 <span class="math inline">\(k\)</span> 个最大对角元对应的 <span class="math inline">\(P\)</span> 的 <span class="math inline">\(k\)</span> 个列向量，同时也是 <span class="math inline">\(C_X\)</span> 的 <span class="math inline">\(k\)</span> 个最大特征值对应的特征向量，得到 <span class="math inline">\(n \times k\)</span> 的变换矩阵 <span class="math inline">\(P\)</span>，最后做线性变换 <span class="math inline">\(Y=XP\)</span>。</p>
-<h3 id="实战">实战</h3>
-<p><span class="math inline">\(m\)</span> 条 <span class="math inline">\(n\)</span> 维数据由矩阵 <span class="math inline">\(X_{m \times n}\)</span> 表示。以下是处理步骤：</p>
-<ol type="1">
-<li>对 <span class="math inline">\(X\)</span> 每个维度做中心化（可进一步做标准化）</li>
-<li>求协方差矩阵 <span class="math inline">\(C_X = X^TX\)</span></li>
-<li>对角化： <span class="math inline">\(C_X = S\Lambda S^{T}\)</span></li>
-<li>从 <span class="math inline">\(S\)</span> 中挑选 <span class="math inline">\(k\)</span> 列特征值（<span class="math inline">\(\Lambda\)</span> 对角元）最大的特征向量得到 <span class="math inline">\(P\)</span></li>
-<li><span class="math inline">\(Y_{m\times k}=X_{m\times n}P_{n\times k}\)</span></li>
-</ol>
-<p>调用 sklearn API： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data  <span class="comment"># 加载实验数据，有 4 维</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> decomposition</span><br><span class="line"><span class="comment"># 调用只需这一句，n_components 指定降维后的维度数 3</span></span><br><span class="line">pX = decomposition.PCA(n_components=<span class="number">3</span>).fit_transform(X)</span><br></pre></td></tr></table></figure></p>
-<p>python 实现： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data <span class="comment"># 加载实验数据，有 4 维</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line">n_components = <span class="number">3</span> <span class="comment"># 指定降维后的维度数 3</span></span><br><span class="line"></span><br><span class="line">Xm = X - X.mean(axis=<span class="number">0</span>) <span class="comment"># 中心化</span></span><br><span class="line">Cx = Xm.T.dot(Xm) <span class="comment"># 协方差矩阵</span></span><br><span class="line">ev, S = LA.eigh(Cx) <span class="comment"># 对角化，S 特征向量按特征值升序排列</span></span><br><span class="line">P = S[:, [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>-n_components, <span class="number">4</span>)]] <span class="comment"># 选取特征向量，构造变换矩阵</span></span><br><span class="line">pX = Xm.dot(P)  <span class="comment"># 线性变换</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="白化">白化</h3>
-<p>白化的目的：</p>
-<ul>
-<li>特征之间相关性较低</li>
-<li>所有特征具有相同的方差</li>
-</ul>
-<p>前者可以用 <strong>不降维</strong> 的PCA做到。假设已经通过PCA得到变换矩阵 <span class="math inline">\(P_{n\times n}\)</span>，则 <span class="math inline">\(Y_{m \times n}=X_{m \times n}P_{n \times n}\)</span>。接下来需要达到后一个目标，使 <span class="math inline">\(C_Y=I\)</span>。</p>
-<h4 id="pca白化">PCA白化</h4>
-<p>由于 <span class="math inline">\(C_Y = \frac{1}{n} Y^T Y= \Lambda\)</span>，所以只需更新 <span class="math inline">\(Y_{PCAwhite}=Y\Lambda^{-1/2}\)</span></p>
-<h4 id="zca白化">ZCA白化</h4>
-<p>ZCA (Zero-phase Component Analysis Whitening) 在PCA白化的基础上，把数据变换回原空间。更新公式 <span class="math inline">\(Y_{ZCAwhite}=Y_{PCAwhite}P^T\)</span>，可检验 <span class="math inline">\(C_Y\)</span>，仍满足单位矩阵。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1530,7 +1490,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

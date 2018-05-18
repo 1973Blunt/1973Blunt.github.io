@@ -240,6 +240,170 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/28/ML-MLT-7-adaBoost/" itemprop="url">
+                  机器学习技法第八课——Adaptive Boosting
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T22:41:16+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文是本人学习<a href="http://www.csie.ntu.edu.tw/~htlin/" target="_blank" rel="noopener">林轩田老师</a>教授的机器学习技法第八课——Adaptive Boosting——的笔记。</p>
+<p>不同于 <a href="/2016/07/23/ML-MLT-6-blendingBagging/" title="Blending and Bagging">Blending and Bagging</a>，Boosting 提供一种增强式集成学习方法，它在顺序训练各模型时，要求后面的模型着重训练前面的模型失误的数据，使得总的模型误差不断减小。Adaptive Boosting，简称 AdaBoost， 是 Boosting 中的一种。</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/208_handout.pdf" target="_blank" rel="noopener">课件</a></li>
+<li><a href="https://en.wikipedia.org/wiki/AdaBoost" target="_blank" rel="noopener">AdaBoost wikipedia</a></li>
+</ul>
+<h3 id="adaboost-的形象类比与流程概要">AdaBoost 的形象类比与流程概要</h3>
+<p>课上举的例子实在太形象了，一定得记下啊。Boosting 好比老师教一群小学生（多个模型）学习如何辨识苹果（集成学习）。这里有一堆图片（数据），其中有的是苹果的，还有不是苹果的。老师让学生 A 讲一条辨识苹果的规则（训练一个模型），然后特别指出他/她出错的图片（强调标识失败数据），让下一个同学提出新的规则（训练下一个模型），如此往复，最终可以得到一系列规则，虽然每条规则的辨识能力可能都很弱，但组合起来可能就是很强了（一系列弱模型集成为强模型）。</p>
+<p>那么，AdaBoost 的流程就比较清楚了。模型 <span class="math inline">\(g\)</span> 辨识失败的数据， <span class="math inline">\(g(\mathbf{x_n}) \ne y_n\)</span> ，称为问题数据, 辨识正确的数据，称简单数据。以下是大致流程：</p>
+<ol type="1">
+<li>依次训练各模型</li>
+<li>在一个模型训练完成后，向下一个模型强调问题数据</li>
+<li>为每个模型分配权重，集成各模型</li>
+</ol>
+<h3 id="强调问题数据">“强调”问题数据</h3>
+<p>明显流程第二点是关键。如何才能做到对模型“强调”问题数据呢？这里的“强调”，可以翻译为增加模型在问题数据上犯错的代价。在<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>，老师提到过一些方法。比如，在训练前，复制问题数据 <span class="math inline">\(n\)</span> 份，如果模型在其中一个数据上犯错，就相当于犯了 <span class="math inline">\(n\)</span> 次错，达到“强调”的目的。这里使用的方法是，如果抽取到问题数据做训练，就对 error function 乘上一个系数 <span class="math inline">\(u\)</span> （大于一）。这样，如果模型在问题数据上犯错，error 会扩大 <span class="math inline">\(u-1\)</span> 倍。以下把这种处理方法称为“为数据分配权重”。</p>
+<p>实际上，AdaBoost 不仅为问题数据分配权重，也为简单数据分配权重。不过没差，只要能达到“强调”问题数据的效果就行。这里引入 <span class="math inline">\(m\)</span>:</p>
+<p><span class="math display">\[m = \sqrt{\frac{1-e}{e}}\]</span></p>
+<p>其中 <span class="math inline">\(e\)</span> 表示模型的失误率。AdaBoost 对问题数据乘以 <span class="math inline">\(m\)</span> ，对简单数据除以 <span class="math inline">\(m\)</span> 。其中有两点值得注意。</p>
+<p>第一，如果 <span class="math inline">\(e \lt 0.5\)</span>， 则 <span class="math inline">\(m \gt 1\)</span>，问题数据确实会被“强调”；而当 <span class="math inline">\(e \gt 0.5\)</span> 时， <span class="math inline">\(m \lt 1\)</span> ，问题数据似乎不被“强调”，反而简单数据被“强调”了。其实不差，当 <span class="math inline">\(e \gt 0.5\)</span> 时，意味着模型辨识能力比瞎猜（ <span class="math inline">\(e=0.5\)</span> ）都不如，在最后模型结合时给它分配负权重，把它的辨识结果反过来，这时就应该向后面的模型“强调”简单数据。</p>
+<p>第二，注意 <span class="math inline">\(m(e)\;with\;e \gt 0\)</span> 是一个单调下降的函数。这意味着， <span class="math inline">\(e\)</span> 越小，辨识越准确，模型出错也越少， <span class="math inline">\(m\)</span> 也会越大，AdaBoost “强调问题数据”越是“厉害”。为什么在模型出错更少时“更强调”问题数据呢？这是为了平衡简单数据与问题数据的影响，进而训练出更不同（diverse）的模型（对集成学习来说，模型 diversity 越高，效果越好）。（?-?对这话的因果关系存疑）实际上， <span class="math inline">\(m\)</span> 是推导的结果（参见 <a href="https://en.wikipedia.org/wiki/AdaBoost" target="_blank" rel="noopener">AdaBoost</a>），在推导过程中似乎并未对此解释或假设，但以上论点也是比较合理的假说。</p>
+<h3 id="模型权重公式">模型权重公式</h3>
+<p><span class="math display">\[ \alpha = \ln m = \ln \sqrt{\frac{1-e}{e}}\]</span></p>
+<p>当 <span class="math inline">\(e \gt 0.5\)</span> 时， <span class="math inline">\(\alpha \lt 0\)</span>。 所以在预测能力小于0.5时，模型被分配负权重，反之，权重为正。</p>
+<h3 id="adaboost-流程">AdaBoost 流程</h3>
+<ul>
+<li><span class="math inline">\(\mathbf{u}=[\frac{1}{N},\frac{1}{N},\frac{1}{N},...]\)</span>，长度为 <span class="math inline">\(N\)</span> ，记录每个数据的权重</li>
+<li>for t=1,2,…,T
+<ul>
+<li>根据训练数据与 <span class="math inline">\(\mathbf{u}\)</span> 训练出模型 <span class="math inline">\(g_t\)</span></li>
+<li>计算</li>
+</ul>
+<p><span class="math display">\[m = \sqrt{\frac{1-e}{e}}\quad with\; e=\frac{\sum u_n[y_n \ne g_t(\mathbf{x_n})]}{\sum u_n}\]</span></p>
+<ul>
+<li><p>更新 <span class="math inline">\(\mathbf{u}\)</span></p>
+<p><span class="math display">\[u_n = \left\{ \begin{array}{l}
+u_n \cdot m,\quad y_n \ne g_t(\mathbf{x_n})\\
+u_n / m,\quad y_n = g_t(\mathbf{x_n})
+\end{array} \right.\]</span></p></li>
+<li>计算 <span class="math inline">\(\alpha_t = \ln (m)\)</span></li>
+</ul></li>
+<li><p>返回模型 <span class="math inline">\(G(\mathbf{x})=sign (\sum \alpha_t g_t(\mathbf{x}))\)</span></p></li>
+</ul>
+<h3 id="adaboost-的理论保证">AdaBoost 的理论保证</h3>
+<p>VC Bound：</p>
+<p><span class="math display">\[E_{out}(G)\le E_{in}(G) + O\left( \sqrt{O(d_{vc}(H) \cdot T\log T) \cdot \frac {\log N}{N}}  \right)\]</span></p>
+<p><span class="math inline">\(T\)</span> 表示迭代的次数，实践证明，当迭代达到 <span class="math inline">\(T=\log N\)</span> 时， <span class="math inline">\(E_{in}\)</span> 会比较小，而此时的 VC Bound 也不太大，所以 <span class="math inline">\(E_{out}\)</span> 可以做得比较小。</p>
+<h3 id="基础模型选择决策树桩">基础模型选择——决策树桩</h3>
+<p>流行选择 <a href="/2016/08/03/ML-MLT-8-decisionTree/" title="决策树桩（decision stump）">决策树桩（decision stump）</a> 作为基础模型（base algorithm）。决策树桩是深度为一的决策树，典型的弱分类器，常被用作集成学习中的基础模型。它的分类器为：</p>
+<p><span class="math display">\[h_{s,i,\theta}(\mathbf{x}) = s \cdot sign(x_i - \theta)\]</span></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/23/ML-MLT-6-blendingBagging/" itemprop="url">
                   机器学习技法第七课——Blending and Bagging
                 </a>
@@ -1767,6 +1931,7 @@ with\ \mathbf{z}=exp(-x^2)(1, \sqrt{\frac{2}{1!}} x, \sqrt{\frac{2^2}{2!}}x^2, .
 <p>进入下载安装包目录，运行 setup.py 程序： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码安装</span></span><br><span class="line">cd download_dir</span><br><span class="line">python setup.py install <span class="comment"># 运行 setup.py 安装程序</span></span><br><span class="line"><span class="comment"># 用 pip 安装，自动安装依赖包</span></span><br><span class="line">pip install PackageName</span><br><span class="line"><span class="comment"># 用 easy_install 安装，不推荐使用</span></span><br><span class="line">easy_install PackageName</span><br></pre></td></tr></table></figure></p>
 <h4 id="win下-anaconda-安装依赖包">win下 Anaconda 安装依赖包</h4>
 <p>进入Anaconda安装目录 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Scripts</span><br><span class="line">pip install PackageName -i https://pypi.tuna.tsinghua.edu.cn/simple/</span><br><span class="line"># -i 后接国内镜像地址url，提升速度</span><br></pre></td></tr></table></figure></p>
+<p>更换conda源（清华）： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls yes</span><br></pre></td></tr></table></figure></p>
 <h3 id="包">包</h3>
 <p>是一个包含 __init__.py 的文件夹，导入模块时需要加上包前缀，类似 Java。</p>
 <h3 id="作用域">作用域</h3>
@@ -1981,183 +2146,6 @@ with\ \mathbf{z}=exp(-x^2)(1, \sqrt{\frac{2}{1!}} x, \sqrt{\frac{2^2}{2!}}x^2, .
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/31/ML-MLT-1-dualSVM/" itemprop="url">
-                  机器学习技法第二课——Dual Support Vector Machine
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-31T10:49:11+08:00" content="2016-05-31">
-              2016-05-31
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>此文是学习林轩田老师的机器学习技法第二课——Dual Support Vector Machine——的课堂笔记，有关 SVM 公式推导。</p>
-<p>给定原公式： <span class="math display">\[
-\frac{1}{2}\min_{b, \mathbf{w}} \mathbf{w^T w} \\\\
-s.t. \ y_n(\mathbf{w^T \mathbf{x_n}} + b) \ge 1
-\]</span> （为简化求解，公式与前次笔记稍有不同，但等价）这节课做了一系列的变换，最终有什么效果呢？</p>
-<h3 id="参考">参考</h3>
-<ul>
-<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
-<li><a href="/2016/05/25/ML-MLT-0-deductionSVM/" title="linear SVM">linear SVM</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0" target="_blank" rel="noopener">拉格朗日乘数</a></li>
-<li><a href="http://www.cnblogs.com/90zeng/p/Lagrange_duality.html" target="_blank" rel="noopener">简易解说拉格朗日对偶（Lagrange duality）</a></li>
-<li><a href="http://xiaoyc.com/duality-theory-for-optimization/" target="_blank" rel="noopener">优化问题中的对偶性理论</a></li>
-<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/202_handout.pdf" target="_blank" rel="noopener">课件</a></li>
-</ul>
-<h3 id="拉格朗日乘数法">拉格朗日乘数法</h3>
-<p>拉格朗日乘数法可以把限制条件和目标函数结合成一个整体。原公式整合成： <span class="math display">\[
-L(b, \mathbf{w}, \alpha) = \frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n(\mathbf{w^T \mathbf{x_n}} + b))
-\]</span> SVM 求解公式变为： <span class="math display">\[
-\min_{b,\mathbf{w}} (\max_{all\ \alpha_n \ge 0}L(b, \mathbf{w}, \alpha)) = \min_{b, \mathbf{w}}(\infty\ if\ violate;\ \mathbf{w^T w}\ if\ feasible)
-\]</span></p>
-<h3 id="拉格朗日对偶问题">拉格朗日对偶问题</h3>
-<p>利用对偶问题，对上步的求解公式取下限： <span class="math display">\[
-\min_{b,\mathbf{w}} (\max_{all\ \alpha_n \ge 0}L(b, \mathbf{w}, \alpha)) \ge \max_{all\ \alpha’_n \ge 0} (\min_{b,\mathbf{w}} L(b, \mathbf{w}, \alpha&#39;))
-\]</span> 至于为何成立我没有细究，只能说这符合直觉。因为，考虑 <span class="math inline">\(L(b, \mathbf{w}, \alpha)\)</span> 为一个波动的函数，视 <span class="math inline">\(\max\)</span> 为取波峰， <span class="math inline">\(\min\)</span> 取波谷，那么从波峰中最小的应该不小于波谷中最大的。</p>
-<p>有证明表示，对拉格朗日对偶问题，如果满足 <strong><em>强对偶</em></strong> 的三个条件，原始函数为凸函数、原始问题可解、原始限制条件是线性的，就可以在上式中取等，而 SVM 刚好满足。 : P</p>
-<h3 id="关于-alpha-函数">关于 <span class="math inline">\(\alpha\)</span> 函数</h3>
-<p>接下来对求解公式做2步“简化”，使之成为仅关于 <span class="math inline">\(\alpha\)</span> 的函数。</p>
-<p><strong><em>去 <span class="math inline">\(b\)</span>：</em></strong> 考虑在极值点，变量的梯度都应该为 <span class="math inline">\(0\)</span>，所以 <span class="math inline">\(b\)</span> 的梯度 <span class="math display">\[-\sum_{n=1}^N \alpha_n y_n = 0\]</span> 把该式置于条件中并化简，得到求解公式等价式： <span class="math display">\[
-\max_{\alpha_n} \min_\mathbf{w}(\frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n \mathbf{w^T \mathbf{x_n}})) \\\\
-s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
-\]</span></p>
-<p><strong><em>去 <span class="math inline">\(\mathbf{w}\)</span>：</em></strong>　<span class="math inline">\(\mathbf{w}\)</span> 的梯度 <span class="math display">\[\mathbf{w}_i - \sum_{n=1}^N \alpha_n y_n x_{n,i} = 0 \\\\
-\Rightarrow \mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}\]</span> 把该式置于条件中并经过化简，得到最终的求解公式： <span class="math display">\[
-\max_{\alpha_n} (-\frac{1}{2}|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 + \sum_{n=1}^{N}\alpha_n) \\\\
-s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0,\ \mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}
-\]</span> 注意其中的 <span class="math inline">\(\mathbf{x_n}\)</span> 及其求和均为向量，原本的求最小因为消去 <span class="math inline">\(b, \mathbf{w}\)</span> 而除去。</p>
-<h3 id="kkt-条件">KKT 条件</h3>
-<p>对凸优化问题，KKT 条件是一组解成为最优解的充分必要条件。（见<a href="http://xiaoyc.com/duality-theory-for-optimization/" target="_blank" rel="noopener">“优化问题中的对偶性理论”</a>）而 SVM 求解原式和对偶式（强对偶）都有最优解，所以最优解满足 KKT 条件。 这其中有 2 个条件可以用于从最最优 <span class="math inline">\(\alpha\)</span> 中解出最做优 <span class="math inline">\(b, \mathbf{w}\)</span> <span class="math display">\[
-\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n} \\\\
-\alpha_n(1 - y_n(\mathbf{w^T \mathbf{x_n}} + b)) = 0
-\]</span></p>
-<h3 id="二次规划求解">二次规划求解</h3>
-<p>与上一课一样，因为求解问题是一个二次规划问题，所以可以借助相关的工具。在此之前，需要做一些变换。</p>
-<p><strong><em>最大化变最小化</em></strong>　　最优化工具往往求最小值。求解公式取相反数： <span class="math display">\[
-\min_{\alpha_n} (\frac{1}{2}|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 - \sum_{n=1}^{N}\alpha_n) \\\\
-\]</span></p>
-<p><strong><em>隐藏 <span class="math inline">\(\mathbf{w}\)</span> 的限制条件</em></strong>　　使公式完全变为关于 <span class="math inline">\(\alpha\)</span> 的函数，剩下的 <span class="math inline">\(x, y\)</span> 都是已知量 <span class="math display">\[
-s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
-\]</span></p>
-<p><strong><em>展露二次项系数</em></strong>　　求解公式中二次项系数不易发现，做拆分： <span class="math display">\[|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 \\\\
-=(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})^\mathbf{T}(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})
-=(\sum_{m=1}^{N} \alpha_m y_m \mathbf{x_m^T})(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})\\\\
-=\sum_{m=1}^{N} \sum_{n=1}^{N} y_m \mathbf{x_m^T}  y_n \mathbf{x_n} \alpha_m \alpha_n
-\]</span> 注意该式原始是2个（由多个向量求和得到的）向量的内积，最后一步变换使用了向量的分配律。可见，二次项 <span class="math inline">\(\alpha_m \alpha_n\)</span> 的系数为 <span class="math inline">\(y_m \mathbf{x_m^T} y_n \mathbf{x_n}\)</span>。</p>
-<p>最后给出 <strong><em>完整公式</em></strong>： <span class="math display">\[
-\min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m \mathbf{x_m^T}  y_n \mathbf{x_n} \alpha_m \alpha_n - \sum_{n=1}^{N}\alpha_n) \\\\
-s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
-\]</span> 利用二次规划工具解决该问题，解出 <span class="math inline">\(\alpha\)</span> 后，再利用 KKT 公式的2个条件，解出 <span class="math inline">\(\mathbf{w}, b\)</span>: <span class="math display">\[
-\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n} \\\\
-b = y_n - \mathbf{w^T \mathbf{x_n}}\ ,\  s.t.\ \alpha_n \ne 0
-\]</span></p>
-<p>值得注意的是，二次项系数矩阵是 <span class="math inline">\(N \times N\)</span> 的大型矩阵，而且并非上节课的对角矩阵，需要专为 SVM 设计的二次规划求解工具。</p>
-<h3 id="sv-与后续">SV 与后续</h3>
-<p>很明显，利用 <span class="math inline">\(\alpha\)</span> 求解 <span class="math inline">\(\mathbf{w}, b\)</span> 时，如果 <span class="math inline">\(\alpha_i\)</span> 为0，对求解没有影响。也就是说，对应 <span class="math inline">\(\alpha_i = 0\)</span> 的向量（数据点）对求解没有影响。联系上节课，即对应 <span class="math inline">\(\alpha_i \gt 0\)</span> 的向量为支持向量（SV）。</p>
-<p>课程中对原始向量 <span class="math inline">\(\mathbf{x}\)</span> 做了向N维向量 <span class="math inline">\(\mathbf{z}\)</span> 的映射，<span class="math inline">\(\mathbf{x}\)</span> 替换成 <span class="math inline">\(\mathbf{z}\)</span> 后对推导没有影响。而这节课的变换似乎没有简化求解，至于为何目的，只有后续揭晓了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2203,7 +2191,7 @@ b = y_n - \mathbf{w^T \mathbf{x_n}}\ ,\  s.t.\ \alpha_n \ne 0
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

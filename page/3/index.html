@@ -240,6 +240,224 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/13/Math-Calculus-multiIntegral/" itemprop="url">
+                  重积分
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-13T20:42:19+08:00" content="2016-09-13">
+              2016-09-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Math/" itemprop="url" rel="index">
+                    <span itemprop="name">Math</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
+<h3 id="意义">意义</h3>
+<table>
+<thead>
+<tr class="header">
+<th>微元 <span class="math inline">\(d\Omega\)</span></th>
+<th style="text-align: center;">典型具象</th>
+<th style="text-align: center;"><span class="math inline">\(f(x) \cdot d\Omega\)</span> 典型具象</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(dx\)</span></td>
+<td style="text-align: center;">线段微元</td>
+<td style="text-align: center;">面积或线质量</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(dx\;dy\)</span></td>
+<td style="text-align: center;">面积微元</td>
+<td style="text-align: center;">体积或面质量</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(dx\;dy\;dz\)</span></td>
+<td style="text-align: center;">体积微元</td>
+<td style="text-align: center;">体积质量</td>
+</tr>
+</tbody>
+</table>
+<p>用 <span class="math inline">\(f(x) dx\)</span> 或 <span class="math inline">\(1\cdot dx\,dy\)</span> 都可以在数值上求面积，类似的还有体积</p>
+<h3 id="性质">性质</h3>
+<p><strong>线性</strong>， <strong>区域可加性</strong>， <strong>保序性</strong> 可见微积分笔记中定积分性质。</p>
+<h4 id="估值定理">估值定理</h4>
+<p>设 K 与 k 分别为 f(M) 在闭区间 <span class="math inline">\(\Omega\)</span> 上的最大最小值，则</p>
+<p><span class="math display">\[ k \cdot (\Omega 的度量) \le \int_\Omega f(M) d\Omega  \le K \cdot (\Omega 的度量) \]</span></p>
+<h4 id="积分中值定理">积分中值定理</h4>
+<p>设 <span class="math inline">\(f(M)\)</span> 在闭区间 <span class="math inline">\(\Omega\)</span> 上连续，则 <span class="math inline">\(\exists M_0 \in \Omega\)</span>， 使得</p>
+<p><span class="math display">\[ \int_\Omega f(M) d\Omega = f(M_0) \cdot (\Omega 的度量) \]</span></p>
+<h4 id="对称性">对称性</h4>
+<p>当积分域 <span class="math inline">\(\Omega\)</span> 关于 <span class="math inline">\(x=0\)</span> 对称时，<br>
+若被积函数 <span class="math inline">\(f(M)\)</span> 关于变量 <span class="math inline">\(x\)</span> 为奇函数，则 <span class="math inline">\(\int_\Omega f(M) d\Omega=0\)</span><br>
+若被积函数 <span class="math inline">\(f(M)\)</span> 关于变量 <span class="math inline">\(x\)</span> 为偶函数，则 <span class="math inline">\(\int_\Omega f(M) d\Omega=2\int_{\Omega(x&gt;0)} f(M) d\Omega\)</span></p>
+<h3 id="二重积分计算">二重积分计算</h3>
+<h4 id="直角坐标系">直角坐标系</h4>
+<p>以下以先 x 后 y 为例：<br>
+先积 x 的积分区域应该 <strong>可沿 x 轴投影而不重叠</strong> —— 所有平行于 x 轴的直线与积分区域的交点不超过 2 个 —— 如果不是，可考虑交换积分顺序或对区域分割。</p>
+<ol type="1">
+<li>作 x - y 图</li>
+<li>画 x 轴平行线，探测 x 积分区间 <span class="math inline">\((x_1(y),\; x_2(y))\)</span></li>
+<li>将积分区域沿 x 轴投影，得到 y 积分区间 <span class="math inline">\((y_1, y_2)\)</span></li>
+<li>用公式积分，注意对 x 积分时，视 y 为常数</li>
+</ol>
+<p>积分公式：</p>
+<p><span class="math display">\[ \int_{y_1}^{y_2} \int_{x_1(y)}^{x_2(y)} f(x, y) dx\,dy \]</span></p>
+<h4 id="极坐标系">极坐标系</h4>
+<p>r 表示到原点距离， <span class="math inline">\(\theta\)</span> 表示与 x 轴夹角。如果被积函数含有 <span class="math inline">\(x^2+y^2\)</span>， <span class="math inline">\(\frac{y}{x}\)</span> 或 D 的边界含有圆弧时，可以考虑用极坐标。直角坐标与极坐标互换：</p>
+<p><span class="math display">\[ \underset{D}{\int\int} f(x,y) dx\,dy = \underset{D}{\int\int} f(r \cos \theta, r \sin \theta) r \,dr\,d\theta \]</span></p>
+<p>极坐标系积分思想与直角坐标系积分类似。习惯先积 <span class="math inline">\(r\)</span> 再积 <span class="math inline">\(\theta\)</span>。</p>
+<h3 id="三重积分计算">三重积分计算</h3>
+<h4 id="直角坐标-投影法">直角坐标 —— 投影法</h4>
+<p>又称 <strong>先一后二</strong>。 参考二重积分，其积分过程大概是：作轴平行线，找积分区间，沿轴投影，如此循环。以下以先 z 后 x、y 的顺序积分。<br>
+同样，先积 z 的积分区域应该可沿 z 轴投影而不重叠，如果不是，可考虑交换积分顺序或对区域分割。</p>
+<ol type="1">
+<li>作 x - y - z 图</li>
+<li>画 z 轴平行线，探测 z 积分区间 <span class="math inline">\((z_1(x,y), z_2(x,y))\)</span></li>
+<li>将积分区域沿 z 轴投影，同时对 z 积分</li>
+<li>对 x、y 继续做二重积分</li>
+</ol>
+<p>积分公式：</p>
+<p><span class="math display">\[ \underset{D_{xy}}{\int\int}dx\,dy\int_{z_1(x,y)}^{z_2(x,y)} f(x,y,z) dz \]</span></p>
+<h4 id="直角坐标-截面法">直角坐标 —— 截面法</h4>
+<p>又称 <strong>切片法</strong> 或 <strong>先二后一</strong>。 以下以先 x、y 后 z 为例：</p>
+<p>习惯上满足 2 个条件，先二后一比先一后二更容易：</p>
+<ol type="1">
+<li>被积函数是关于 z 的一元函数 <span class="math inline">\(f(z)\)</span></li>
+<li>垂直于 z 轴的截面易知，可含参数 z</li>
+</ol>
+<p>计算步骤：</p>
+<ol type="1">
+<li>作 x - y -z 图</li>
+<li>作垂直于 z 轴的截面，计算 x、y 积分区域 <span class="math inline">\(D_{xy}\)</span>, 其中 z 可视作常数</li>
+<li>将整个积分区域投影到 z 轴，得到 z 的积分区间 <span class="math inline">\((z_1, z_2)\)</span></li>
+<li>用积分公式计算</li>
+</ol>
+<p><span class="math display">\[ \int_{z_1}^{z_2} f(z) dz \underset{D_{xy}}{\int\int} dx\,dy \]</span></p>
+<h4 id="柱面坐标系">柱面坐标系</h4>
+<p>底面为极坐标系，z 轴与之垂直。与直角坐标系的转化：</p>
+<p><span class="math display">\[ \underset{D}{\int\int\int} f(x,y,z) dx\,dy\,dz= \underset{D}{\int\int\int} f(r\cos \theta, r\sin \theta, z) r \, dr\, d\theta\,dz \]</span></p>
+<p>如果被积函数含有如 <span class="math inline">\(x^2+y^2\)</span> 形式，或 D 的边界含有圆柱时，使用柱面积分可能比较容易。积分步骤参考直角坐标系的投影法及截面法。</p>
+<h4 id="球面坐标系">球面坐标系</h4>
+<ul>
+<li><span class="math inline">\(\rho\)</span> —— 点到原点距离</li>
+<li><span class="math inline">\(\varphi\)</span> —— 与正 z 轴夹角 <span class="math inline">\(\in [0,\pi]\)</span></li>
+<li><span class="math inline">\(\theta\)</span> —— 与 x 轴夹角</li>
+</ul>
+<p>与直角坐标系的转化：</p>
+<p><span class="math display">\[ \underset{D}{\int\int\int} f(x,y,z) dx\,dy\,dz= \underset{D}{\int\int\int} f(\rho \sin \varphi \cos \theta,\; \rho \sin \varphi \sin \theta,\; \rho \cos \varphi) \rho^2 \sin \varphi \, d\rho \, d\varphi\,d\theta \]</span></p>
+<p>如果被积函数含有如 <span class="math inline">\(x^2+y^2+z^2\)</span> 形式，或 D 的边界含有球时，使用球面积分可能比较容易。积分步骤参考直角体系的投影法。</p>
+<h3 id="物理应用">物理应用</h3>
+<h4 id="质心">质心</h4>
+<p><strong>密度均匀</strong> 时，有</p>
+<p><span class="math display">\[ \overline{x} = \frac{\int_{\Omega} x \,d\Omega}{\int_{\Omega} \,d\Omega},\quad \overline{y} = \frac{\int_{\Omega} y \,d\Omega}{\int_{\Omega} \,d\Omega},\quad \overline{z} = \frac{\int_{\Omega} z \,d\Omega}{\int_{\Omega} \,d\Omega} \]</span></p>
+<h3 id="解题技巧">解题技巧</h3>
+<h4 id="变换积分顺序或方法">变换积分顺序或方法</h4>
+<p>证明题中可能用上</p>
+<h4 id="轮换">轮换</h4>
+<p>被积函数与积分区域可轮换时适用</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/10/Math-PrStats-largeNumbers/" itemprop="url">
                   大数定律与中心极限定理
                 </a>
@@ -1895,137 +2113,6 @@ Y=y+3
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/16/Math-Calculus-definiteIntegral/" itemprop="url">
-                  定积分
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-16T16:05:05+08:00" content="2016-08-16">
-              2016-08-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="换元积分">换元积分</h3>
-<p>注意积分上下限的变化，关键是 <strong>积分上下限与被积变量对应</strong></p>
-<h4 id="第一类换元法">第一类换元法</h4>
-<p><span class="math inline">\(g=g(x)\)</span> ，如果视 <span class="math inline">\(g\)</span> 为被积变量</p>
-<p><span class="math display">\[ \int_a^bf(g(x)) g&#39;(x) dx = \int_{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} \]</span></p>
-<p>如果仍视 <span class="math inline">\(x\)</span> 为被积变量</p>
-<p><span class="math display">\[ \int_a^bf(g(x)) g&#39;(x) dx = \int_a^b f(g(x)) dg(x) =  F(g(x))  \bigg|_{a}^b \]</span></p>
-<h4 id="第二类换元法">第二类换元法</h4>
-<p><span class="math display">\[ \int_a^bf(x) dx = \int_{x^{-1}(a)}^{x^{-1}(b)} f(x(t)) x&#39;(t) dt =  F(t)  \bigg|_{x^{-1}(a)}^{x^{-1}(b)} \]</span></p>
-<h3 id="无穷项数列和的极限">无穷项数列和的极限</h3>
-<p>可考虑使用定积分的定义：</p>
-<p><span class="math display">\[ \int_a^b f(x) dx = \lim_{n \rightarrow \infty} \frac{b-a}{n} \sum_{i=1}^n f(a+\frac{b-a}{n} i) \]</span></p>
-<p>其关键是猜测出上下限，分离出 <span class="math inline">\(\frac{b-a}{n}\)</span> ，确认 <span class="math inline">\(f(x)\)</span></p>
-<h3 id="分段积分">分段积分</h3>
-<p>对分段函数，绝对值函数等</p>
-<h3 id="变上限积分">变上限积分</h3>
-<p>注意，求导时被积函数不能包含自变量，同时，注意在积分外部，自变量不是常数。例子：</p>
-<p><span class="math display">\[ F&#39;(x) = \left( \int_0^x x f(t) dt \right)&#39; =\left( x \int_0^x  f(t) dt \right)&#39; = \int_0^x f(t) dt + x f(x)\]</span></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2071,7 +2158,7 @@ Y=y+3
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

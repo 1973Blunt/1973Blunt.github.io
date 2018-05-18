@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="HotSummer">
 <meta property="og:description" content="参考  python代码 `if not x:` 和`if x is not None:`和`if not x is None:`使用 python变量和作用域 Python 序列的切片操作与技巧  函数和常用语法 raw_input 与 input raw_input 只在 2 中存在，返回字符串，在 2 中，input 返回输入表达式的值； 3 中 input 返回字符串。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-08T10:26:39.000Z">
+<meta property="og:updated_time" content="2018-05-18T14:35:35.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 杂记">
 <meta name="twitter:description" content="参考  python代码 `if not x:` 和`if x is not None:`和`if not x is None:`使用 python变量和作用域 Python 序列的切片操作与技巧  函数和常用语法 raw_input 与 input raw_input 只在 2 中存在，返回字符串，在 2 中，input 返回输入表达式的值； 3 中 input 返回字符串。">
@@ -382,6 +382,7 @@
 <p>进入下载安装包目录，运行 setup.py 程序： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码安装</span></span><br><span class="line">cd download_dir</span><br><span class="line">python setup.py install <span class="comment"># 运行 setup.py 安装程序</span></span><br><span class="line"><span class="comment"># 用 pip 安装，自动安装依赖包</span></span><br><span class="line">pip install PackageName</span><br><span class="line"><span class="comment"># 用 easy_install 安装，不推荐使用</span></span><br><span class="line">easy_install PackageName</span><br></pre></td></tr></table></figure></p>
 <h4 id="win下-anaconda-安装依赖包">win下 Anaconda 安装依赖包</h4>
 <p>进入Anaconda安装目录 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Scripts</span><br><span class="line">pip install PackageName -i https://pypi.tuna.tsinghua.edu.cn/simple/</span><br><span class="line"># -i 后接国内镜像地址url，提升速度</span><br></pre></td></tr></table></figure></p>
+<p>更换conda源（清华）： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls yes</span><br></pre></td></tr></table></figure></p>
 <h3 id="包">包</h3>
 <p>是一个包含 __init__.py 的文件夹，导入模块时需要加上包前缀，类似 Java。</p>
 <h3 id="作用域">作用域</h3>
@@ -560,7 +561,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
