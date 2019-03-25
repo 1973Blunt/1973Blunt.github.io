@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="学习 UFLDL教程 “建立分类用深度网络”部分的笔记。 参考  建立分类用深度网络 神经网络之反向传播与自编码器  自编码器+分类器 深度网络用大量未标注数据训练自编码器（常被称为预训练），自编码器的激活单元（即隐藏神经元）可表示数据的某种特征。然后将有标注数据输入自编码器，得到特征向量，以新的特征向量为输入训练分类器（例如softmax分类器）。训练完成后，可将自编码器和分类器结">
+<meta name="description" content="学习 UFLDL教程 “建立分类用深度网络”部分的笔记。 参考 建立分类用深度网络 神经网络之反向传播与自编码器   自编码器+分类器深度网络用大量未标注数据训练自编码器（常被称为预训练），自编码器的激活单元（即隐藏神经元）可表示数据的某种特征。然后将有标注数据输入自编码器，得到特征向量，以新的特征向量为输入训练分类器（例如softmax分类器）。训练完成后，可将自编码器和分类器结合成一个神经网络">
 <meta name="keywords" content="ML,机器学习技法,NN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度网络笔记">
 <meta property="og:url" content="http://yoursite.com/2017/01/23/ML-NN-DeepNet/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="学习 UFLDL教程 “建立分类用深度网络”部分的笔记。 参考  建立分类用深度网络 神经网络之反向传播与自编码器  自编码器+分类器 深度网络用大量未标注数据训练自编码器（常被称为预训练），自编码器的激活单元（即隐藏神经元）可表示数据的某种特征。然后将有标注数据输入自编码器，得到特征向量，以新的特征向量为输入训练分类器（例如softmax分类器）。训练完成后，可将自编码器和分类器结">
+<meta property="og:description" content="学习 UFLDL教程 “建立分类用深度网络”部分的笔记。 参考 建立分类用深度网络 神经网络之反向传播与自编码器   自编码器+分类器深度网络用大量未标注数据训练自编码器（常被称为预训练），自编码器的激活单元（即隐藏神经元）可表示数据的某种特征。然后将有标注数据输入自编码器，得到特征向量，以新的特征向量为输入训练分类器（例如softmax分类器）。训练完成后，可将自编码器和分类器结合成一个神经网络">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-01-23T06:14:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度网络笔记">
-<meta name="twitter:description" content="学习 UFLDL教程 “建立分类用深度网络”部分的笔记。 参考  建立分类用深度网络 神经网络之反向传播与自编码器  自编码器+分类器 深度网络用大量未标注数据训练自编码器（常被称为预训练），自编码器的激活单元（即隐藏神经元）可表示数据的某种特征。然后将有标注数据输入自编码器，得到特征向量，以新的特征向量为输入训练分类器（例如softmax分类器）。训练完成后，可将自编码器和分类器结">
+<meta name="twitter:description" content="学习 UFLDL教程 “建立分类用深度网络”部分的笔记。 参考 建立分类用深度网络 神经网络之反向传播与自编码器   自编码器+分类器深度网络用大量未标注数据训练自编码器（常被称为预训练），自编码器的激活单元（即隐藏神经元）可表示数据的某种特征。然后将有标注数据输入自编码器，得到特征向量，以新的特征向量为输入训练分类器（例如softmax分类器）。训练完成后，可将自编码器和分类器结合成一个神经网络">
 
 
 
@@ -299,18 +299,15 @@
 
       
         <p>学习 <a href="http://ufldl.stanford.edu/wiki/index.php/UFLDL%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">UFLDL教程</a> “建立分类用深度网络”部分的笔记。</p>
-<h4 id="参考">参考</h4>
-<ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
 <li><a href="http://ufldl.stanford.edu/wiki/index.php/UFLDL%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">建立分类用深度网络</a></li>
-<li><a href="/2017/01/18/ML-NN-backpropagation/" title="神经网络之反向传播与自编码器">神经网络之反向传播与自编码器</a></li>
+<li><a href="/2017/01/18/ML-NN-backpropagation/" title="神经网络之反向传播与自编码器">神经网络之反向传播与自编码器</a>
+</li>
 </ul>
-<h4 id="自编码器分类器">自编码器+分类器</h4>
-<p>深度网络用大量未标注数据训练<a href="/2017/01/18/ML-NN-backpropagation/" title="自编码器">自编码器</a>（常被称为预训练），自编码器的激活单元（即隐藏神经元）可表示数据的某种特征。然后将有标注数据输入自编码器，得到特征向量，以新的特征向量为输入训练分类器（例如<a href="http://ufldl.stanford.edu/wiki/index.php/Softmax%E5%9B%9E%E5%BD%92" target="_blank" rel="noopener">softmax分类器</a>）。训练完成后，可将自编码器和分类器结合成一个神经网络，利用有标注数据做微调。</p>
-<h4 id="深度网络的优势与困难">深度网络的优势与困难</h4>
-<p>优势在于其强大的特征表示能力。</p>
+<h4 id="自编码器-分类器"><a href="#自编码器-分类器" class="headerlink" title="自编码器+分类器"></a>自编码器+分类器</h4><p>深度网络用大量未标注数据训练<a href="/2017/01/18/ML-NN-backpropagation/" title="自编码器">自编码器</a>（常被称为预训练），自编码器的激活单元（即隐藏神经元）可表示数据的某种特征。然后将有标注数据输入自编码器，得到特征向量，以新的特征向量为输入训练分类器（例如<a href="http://ufldl.stanford.edu/wiki/index.php/Softmax%E5%9B%9E%E5%BD%92" target="_blank" rel="noopener">softmax分类器</a>）。训练完成后，可将自编码器和分类器结合成一个神经网络，利用有标注数据做微调。</p>
+<h4 id="深度网络的优势与困难"><a href="#深度网络的优势与困难" class="headerlink" title="深度网络的优势与困难"></a>深度网络的优势与困难</h4><p>优势在于其强大的特征表示能力。</p>
 <p>困难有梯度弥散问题，利用梯度下降法训练时，梯度随深度增加而减小，导致深层网络得不到有效训练。</p>
-<h4 id="栈式自编码算法">栈式自编码算法</h4>
-<p>栈式自编码算法基于“逐层贪婪训练方法”，为解决梯度弥散等问题。在预训练自编码器时，采用逐层训练而非步到位。用原始数据作为训练数据训练第一层，之后从第一层得到原始数据的特征向量，以之作为训练数据训练第二层，又可得到新的特征向量以训练第三层…..</p>
+<h4 id="栈式自编码算法"><a href="#栈式自编码算法" class="headerlink" title="栈式自编码算法"></a>栈式自编码算法</h4><p>栈式自编码算法基于“逐层贪婪训练方法”，为解决梯度弥散等问题。在预训练自编码器时，采用逐层训练而非步到位。用原始数据作为训练数据训练第一层，之后从第一层得到原始数据的特征向量，以之作为训练数据训练第二层，又可得到新的特征向量以训练第三层…..</p>
 
       
     </div>
@@ -424,7 +421,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -432,7 +429,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -441,7 +438,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -470,7 +467,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自编码器分类器"><span class="nav-number">2.</span> <span class="nav-text">自编码器+分类器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深度网络的优势与困难"><span class="nav-number">3.</span> <span class="nav-text">深度网络的优势与困难</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈式自编码算法"><span class="nav-number">4.</span> <span class="nav-text">栈式自编码算法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自编码器-分类器"><span class="nav-number">2.</span> <span class="nav-text">自编码器+分类器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深度网络的优势与困难"><span class="nav-number">3.</span> <span class="nav-text">深度网络的优势与困难</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈式自编码算法"><span class="nav-number">4.</span> <span class="nav-text">栈式自编码算法</span></a></li></ol></div>
             
           </div>
         </section>
@@ -489,7 +486,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

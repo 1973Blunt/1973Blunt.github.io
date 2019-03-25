@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="矩阵相关 秩与行列式密切相关 。注意，相比于行列式， 秩适用于任意的矩阵。 性质 初等变换不改变矩阵的秩 即 \(r(\mathbf{PAQ})=r(\mathbf{A})\), 其中 \(\mathbf{P}\), \(\mathbf{Q}\) 为可逆矩阵 一些结论  \(R(\mathbf{A}) = R(\mathbf{A^T})\) \(r(\mathbf{AB}) \le">
+<meta name="description" content="矩阵相关 秩与行列式密切相关 。注意，相比于行列式， 秩适用于任意的矩阵。 性质初等变换不改变矩阵的秩即 $r(\mathbf{PAQ})=r(\mathbf{A})$, 其中 $\mathbf{P}$, $\mathbf{Q}$ 为可逆矩阵 一些结论 $R(\mathbf{A}) = R(\mathbf{A^T})$ $r(\mathbf{AB}) \le \min(r(\mathbf{A}),">
 <meta name="keywords" content="Math,Linear Algebra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="矩阵的秩">
 <meta property="og:url" content="http://yoursite.com/2016/08/28/Math-LinAlg-rank/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="矩阵相关 秩与行列式密切相关 。注意，相比于行列式， 秩适用于任意的矩阵。 性质 初等变换不改变矩阵的秩 即 \(r(\mathbf{PAQ})=r(\mathbf{A})\), 其中 \(\mathbf{P}\), \(\mathbf{Q}\) 为可逆矩阵 一些结论  \(R(\mathbf{A}) = R(\mathbf{A^T})\) \(r(\mathbf{AB}) \le">
+<meta property="og:description" content="矩阵相关 秩与行列式密切相关 。注意，相比于行列式， 秩适用于任意的矩阵。 性质初等变换不改变矩阵的秩即 $r(\mathbf{PAQ})=r(\mathbf{A})$, 其中 $\mathbf{P}$, $\mathbf{Q}$ 为可逆矩阵 一些结论 $R(\mathbf{A}) = R(\mathbf{A^T})$ $r(\mathbf{AB}) \le \min(r(\mathbf{A}),">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-10T14:33:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="矩阵的秩">
-<meta name="twitter:description" content="矩阵相关 秩与行列式密切相关 。注意，相比于行列式， 秩适用于任意的矩阵。 性质 初等变换不改变矩阵的秩 即 \(r(\mathbf{PAQ})=r(\mathbf{A})\), 其中 \(\mathbf{P}\), \(\mathbf{Q}\) 为可逆矩阵 一些结论  \(R(\mathbf{A}) = R(\mathbf{A^T})\) \(r(\mathbf{AB}) \le">
+<meta name="twitter:description" content="矩阵相关 秩与行列式密切相关 。注意，相比于行列式， 秩适用于任意的矩阵。 性质初等变换不改变矩阵的秩即 $r(\mathbf{PAQ})=r(\mathbf{A})$, 其中 $\mathbf{P}$, $\mathbf{Q}$ 为可逆矩阵 一些结论 $R(\mathbf{A}) = R(\mathbf{A^T})$ $r(\mathbf{AB}) \le \min(r(\mathbf{A}),">
 
 
 
@@ -300,25 +300,20 @@
       
         <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>
 <p><strong>秩与行列式密切相关</strong> 。注意，相比于行列式， <strong>秩适用于任意的矩阵</strong>。</p>
-<h3 id="性质">性质</h3>
-<h4 id="初等变换不改变矩阵的秩">初等变换不改变矩阵的秩</h4>
-<p>即 <span class="math inline">\(r(\mathbf{PAQ})=r(\mathbf{A})\)</span>, 其中 <span class="math inline">\(\mathbf{P}\)</span>, <span class="math inline">\(\mathbf{Q}\)</span> 为可逆矩阵</p>
-<h4 id="一些结论">一些结论</h4>
-<ul>
-<li><span class="math inline">\(R(\mathbf{A}) = R(\mathbf{A^T})\)</span></li>
-<li><span class="math inline">\(r(\mathbf{AB}) \le \min(r(\mathbf{A}),\; r(\mathbf{B}))\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A+B})\le r(\mathbf{A})+r(\mathbf{B})\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A, B})\le r(\mathbf{A})+r(\mathbf{B})\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A^TA})=r(\mathbf{AA^T})=r(\mathbf{A})\)</span></li>
-<li>若 <span class="math inline">\(\mathbf{A}_{m\times n}\mathbf{B}_{n\times p}=\mathbf{0}\)</span>, 则 <span class="math inline">\(r(\mathbf{A})+r(\mathbf{B}) \le n\)</span></li>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><h4 id="初等变换不改变矩阵的秩"><a href="#初等变换不改变矩阵的秩" class="headerlink" title="初等变换不改变矩阵的秩"></a>初等变换不改变矩阵的秩</h4><p>即 $r(\mathbf{PAQ})=r(\mathbf{A})$, 其中 $\mathbf{P}$, $\mathbf{Q}$ 为可逆矩阵</p>
+<h4 id="一些结论"><a href="#一些结论" class="headerlink" title="一些结论"></a>一些结论</h4><ul>
+<li>$R(\mathbf{A}) = R(\mathbf{A^T})$</li>
+<li>$r(\mathbf{AB}) \le \min(r(\mathbf{A}),\; r(\mathbf{B}))$</li>
+<li>$r(\mathbf{A+B})\le r(\mathbf{A})+r(\mathbf{B})$</li>
+<li>$r(\mathbf{A, B})\le r(\mathbf{A})+r(\mathbf{B})$</li>
+<li>$r(\mathbf{A^TA})=r(\mathbf{AA^T})=r(\mathbf{A})$</li>
+<li>若 $\mathbf{A}<em>{m\times n}\mathbf{B}</em>{n\times p}=\mathbf{0}$, 则 $r(\mathbf{A})+r(\mathbf{B}) \le n$</li>
 </ul>
-<h4 id="与方程组的解">与方程组的解</h4>
-<ul>
-<li>齐次方程组有非零解（有多解）， <span class="math inline">\(r(\mathbf{A})&lt;n\)</span></li>
-<li>非齐次方程组有解， <span class="math inline">\(r(\mathbf{A}) = r(\mathbf{A},\mathbf{b})\)</span></li>
+<h4 id="与方程组的解"><a href="#与方程组的解" class="headerlink" title="与方程组的解"></a>与方程组的解</h4><ul>
+<li>齐次方程组有非零解（有多解）， $r(\mathbf{A})&lt;n$</li>
+<li>非齐次方程组有解， $r(\mathbf{A}) = r(\mathbf{A},\mathbf{b})$</li>
 </ul>
-<h3 id="计算">计算</h3>
-<p>通过初等变换化为阶梯矩阵</p>
+<h3 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h3><p>通过初等变换化为阶梯矩阵</p>
 
       
     </div>
@@ -430,7 +425,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -438,7 +433,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -447,7 +442,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -495,7 +490,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

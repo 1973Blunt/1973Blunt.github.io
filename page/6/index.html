@@ -240,6 +240,864 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/26/ML-MLT-4-kernelLogisticRegression/" itemprop="url">
+                  机器学习技法第五课——Kernel Logistic Regression
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-26T23:32:41+08:00" content="2016-06-26">
+              2016-06-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文是学习林轩田老师的机器学习技法第五课——Kernel Logistic Regression——的课程笔记。</p>
+<p>这节课主要讨论了 SVM 与 Logistic 回归的相似性，其目标是解决“SVM 从 0/1 分类到概率分类的转换”以及“Logistic 从低维空间到高维空间的转换”，提出了二个方法，一是，将 SVM 训练结果代入 Logistic 中训练，二是，使用 Logistic Regression 的 kernel 模型进行训练。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
+<li><a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a></li>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/205_handout.pdf" target="_blank" rel="noopener">课件</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Platt_scaling" target="_blank" rel="noopener">Platt scaling</a></li>
+<li><a href="/2016/06/05/ML-MLT-2-kernelSVM/" title="Kernel SVM">Kernel SVM</a>
+</li>
+</ul>
+<h3 id="SVM-与-L2-正则化"><a href="#SVM-与-L2-正则化" class="headerlink" title="SVM 与 L2 正则化"></a>SVM 与 L2 正则化</h3><p>推导 <a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a> 的原始公式：<br>$$  \min<em>{b,\mathbf{w},\xi} \frac{1}{2}\mathbf{w^Tw} + C \sum</em>{n=1}^{N}\xi_n \\<br>s.t.\ y_n(\mathbf{w^Tz_n} + b) \ge 1 - \xi_n \\<br>s.t.\ \xi_n \ge 0<br>$$<br>$\xi$ 是松弛变量，也可视作 err，衡量越过 Margin 或分类超平面的程度，大致可以写成 $err = \xi_n = \max{(1-y_n(w^T z<em>n + b),\; 0)}$, 原式大概可以写成：<br>$$  \min</em>{b,\mathbf{w}} \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}{\max{(1-y_n(w^T z_n + b),\; 0)}}<br>$$<br>$$即\;\min{\frac{1}{2}\mathbf{w^Tw} + C\sum{err}}$$<br>这个公式与<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>部分的带 L2 正则化的 PLA 算法比较相似。SVM 大致可以视作一个带 L2 正则化的分类器。（这个 error 常被称作 hinge loss）</p>
+<h3 id="SVM-与-Logistic-相似"><a href="#SVM-与-Logistic-相似" class="headerlink" title="SVM 与 Logistic 相似"></a>SVM 与 Logistic 相似</h3><p>令 $s=w^T z + b$ （超平面分类得分），引入<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>中的 0/1 错误、 Logistic 回归的错误与 SVM 错误比较：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">err type</th>
+<th style="text-align:center">function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0/1</td>
+<td style="text-align:center">[$ys \le 0$]</td>
+</tr>
+<tr>
+<td style="text-align:center">logistic</td>
+<td style="text-align:center">$\ln(1+\exp(-ys))$</td>
+</tr>
+<tr>
+<td style="text-align:center">SVM</td>
+<td style="text-align:center">$\max(1-ys,\; 0)$</td>
+</tr>
+</tbody>
+</table>
+<p>课程中作图更直观，在此就大致解释下 ：P。 $y, s$ 同号时，分类正确，0/1 分类中 “[]” 表示 bool 判断，如果 $ys \le 0$ 取1，反之取0，即分类正确 err 为 0，错误取 1 以记录错误。与之不同的是，Logistic 与 SVM 在分类错误时，不止记录了错误，而且在 $ys$ 越小时，err 取值越大。在分类正确时，后两者要么直接取 0，要么取一个 $0 \sim 1$ 的数。Logistic 与 SVM 都放大了分类错误数据的影响，而忽略分类正确数据的影响。</p>
+<h3 id="Platt’s-scaling"><a href="#Platt’s-scaling" class="headerlink" title="Platt’s scaling"></a>Platt’s scaling</h3><p><a href="https://en.wikipedia.org/wiki/Platt_scaling" target="_blank" rel="noopener">Platt scaling</a> 又称 Platt calibration，将分类模型对数据的预测评分作为输入，训练 Logistic 模型，将它转化成概率模型。运用这个方法将 SVM 与 Logistic 结合，使得 SVM 拥有概率特征，而 Logistic 可以用 SVM kernel 处理多维空间转换。大致过程为</p>
+<ul>
+<li>run SVM get $\Phi_{svm}(z_n) = w^T z_n + b$</li>
+<li>run Logistic problem get A, B:<br>$$  \min<em>{A, B} {\frac{1}{N} \sum</em>{n=1}^{N}{ \ln{(1 + \exp(-y<em>n (A \Phi</em>{svm}(z_n) + B)))} }}<br>$$<br>这里 A 是对 SVM 模型的一个放缩，对结果影响不大，而 B 有对原 SVM 有一定影响，应该尽量接近 0。在课程中，将这个模型称为 probabilistic SVM。</li>
+</ul>
+<h3 id="Kernel-Logistic-Regression"><a href="#Kernel-Logistic-Regression" class="headerlink" title="Kernel Logistic Regression"></a>Kernel Logistic Regression</h3><p>这一部分试图推导出 Logistic 的 kernel，以解决 Logistic 向高维空间映射的问题。提前声明一下，由于此模型不具有 SVM 的稀疏性，林老师在下节课会说明此方法相对 Platt’s scaling 较少使用。</p>
+<p>首先，对于以下形式的“带 L2 正则化的线性模型”<br>$$  \min<em>{\mathbf{w}} \frac{\lambda}{N}\mathbf{w^Tw} + \frac{1}{N} \sum</em>{n=1}^{N}{err(y_n, w^T z<em>n)}<br>$$<br>老师用奇妙的方法证明了其中的 $\mathbf{w}$ 可以被 $\mathbf{z}$ 线性表示<br>$$\mathbf{w} = \sum</em>{n=1}^N \beta_n z_n$$<br>，而且该模型能被转换成 kernel 形式。（至于如何证明的，因为十分奇妙在此略过 ：P）</p>
+<p>当然，带 L2 正则化的 Logistic 回归模型符合以上条件。<br>$$  \min<em>{w} { \frac{\lambda}{N}\mathbf{w^Tw}  +\frac{1}{N} \sum</em>{n=1}^{N}{ \ln{(1 + \exp(-y_n w^T z_n))} }}<br>$$</p>
+<p>在 <a href="/2016/06/05/ML-MLT-2-kernelSVM/" title="Kernel SVM">Kernel SVM</a> 中，用 kernel 函数 $K(\mathbf{x, x’})$ 替换 $\mathbf{z^Tz’}$，所以，接下来要把高维空间的 $\mathbf{w, z}$ 用 kernel 替换。<br>$$ \mathbf{w^Tw} = \sum<em>{n=1}^{N}\sum</em>{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x_m})\quad （向量内积分配律）\\<br> \mathbf{w^Tz<em>n} = \sum</em>{m=1}^N {\beta_m K(\mathbf{x_m, x_n})}<br>$$</p>
+<p>最后问题变成求解 $\beta$<br>$$  \min<em>{w} { \frac{\lambda}{N} \sum</em>{n=1}^{N}\sum_{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x<em>m})<br> +\frac{1}{N} \sum</em>{n=1}^{N}{ \ln{(1 + \exp(-y<em>n \sum</em>{m=1}^N {\beta_m K(\mathbf{x_m, x_n})}))} }}<br>$$<br>需要说明，$\beta$ 往往非 0，而对比 SVM 中的 $\alpha$，则大多是 0（非支持向量），后者具有稀疏性。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/09/ML-MLT-3-softSVM/" itemprop="url">
+                  机器学习技法第四课——Soft-Margin SVM
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-09T18:31:14+08:00" content="2016-06-09">
+              2016-06-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文是本人学习林轩田老师的机器学习技法第四课——Soft-Margin Support Vector Machine——的课堂笔记。</p>
+<p>前几节课的 SVM 不能容忍错误——包括不可分错误及可分分却在 margin 内的错误，这节课要解决这个问题，推导出 Soft Margin SVM。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/204_handout.pdf" target="_blank" rel="noopener">课件</a></li>
+<li><a href="http://taop.marchtea.com/07.02.svm.html" target="_blank" rel="noopener">支持向量机</a></li>
+<li><a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a>
+</li>
+</ul>
+<h3 id="松弛变量"><a href="#松弛变量" class="headerlink" title="松弛变量"></a>松弛变量</h3><p>引入松弛变量 $\xi$，放宽条件，同时避免过度放宽，在最小化公式中也加入 $\xi$：<br>$$  \min<em>{b,\mathbf{w},\xi} \frac{1}{2}\mathbf{w^Tw} + C \sum</em>{n=1}^{N}\xi_n \\<br>s.t.\ y_n(\mathbf{w^Tz_n} + b) \ge 1 - \xi_n \\<br>s.t.\ \xi_n \ge 0<br>$$<br>此处 $C$ 是一个常量，作为平衡“large margin”与”margin violation”的参数。<br>$\xi$ 在限制条件中确实减小了下限，放宽了条件，但至于这背后为何能使 SVM 容忍错误，这可能要从头开始推导了。很明显，这已经可以用二次规划求解。</p>
+<h3 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h3><p>转换成对偶问题，用前面课程 <a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a> 中同样的方法。</p>
+<h4 id="拉格朗日乘数"><a href="#拉格朗日乘数" class="headerlink" title="拉格朗日乘数"></a>拉格朗日乘数</h4><p>$$  L(b,\mathbf{w},\alpha,\beta) = \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}\xi<em>n + \sum</em>{n=1}^N \alpha_n(1-\xi_n-y_n(\mathbf{w^T z<em>n} + b)) + \sum</em>{n=1}^N \beta_n (-\xi<em>n)<br>$$<br>求解：<br>$$   \max</em>{\alpha_n \ge 0,\ \beta<em>n \ge 0} (min</em>{b,\mathbf{w},\xi} L(b,\mathbf{w},\alpha,\beta))<br>$$</p>
+<h4 id="求导化简成关于-alpha-的函数"><a href="#求导化简成关于-alpha-的函数" class="headerlink" title="求导化简成关于 $\alpha$ 的函数"></a>求导化简成关于 $\alpha$ 的函数</h4><p>$$    \frac{\partial L}{\partial \xi_n} = C - \alpha_n - \beta_n\\<br>let\ \ \beta_n= C -\alpha_n<br>$$<br>因为条件中有 $\alpha_n \ge 0$，故 $C \ge \alpha<em>n \ge 0$。如此原式变换为：<br>$$    \max</em>{$0 \le \alpha_n \le C,\ \beta_n=C-\alpha<em>n} (\min</em>{b,\mathbf{w},\xi} \frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n(\mathbf{w^T \mathbf{z_n}} + b)))<br>$$<br>这一步增加了限制条件，但消去了 $\beta, \xi, C$。接下来与 <a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a> 的过程相同，令 $\frac{\partial L}{\partial b} = 0, \frac{\partial L}{\partial w<em>i} = 0$ 化简得：<br>$$<br>\min</em>{\alpha<em>n} (\frac{1}{2}\sum</em>{m=1}^{N} \sum_{n=1}^{N} y_m  y_n \mathbf{z_m^T} \mathbf{z_n} \alpha_m \alpha<em>n - \sum</em>{n=1}^{N}\alpha<em>n) \\<br>s.t.\ \ \sum</em>{n=1}^N y_n \alpha_n = 0,\ \ all\ 0 \le \alpha_n \le C<br>$$<br>看上去与之前的差别只有对 $\alpha$ 加上上限 C。</p>
+<h4 id="求解-b"><a href="#求解-b" class="headerlink" title="求解 $b$"></a>求解 $b$</h4><p>部分 KKT 条件：<br>$$  \alpha_n(1-\xi_n-y_n(\mathbf{w^T z_n} + b)) = 0 \\<br>(C - \alpha_n) \xi_n = 0  $$<br>因为除 $\xi,\ b$ 其他都是已知量，所以只要求解方程组就能得到解。而多数情况下，当 $0 \lt \alpha_n \lt C$ 时，被称为 free Support Vector，可推导出<br>$$  b = y_s - \mathbf{w^T z_s}<br>$$<br>之后的求解过程与前面课程没什么不同。</p>
+<h3 id="alpha-n-与向量角色"><a href="#alpha-n-与向量角色" class="headerlink" title="$\alpha_n$ 与向量角色"></a>$\alpha_n$ 与向量角色</h3><p>根据 KKT 条件，当 $\alpha_n = 0$ 时，松弛变量 $\xi_n=0$，没有错误，被称为非支持向量，<strong><em>non SV</em></strong>，处于 margin 外界；</p>
+<p>当 $0 \lt \alpha \lt C$ 时，$\xi_n=0$，没有错误，而且可以求解 $b$，被称为 <strong><em>free SV</em></strong>，位于 margin 上；</p>
+<p>当 $\alpha = C$ 时， $\xi_n \ne 0$，有错误，同样可以帮助求解，被称为 <strong><em>bounded SV</em></strong>，位于 margin 内部或越过了超平面。</p>
+<h3 id="LOOC-帮助模型选择"><a href="#LOOC-帮助模型选择" class="headerlink" title="LOOC 帮助模型选择"></a>LOOC 帮助模型选择</h3><p>模型选择时，可以用 Cross Validation 做参考，其中特别的有 Leave-One-Out CV，即只留一个数据点做验证。</p>
+<p>将 Leave-One-Out CV 与全数据集（不留验证数据）的训练做比较。如果验证数据是一个 non-SV，那么，2 者的错误是相同的，而如果验证数据是一个 SV，那么有可能分类错误。所以有<br>$$  E_{loocv} \le \frac{num(SV)}{N} $$<br>这里存在疑问的是，如果验证数据是一个很关键的 SV，可能极大地影响超平面的训练结果，这个 bound 是否成立。</p>
+<p>这个上限可以用做安全检查，在训练模型之后便能得到 $E_{loocv}$ 的上限，可以排除一些结果太差的模型，节省时间，但它的作用有限，不能断定一个模型的好坏。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/07/Algo-asymptoticAnalysis/" itemprop="url">
+                  算法时间复杂度
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-07T21:07:37+08:00" content="2016-06-07">
+              2016-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algo/" itemprop="url" rel="index">
+                    <span itemprop="name">Algo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Coursera 上 <a href="https://class.coursera.org/algo-009/lecture" target="_blank" rel="noopener">Algorithms: Design and Analysis, Part 1 by Tim Roughgarden</a> 的学习笔记。第二课，有关时间复杂度。</p>
+<h4 id="The-Gist"><a href="#The-Gist" class="headerlink" title="The Gist"></a>The Gist</h4><p>时间复杂度计算概略地讲，就是“suppress constant factors and lower-order terms”</p>
+<h4 id="Big-Oh-Notation"><a href="#Big-Oh-Notation" class="headerlink" title="Big-Oh Notation"></a>Big-Oh Notation</h4><p>Formal Definition: $T(n) = O(f(n))$ \<br>if and only if exist constants $c, n_0$ such that $T(n) \le cf(n)$ \<br>for all $n \gt n_0$</p>
+<p>即 $n \rightarrow +\infty$ 时，$cf(n)$ 为 $T(n)$ 上限</p>
+<h4 id="Omega-Notation"><a href="#Omega-Notation" class="headerlink" title="Omega Notation"></a>Omega Notation</h4><p>Formal Definition: $T(n) = \Omega(f(n))$ \<br>if and only if exist constants $c, n_0$ such that $T(n) \ge cf(n)$ \<br>for all $n \gt n_0$</p>
+<p>即 $n \rightarrow +\infty$ 时，$cf(n)$ 为 $T(n)$ 下限</p>
+<h4 id="Theta-Notation"><a href="#Theta-Notation" class="headerlink" title="Theta Notation"></a>Theta Notation</h4><p>Formal Definition: $T(n) = \Theta(f(n))$ \<br>if and only if $T(n)=O(f(n))$ and $\Omega(n)=O(f(n))$</p>
+<p>即 $n \rightarrow +\infty$ 时，$cf(n)$ 既能作 $T(n)$ 下限也能作上限，</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/05/ML-MLT-2-kernelSVM/" itemprop="url">
+                  机器学习技法第三课——Kernel SVM
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-05T21:45:49+08:00" content="2016-06-05">
+              2016-06-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文是学习林轩田老师的机器学习技法第三课——Kernel Support Vector Machine——的课堂笔记。</p>
+<p>给定上节课的公式：<br>$$<br>\min_{\alpha<em>n} (\frac{1}{2}\sum</em>{m=1}^{N} \sum_{n=1}^{N} y_m y_n \mathbf{z_m^T}  \mathbf{z_n} \alpha_m \alpha<em>n - \sum</em>{n=1}^{N}\alpha_n) \\<br>s.t.\ all\ \alpha<em>n \ge 0,\ \sum</em>{n=1}^N \alpha_n y_n = 0<br>$$<br>这里 $\mathbf{z}$ 是由 $\mathbf{x}$ 变换得到。在 $\mathbf{x}$ 向量所处的空间里，如果所有超平面都不能对数据进行分类，可以将 $\mathbf{x}$ 映射到高维空间，也就是 $\mathbf{x}$ 变换成 $\mathbf{z}$。这次课的目标包括：了解这种变换带来的求解问题，引入核函数、多项式核函数、高斯核函数，及了解如何选择核 SVM 或线性 SVM。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
+<li><a href="/2016/05/31/ML-MLT-1-dualSVM/" title="Dual Support Vector Machine">Dual Support Vector Machine</a></li>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/203_handout.pdf" target="_blank" rel="noopener">课件</a></li>
+</ul>
+<h3 id="求解复杂度"><a href="#求解复杂度" class="headerlink" title="求解复杂度"></a>求解复杂度</h3><p>考虑将 $\mathbf{x}$ 从一次变换到二次：<br>$$\mathbf{x} = (x_1, x_2, …, x_d) \ \ \rightarrow \\<br>\mathbf{z} = (1, x_1, x_2, …, x_d, x_1 x_1, x_1 x_2, …, x_1 x_d, x_2 x_1, x_2 x_2, …, x_2 x_d, …, x_d x_d)$$</p>
+<p>向量长度增加了 $d^2 + 1$，由于在求解公式中需要计算任意2个 $\mathbf{x}$ 的内积（$\mathbf{z_m^T z_n}$），计算复杂度从 $o(d^2)$ 增加到 $o(d^4)$，陡增了不少困难。而这仅是变换到二次的情况。</p>
+<h3 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h3><p>就 <strong><em>求解复杂度</em></strong> 一节所举一次变二次，有以下推导：<br>$$\mathbf{z^T z’} = 1 + \sum_{i=1}^d x_i x’<em>i + \sum</em>{i=1}^d \sum_{j=1}^d x_i x_j x’_i x’<em>j \\<br>=1 + \sum</em>{i=1}^d x_i x’<em>i + (\sum</em>{i=1}^d x_i x’<em>i) (\sum</em>{j=1}^d x_j x’_j) \\<br>=1 + \mathbf{x^T x’} + (\mathbf{x^T x’})(\mathbf{x^T x’})$$<br>可见任意2个 $\mathbf{w}$ 的内积（$\mathbf{z^T z’}$）可以用 $\mathbf{x}$ 的内积表示。这可以推广到更高次变换。</p>
+<p>这种处理有何好处？复杂度大幅降低，从原来的 $o(d^4)$ 回降到 $o(d^2)$。</p>
+<h4 id="核函数-1"><a href="#核函数-1" class="headerlink" title="核函数"></a>核函数</h4><p>简单来说，核函数（核）应该是：<br>$$\mathbf{z^T z’} = K(\mathbf{x}, \mathbf{x’})$$<br>在一次变二次例子中 $K(\mathbf{x}, \mathbf{x’}) =1 + \mathbf{x^T x’} + (\mathbf{x^T x’})(\mathbf{x^T x’})$。</p>
+<p>原求解公式变换为：<br>$$<br>\min_{\alpha<em>n} (\frac{1}{2}\sum</em>{m=1}^{N} \sum_{n=1}^{N} y_m y_n K(\mathbf{x}_m, \mathbf{x}_n) \alpha_m \alpha<em>n - \sum</em>{n=1}^{N}\alpha_n) \\<br>s.t.\ all\ \alpha<em>n \ge 0,\ \sum</em>{n=1}^N \alpha_n y_n = 0<br>$$<br>设 $(\mathbf{x}_s, y_s)$ 为支持向量（$\alpha_s = 0$）解出 $b$:<br>$$<br>b = y_s - \mathbf{w^T \mathbf{z_s}} \\<br>= y<em>s - (\sum</em>{n=1}^{N} \alpha_n y_n \mathbf{z_n})^\mathbf{T} \mathbf{z}_s \\<br>= y<em>s - \sum</em>{n=1}^{N} \alpha_n y_n K(\mathbf{x}_n, \mathbf{x}<em>s)<br>$$<br>求解 $\mathbf{w}$ 似乎有点复杂，但不影响最终分类。分类公式变换为<br>$$g</em>{svm}(\mathbf{x}) = sign(\mathbf{w^T z} + b)<br>=sign(\sum_{n=1}^{N} \alpha_n y_n K(\mathbf{x}_n, \mathbf{x}) + b)$$</p>
+<h4 id="多项式核函数"><a href="#多项式核函数" class="headerlink" title="多项式核函数"></a>多项式核函数</h4><p>$$K(\mathbf{x}, \mathbf{x’}) = (\zeta + \gamma \mathbf{x^T x’})^q,\ with\ \zeta \ge 0,\ \gamma \gt 0$$<br>例如，当 $q = 2$ 时，<br>$$\mathbf{z^T z’} = K(\mathbf{x}, \mathbf{x’}) =1 + 2\zeta\gamma\mathbf{x^T x’} + \gamma^2(\mathbf{x^T x’})^2 \\<br>\Rightarrow \mathbf{z} = (1, \sqrt{2\zeta\gamma}x_1,  \sqrt{2\zeta\gamma}x_2, …,  \sqrt{2\zeta\gamma}x_n, \gamma x_1 x_1, \gamma x_1 x_2, …, \gamma x_n x_n)$$<br>感觉这个核不能满足所有从 $\mathbf{x}$ 到 $\mathbf{z}$ 的多项式变换，比如 $\mathbf{z}$ 中至少所有一次项系数都相等（在上例中为 $\sqrt{2\zeta\gamma}$）。</p>
+<h4 id="高斯核函数"><a href="#高斯核函数" class="headerlink" title="高斯核函数"></a>高斯核函数</h4><p>$$K(\mathbf{x}, \mathbf{x’}) = exp(-\gamma |\mathbf{x - x’}|^2),\ with\ \gamma \gt 0$$<br>高斯（Gaussian）核函数可以将 $\mathbf{x}$ 扩展到无限维。</p>
+<p>课上只给了 $\gamma = 1,\ \mathbf{x} = (x)$（$\mathbf{x}$ 只有一个维度）时的推导：<br>$$K(\mathbf{x}, \mathbf{x’}) = exp(-(\mathbf{x - x’})^2) \\<br>=exp(-x^2)exp(-x’^2)exp(2xx’)\\<br>=exp(-(x)^2)exp(-(x’)^2) \sum<em>{i=0}^\infty \frac{(2xx’)^i}{i!},\ \ taylor\ expansion \\<br>=\sum</em>{i=0}^\infty(exp(-x^2)exp(-x’^2) \sqrt{\frac{2^i}{i!}} \sqrt{\frac{2^i}{i!}} x^i x’^i) \\<br>=\mathbf{z^T z’} \\<br>with\ \mathbf{z}=exp(-x^2)(1, \sqrt{\frac{2}{1!}} x, \sqrt{\frac{2^2}{2!}}x^2, …)<br>$$</p>
+<p>如果 $\gamma$ 取值过大（方差过大），高斯核会过拟合。</p>
+<h3 id="核函数并非万能"><a href="#核函数并非万能" class="headerlink" title="核函数并非万能"></a>核函数并非万能</h3><p>线性 SVM 指原始的，$\mathbf{x}$ 未经变换的 SVM，求解相对多项式核 SVM 简单（系数矩阵为对角矩阵），而且，参数选择较少。而高斯核的模型难以解释，且容易过拟合。</p>
+<p>对于高次的多项式 kernel，可以考虑用原始的方法，将 $\mathbf{x}$ 转化成 $\mathbf{z}$ 之后代入线性 SVM 求解，如果维度不高，求解速度会更快。</p>
+<h3 id="其他核函数"><a href="#其他核函数" class="headerlink" title="其他核函数"></a>其他核函数</h3><p>课上指出，能成为核函数的充要条件是，核函数导出的矩阵 $\mathbf{K}$，$k_{i,j}=K(\mathbf{x_i, x_j})$，是对称且半正定的。这2个条件被称为 Mercer’s condition。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/03/Python-cheatSheet/" itemprop="url">
+                  Python 杂记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-03T10:58:50+08:00" content="2016-06-03">
+              2016-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://blog.csdn.net/sasoritattoo/article/details/12451359" target="_blank" rel="noopener">python代码 `if not x:` 和`if x is not None:`和`if not x is None:`使用</a></li>
+<li><a href="http://www.2cto.com/kf/201405/300359.html" target="_blank" rel="noopener">python变量和作用域</a></li>
+<li><a href="http://www.cnblogs.com/ifantastic/archive/2013/04/15/3021845.html" target="_blank" rel="noopener">Python 序列的切片操作与技巧</a></li>
+</ul>
+<h3 id="函数和常用语法"><a href="#函数和常用语法" class="headerlink" title="函数和常用语法"></a>函数和常用语法</h3><h4 id="raw-input-与-input"><a href="#raw-input-与-input" class="headerlink" title="raw_input 与 input"></a>raw_input 与 input</h4><p><code>raw_input</code> 只在 2 中存在，返回字符串，在 2 中，<code>input</code> 返回输入表达式的值；\<br>3 中 input 返回字符串。</p>
+<h4 id="type"><a href="#type" class="headerlink" title="type"></a>type</h4><p>查看变量类型</p>
+<h4 id="交换两变量值"><a href="#交换两变量值" class="headerlink" title="交换两变量值"></a>交换两变量值</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a, b = b, a</span><br></pre></td></tr></table></figure>
+<h4 id="while-for-else-语句"><a href="#while-for-else-语句" class="headerlink" title="while/for else 语句"></a>while/for else 语句</h4><p>跟 if else 相同，在 while/for 条件为假时执行 else。所以，在未进入循环或循环正常完成后，else 部分会执行，而循环被 break 或出现异常，则不会执行 else。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> [<span class="string">"Sat"</span>,<span class="string">"Sun"</span>,<span class="string">"Mon"</span>]:</span><br><span class="line">  <span class="keyword">if</span> value == <span class="string">"Sun"</span>:</span><br><span class="line">    print(<span class="string">"Bingo!"</span>)</span><br><span class="line">    <span class="keyword">break</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  print(<span class="string">"No Sunday."</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="yield-关键字"><a href="#yield-关键字" class="headerlink" title="yield 关键字"></a>yield 关键字</h4><p>在函数中使用 yield 关键字让函数返回一个 <strong>生成器</strong>。 该生成器调用方式十分奇特，类似于断点调试，在调用其 <code>next()</code> 方法时运行到 yield 关键字处并返回参数，可多次调用直到函数结束（抛出 StopIteration 异常）。可以在函数中使用多个 yield，就像设置多个断点。隐含的一个特性是，每次只能取到下一个值，而不能回退取到上一个值。通常用 <code>for/while</code> 循环使用生成器，以代替循环调用 <code>next()</code>，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen</span><span class="params">(stop)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"step in"</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(stop):</span><br><span class="line">        <span class="keyword">yield</span> i  <span class="comment"># 当代码运行到此处返回 i</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"yield %g"</span> % i</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">g = gen(<span class="number">3</span>)  <span class="comment"># 函数返回一个生成器</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"called gen"</span>  <span class="comment"># 在调用 g.next() 方法前，gen 内代码不会执行</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> g:</span><br><span class="line">    <span class="keyword">print</span> i</span><br></pre></td></tr></table></figure>
+<h4 id="sign-函数"><a href="#sign-函数" class="headerlink" title="sign 函数"></a>sign 函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sign = <span class="keyword">lambda</span> a: <span class="number">1</span> <span class="keyword">if</span> a &gt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">-1</span> <span class="keyword">if</span> a &lt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h4 id="print-不换行"><a href="#print-不换行" class="headerlink" title="print 不换行"></a>print 不换行</h4><p>python2 中 print 不换行，python3 中使用参数 <code>end=&#39;&#39;</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Hello World"</span>, end=<span class="string">''</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="dict-键列表"><a href="#dict-键列表" class="headerlink" title="dict 键列表"></a>dict 键列表</h4><p>使用 <code>list(dict)</code> 获取 <code>dict</code> 的键列表</p>
+<h3 id="惯用处理"><a href="#惯用处理" class="headerlink" title="惯用处理"></a>惯用处理</h3><h4 id="pip-更换仓库源"><a href="#pip-更换仓库源" class="headerlink" title="pip 更换仓库源"></a>pip 更换仓库源</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ <span class="comment"># 临时用中科大源安装numpy</span></span><br></pre></td></tr></table></figure>
+<h4 id="pip-下载安装包并离线安装"><a href="#pip-下载安装包并离线安装" class="headerlink" title="pip 下载安装包并离线安装"></a>pip 下载安装包并离线安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 只下载包</span><br><span class="line">pip download -d ./download_packs_dir -r ./requirements.txt</span><br><span class="line"># 只安装</span><br><span class="line">pip install --no-index --find-links=./download_packs_dir -r ./requirements.txt</span><br></pre></td></tr></table></figure>
+<h4 id="从文件路径获取文件名与扩展名"><a href="#从文件路径获取文件名与扩展名" class="headerlink" title="从文件路径获取文件名与扩展名"></a>从文件路径获取文件名与扩展名</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">filepath = <span class="string">'/tmp/log.txt'</span></span><br><span class="line">filename = os.path.basename(filepath) <span class="comment"># 文件名</span></span><br><span class="line">print(os.path.splitext(filename)) <span class="comment"># 分离扩展名</span></span><br></pre></td></tr></table></figure>
+<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><p>datetime 与 字符串相互转换<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line">id_s = <span class="string">"337259199211056344"</span>[<span class="number">6</span>:<span class="number">14</span>] <span class="comment"># 身份证号</span></span><br><span class="line">d = datetime.strptime(id_s, <span class="string">'%Y%m%d'</span>)</span><br><span class="line">print((datetime.now() - d).days)  <span class="comment"># 距今多少天，datetime相减得delta对象</span></span><br><span class="line">print(d.strftime(<span class="string">'%Y-%m-%d'</span>)) <span class="comment"># datetime 格式化输出字符串</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="判断对象为数字"><a href="#判断对象为数字" class="headerlink" title="判断对象为数字"></a>判断对象为数字</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numbers</span><br><span class="line">x = <span class="number">1</span></span><br><span class="line">print(isinstance(x, numbers.Number))</span><br></pre></td></tr></table></figure>
+<h4 id="读-excel-表"><a href="#读-excel-表" class="headerlink" title="读 excel 表"></a>读 excel 表</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_excel</span><span class="params">(excel_name, sheet_name)</span>:</span></span><br><span class="line">    bk = xlrd.open_workbook(excel_name)</span><br><span class="line">    sh = bk.sheet_by_name(sheet_name)</span><br><span class="line"></span><br><span class="line">    nrows = sh.nrows <span class="comment">#获取行数</span></span><br><span class="line">    ncols = sh.ncols <span class="comment">#获取列数</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">"excel %s, sheet %s, nrows %d, ncols %d"</span> % (excel_name, sheet_name, nrows,ncols))</span><br><span class="line"></span><br><span class="line">    row_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, nrows):    <span class="comment">#获取各行数据</span></span><br><span class="line">        row_data = sh.row_values(i)</span><br><span class="line">        row_list.append(row_data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> row_list</span><br></pre></td></tr></table></figure>
+<h4 id="生成随机数"><a href="#生成随机数" class="headerlink" title="生成随机数"></a>生成随机数</h4><h5 id="random"><a href="#random" class="headerlink" title="random"></a>random</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line">random.random() <span class="comment"># 0 到 1 小数</span></span><br><span class="line">random.randint(m,n) <span class="comment"># m 到 n 整数</span></span><br><span class="line">random.sample(list, n) <span class="comment"># 从 list 不放回抽样 n 个，返回列表</span></span><br></pre></td></tr></table></figure>
+<h5 id="正态随机"><a href="#正态随机" class="headerlink" title="正态随机"></a>正态随机</h5><p>生成正态随机数列可用<code>numpy.random.normal(mu, sigma, sample_num)</code></p>
+<h4 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h4><p>匹配例子<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">str = <span class="string">"截止日期：2016-7-11 2:44:29。余额：137533。逾期金额：28747。"</span></span><br><span class="line">print(re.findall(<span class="string">r"余额：(.+?)。"</span>, str))</span><br></pre></td></tr></table></figure></p>
+<h3 id="list-操作"><a href="#list-操作" class="headerlink" title="list 操作"></a>list 操作</h3><h4 id="range"><a href="#range" class="headerlink" title="range()"></a>range()</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># range(stat=0,stop,step=1)</span></span><br><span class="line">range(<span class="number">10</span>) <span class="comment"># 返回 0 到 9 列表</span></span><br><span class="line">range(<span class="number">1</span>,<span class="number">10</span>) <span class="comment"># 返回 1 到 9 列表</span></span><br><span class="line">range(<span class="number">1</span>,<span class="number">10</span>,<span class="number">2</span>) <span class="comment"># 返回以 2 为步长 1 到 9 列表</span></span><br><span class="line">range(<span class="number">0</span>,<span class="number">-10</span>,<span class="number">-1</span>) <span class="comment"># 返回 0 到 -9 列表</span></span><br></pre></td></tr></table></figure>
+<h4 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)] <span class="comment"># 创建一个新 list</span></span><br></pre></td></tr></table></figure>
+<h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><p>list 切片作为右值，会复制数据并返回引用。而对切片的修改会直接作用于原 list 上。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list[start:stop:step], 用法类似 range，如果意义明确，可省略参数</span></span><br><span class="line"><span class="comment"># 索引可为负，可以超出范围</span></span><br><span class="line">la = lb <span class="comment"># 只能复制引用</span></span><br><span class="line">la = lb[:] <span class="comment"># 复制数据，返回引用给 la</span></span><br><span class="line">lb[::<span class="number">-1</span>] <span class="comment"># lb 逆序列表 copy</span></span><br><span class="line">lb[<span class="number">-2</span>:<span class="number">-1</span>] = [<span class="number">2</span>, <span class="number">4</span>] <span class="comment"># 将 lb 最后两个数赋为 2, 4</span></span><br><span class="line"><span class="keyword">del</span> lb[<span class="number">0</span>:<span class="number">2</span>] <span class="comment"># 删除 lb 第 0、1 号元素</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="增加元素"><a href="#增加元素" class="headerlink" title="增加元素"></a>增加元素</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list.append(x) <span class="comment"># 追加到末尾</span></span><br><span class="line">list.insert(i, x) <span class="comment"># 插入到 i 处</span></span><br><span class="line">la = lb + lc <span class="comment"># 创建一个新 list，顺序加入 lb、lc 中元素</span></span><br><span class="line">la.extend(lb) <span class="comment"># 在 la 中依次添加 lb 中元素</span></span><br></pre></td></tr></table></figure>
+<h4 id="判断元素存在"><a href="#判断元素存在" class="headerlink" title="判断元素存在"></a>判断元素存在</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x <span class="keyword">in</span> list <span class="comment"># 返回 bool 类型，是否存在 x</span></span><br><span class="line">list.count(x) <span class="comment"># 返回 x 出现次数</span></span><br></pre></td></tr></table></figure>
+<h4 id="按索引查元素"><a href="#按索引查元素" class="headerlink" title="按索引查元素"></a>按索引查元素</h4><p>索引可为负，范围： [-len, len-1]</p>
+<h4 id="按元素查索引"><a href="#按元素查索引" class="headerlink" title="按元素查索引"></a>按元素查索引</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.index(x) <span class="comment"># 第一次出现 x 位置，如果 x 不存在会报错</span></span><br></pre></td></tr></table></figure>
+<h4 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> list[index] <span class="comment"># 删除 index 处元素</span></span><br><span class="line">list.remove(x) <span class="comment"># 删除 x 元素，如果不存在会报错</span></span><br><span class="line">list.pop(index=<span class="number">-1</span>) <span class="comment"># 返回并删除 index 处元素</span></span><br><span class="line"><span class="comment"># 直接用切片复制保留元素到新列表中，也是一种方法</span></span><br></pre></td></tr></table></figure>
+<h4 id="反转"><a href="#反转" class="headerlink" title="反转"></a>反转</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.reverse()</span><br></pre></td></tr></table></figure>
+<h4 id="zip-合并"><a href="#zip-合并" class="headerlink" title="zip 合并"></a>zip 合并</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip(la,lb,lc) <span class="comment"># “同索引元素”组成元组，构成列表，长度为输入最短列表的长度</span></span><br><span class="line">[a + b <span class="keyword">for</span> a,b <span class="keyword">in</span> zip(la,lb)]</span><br></pre></td></tr></table></figure>
+<h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><p>一个模块是一个源文件，文件名即模块名。模块由 <code>import</code> 语句加载后，便可以访问其中定义的对象。</p>
+<h4 id="import-与-from-import"><a href="#import-与-from-import" class="headerlink" title="import 与 from import"></a>import 与 from import</h4><p>当 python 解释器 <code>import</code> 一个模块时，会执行其中的代码。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> module <span class="comment"># 加载 module，使用其中对象时应该用 module.obj</span></span><br><span class="line"><span class="keyword">from</span> module <span class="keyword">import</span> obj <span class="comment"># 加载 module，只能使用 obj 对象，不用加 module 前缀</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="name-属性"><a href="#name-属性" class="headerlink" title="__name__ 属性"></a><code>__name__</code> 属性</h4><p>当 python 解释器加载一个模块时，会设置每个模块的属性 <code>__name__</code>。 只有当前运行模块的该属性被设置为 <code>__main__</code>，所以可用以下语句判断当前模块是否是程序入口<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">  <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="模块搜索路径"><a href="#模块搜索路径" class="headerlink" title="模块搜索路径"></a>模块搜索路径</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sys.path 列表存储了模块搜索路径</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path <span class="comment"># 可修改该列表以修改模块搜索路径</span></span><br></pre></td></tr></table></figure>
+<p>搜索路径初始包括：</p>
+<ul>
+<li>运行脚本目录</li>
+<li>环境变量 PYTHONPATH 中存储的值</li>
+<li>Python 模块的安装目录</li>
+</ul>
+<h4 id="dir"><a href="#dir" class="headerlink" title="dir()"></a>dir()</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dir() <span class="comment"># 返回当前模块定义的对象名列表</span></span><br><span class="line">dir(module) <span class="comment"># 返回 module 定义的对象名列表</span></span><br></pre></td></tr></table></figure>
+<h4 id="模块安装"><a href="#模块安装" class="headerlink" title="模块安装"></a>模块安装</h4><p>三种方式：</p>
+<p>进入下载安装包目录，运行 setup.py 程序：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码安装</span></span><br><span class="line">cd download_dir</span><br><span class="line">python setup.py install <span class="comment"># 运行 setup.py 安装程序</span></span><br><span class="line"><span class="comment"># 用 pip 安装，自动安装依赖包</span></span><br><span class="line">pip install PackageName</span><br><span class="line"><span class="comment"># 用 easy_install 安装，不推荐使用</span></span><br><span class="line">easy_install PackageName</span><br></pre></td></tr></table></figure></p>
+<h4 id="win下-Anaconda-安装依赖包"><a href="#win下-Anaconda-安装依赖包" class="headerlink" title="win下 Anaconda 安装依赖包"></a>win下 Anaconda 安装依赖包</h4><p>进入Anaconda安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Scripts</span><br><span class="line">pip install PackageName -i https://pypi.tuna.tsinghua.edu.cn/simple/</span><br><span class="line"># -i 后接国内镜像地址url，提升速度</span><br></pre></td></tr></table></figure></p>
+<p>更换conda源（清华）：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls yes</span><br></pre></td></tr></table></figure></p>
+<h3 id="包"><a href="#包" class="headerlink" title="包"></a>包</h3><p>是一个包含 __init__.py 的文件夹，导入模块时需要加上包前缀，类似 Java。</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><h4 id="三大作用域"><a href="#三大作用域" class="headerlink" title="三大作用域"></a>三大作用域</h4><p>只有模块（module），类（class）以及函数（<code>def</code>、<code>lambda</code>）才会引入新的作用域，其它的代码块（如if、try、for等，甚至列表推导式也是）不会引入新的作用域</p>
+<h4 id="子级作用域与上级"><a href="#子级作用域与上级" class="headerlink" title="子级作用域与上级"></a>子级作用域与上级</h4><p>在子级作用域可访问上级作用域变量。让上级变量指向另一个对象不能使用语句 <code>same_name = obj</code>， 该句被视为在子级作用域定义一个同名变量，并隐藏了上级变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">  print(<span class="string">"read y: %d"</span> % y) <span class="comment"># 读取全局变量</span></span><br><span class="line">  x = <span class="number">1</span>   <span class="comment"># 创建一个局部变量 x</span></span><br><span class="line"></span><br><span class="line">x, y = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">run()</span><br><span class="line">print(<span class="string">"global x: %d"</span> % x)</span><br></pre></td></tr></table></figure>
+<h4 id="global-与-nonlocal-语句"><a href="#global-与-nonlocal-语句" class="headerlink" title="global 与 nonlocal 语句"></a>global 与 nonlocal 语句</h4><p>如果想在子级作用域中让上级作用域变量指向其他对象，可以用 <code>global</code> 与 <code>nonlocal</code> 语句。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">x, y = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="comment"># nonlocal x 这样声明会报错，python 不能找到非全局的上级变量 x</span></span><br><span class="line">    x, y = <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> x</span><br><span class="line">        x = <span class="number">2</span></span><br><span class="line">        <span class="keyword">global</span> y</span><br><span class="line">        y = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    inner()</span><br><span class="line">    print(<span class="string">"outer:"</span>, x, y)</span><br><span class="line"></span><br><span class="line">outer()</span><br><span class="line">print(<span class="string">"global:"</span>, x, y)</span><br><span class="line"><span class="comment"># 输出：</span></span><br><span class="line"><span class="comment"># outer: 2 1</span></span><br><span class="line"><span class="comment"># global: 0 2</span></span><br></pre></td></tr></table></figure>
+<p><code>global</code> 最先出现，用于在局部引用全局变量，随后又加入 <code>nonlocal</code>，使子级作用域引用 <strong>非全局的</strong> 上级变量。</p>
+<h4 id="类变量与实例变量"><a href="#类变量与实例变量" class="headerlink" title="类变量与实例变量"></a>类变量与实例变量</h4><p>类变量的定义与访问其中两种方式：</p>
+<ul>
+<li><code>class_name.class_var</code></li>
+<li>类定义内方法定义外 <code>class_var</code></li>
+</ul>
+<p>实例变量定义与访问有两种方式：</p>
+<ul>
+<li><code>obj_name.obj_var</code></li>
+<li>在有 <code>self</code> 参数的方法定义中 <code>self.obj_var</code></li>
+</ul>
+<p>用访问实例的方式可以访问类变量，就像 <strong>在子级作用域访问上级变量</strong>，只能访问而不能让其指向另一个对象，而且如果实例变量与类变量同名则访问实例变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">cls</span>:</span></span><br><span class="line">    v1 = <span class="number">0</span>  <span class="comment"># 定义类变量</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.v1 = <span class="number">1</span>   <span class="comment"># 定义实例变量，隐藏同名类变量</span></span><br><span class="line"></span><br><span class="line">cls.v2 = <span class="number">0</span>  <span class="comment"># 定义类变量</span></span><br><span class="line">obj = cls()</span><br><span class="line"><span class="keyword">print</span> cls.v1, cls.v2  <span class="comment"># 访问类变量</span></span><br><span class="line"><span class="keyword">print</span> obj.v1, obj.v2  <span class="comment"># 分别访问实例变量 v1 与类变量 v2</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>类似 C 语言的格式化字符串，用 % 号连接模板字符串（Template）与匹配元组。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'%s is a string. %d is a int.'</span> % (<span class="string">"Hello World"</span>, <span class="number">0</span>) <span class="comment"># 该表达式返回一个字符串</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可将元组替换成字典，模板对应加入 (key)</span></span><br><span class="line"><span class="string">"I'm %(name)s, and I love %(num)g."</span> % &#123;<span class="string">"num"</span>:math.pi, <span class="string">"name"</span>:<span class="string">"Mike"</span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="原生字符串（常量）"><a href="#原生字符串（常量）" class="headerlink" title="原生字符串（常量）"></a>原生字符串（常量）</h4><p>在字符串字面量前加 r ，会使之成为原生字符串字面量，不会对字符进行转义。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">r"\n"</span> == <span class="string">"\\n"</span> <span class="comment"># 返回 True</span></span><br></pre></td></tr></table></figure>
+<h4 id="加操作"><a href="#加操作" class="headerlink" title="加操作"></a>加操作</h4><p><strong>字符串只允许与字符串进行加操作</strong></p>
+<h3 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h3><h4 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h4><p>函数形参（函数定义参数）复制了实参（传入函数的变量）的引用，类似 Java，对形参引用对象的修改实际上在修改实参引用对象，但让形参指向其他对象不会对实参有影响。</p>
+<h4 id="缺省与变长"><a href="#缺省与变长" class="headerlink" title="缺省与变长"></a>缺省与变长</h4><p>函数参数的定义顺序与调用顺序应该遵循：关键字参数–&gt;缺省参数–&gt;变长参数–&gt;关键字参变长数</p>
+<h5 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h5><p>最基本的一类参数，调用时可指明形参名（关键字）。与其他参数不同，必需赋值。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> a, b</span><br><span class="line">fun(<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># 一般调用方法</span></span><br><span class="line">fun(b=<span class="number">1</span>, a=<span class="number">2</span>)  <span class="comment"># 指明形参名可乱序</span></span><br><span class="line">fun(<span class="number">1</span>, b=<span class="number">2</span>) <span class="comment"># 可行</span></span><br><span class="line">fun(<span class="number">1</span>, a=<span class="number">2</span>) <span class="comment"># 这样调用出错</span></span><br><span class="line">fun(a=<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># 同样出错</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="缺省参数"><a href="#缺省参数" class="headerlink" title="缺省参数"></a>缺省参数</h5><p>缺省参数有缺省值。除了顺序在关键字参数后以及有缺省值外，与关键字参数基本相同。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a, b=<span class="number">2</span>)</span>:</span>  <span class="comment"># b 为缺省参数</span></span><br><span class="line">    <span class="keyword">print</span> a, b</span><br><span class="line">fun(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="变长参数"><a href="#变长参数" class="headerlink" title="变长参数"></a>变长参数</h5><p>参数个数不定，形参最终得到元组，调用时可不传，一个个传递或传一个元组。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a, *b)</span>:</span> <span class="comment"># b 为变长参数</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> b:</span><br><span class="line">        <span class="keyword">print</span> a + i</span><br><span class="line">fun(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">fun(<span class="number">1</span>, *(<span class="number">2</span>, <span class="number">3</span>)) <span class="comment"># 用元组传递变长参数，加星号，称作解包</span></span><br><span class="line">fun(<span class="number">1</span>)  <span class="comment"># 不传或解包空元组都可行</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="关键字变长参数"><a href="#关键字变长参数" class="headerlink" title="关键字变长参数"></a>关键字变长参数</h5><p>参数个数不定，而且必须指明关键字。形参最终得到字典，与变长参数类似，调用时可不传，一个个传递或传一个字典。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(**kwargs)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> kwargs.items():    </span><br><span class="line">        <span class="keyword">print</span> <span class="string">"get "</span> + k + <span class="string">"="</span> + str(v)</span><br><span class="line">fun(a=<span class="number">1</span>, s=<span class="string">"hi"</span>)</span><br><span class="line">fun(**&#123;<span class="string">"a"</span>: <span class="number">1</span>, <span class="string">"s"</span>: <span class="string">"hi"</span>&#125;)  <span class="comment"># 字典解包，注意关键字必须为字符串</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="参数顺序"><a href="#参数顺序" class="headerlink" title="参数顺序"></a>参数顺序</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a, b=<span class="number">1</span>, *c, **d)</span>:</span> <span class="comment"># 函数定义时形参须根据类型按序定义</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">fun(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, d1=<span class="number">4</span>) <span class="comment"># 函数调用时也根据类型按序传入</span></span><br></pre></td></tr></table></figure>
+<h3 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h3><h4 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h4><ul>
+<li>元素不能改变</li>
+</ul>
+<h4 id="False"><a href="#False" class="headerlink" title="False"></a>False</h4><p>判断语句中None,False,空字符串””,0,空列表[],空字典{},空元组()都相当于False</p>
+<h4 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install virtualenv</span><br><span class="line"><span class="comment"># 创建虚拟环境，python3，无已安装包</span></span><br><span class="line">virtualenv -p python3 --no-site-packages venv</span><br><span class="line"><span class="built_in">source</span> venv/bin/activate <span class="comment"># 激活</span></span><br><span class="line">pip freeze &gt; requirement <span class="comment"># pip freeze</span></span><br><span class="line">deactivate <span class="comment"># 退出虚拟环境</span></span><br></pre></td></tr></table></figure>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><h4 id="当前目录"><a href="#当前目录" class="headerlink" title="当前目录"></a>当前目录</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.getcwd()</span><br></pre></td></tr></table></figure>
+<h4 id="简单文件读写"><a href="#简单文件读写" class="headerlink" title="简单文件读写"></a>简单文件读写</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">col = []</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'file_path.csv'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> df:</span><br><span class="line">  <span class="keyword">for</span> line <span class="keyword">in</span> df:</span><br><span class="line">      tmp = line.strip().split(<span class="string">','</span>)</span><br><span class="line">      col.append(int(tmp[<span class="number">3</span>])) <span class="comment"># 读取第4列</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'out_path'</span>, <span class="string">'w'</span>) <span class="keyword">as</span> df: <span class="comment"># 'a' 追加</span></span><br><span class="line">  <span class="keyword">for</span> val <span class="keyword">in</span> col:</span><br><span class="line">    df.write(<span class="string">"%d\n"</span> % val)</span><br></pre></td></tr></table></figure>
+<h4 id="在控制台运行源文件"><a href="#在控制台运行源文件" class="headerlink" title="在控制台运行源文件"></a>在控制台运行源文件</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execfile(<span class="string">'python_code.py'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="错误及解决办法"><a href="#错误及解决办法" class="headerlink" title="错误及解决办法"></a>错误及解决办法</h3><h4 id="pip安装出现SOCKS支持问题"><a href="#pip安装出现SOCKS支持问题" class="headerlink" title="pip安装出现SOCKS支持问题"></a>pip安装出现SOCKS支持问题</h4><p>报错<code>Missing dependencies for SOCKS support</code>。在Ubuntu下，用<code>unset all_proxy &amp;&amp; unset ALL_PROXY</code>命令解除代理设置。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/03/C-Cpp-cheatSheet/" itemprop="url">
+                  C/Cpp 杂记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-03T10:47:21+08:00" content="2016-06-03">
+              2016-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index">
+                    <span itemprop="name">C/C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><h4 id="简单文件读写"><a href="#简单文件读写" class="headerlink" title="简单文件读写"></a>简单文件读写</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">ifstream in;</span><br><span class="line">in.open(<span class="string">"file_path"</span>);</span><br><span class="line"><span class="keyword">int</span> k;</span><br><span class="line"><span class="keyword">while</span>(in &gt;&gt; k)  <span class="comment">// 读取 int 型数据</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; k &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">in.close();</span><br><span class="line"></span><br><span class="line">ofstream out;</span><br><span class="line">out.open(<span class="string">"out_path"</span>, ios::app); <span class="comment">// app模式追加，默认覆写</span></span><br><span class="line">out &lt;&lt; ‘hello world’ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">out.close();</span><br></pre></td></tr></table></figure>
+<h3 id="编程规范"><a href="#编程规范" class="headerlink" title="编程规范"></a>编程规范</h3><h4 id="循环计数器与-运算符"><a href="#循环计数器与-运算符" class="headerlink" title="循环计数器与 ++ 运算符"></a>循环计数器与 ++ 运算符</h4><p>考虑 while 和 do 计数循环：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(++i &lt; <span class="number">1</span>)</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"while: "</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// i 不会被打印</span></span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"do: "</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// i 被打印2次</span></span><br><span class="line">&#125;<span class="keyword">while</span>(i++ &lt; <span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这里计数器 i 不能正常工作（打印一次），应该将计数器更新放在循环体避免失误，使用标准的 for 循环最好。</p>
+<h4 id="结构体声明"><a href="#结构体声明" class="headerlink" title="结构体声明"></a>结构体声明</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">struct_label</span>&#123;</span></span><br><span class="line"></span><br><span class="line">&#125;; <span class="comment">// 结构标记声明</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">struct_label</span> <span class="title">var_name</span>;</span> <span class="comment">// 结构变量声明</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">struct_label</span>&#123;</span></span><br><span class="line"></span><br><span class="line">&#125; var_name; <span class="comment">// 结构标记与变量同时声明</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line"></span><br><span class="line">&#125; struct_type, *p_struct_type;  <span class="comment">// 结构typedef名声明</span></span><br><span class="line">struct_type var_name; <span class="comment">// 结构变量声明</span></span><br><span class="line">p_struct_type var_name; <span class="comment">// 结构指针变量声明</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">struct_label</span>&#123;</span></span><br><span class="line"></span><br><span class="line">&#125; struct_type, *p_struct_type;  <span class="comment">// 结构标记与typedef名同时声明</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">  ElemType data;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; Node, *PNode; <span class="comment">// 链表结点结构体典型声明</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/31/ML-MLT-1-dualSVM/" itemprop="url">
                   机器学习技法第二课——Dual Support Vector Machine
                 </a>
@@ -304,12 +1162,8 @@
         
           
             <p>此文是学习林轩田老师的机器学习技法第二课——Dual Support Vector Machine——的课堂笔记，有关 SVM 公式推导。</p>
-<p>给定原公式： <span class="math display">\[
-\frac{1}{2}\min_{b, \mathbf{w}} \mathbf{w^T w} \\\\
-s.t. \ y_n(\mathbf{w^T \mathbf{x_n}} + b) \ge 1
-\]</span> （为简化求解，公式与前次笔记稍有不同，但等价）这节课做了一系列的变换，最终有什么效果呢？</p>
-<h3 id="参考">参考</h3>
-<ul>
+<p>给定原公式：<br>$$<br>\frac{1}{2}\min_{b, \mathbf{w}} \mathbf{w^T w} \\<br>s.t. \ y_n(\mathbf{w^T \mathbf{x_n}} + b) \ge 1<br>$$<br>（为简化求解，公式与前次笔记稍有不同，但等价）这节课做了一系列的变换，最终有什么效果呢？</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="/2016/05/25/ML-MLT-0-deductionSVM/" title="linear SVM">linear SVM</a></li>
 <li><a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0" target="_blank" rel="noopener">拉格朗日乘数</a></li>
@@ -317,57 +1171,21 @@ s.t. \ y_n(\mathbf{w^T \mathbf{x_n}} + b) \ge 1
 <li><a href="http://xiaoyc.com/duality-theory-for-optimization/" target="_blank" rel="noopener">优化问题中的对偶性理论</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/202_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 </ul>
-<h3 id="拉格朗日乘数法">拉格朗日乘数法</h3>
-<p>拉格朗日乘数法可以把限制条件和目标函数结合成一个整体。原公式整合成： <span class="math display">\[
-L(b, \mathbf{w}, \alpha) = \frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n(\mathbf{w^T \mathbf{x_n}} + b))
-\]</span> SVM 求解公式变为： <span class="math display">\[
-\min_{b,\mathbf{w}} (\max_{all\ \alpha_n \ge 0}L(b, \mathbf{w}, \alpha)) = \min_{b, \mathbf{w}}(\infty\ if\ violate;\ \mathbf{w^T w}\ if\ feasible)
-\]</span></p>
-<h3 id="拉格朗日对偶问题">拉格朗日对偶问题</h3>
-<p>利用对偶问题，对上步的求解公式取下限： <span class="math display">\[
-\min_{b,\mathbf{w}} (\max_{all\ \alpha_n \ge 0}L(b, \mathbf{w}, \alpha)) \ge \max_{all\ \alpha’_n \ge 0} (\min_{b,\mathbf{w}} L(b, \mathbf{w}, \alpha&#39;))
-\]</span> 至于为何成立我没有细究，只能说这符合直觉。因为，考虑 <span class="math inline">\(L(b, \mathbf{w}, \alpha)\)</span> 为一个波动的函数，视 <span class="math inline">\(\max\)</span> 为取波峰， <span class="math inline">\(\min\)</span> 取波谷，那么从波峰中最小的应该不小于波谷中最大的。</p>
+<h3 id="拉格朗日乘数法"><a href="#拉格朗日乘数法" class="headerlink" title="拉格朗日乘数法"></a>拉格朗日乘数法</h3><p>拉格朗日乘数法可以把限制条件和目标函数结合成一个整体。原公式整合成：<br>$$<br>L(b, \mathbf{w}, \alpha) = \frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n(\mathbf{w^T \mathbf{x<em>n}} + b))<br>$$<br>SVM 求解公式变为：<br>$$<br>\min</em>{b,\mathbf{w}} (\max_{all\ \alpha<em>n \ge 0}L(b, \mathbf{w}, \alpha)) = \min</em>{b, \mathbf{w}}(\infty\ if\ violate;\ \mathbf{w^T w}\ if\ feasible)<br>$$</p>
+<h3 id="拉格朗日对偶问题"><a href="#拉格朗日对偶问题" class="headerlink" title="拉格朗日对偶问题"></a>拉格朗日对偶问题</h3><p>利用对偶问题，对上步的求解公式取下限：<br>$$<br>\min<em>{b,\mathbf{w}} (\max</em>{all\ \alpha<em>n \ge 0}L(b, \mathbf{w}, \alpha)) \ge \max</em>{all\ \alpha’<em>n \ge 0} (\min</em>{b,\mathbf{w}} L(b, \mathbf{w}, \alpha’))<br>$$<br>至于为何成立我没有细究，只能说这符合直觉。因为，考虑 $L(b, \mathbf{w}, \alpha)$ 为一个波动的函数，视 $\max$ 为取波峰， $\min$ 取波谷，那么从波峰中最小的应该不小于波谷中最大的。</p>
 <p>有证明表示，对拉格朗日对偶问题，如果满足 <strong><em>强对偶</em></strong> 的三个条件，原始函数为凸函数、原始问题可解、原始限制条件是线性的，就可以在上式中取等，而 SVM 刚好满足。 : P</p>
-<h3 id="关于-alpha-函数">关于 <span class="math inline">\(\alpha\)</span> 函数</h3>
-<p>接下来对求解公式做2步“简化”，使之成为仅关于 <span class="math inline">\(\alpha\)</span> 的函数。</p>
-<p><strong><em>去 <span class="math inline">\(b\)</span>：</em></strong> 考虑在极值点，变量的梯度都应该为 <span class="math inline">\(0\)</span>，所以 <span class="math inline">\(b\)</span> 的梯度 <span class="math display">\[-\sum_{n=1}^N \alpha_n y_n = 0\]</span> 把该式置于条件中并化简，得到求解公式等价式： <span class="math display">\[
-\max_{\alpha_n} \min_\mathbf{w}(\frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n \mathbf{w^T \mathbf{x_n}})) \\\\
-s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
-\]</span></p>
-<p><strong><em>去 <span class="math inline">\(\mathbf{w}\)</span>：</em></strong>　<span class="math inline">\(\mathbf{w}\)</span> 的梯度 <span class="math display">\[\mathbf{w}_i - \sum_{n=1}^N \alpha_n y_n x_{n,i} = 0 \\\\
-\Rightarrow \mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}\]</span> 把该式置于条件中并经过化简，得到最终的求解公式： <span class="math display">\[
-\max_{\alpha_n} (-\frac{1}{2}|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 + \sum_{n=1}^{N}\alpha_n) \\\\
-s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0,\ \mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}
-\]</span> 注意其中的 <span class="math inline">\(\mathbf{x_n}\)</span> 及其求和均为向量，原本的求最小因为消去 <span class="math inline">\(b, \mathbf{w}\)</span> 而除去。</p>
-<h3 id="kkt-条件">KKT 条件</h3>
-<p>对凸优化问题，KKT 条件是一组解成为最优解的充分必要条件。（见<a href="http://xiaoyc.com/duality-theory-for-optimization/" target="_blank" rel="noopener">“优化问题中的对偶性理论”</a>）而 SVM 求解原式和对偶式（强对偶）都有最优解，所以最优解满足 KKT 条件。 这其中有 2 个条件可以用于从最最优 <span class="math inline">\(\alpha\)</span> 中解出最做优 <span class="math inline">\(b, \mathbf{w}\)</span> <span class="math display">\[
-\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n} \\\\
-\alpha_n(1 - y_n(\mathbf{w^T \mathbf{x_n}} + b)) = 0
-\]</span></p>
-<h3 id="二次规划求解">二次规划求解</h3>
-<p>与上一课一样，因为求解问题是一个二次规划问题，所以可以借助相关的工具。在此之前，需要做一些变换。</p>
-<p><strong><em>最大化变最小化</em></strong>　　最优化工具往往求最小值。求解公式取相反数： <span class="math display">\[
-\min_{\alpha_n} (\frac{1}{2}|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 - \sum_{n=1}^{N}\alpha_n) \\\\
-\]</span></p>
-<p><strong><em>隐藏 <span class="math inline">\(\mathbf{w}\)</span> 的限制条件</em></strong>　　使公式完全变为关于 <span class="math inline">\(\alpha\)</span> 的函数，剩下的 <span class="math inline">\(x, y\)</span> 都是已知量 <span class="math display">\[
-s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
-\]</span></p>
-<p><strong><em>展露二次项系数</em></strong>　　求解公式中二次项系数不易发现，做拆分： <span class="math display">\[|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n}|^2 \\\\
-=(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})^\mathbf{T}(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})
-=(\sum_{m=1}^{N} \alpha_m y_m \mathbf{x_m^T})(\sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n})\\\\
-=\sum_{m=1}^{N} \sum_{n=1}^{N} y_m \mathbf{x_m^T}  y_n \mathbf{x_n} \alpha_m \alpha_n
-\]</span> 注意该式原始是2个（由多个向量求和得到的）向量的内积，最后一步变换使用了向量的分配律。可见，二次项 <span class="math inline">\(\alpha_m \alpha_n\)</span> 的系数为 <span class="math inline">\(y_m \mathbf{x_m^T} y_n \mathbf{x_n}\)</span>。</p>
-<p>最后给出 <strong><em>完整公式</em></strong>： <span class="math display">\[
-\min_{\alpha_n} (\frac{1}{2}\sum_{m=1}^{N} \sum_{n=1}^{N} y_m \mathbf{x_m^T}  y_n \mathbf{x_n} \alpha_m \alpha_n - \sum_{n=1}^{N}\alpha_n) \\\\
-s.t.\ all\ \alpha_n \ge 0,\ \sum_{n=1}^N \alpha_n y_n = 0
-\]</span> 利用二次规划工具解决该问题，解出 <span class="math inline">\(\alpha\)</span> 后，再利用 KKT 公式的2个条件，解出 <span class="math inline">\(\mathbf{w}, b\)</span>: <span class="math display">\[
-\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n} \\\\
-b = y_n - \mathbf{w^T \mathbf{x_n}}\ ,\  s.t.\ \alpha_n \ne 0
-\]</span></p>
-<p>值得注意的是，二次项系数矩阵是 <span class="math inline">\(N \times N\)</span> 的大型矩阵，而且并非上节课的对角矩阵，需要专为 SVM 设计的二次规划求解工具。</p>
-<h3 id="sv-与后续">SV 与后续</h3>
-<p>很明显，利用 <span class="math inline">\(\alpha\)</span> 求解 <span class="math inline">\(\mathbf{w}, b\)</span> 时，如果 <span class="math inline">\(\alpha_i\)</span> 为0，对求解没有影响。也就是说，对应 <span class="math inline">\(\alpha_i = 0\)</span> 的向量（数据点）对求解没有影响。联系上节课，即对应 <span class="math inline">\(\alpha_i \gt 0\)</span> 的向量为支持向量（SV）。</p>
-<p>课程中对原始向量 <span class="math inline">\(\mathbf{x}\)</span> 做了向N维向量 <span class="math inline">\(\mathbf{z}\)</span> 的映射，<span class="math inline">\(\mathbf{x}\)</span> 替换成 <span class="math inline">\(\mathbf{z}\)</span> 后对推导没有影响。而这节课的变换似乎没有简化求解，至于为何目的，只有后续揭晓了。</p>
+<h3 id="关于-alpha-函数"><a href="#关于-alpha-函数" class="headerlink" title="关于 $\alpha$ 函数"></a>关于 $\alpha$ 函数</h3><p>接下来对求解公式做2步“简化”，使之成为仅关于 $\alpha$ 的函数。</p>
+<p><strong><em>去 $b$：</em></strong>  考虑在极值点，变量的梯度都应该为 $0$，所以 $b$ 的梯度<br>$$-\sum_{n=1}^N \alpha_n y<em>n = 0$$<br>把该式置于条件中并化简，得到求解公式等价式：<br>$$<br>\max</em>{\alpha<em>n} \min</em>\mathbf{w}(\frac{1}{2} \mathbf{w^T w} + \sum_{n=1}^{N}\alpha_n(1 - y_n \mathbf{w^T \mathbf{x_n}})) \\<br>s.t.\ all\ \alpha<em>n \ge 0,\ \sum</em>{n=1}^N \alpha_n y_n = 0<br>$$</p>
+<p><strong><em>去 $\mathbf{w}$：</em></strong>　$\mathbf{w}$ 的梯度<br>$$\mathbf{w}<em>i - \sum</em>{n=1}^N \alpha_n y<em>n x</em>{n,i} = 0 \\<br>\Rightarrow \mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x<em>n}$$<br>把该式置于条件中并经过化简，得到最终的求解公式：<br>$$<br>\max</em>{\alpha<em>n} (-\frac{1}{2}|\sum</em>{n=1}^{N} \alpha_n y_n \mathbf{x<em>n}|^2 + \sum</em>{n=1}^{N}\alpha_n) \\<br>s.t.\ all\ \alpha<em>n \ge 0,\ \sum</em>{n=1}^N \alpha_n y<em>n = 0,\ \mathbf{w} = \sum</em>{n=1}^{N} \alpha_n y_n \mathbf{x_n}<br>$$<br>注意其中的 $\mathbf{x_n}$ 及其求和均为向量，原本的求最小因为消去 $b, \mathbf{w}$ 而除去。</p>
+<h3 id="KKT-条件"><a href="#KKT-条件" class="headerlink" title="KKT 条件"></a>KKT 条件</h3><p>对凸优化问题，KKT 条件是一组解成为最优解的充分必要条件。（见<a href="http://xiaoyc.com/duality-theory-for-optimization/" target="_blank" rel="noopener">“优化问题中的对偶性理论”</a>）而 SVM 求解原式和对偶式（强对偶）都有最优解，所以最优解满足 KKT 条件。<br>这其中有 2 个条件可以用于从最最优 $\alpha$ 中解出最做优 $b, \mathbf{w}$<br>$$<br>\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x_n} \\<br>\alpha_n(1 - y_n(\mathbf{w^T \mathbf{x_n}} + b)) = 0<br>$$</p>
+<h3 id="二次规划求解"><a href="#二次规划求解" class="headerlink" title="二次规划求解"></a>二次规划求解</h3><p>与上一课一样，因为求解问题是一个二次规划问题，所以可以借助相关的工具。在此之前，需要做一些变换。</p>
+<p><strong><em>最大化变最小化</em></strong>　　最优化工具往往求最小值。求解公式取相反数：<br>$$<br>\min_{\alpha<em>n} (\frac{1}{2}|\sum</em>{n=1}^{N} \alpha_n y_n \mathbf{x<em>n}|^2 - \sum</em>{n=1}^{N}\alpha_n) \\<br>$$</p>
+<p><strong><em>隐藏 $\mathbf{w}$ 的限制条件</em></strong>　　使公式完全变为关于 $\alpha$ 的函数，剩下的 $x, y$ 都是已知量<br>$$<br>s.t.\ all\ \alpha<em>n \ge 0,\ \sum</em>{n=1}^N \alpha_n y_n = 0<br>$$</p>
+<p><strong><em>展露二次项系数</em></strong>　　求解公式中二次项系数不易发现，做拆分：<br>$$|\sum_{n=1}^{N} \alpha_n y_n \mathbf{x<em>n}|^2 \\<br>=(\sum</em>{n=1}^{N} \alpha_n y_n \mathbf{x<em>n})^\mathbf{T}(\sum</em>{n=1}^{N} \alpha_n y_n \mathbf{x<em>n})<br>=(\sum</em>{m=1}^{N} \alpha_m y_m \mathbf{x<em>m^T})(\sum</em>{n=1}^{N} \alpha_n y_n \mathbf{x<em>n})\\<br>=\sum</em>{m=1}^{N} \sum_{n=1}^{N} y_m \mathbf{x_m^T}  y_n \mathbf{x_n} \alpha_m \alpha_n<br>$$<br>注意该式原始是2个（由多个向量求和得到的）向量的内积，最后一步变换使用了向量的分配律。可见，二次项 $\alpha_m \alpha_n$ 的系数为 $y_m \mathbf{x_m^T}  y_n \mathbf{x_n}$。</p>
+<p>最后给出 <strong><em>完整公式</em></strong>：<br>$$<br>\min_{\alpha<em>n} (\frac{1}{2}\sum</em>{m=1}^{N} \sum_{n=1}^{N} y_m \mathbf{x_m^T}  y_n \mathbf{x_n} \alpha_m \alpha<em>n - \sum</em>{n=1}^{N}\alpha_n) \\<br>s.t.\ all\ \alpha<em>n \ge 0,\ \sum</em>{n=1}^N \alpha_n y<em>n = 0<br>$$<br>利用二次规划工具解决该问题，解出 $\alpha$ 后，再利用 KKT 公式的2个条件，解出 $\mathbf{w}, b$:<br>$$<br>\mathbf{w} = \sum</em>{n=1}^{N} \alpha_n y_n \mathbf{x_n} \\<br>b = y_n - \mathbf{w^T \mathbf{x_n}}\ ,\  s.t.\ \alpha_n \ne 0<br>$$</p>
+<p>值得注意的是，二次项系数矩阵是 $N \times N$ 的大型矩阵，而且并非上节课的对角矩阵，需要专为 SVM 设计的二次规划求解工具。</p>
+<h3 id="SV-与后续"><a href="#SV-与后续" class="headerlink" title="SV 与后续"></a>SV 与后续</h3><p>很明显，利用 $\alpha$ 求解 $\mathbf{w}, b$ 时，如果 $\alpha_i$ 为0，对求解没有影响。也就是说，对应 $\alpha_i = 0$ 的向量（数据点）对求解没有影响。联系上节课，即对应 $\alpha_i \gt 0$ 的向量为支持向量（SV）。</p>
+<p>课程中对原始向量 $\mathbf{x}$ 做了向N维向量 $\mathbf{z}$ 的映射，$\mathbf{x}$ 替换成 $\mathbf{z}$ 后对推导没有影响。而这节课的变换似乎没有简化求解，至于为何目的，只有后续揭晓了。</p>
 
           
         
@@ -481,40 +1299,23 @@ b = y_n - \mathbf{w^T \mathbf{x_n}}\ ,\  s.t.\ \alpha_n \ne 0
         
           
             <p>此文是学习林轩田老师的机器学习技法第一课——Linear Support Vector Machine——的课堂笔记，有关 SVM 公式推导。</p>
-<h3 id="参考">参考</h3>
-<ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/201_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 </ul>
-<h3 id="单层感知器">（单层）感知器</h3>
-<p>感知器 (Perceptron) 利用超平面 <span class="math display">\[\mathbf{w} \cdot \mathbf{x} = b \]</span> 进行二元分类。其中，<span class="math inline">\(\mathbf{x} = (x_1, x_2, ..., x_n)\)</span>，<span class="math inline">\(\mathbf{w} = (w_1, w_2, ..., w_n)\)</span>。</p>
-<p>一个数据 <span class="math inline">\((\mathbf{x},y)\)</span> 中，<span class="math inline">\(\mathbf{x}\)</span> 作为输入，一个特征向量，可代表一个实体，而输出 <span class="math inline">\(y \in \{-1, 1\}\)</span> 则标记该实体的类别。Perceptron 希望找到一个超平面，即确定参数 <span class="math inline">\(\mathbf{w}, b\)</span>， 能对一组数据 <span class="math inline">\(\{(\mathbf{x_1}, y_1), (\mathbf{x_2}, y_2),...,(\mathbf{x_n}, y_n),\}\)</span> 进行分类，使得对每组 <span class="math inline">\((\mathbf{x}, y)\)</span> 都有：当 <span class="math inline">\(y &gt; 0\)</span> 时，<span class="math inline">\(\mathbf{w} \cdot \mathbf{x} &gt; b\)</span>, 否则，<span class="math inline">\(\mathbf{w} \cdot \mathbf{x} &lt; b\)</span>。</p>
+<h3 id="（单层）感知器"><a href="#（单层）感知器" class="headerlink" title="（单层）感知器"></a>（单层）感知器</h3><p>感知器 (Perceptron) 利用超平面<br>$$\mathbf{w} \cdot \mathbf{x} = b $$<br>进行二元分类。其中，$\mathbf{x} = (x_1, x_2, …, x_n)$，$\mathbf{w} = (w_1, w_2, …, w_n)$。</p>
+<p>一个数据 $(\mathbf{x},y)$ 中，$\mathbf{x}$ 作为输入，一个特征向量，可代表一个实体，而输出 $y \in {-1, 1}$ 则标记该实体的类别。Perceptron 希望找到一个超平面，即确定参数 $\mathbf{w}, b$， 能对一组数据 ${(\mathbf{x_1}, y_1), (\mathbf{x_2}, y_2),…,(\mathbf{x_n}, y_n),}$ 进行分类，使得对每组 $(\mathbf{x}, y)$ 都有：当 $y &gt; 0$ 时，$\mathbf{w} \cdot \mathbf{x} &gt; b$, 否则，$\mathbf{w} \cdot \mathbf{x} &lt; b$。</p>
 <p>例子，考虑输入为二维向量，每个数据表现为一个点，而超平面视作一条直线，Perceptron 所做的是，对多个数据点，找到一条直线将有不同标记（-1或1）的点分开。</p>
-<h3 id="公式推导">公式推导</h3>
-<p>SVM 在 Perceptron 上更进一步，不仅要求能够找到一个超平面，而且要求这个超平面能能够尽量容忍误差。就 <em>Perceptron</em> 一节所举例子，SVM 要求该直线尽可能远离数据点，使得如果数据点因为误差而偏移，该直线也可能正确分类。</p>
-<p>这可以理解成要求向量到超平面的距离尽可能大。在 <a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a> 的 <em>点与超平面距离与 SVM</em> 一节中已经说明距离可以表示为 <span class="math display">\[
-d = \left| \frac{\mathbf{w \cdot x}}{\mathbf{|w|}} - \frac{b}{\mathbf{|w|}} \right| = \frac {1} {|\mathbf{w}|} |\mathbf{w \cdot x} - b|
-\]</span> 这时，目标可以转换成求使“最小的 d” “最大” 的 <span class="math inline">\(\mathbf{w}, b\)</span>，“最小的d”指所有向量与某组 <span class="math inline">\(\mathbf{w}, b\)</span> 所确定的超平面的距离的最小值，“最大” 则指所有 <span class="math inline">\(\mathbf{w}, b\)</span> 组各自对应的 “最小的 d” 中最大的。翻译成符号： <span class="math display">\[
-\max_{b, \mathbf{w}} margin(b, \mathbf{w})  \\\\
-subject\ to \ every\ y_n(\mathbf{w^T x_n} - b) &gt; 0  \\\\
-margin(b, \mathbf{w}) = \min_{n=1,..,N} \frac {1}{|\mathbf{w}|} |\mathbf{w^T x_n} - b|
-\]</span> 其中，margin 可理解成距离，subject to 表示限制。即要求在可分类的情况下，求解出每组 <span class="math inline">\((b, \mathbf{w})\)</span> 最小的距离，再选取其中最大的。注：<span class="math inline">\(\min\)</span> 内部，<span class="math inline">\(n\)</span> 作为变量，而 <span class="math inline">\(\max\)</span> 内部， <span class="math inline">\(\mathbf{w}, b\)</span> 作为变量。</p>
+<h3 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h3><p>SVM 在 Perceptron 上更进一步，不仅要求能够找到一个超平面，而且要求这个超平面能能够尽量容忍误差。就 <em>Perceptron</em> 一节所举例子，SVM 要求该直线尽可能远离数据点，使得如果数据点因为误差而偏移，该直线也可能正确分类。</p>
+<p>这可以理解成要求向量到超平面的距离尽可能大。在 <a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a> 的 <em>点与超平面距离与 SVM</em> 一节中已经说明距离可以表示为<br>$$<br>d = \left| \frac{\mathbf{w \cdot x}}{\mathbf{|w|}} - \frac{b}{\mathbf{|w|}} \right| = \frac {1} {|\mathbf{w}|} |\mathbf{w \cdot x} - b|<br>$$<br>这时，目标可以转换成求使“最小的 d” “最大” 的 $\mathbf{w}, b$，“最小的d”指所有向量与某组 $\mathbf{w}, b$ 所确定的超平面的距离的最小值，“最大” 则指所有 $\mathbf{w}, b$ 组各自对应的 “最小的 d ” 中最大的。翻译成符号：<br>$$<br>\max_{b, \mathbf{w}} margin(b, \mathbf{w})  \\<br>subject\ to \ every\ y_n(\mathbf{w^T x<em>n} - b) &gt; 0  \\<br>margin(b, \mathbf{w}) = \min</em>{n=1,..,N} \frac {1}{|\mathbf{w}|} |\mathbf{w^T x_n} - b|<br>$$<br>其中，margin 可理解成距离，subject to 表示限制。即要求在可分类的情况下，求解出每组 $(b, \mathbf{w})$ 最小的距离，再选取其中最大的。注：$\min$ 内部，$n$ 作为变量，而 $\max$ 内部， $\mathbf{w}, b$ 作为变量。</p>
 <p>课程中将其转换为二次规划（Quadratic programming）问题求解。</p>
-<p><strong><em>去绝对值</em></strong>，<span class="math inline">\(|\mathbf{w^T x_n} - b|\)</span> 转换成 <span class="math inline">\(y_n(\mathbf{w^T x_n} - b)\)</span>。</p>
-<p><strong><em>令 <span class="math inline">\(y_n(\mathbf{w^T x_n} - b)=1\)</span></em></strong>（可以等于任一大于0常数），考虑到 <span class="math inline">\(\mathbf{w}, b\)</span> 作为求解变量可以乘以一个常数 k 进行放缩同时保持超平面不变，而 <span class="math inline">\(|\mathbf{w}|\)</span> 会抵消 k 带来的影响并保持 margin 不变，所以这步变换与原式等价。这使得 <span class="math display">\[margin = \min_{n=1,..,N} \frac {1}{|\mathbf{w}|} \]</span> 而且，这可以去除限制 <span class="math inline">\(y_n(\mathbf{w^T x_n} - b) &gt; 0\)</span>，变换为： <span class="math display">\[
-\max_{b, \mathbf{w}} \frac {1}{|\mathbf{w}|} \\\\
-subject\ to \ [\min_{n=1,..,N} y_n(\mathbf{w^T x_n} - b)]=1
-\]</span></p>
-<p><strong><em>令 <span class="math inline">\(y_n(\mathbf{w^T x_n} - b) \ge 1\)</span></em></strong>，要求对于所有的 <span class="math inline">\(n\)</span> 都成立（上步仅要求最小值处成立）。这是合乎情理的，因为对于被放缩的某组 <span class="math inline">\(\mathbf{w}, b\)</span>，距离最小值为1，则该组所有值都应不小于1。好处是限制条件不必做最小化操作。课程中也给出证明，说明此步与原式等价，在此不赘述。</p>
-<p><strong><em>求最大值变为求最小值，去掉倒数与绝对值</em></strong>。最终变换成一个所谓简单的二次规划问题为 <span class="math display">\[
-\min_{b, \mathbf{w}} \mathbf{w^T w} \\\\
-subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
-\]</span></p>
-<h3 id="支持向量">支持向量</h3>
-<p>所谓支持向量，即距离最佳超平面最近的向量。它们“支持”了最佳超平面，而丢失其他向量对最佳超平面没有影响。对最佳 <span class="math inline">\((\mathbf{w}, b)\)</span> 支持向量满足： <span class="math display">\[y(\mathbf{w^T x} - b) = 1\]</span></p>
-<h3 id="更强容错能力">更强容错能力</h3>
-<p>直觉上认为 SVM 有更强的容错能力。课程中比较了一般正则仳与 SVM： | | minimize | constraint| |:—–:|:—–:|:——-:| regularization | <span class="math inline">\(E_{in}\)</span> | <span class="math inline">\(\mathbf{w^T w} \le C\)</span> SVM | <span class="math inline">\(\mathbf{w^T w}\)</span> | <span class="math inline">\(E_{in} = 0\)</span> [and more] 可看出 SVM 实际上做了与正则化相似的工作，而正则化能提高模型的容错能力。</p>
+<p><strong><em>去绝对值</em></strong>，$|\mathbf{w^T x_n} - b|$ 转换成 $y_n(\mathbf{w^T x_n} - b)$。</p>
+<p><strong><em>令 $y_n(\mathbf{w^T x_n} - b)=1$</em></strong>（可以等于任一大于0常数），考虑到<br>$\mathbf{w}, b$ 作为求解变量可以乘以一个常数 k 进行放缩同时保持超平面不变，而 $|\mathbf{w}|$ 会抵消 k 带来的影响并保持 margin 不变，所以这步变换与原式等价。这使得<br>$$margin = \min_{n=1,..,N} \frac {1}{|\mathbf{w}|} $$<br>而且，这可以去除限制 $y_n(\mathbf{w^T x<em>n} - b) &gt; 0$，变换为：<br>$$<br>\max</em>{b, \mathbf{w}} \frac {1}{|\mathbf{w}|} \\<br>subject\ to \ [\min_{n=1,..,N} y_n(\mathbf{w^T x_n} - b)]=1<br>$$</p>
+<p><strong><em>令 $y_n(\mathbf{w^T x_n} - b) \ge 1$</em></strong>，要求对于所有的 $n$ 都成立（上步仅要求最小值处成立）。这是合乎情理的，因为对于被放缩的某组 $\mathbf{w}, b$，距离最小值为1，则该组所有值都应不小于1。好处是限制条件不必做最小化操作。课程中也给出证明，说明此步与原式等价，在此不赘述。</p>
+<p><strong><em>求最大值变为求最小值，去掉倒数与绝对值</em></strong>。最终变换成一个所谓简单的二次规划问题为<br>$$<br>\min_{b, \mathbf{w}} \mathbf{w^T w} \\<br>subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1<br>$$</p>
+<h3 id="支持向量"><a href="#支持向量" class="headerlink" title="支持向量"></a>支持向量</h3><p>所谓支持向量，即距离最佳超平面最近的向量。它们“支持”了最佳超平面，而丢失其他向量对最佳超平面没有影响。对最佳 $(\mathbf{w}, b)$ 支持向量满足：<br>$$y(\mathbf{w^T x} - b) = 1$$</p>
+<h3 id="更强容错能力"><a href="#更强容错能力" class="headerlink" title="更强容错能力"></a>更强容错能力</h3><p>直觉上认为 SVM 有更强的容错能力。课程中比较了一般正则仳与 SVM：<br>|       | minimize |  constraint|<br>|:—–:|:—–:|:——-:|<br>regularization |  $E<em>{in}$ | $\mathbf{w^T w} \le C$<br>SVM            |  $\mathbf{w^T w}$  |   $E</em>{in} = 0$ [and more]<br>可看出 SVM 实际上做了与正则化相似的工作，而正则化能提高模型的容错能力。</p>
 
           
         
@@ -628,8 +1429,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
         
           
             <p>链接：<a href="http://open.163.com/special/gametheory/" target="_blank" rel="noopener">耶鲁大学公开课-博弈论</a></p>
-<h3 id="个入门结论">5个入门结论</h3>
-<ul>
+<h3 id="5个入门结论"><a href="#5个入门结论" class="headerlink" title="5个入门结论"></a>5个入门结论</h3><ul>
 <li>Do not play a strictly dominated strategy.</li>
 <li>Rational choose can lead to outcomes suck.</li>
 <li>You can’t get what you want, till you know what you want.</li>
@@ -749,1121 +1549,14 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
         
           
             <p>参考： <a href="/2016/09/28/Math-LinAlg-analyticGeometry/" title="空间解析几何">空间解析几何</a></p>
-<p>在 n 维空间中，满足方程 <span class="math display">\[a_1 x_1 + a_2 x_2 + ... + a_n x_n = b \]</span> 的向量 <span class="math inline">\((x_1, x_2,...,x_n)\)</span> 构成的空间称为 <strong>超平面</strong>。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 <span class="math inline">\((n-1)\)</span> 个维度值确定时，剩下的一个维度也确定了。</p>
-<h4 id="参数的取值范围与-perceptron">参数的取值范围与 Perceptron</h4>
-<p>单层感知器（Perceptron）利用超平面分类数据。输入训练数据为向量 <span class="math inline">\(\mathbf{x} = (x_1, x_2,..., x_n)\)</span>， 其目标是训练出权重向量 <span class="math inline">\(\mathbf{w} = (w_1, w_2,..., w_n)\)</span> 与偏值 <span class="math inline">\(b\)</span>， 使得所有满足 <span class="math inline">\(\mathbf{w}\cdot \mathbf{x}\ge b\)</span> 的数据同为一类，而满足 <span class="math inline">\(\mathbf{w}\cdot \mathbf{x}&lt; b\)</span> 的数据同为另一类。形象地理解就是，给定 n 维空间的许多点，分为两种类型，要求找到一个超平面，将这两种类型的点分开。再形象点，在二维空间中，有许多红点和蓝点，Perceptron 需要划一条直线将红点蓝点分开。（当然，Perceptron 往往不能对数据完全正确分类，所以有后续的处理。这里只是理想情况）</p>
-<p>值得注意的是，偏值 <span class="math inline">\(b\)</span> 容易被误认为无需训练，直接设为定值就行（比如零）。实际上，将权重向量的任何一个元素及偏值 <span class="math inline">\(b\)</span> 固定为常量，都会导致（ <span class="math inline">\(\mathbf{w}, b\)</span> ）所能表示的超平面减少，从而导致分类的能力下降。可以参考平面下直线的表达式： <span class="math inline">\(ax+by=c\)</span> ，如果固定 <span class="math inline">\(c=0\)</span>， 该直线必定过原点，不能表示许多不过原点的直线。</p>
-<h4 id="点到超平面距离与-svm">点到超平面距离与 SVM</h4>
-<p>支持向量机（SVM）也是利用超平面分类向量的，它关注的是点与超平面的距离。</p>
-<p>已知超平面的法向量 <span class="math inline">\(\mathbf{w}=(w_1,w_2,...,w_n)\)</span> 和数 <span class="math inline">\(b\)</span>， 超平面表示为：</p>
-<p><span class="math display">\[ \mathbf{w}\cdot\mathbf{x} + b=0 \]</span></p>
-<p><span class="math inline">\(\mathbf{x}= (x_1, x_2,..., x_n)\)</span> 表示超平面上的任意一点。设 <span class="math inline">\(\mathbf{y}_0= (y_1, y_2,..., y_n)\)</span> 为超平面上一点，则有 <span class="math inline">\(\mathbf{w}\cdot\mathbf{y}_0 = -b\)</span>。可得点 <span class="math inline">\(\mathbf{s}= (s_1, s_2,..., s_n)\)</span> 与超平面的距离 <span class="math inline">\(d\)</span>：</p>
-<p><span class="math display">\[ d=\left| \frac{\mathbf{w}\cdot(\mathbf{s}_0 - \mathbf{y}_0)}{||\mathbf{w}||} \right|=\left| \frac{\mathbf{w}\cdot\mathbf{s}_0 + b}{||\mathbf{w}||} \right| \]</span></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/22/Tools-Git/" itemprop="url">
-                  My Git Cheat Sheet
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-22T20:22:26+08:00" content="2016-05-22">
-              2016-05-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="gitignore">gitignore</h4>
-<p>项目下 .gitignore 文件与项目下 .git/info/exclude 文件都可以使 git 在文件或目录未添加进记录前被忽略。前者应该被团队共享，而后者应该作为个人的配置。因为后者在 .git 目录下，其改变被 git 忽略，不会影响其他人。</p>
-<ul>
-<li><a href="https://github.com/github/gitignore" target="_blank" rel="noopener">.gitignore 模板</a></li>
-<li>使用 .git/info/exclude 作为个人配置，.gitignore 作为团队配置</li>
-<li>匹配目录加 “/”：“dir_name/”</li>
-<li>匹配前加上惊叹号 “!”，表示不忽略</li>
-</ul>
-<h4 id="常用命令">常用命令</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global -l # 查看全局配置</span><br><span class="line">git diff HEAD -- filename # 比较</span><br></pre></td></tr></table></figure>
-<h4 id="撤销操作">撤销操作</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD    # 撤销上次 add 操作</span><br></pre></td></tr></table></figure>
-<p>更详细的教程<a href="https://github.com/geeeeeeeeek/git-recipes/wiki/5.2-%E4%BB%A3%E7%A0%81%E5%9B%9E%E6%BB%9A%EF%BC%9AReset%E3%80%81Checkout%E3%80%81Revert-%E7%9A%84%E9%80%89%E6%8B%A9" target="_blank" rel="noopener">代码回滚：Reset、Checkout、Revert-的选择</a></p>
-<h4 id="diff-比较">diff 比较</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git diff  # 比较工作区与缓存区</span><br><span class="line">git diff --cached   # 比较缓存区与仓库（HEAD）</span><br><span class="line">git diff HEAD   # 比较工作区与仓库（HEAD）</span><br></pre></td></tr></table></figure>
-<h4 id="换行符差异">换行符差异</h4>
-<p>Unix/MacOS使用LF换行符，而Windows用CRLF。在Windows下，Git在检出时默认将LF转换为CRLF，在commit时自动将CRLF转换为LF，但可能造成混乱，例如直接从Unix拷贝到Windows的源文件是LF的，会被视为有变更。为避免这个问题，首先设置IDE换行符为LF，并关闭Git这个功能： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#提交检出均不转换换行符</span><br><span class="line">git config --global core.autocrlf false</span><br><span class="line">#拒绝提交包含混合换行符的文件</span><br><span class="line">git config --global core.safecrlf true</span><br></pre></td></tr></table></figure></p>
-<h4 id="生成ssh-key">生成ssh key</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ubuntu下打开shell，Windows下打开Git bash</span></span><br><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/21/Math-LinAlg-Matrix/" itemprop="url">
-                  矩阵相关
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-21T22:10:50+08:00" content="2016-05-21">
-              2016-05-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="系列笔记">系列笔记</h3>
-<ul>
-<li><a href="/2016/08/26/Math-LinAlg-determinant/" title="行列式">行列式</a></li>
-<li><a href="/2016/08/28/Math-LinAlg-rank/" title="矩阵的秩">矩阵的秩</a></li>
-<li><a href="/2016/08/28/Math-LinAlg-equationsSolution/" title="线性方程组的解">线性方程组的解</a></li>
-<li><a href="/2016/08/31/Math-LinAlg-vectorGroup/" title="向量组">向量组</a></li>
-<li><a href="/2016/09/17/Math-LinAlg-eigenOrthDiag/" title="矩阵特征值、正交化与对角化">矩阵特征值、正交化与对角化</a></li>
-<li><a href="/2016/09/18/Math-LinAlg-quadraticForm/" title="二次型">二次型</a></li>
-<li><a href="/2016/05/17/Math-LinAlg-LinearSpace/" title="向量空间">向量空间</a></li>
-<li><a href="/2016/09/28/Math-LinAlg-analyticGeometry/" title="空间解析几何">空间解析几何</a></li>
-</ul>
-<h3 id="参考">参考</h3>
-<ul>
-<li><a href="https://zh.wikipedia.org/wiki/%E8%A1%8C%E5%88%97%E5%BC%8F" target="_blank" rel="noopener">Wikipedia 行列式</a></li>
-</ul>
-<h3 id="各种矩阵">各种矩阵</h3>
-<h4 id="单位矩阵-mathbfi">单位矩阵 <span class="math inline">\(\mathbf{I}\)</span></h4>
-<h4 id="数量矩阵-kmathbfi">数量矩阵 <span class="math inline">\(k\mathbf{I}\)</span></h4>
-<h4 id="对角矩阵">对角矩阵</h4>
-<h4 id="三角矩阵">三角矩阵</h4>
-<h4 id="对称方阵">对称方阵</h4>
-<p>对称矩阵 —— <span class="math inline">\(\mathbf{A^T}=\mathbf{A}\)</span>， <strong>反对称矩阵</strong> —— <span class="math inline">\(\mathbf{A^T}=-\mathbf{A}\)</span>, 有 <strong><span class="math inline">\(a_{i,i}=0\)</span></strong></p>
-<h4 id="初等矩阵elementary-m">初等矩阵（Elementary M）</h4>
-<p>单位矩阵作一次初等变换得到的方阵。 <strong>左乘初等矩阵</strong> 相当于做行初等变换， <strong>右乘初等矩阵</strong> 相当于做列初等变换</p>
-<h4 id="伴随矩阵-mathbfa">伴随矩阵 <span class="math inline">\(\mathbf{A}^{ * }\)</span></h4>
-<p><span class="math inline">\(n\)</span> 阶方阵 <span class="math inline">\(\mathbf{A}=(a_{i,j})_{n \times n}\)</span> 的伴随矩阵为 <span class="math inline">\(\mathbf{A}^{ * } = (\mathbf{A}_{j,i})_{n\times n}\)</span>, 其中 <span class="math inline">\(\mathbf{A}_{j,i}\)</span> 为 <span class="math inline">\(\det \mathbf{A}\)</span> 中元 <span class="math inline">\(a_{j,i}\)</span> 的代数余子式。注意非 <span class="math inline">\(\mathbf{A}_{i,j}\)</span>， 例如 <span class="math inline">\(\mathbf{A}^{ * }\)</span> 的第一行二列的元素等于 <span class="math inline">\(\mathbf{A}_{2,1}\)</span>。</p>
-<p>对所有 n 阶方阵 <span class="math inline">\(\mathbf{A}\)</span>，有 <strong><span class="math inline">\(\mathbf{A}\mathbf{A}^{ * }=\mathbf{A}^{ * }\mathbf{A}=(\det \mathbf{A}) \mathbf{I}\)</span></strong></p>
-<ul>
-<li><span class="math inline">\(r(\mathbf{A}) = n\)</span> 时， <span class="math inline">\(r(\mathbf{A}^{ * })=n\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A}) = n-1\)</span> 时， <span class="math inline">\(r(\mathbf{A}^{ * })=1\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A}) &lt; n-1\)</span> 时， <span class="math inline">\(r(\mathbf{A}^{ * })=0\)</span></li>
-<li><span class="math inline">\(\det \mathbf{A}^{ * } = (\det \mathbf{A})^{n-1}\)</span></li>
-<li><span class="math inline">\((k\mathbf{A})^{ * } = k^{n-1} \mathbf{A}^{ * }\)</span></li>
-</ul>
-<h4 id="可交换方阵">可交换方阵</h4>
-<p>满足交换律。 <span class="math inline">\(\mathbf{A}\mathbf{B}=\mathbf{B}\mathbf{A}\)</span> 可推出 <span class="math inline">\(\mathbf{A}\)</span> 与 <span class="math inline">\(\mathbf{B}\)</span> 为同阶方阵。 <strong>单位矩阵与所有方阵可交换，互逆矩阵可交换</strong>。 可交换在计算与证明中很有用。</p>
-<h4 id="标准形">标准形</h4>
-<p><span class="math display">\[
-        \begin{bmatrix}
-        \mathbf{I}_r &amp; \mathbf{O}\\
-        \mathbf{O} &amp; \mathbf{O}\\
-        \end{bmatrix}_{m \times n}
-\]</span></p>
-<p>为矩阵 <span class="math inline">\(\mathbf{A}_{m \times n}\)</span> 的标准形，其中 <span class="math inline">\(r = R(\mathbf{A})\)</span>, <strong>矩阵与其标准形等价</strong> 。</p>
-<h4 id="正交向量组">正交向量组</h4>
-<p>两两正交且不含零向量的向量组。如果正交向量组的所有向量模为1，则称为 <strong>标准（规范）正交向量组</strong>。</p>
-<h4 id="正交方阵orthogonal-matrix">正交方阵（Orthogonal matrix）</h4>
-<p>满足 <span class="math inline">\(\mathbf{A}^{-1}=\mathbf{A^T}\)</span>。 也即 <span class="math inline">\(\mathbf{A}\mathbf{A^T}=\mathbf{A^T}\mathbf{A}=\mathbf{I}\)</span>， 矩阵的行（列）向量组是标准正交向量组。</p>
-<h4 id="实二次型及其矩阵">实二次型及其矩阵</h4>
-<p>实二次型 <span class="math inline">\(f(\mathbf{X})\)</span> 即系数为实数的 n 元二次 <strong>齐次</strong> 多项式。<br>
-其对应 <strong>实对称方阵</strong> <span class="math inline">\(\mathbf{A}=(a_{i,j})_{n\times n}\)</span> 的元素 <span class="math inline">\(a_{i,j}\)</span> 为二次型 <span class="math inline">\(x_i x_j\)</span> 的系数， 有 <span class="math inline">\(f(\mathbf{X})=\mathbf{X^T A X}\)</span>。<br>
-<span class="math inline">\(\mathbf{A}\)</span> 的秩称为 <strong>二次型的秩</strong>。</p>
-<h4 id="正定二次型">正定二次型</h4>
-<p>二次型的取值部大于零为正定二次型，总小于零为负定二次型，总大于等于零为半正定，总小于等于零为半负定</p>
-<h3 id="矩阵操作">矩阵操作</h3>
-<h4 id="初等变换">初等变换</h4>
-<ul>
-<li>交换两行（列）位置</li>
-<li>非零数乘某一行（列）</li>
-<li>把某行的倍数加到另一行</li>
-</ul>
-<h4 id="计算">计算</h4>
-<h5 id="数乘">数乘</h5>
-<p>矩阵数乘计算类似一个数</p>
-<ul>
-<li><span class="math inline">\(k(\mathbf{A} +\mathbf{B}) = k\mathbf{A} + k\mathbf{B}\)</span></li>
-<li><span class="math inline">\((k+l)\mathbf{A} = k \mathbf{A} + l \mathbf{A}\)</span></li>
-</ul>
-<h5 id="向量内积">向量内积</h5>
-<p>又称 <strong>数量积</strong>， <strong>点乘</strong>，值为对应元素乘积的和，是一个数值。在空间中， <span class="math inline">\(\mathbf{a}\cdot \mathbf{b} = ||\mathbf{a}||\,||\mathbf{b}||\cos &lt;\mathbf{a},\mathbf{b}&gt;\)</span> 有性质：</p>
-<ul>
-<li><span class="math inline">\(|\mathbf{a}\cdot\mathbf{b}|\le||\mathbf{a}||\,||\mathbf{b}||\)</span></li>
-<li><span class="math inline">\(||\mathbf{a}+\mathbf{b}||\le ||\mathbf{a}|| + ||\mathbf{b}||\)</span></li>
-<li><strong>正交</strong> <span class="math inline">\(\mathbf{a}\bot\mathbf{b} \Leftrightarrow \mathbf{a}\cdot\mathbf{b}\)</span></li>
-</ul>
-<p><span class="math inline">\(\mathbf{b}\)</span> 在 <span class="math inline">\(\mathbf{a}\)</span> 上的 <strong>投影</strong>：</p>
-<p><span class="math display">\[ ||\mathbf{b}||\cos&lt;\mathbf{a},\mathbf{b}&gt;=\frac{\mathbf{a}\times\mathbf{b}}{||\mathbf{a}||} \]</span></p>
-<h5 id="向量外积">向量外积</h5>
-<p>又称 <strong>向量积</strong>， <strong>叉乘</strong>， 记作 <span class="math inline">\(\mathbf{a}\times\mathbf{b}\)</span>， 结果为一个向量，模为 <span class="math inline">\(||\mathbf{a}\times\mathbf{b}||=||\mathbf{a}||\,||\mathbf{b}||\cos&lt;\mathbf{a},\mathbf{b}&gt;\)</span>， 方向符合右手法则，以拳为起点，四指沿 <span class="math inline">\(\mathbf{a}\)</span> 指向，臂沿 <span class="math inline">\(\mathbf{b}\)</span> 指向，外积方向为拇指指向。 <strong>外积只作用于三维向量</strong>。 外积与相乘向量正交，可用于求解 <strong>平面法向量</strong>。</p>
-<p><span class="math display">\[ \mathbf{a}\times\mathbf{b} =
-        \left|\begin{array}{}
-        \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-        a_1 &amp; a_2 &amp; a_3 \\
-        b_1 &amp; b_2 &amp; b_3
-        \end{array}\right|
-\]</span></p>
-<p><strong>混合积</strong>： <span class="math inline">\((\mathbf{a}\times\mathbf{b})\cdot\mathbf{c}\)</span>。 结果为数值，也仅用于三维向量，如果混合积为零，三向量共面。</p>
-<h5 id="矩阵相乘">矩阵相乘</h5>
-<p><strong>没有交换律</strong></p>
-<ul>
-<li>结合律 <span class="math inline">\((\mathbf{A}\mathbf{B})\mathbf{C}=\mathbf{A}(\mathbf{B}\mathbf{C})\)</span></li>
-<li>分配律 <span class="math inline">\(\mathbf{A}(\mathbf{B}+\mathbf{C}) = \mathbf{A}\mathbf{B} + \mathbf{A}\mathbf{C}\)</span></li>
-</ul>
-<h5 id="转置">转置</h5>
-<p><strong>行列互换</strong> 。注意矩阵乘积的转置，检查行列数</p>
-<ul>
-<li><span class="math inline">\((\mathbf{A}\mathbf{B})^\mathbf{T} = \mathbf{B^T}\mathbf{A^T}\)</span></li>
-<li><span class="math inline">\((\mathbf{A}+\mathbf{B})^\mathbf{T} = \mathbf{A^T} + \mathbf{B^T}\)</span></li>
-<li><span class="math inline">\((\mathbf{A^T})^T = \mathbf{A}\)</span></li>
-<li><span class="math inline">\((k\mathbf{A})^\mathbf{T} = k \mathbf{A^T}\)</span></li>
-</ul>
-<p><span class="math inline">\(\mathbf{A^T}\mathbf{A}\)</span> 得到列向量的两两乘积矩阵，<span class="math inline">\(\mathbf{A}\mathbf{A^T}\)</span> 得到行向量的两两乘积矩阵</p>
-<h5 id="行列式">行列式</h5>
-<ul>
-<li><span class="math inline">\(\det (\mathbf{A} \mathbf{B}) = \det \mathbf{A} \det \mathbf{B}\)</span></li>
-<li><span class="math inline">\(\det (k \mathbf{A}) = k^n \det \mathbf{A}\)</span></li>
-<li><span class="math inline">\(\det (\mathbf{A} + \mathbf{B}) \ne \det \mathbf{A} + \det \mathbf{B}\)</span></li>
-</ul>
-<h3 id="矩阵特征">矩阵特征</h3>
-<h4 id="行列式-1">行列式</h4>
-<p>对 n 阶 <strong>方阵</strong> <span class="math inline">\(\mathbf{A}\)</span> 的行列式 <span class="math inline">\(\det \mathbf{A}\)</span> 为</p>
-<p><span class="math display">\[ \det \mathbf{A} = \sum_{j=1}^n a_{i,j}\mathbf{A}_{i,j} \]</span></p>
-<p>其中，i 为任意一行编号， <span class="math inline">\(A_{i,j}\)</span> 为代数余子式，参考以下定义：<br>
-<strong>余子式</strong>：元素 <span class="math inline">\(a_{i,j}\)</span> 的余子式为除去第 i 行 j 列的方阵的行列式，记作 <span class="math inline">\(M_{i,j}\)</span>。<br>
-<strong>代数余子式</strong>： <span class="math inline">\(A_{i,j}=(-1)^{i+j}M_{i,j}\)</span></p>
-<p>很明显，行列式的计算是一个递归的过程。特别 <strong>用于二三阶行列式</strong> 的简便计算方法：</p>
-<img src="/2016/05/21/Math-LinAlg-Matrix/determinant-calc.png" title="Third-Order Determinant">
-<p>三阶矩阵的行列式为每条红线上的元素的乘积之和，减去蓝线上元素乘积之和。(参考 <a href="https://zh.wikipedia.org/wiki/%E8%A1%8C%E5%88%97%E5%BC%8F" target="_blank" rel="noopener">Wikipedia 行列式</a>)</p>
-<h4 id="秩">秩</h4>
-<p>最高阶非零行列式的阶数。即，对矩阵 A，存在一个非零 r 阶子式，且任意 r+1 阶子式都为 0，则 A 的秩 R(A) = r<br>
-<strong>k 阶子式</strong>： 矩阵取 k 行 k 列，其 <span class="math inline">\(k^2\)</span> 个交点按原来的相对位置构成 k 阶 <strong>行列式</strong>， 称其为 k 阶子式。</p>
-<h4 id="特征值eigenvalue">特征值（Eigenvalue）</h4>
-<p>对 <strong>方阵 A</strong> ，存在数 <span class="math inline">\(\lambda\)</span> 和 <strong>非零向量</strong> <span class="math inline">\(\mathbf{\alpha}\)</span> 使得</p>
-<p><span class="math display">\[ \mathbf{A\alpha} =  \lambda \mathbf{\alpha} \]</span></p>
-<p>也即 <span class="math inline">\((\lambda \mathbf{I} - \mathbf{A})\mathbf{\alpha} = \mathbf{0}\)</span>， 则称 <span class="math inline">\(\lambda,\;\mathbf{\alpha}\)</span> 分别为方阵 <span class="math inline">\(\mathbf{A}\)</span> 的特征值和特征向量。</p>
-<h3 id="矩阵性质">矩阵性质</h3>
-<h4 id="可逆">可逆</h4>
-<p><span class="math display">\[\mathbf{A}\mathbf{B}=\mathbf{B}\mathbf{A}=\mathbf{I}\]</span></p>
-<p>满足该条件的 <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(\mathbf{B}\)</span> 为可逆矩阵，互为对方的逆矩阵，记 <span class="math inline">\(\mathbf{A}^{-1} = \mathbf{B}\)</span></p>
-<h5 id="充要条件">充要条件</h5>
-<ul>
-<li><span class="math inline">\(\mathbf{A}\)</span> 为方阵且 <span class="math inline">\(\mathbf{A}\mathbf{B}=\mathbf{I}\)</span></li>
-<li><span class="math inline">\(\det \mathbf{A} \ne 0\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A})=n\)</span></li>
-<li>可表为有限个初等矩阵的乘积</li>
-<li>所有特征值全不为零</li>
-</ul>
-<h5 id="性质">性质</h5>
-<ul>
-<li><span class="math inline">\((\mathbf{A}\mathbf{B})^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}\)</span></li>
-<li><span class="math inline">\((\lambda\mathbf{A})^{-1}=\mathbf{A}^{-1}\lambda^{-1}\)</span></li>
-<li><span class="math inline">\((\mathbf{A^T})^{-1} = (\mathbf{A}^{-1})^\mathbf{T}\)</span></li>
-<li><span class="math inline">\(\mathbf{A}^{-1} = (\det \mathbf{A})^{-1} \mathbf{A}^{ * }\)</span></li>
-<li><span class="math inline">\(\det \mathbf{A} \det \mathbf{A}^{-1}=1\)</span></li>
-</ul>
-<h5 id="用行初等变换求逆矩阵">用行初等变换求逆矩阵</h5>
-<p>将矩阵施以行初等变换化为单位矩阵，同时将整个变化过程运用于单位矩阵得到逆矩阵</p>
-<h4 id="同型">同型</h4>
-<p>两矩阵行列数相等</p>
-<h4 id="等价">等价</h4>
-<p>对矩阵 A 施以初等变换能转化成 B，称二者等价。也即，存在可逆矩阵 P、Q，使得</p>
-<p><span class="math display">\[ \mathbf{B} = \mathbf{P}\mathbf{A}\mathbf{Q} \]</span></p>
-<p>性质： <strong>等价矩阵同型等秩同标准形</strong></p>
-<h4 id="相似">相似</h4>
-<p>对于 <strong>n 阶方阵</strong> A，B，如果存在可逆矩阵 P，使得</p>
-<p><span class="math display">\[ \mathbf{P}^{-1}\mathbf{A}\mathbf{P}=\mathbf{B} \]</span></p>
-<p>则称 A 与 B 相似，记为 <span class="math inline">\(\mathbf{A} \sim \mathbf{B}\)</span>。 <strong>相似矩阵的特征值相同</strong>。</p>
-<h4 id="向量正交">向量正交</h4>
-<p>两向量内积为零则正交</p>
-<h4 id="合同">合同</h4>
-<p>对方阵 <span class="math inline">\(\mathbf{A},\,\mathbf{B}\)</span>， 若存在可逆矩阵 <span class="math inline">\(\mathbf{C}\)</span>， 使得</p>
-<p><span class="math display">\[ \mathbf{B} = \mathbf{C^T A C} \]</span></p>
-<p>则称 <span class="math inline">\(\mathbf{A},\,\mathbf{B}\)</span> 合同。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/17/Math-LinAlg-LinearSpace/" itemprop="url">
-                  向量空间
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-17T09:55:54+08:00" content="2016-05-17">
-              2016-05-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>
-<p>参考： <a href="https://zh.wikipedia.org/wiki/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4" target="_blank" rel="noopener">向量空间</a></p>
-<h3 id="向量空间">向量空间</h3>
-<p>设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “<span class="math inline">\(\cdot\)</span>”， 且满足八条运算规则（参考： <a href="https://zh.wikipedia.org/wiki/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4" target="_blank" rel="noopener">向量空间</a>）,则称系统 <span class="math inline">\((\mathbf{V},\mathbf{P},+,\cdot)\)</span> 为线性空间。关键词：向量集合，加法数乘运算，八条规则。</p>
-<h3 id="基与维数">基与维数</h3>
-<p>向量空间所有向量的一组最大线性无关组称为一组基，基向量的个数为空间维数。如果一组基是规范正交向量组，则称为 <strong>规范正交基</strong>。</p>
-<h3 id="坐标">坐标</h3>
-<p>向量空间一组基： <span class="math inline">\(\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,...,\mathbf{\varepsilon}_n\)</span>， 对 <span class="math inline">\(\alpha\)</span> 有：</p>
-<p><span class="math display">\[ \mathbf{\alpha} = a_1 \mathbf{\varepsilon}_1 + a_2 \mathbf{\varepsilon}_2 + ... + a_n \mathbf{\varepsilon}_n \]</span></p>
-<p>称数组 <span class="math inline">\((a_1,a_2,...,a_n)\)</span> 为 <span class="math inline">\(\mathbf{\alpha}\)</span> 在基 <span class="math inline">\(\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,...,\mathbf{\varepsilon}_n\)</span> 下的坐标。</p>
-<p>求解坐标，一般思路是求解方程组 <span class="math inline">\([\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,...,\mathbf{\varepsilon}_n] \mathbf{X} =\mathbf{\alpha}\)</span>， 而当基为规范正交基时可简化成 <span class="math inline">\(a_i=\mathbf{\alpha} \cdot \mathbf{\varepsilon}_i\)</span></p>
-<h3 id="基变换与坐标变换">基变换与坐标变换</h3>
-<p>旧基变换到新基：</p>
-<p><span class="math display">\[ (\mathbf{\varepsilon}_1&#39;,\mathbf{\varepsilon}_2&#39;,...,\mathbf{\varepsilon}_n&#39;) = (\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,...,\mathbf{\varepsilon}_n) \mathbf{A} \]</span></p>
-<p><span class="math inline">\(\mathbf{A}\)</span> 称为 <strong>过渡矩阵</strong>， 可逆。</p>
-<p>对应旧坐标变换到新坐标：</p>
-<p><span class="math display">\[ \begin{bmatrix}
-        a_1&#39; \\
-        a_2&#39; \\
-        \vdots \\
-        a_n&#39; \end{bmatrix}
-  = \mathbf{A}^{-1} \begin{bmatrix}
-          a_1 \\
-          a_2 \\
-          \vdots \\
-          a_n \end{bmatrix}
-\]</span></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/16/Ubuntu-cheatSheet/" itemprop="url">
-                  Ubuntu 杂记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-16T20:14:40+08:00" content="2016-05-16">
-              2016-05-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="日常命令">日常命令</h3>
-<h4 id="解压到指定目录">解压到指定目录</h4>
-<p>tar 用 -C 参数， unzip 用 -d 参数</p>
-<h4 id="time-命令">time 命令</h4>
-<ul>
-<li>系统内建 time 命令，shell 有另一个 /usr/bin/time，默认执行前者</li>
-<li>输出运行时间到文件用 -o 参数</li>
-</ul>
-<h4 id="nohup">nohup</h4>
-<p>ssh 连接退出时会话关闭，之前会话所打开的进程会收到 SIGHUP 信号，有些程序会因此关闭。而我所遇到的后台程序多是选择无视 : - ) ，但是遇到 ssh 非正常退出，这些后台程序也因此关闭 : - ( 。保险起见，使用 nohup 。</p>
-<h4 id="ps-aux">ps aux</h4>
-<p>显示所有运行进程</p>
-<h4 id="sshpass">sshpass</h4>
-<p>ssh 命令行直接输入密码</p>
-<h4 id="last-与-lastb">last 与 lastb</h4>
-<p>分别查看登陆与登陆失败记录</p>
-<h4 id="update-alternatives-命令切换">update-alternatives 命令切换</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update-alternatives --config cmd <span class="comment"># 查看命令切换配置</span></span><br></pre></td></tr></table></figure>
-<h4 id="uname">uname</h4>
-<ul>
-<li>-a 查看内核版本，所有信息</li>
-<li>-m 查看系统位数</li>
-</ul>
-<h4 id="ssh-keygen--t-rsa">ssh-keygen -t rsa</h4>
-<p>生成 ssh 密钥对</p>
-<h4 id="输出到屏幕及文件">输出到屏幕及文件</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;hello world&apos; 2&gt;&amp;1 | tee log.txt</span><br><span class="line">echo &apos;hello world&apos; |&amp; tee log.txt    # bash version 4</span><br></pre></td></tr></table></figure>
-<h4 id="ssh连接测试">ssh连接测试</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@git.oschina.net</span><br></pre></td></tr></table></figure>
-<h4 id="解压目录下所有zip文件">解压目录下所有zip文件</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> *.zip; <span class="keyword">do</span> unzip <span class="variable">$f</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h3 id="shell">shell</h3>
-<h4 id="变量可见性-source-export">变量可见性 + source + export</h4>
-<ul>
-<li>shell 变量是默认只对本 shell 可见</li>
-<li>使用 export 命令可以使变量对子 shell 可见，但仅以复制（传值）形式</li>
-<li>source（同“.”）: 在当前 shell 执行脚本，不开启子 shell</li>
-</ul>
-<p>所以，如果需使脚本变量对当前 shell 及子 shell 可见，需要结合 source 和 export</p>
-<h4 id="while-文件-字符串分割">while + 文件 + 字符串分割</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># 从 $in 文件读入用“,”分割的行，将每行前2个域输出到 $out 文件</span></span><br><span class="line">OLD_IFS=<span class="string">"<span class="variable">$IFS</span>"</span></span><br><span class="line">IFS=<span class="string">","</span> <span class="comment"># 内部域分隔符 (Internal Field Seprator)，默认为空白符，这里设置为 “,”</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> line   <span class="comment"># 按行读入</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  arr=(<span class="variable">$line</span>)   <span class="comment"># 分割行，存入 arr 数组</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$&#123;arr[0]&#125;</span>  <span class="comment"># 输出第0个元素</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$&#123;arr[1]&#125;</span></span><br><span class="line"><span class="keyword">done</span> &lt; <span class="variable">$in</span> &gt; <span class="variable">$out</span> <span class="comment"># 从$in文件读入，从$out文件输出</span></span><br><span class="line">IFS=<span class="string">"<span class="variable">$OLD_IFS</span>"</span> <span class="comment"># 恢复默认</span></span><br></pre></td></tr></table></figure>
-<h4 id="运行脚本">运行脚本</h4>
-<ul>
-<li>脚本运行前即读入所有命令，即使删除也正常运行</li>
-</ul>
-<h4 id="case-语句">case 语句</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># case 语句示例</span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">    start)    # 匹配字符串</span><br><span class="line">        echo start</span><br><span class="line">        ;;  # break</span><br><span class="line">    stop)</span><br><span class="line">        echo stop</span><br><span class="line">        ;;  # break</span><br><span class="line">    *)</span><br><span class="line">        echo &quot;Usage: test start|stop&quot;</span><br><span class="line">        ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
-<h4 id="读入参数">读入参数</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ask to suspend system, if so, request for password</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"suspend system? (yes/no): "</span> cmd</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$cmd</span>"</span> = <span class="string">"yes"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">read</span> -s -p <span class="string">"sudo needed, please enter passwd: "</span> pswd</span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$pswd</span> | sudo -S pm-suspend-hybrid <span class="comment"># 挂起休眠混合模式，挂起数据存入 ram，休眠存入 disk</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<h3 id="日常操作">日常操作</h3>
-<h4 id="打开终端中文乱码">打开终端中文乱码</h4>
-<p><code>ctrl+alt+f1</code>打开终端，中文乱码。 + 解决方案一：用支持中文的终端通过ssh连接 + 解决方案二：使用fbterm，参考<a href="https://blog.csdn.net/u012336923/article/details/50436163" target="_blank" rel="noopener">博文</a> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">sudo apt install fbterm</span><br><span class="line"><span class="comment"># 使用</span></span><br><span class="line">sudo fbterm</span><br><span class="line"><span class="comment"># 退出</span></span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="监视磁盘运行">监视磁盘运行</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo iotop    # 查看读写速度（包括各进程）</span><br><span class="line"></span><br><span class="line"># 安装 apt-get install sysstat</span><br><span class="line"># 最后一列为CPU时间占用率，反应繁忙程度</span><br><span class="line">iostat -dx 1  </span><br><span class="line"></span><br><span class="line">lsblk    # 查看各磁盘容量</span><br><span class="line"></span><br><span class="line">pydf    # 查看磁盘容量及使用率</span><br></pre></td></tr></table></figure>
-<h4 id="安装中文输入法">安装中文输入法</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install fcitx-table-wbpy</span><br><span class="line"><span class="comment"># 重启系统</span></span><br></pre></td></tr></table></figure>
-<h4 id="apt-update使用代理">apt update使用代理</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=<span class="string">"http://hostname:port"</span></span><br><span class="line"><span class="built_in">export</span> ftp_proxy=<span class="string">"http://hostname:port"</span></span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<h4 id="安装chrome">安装chrome</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br><span class="line">sudo dpkg -i google-chrome-stable_current_amd64.deb</span><br><span class="line"># 如果软件依赖报错，执行</span><br><span class="line">sudo apt-get -f install</span><br></pre></td></tr></table></figure>
-<h4 id="chrome-带socks5启动">chrome 带socks5启动</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">google-chrome --proxy-server=<span class="string">"socks5://addr_ip:port"</span></span><br><span class="line"><span class="comment"># addr_ip:port 为代理ip及端口，如，localhost:1080</span></span><br><span class="line"><span class="comment"># 如果 chrome 已装代理插件，如 SwitchyOmega，选择使用系统代理</span></span><br></pre></td></tr></table></figure>
-<h4 id="交换区增删">交换区增删</h4>
-<p>交换区可以视作一个文件。运用命令：mkswap 格式化文件，swapon 启动交换区， swapoff 撤销交换区（不删除）。 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 1GB 的文件，bs一次传输字节数, count 传输次数</span></span><br><span class="line"><span class="comment"># 文件大小=bs * count 字节，1K=1024, 1M=1K*1K, 1G=1M*1K</span></span><br><span class="line">sudo dd <span class="keyword">if</span>=/dev/zero of=/swapfile bs=1K count=1M</span><br><span class="line"><span class="comment"># 设置文件权限</span></span><br><span class="line">sudo chown root:root /swapfile</span><br><span class="line">sudo chmod 0600 /swapfile</span><br><span class="line"></span><br><span class="line">sudo mkswap /swapfile   <span class="comment"># 格式化</span></span><br><span class="line">sudo swapon /swapfile   <span class="comment"># 激活</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置开机自动挂载</span></span><br><span class="line">sudo vi /etc/fstab  <span class="comment"># 编辑，添加以下配置</span></span><br><span class="line"><span class="comment">##################添加内容</span></span><br><span class="line">/swapfile       none    swap    sw      0       0</span><br><span class="line"><span class="comment">##################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########### 撤销交换区 ###########</span></span><br><span class="line">sudo swapoff /swapoff</span><br><span class="line">sudo vi /etc/fstab  <span class="comment"># 编辑，删除以下配置</span></span><br><span class="line"><span class="comment">##################删除内容</span></span><br><span class="line">/swapfile       none    swap    sw      0       0</span><br><span class="line"><span class="comment">##################</span></span><br><span class="line">sudo rm /swapfile <span class="comment"># 可删除文件</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="ssh-无密码登陆">ssh 无密码登陆</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa # 生成密钥，如果已生成可跳过</span><br><span class="line">ssh-copy-id user@server_addr  # 将密钥推送到服务器</span><br><span class="line">ssh ssh_rtunnel@server_B_addr # 检验能否成功无密码登陆</span><br></pre></td></tr></table></figure>
-<h4 id="增删用户">增删用户</h4>
-<p>添加用户 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser &lt;username&gt; <span class="comment">#添加一个普通用户</span></span><br><span class="line"><span class="comment"># useradd 是相对底层的命令</span></span><br><span class="line"><span class="comment"># sudo useradd -s /bin/bash -m &lt;username&gt; #-m 创建主目录</span></span><br><span class="line">sudo usermod -aG &lt;usergroup&gt; username</span><br><span class="line"><span class="comment"># 可选将用户加入用户组，如 sudo组，可能需要logout再login生效</span></span><br><span class="line"><span class="comment"># 下面的命令起同样的效果</span></span><br><span class="line"><span class="comment"># sudo adduser &lt;username&gt; &lt;usergroup&gt;</span></span><br><span class="line"><span class="comment"># sudo passwd &lt;username&gt; # 初始化或修改用户密码</span></span><br></pre></td></tr></table></figure></p>
-<p>修改已添加用户的shell <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -s /bin/bash user <span class="comment"># 修改已添加用户的shell为 bash</span></span><br></pre></td></tr></table></figure></p>
-<p>使用户能够在登陆屏登陆，在 /etc/lightdm/lightdm.conf加入： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[SeatDefaults]</span><br><span class="line">greeter-show-manual-login=true</span><br></pre></td></tr></table></figure></p>
-<p>删除用户： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo deluser &lt;username&gt;</span><br><span class="line">sudo rm -r /home/&lt;username&gt;</span><br></pre></td></tr></table></figure></p>
-<h4 id="主目录下的文件夹名改回英文">主目录下的文件夹名改回英文</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LANG=en_US</span><br><span class="line">xdg-user-dirs-gtk-update</span><br></pre></td></tr></table></figure>
-<p>之后注销。参考<a href="http://www.linuxidc.com/Linux/2011-06/36903.htm" target="_blank" rel="noopener">中文Ubuntu主目录下的文档文件夹改回英文</a></p>
-<h4 id="ssh-反向-tunnel">ssh 反向 tunnel</h4>
-<p>两台主机，局域网主机LAN A，拥有公网IP主机SERVER B，建立反向 tunnel，从外网通过B访问A。</p>
-<p>第一步：在SERVER B创建用户，并实现A无密码登陆B，详见“增删用户”及“ssh 无密码登陆”部分。 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># login SERVER B</span></span><br><span class="line">sudo useradd -m ssh_rtunnel <span class="comment"># 添加一个普通用户 ssh_rtunnel</span></span><br><span class="line">sudo passwd ssh_rtunnel <span class="comment"># 初始化密码</span></span><br><span class="line"><span class="comment">###################################################</span></span><br><span class="line"><span class="comment"># login LAN A</span></span><br><span class="line">ssh-keygen -t rsa <span class="comment"># 生成密钥，如果已生成可跳过</span></span><br><span class="line">ssh-copy-id ssh_rtunnel@server_B_addr  <span class="comment"># 将密钥推送到SERVER B</span></span><br><span class="line">ssh ssh_rtunnel@server_B_addr <span class="comment"># 检验能否成功无密码登陆</span></span><br><span class="line"><span class="comment">###################################################</span></span><br><span class="line"><span class="comment"># login SERVER B</span></span><br><span class="line">sudo usermod -s /bin/<span class="literal">false</span> ssh_rtunnel <span class="comment"># 防止 ssh_rtunnel 执行 shell 命令</span></span><br></pre></td></tr></table></figure></p>
-<p>第二步：SERVER B配置 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># login SERVER B</span></span><br><span class="line">sudo vi /etc/ssh/sshd_config <span class="comment"># 向 sshd_config 文件添加：</span></span><br><span class="line"><span class="comment">##################添加内容</span></span><br><span class="line">GatewayPorts clientspecified</span><br><span class="line"><span class="comment">##################</span></span><br><span class="line"></span><br><span class="line">sudo service sshd restart <span class="comment"># 重启 ssh 服务</span></span><br></pre></td></tr></table></figure></p>
-<p>第三步：LAN A创建 tunnel <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># login LAN A</span></span><br><span class="line">sudo apt-get install autossh</span><br><span class="line">autossh -fN -R :2210:localhost:22 ssh_rtunnel@server_B_addr</span><br><span class="line"><span class="comment"># 创建 tunnel。SERVER B在2210端口收到的数据都会传向LAN A的22号端口</span></span><br><span class="line"><span class="comment"># 由于 22 号端口是 ssh 连接端口，故该 tunnel 可用于 ssh 连接</span></span><br><span class="line"><span class="comment"># 可将这条命令加入 /etc/profile 使之开机自启</span></span><br></pre></td></tr></table></figure></p>
-<p>最后可在任何能访问到SERVER B的主机上访问LAN A <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 2210 user_on_LAN_A@server_B_addr</span><br></pre></td></tr></table></figure></p>
-<h4 id="检查进程是否运行">检查进程是否运行</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ! ps -p <span class="variable">$PID</span> &gt; /dev/null <span class="comment"># 如果进程不存在</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> not runnig</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 每8秒检查一次进程是否结束</span></span><br><span class="line"><span class="keyword">while</span> ps -p <span class="variable">$PID</span> &gt; /dev/null <span class="comment"># 如果进程存在</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  sleep 8</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 进程已结束</span></span><br><span class="line"><span class="built_in">echo</span> not runnig</span><br></pre></td></tr></table></figure>
-<h4 id="查看父进程id">查看父进程ID</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ps -o ppid= 1 <span class="comment"># 查看1号进程父进程，注意空格</span></span><br><span class="line">ps -f 1 <span class="comment"># 详细信息</span></span><br><span class="line">pstree -p 1 | less <span class="comment"># 查看1号进程的子进程树。用less分页显示</span></span><br><span class="line">pstree -s -p 1 <span class="comment"># 同时查看父进程</span></span><br></pre></td></tr></table></figure>
-<h4 id="nvidia显卡信息">Nvidia显卡信息</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br><span class="line"><span class="comment"># 查询gpu指定信息，用逗号分隔，这里查看已用显存大小（M）</span></span><br><span class="line">nvidia-smi --format=csv,noheader,nounits --query-gpu=memory.used</span><br><span class="line">nvidia-smi --format=csv --query-gpu=power.draw,utilization.gpu,fan.speed,temperature.gpu</span><br><span class="line"><span class="comment"># 更多查询选项</span></span><br><span class="line">nvidia-smi --<span class="built_in">help</span>-query-gpu</span><br></pre></td></tr></table></figure>
-<h4 id="查看硬件信息">查看硬件信息</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo lshw <span class="comment"># 所有硬件信息</span></span><br><span class="line">sudo lshw -C cpu <span class="comment"># cpu 信息</span></span><br><span class="line">sudo lshw -C memory <span class="comment"># 内在信息</span></span><br><span class="line">sudo lshw -C display <span class="comment"># 显卡信息</span></span><br><span class="line">nvidia-smi -q <span class="comment"># nvidia 显卡信息</span></span><br><span class="line">sudo lshw -C storage <span class="comment"># 硬盘信息</span></span><br></pre></td></tr></table></figure>
-<h4 id="文本换行符转换">文本换行符转换</h4>
-<ul>
-<li>todos, fromdos 命令</li>
-<li>vi 编辑器命令： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:set fileformat=dos</span><br><span class="line">:set fileformat=unix</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="压缩包中文文件名乱码">压缩包中文文件名乱码</h4>
-<p>解压，解决方式一： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip -O CP936 zipfile</span><br></pre></td></tr></table></figure></p>
-<p>解压，解决方式二， <strong>在 ubuntu 文件区内</strong> ： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LANG=C 7z x CompressedFile</span><br><span class="line">convmv -f GBK -t UTF8 CompressedFile --notest</span><br></pre></td></tr></table></figure></p>
-<p>压缩，使用 7z 命令压缩。</p>
-<h4 id="防暴力登陆盗取密码">防暴力登陆盗取密码</h4>
-<ul>
-<li>使用 last 与 lastb 检查最近登陆情况</li>
-<li>denyhosts 工具防 ssh 猜测密码</li>
-</ul>
-<h5 id="denyhosts-安装">denyhosts 安装</h5>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install denyhosts  <span class="comment"># denyhosts 不同版本配置有差别</span></span><br><span class="line">sudo vi /etc/denyhosts.conf <span class="comment"># 可选配置 denyhosts</span></span><br><span class="line"><span class="comment"># RESET_ON_SUCCESS = yes   # 如果登录成功，重置计数</span></span><br><span class="line"><span class="comment"># DEVY_THRESHOLD_INVALID = 5    # 允许无效用户登录失败次数</span></span><br><span class="line"><span class="comment"># DEVY_THRESHOLD_VALID = 10</span></span><br><span class="line"><span class="comment"># DEVY_THRESHOLD_ROOT = 1</span></span><br><span class="line"><span class="comment"># DEVY_THRESHOLD_RESTRICTED = 1</span></span><br><span class="line">sudo service denyhosts start <span class="comment"># 运行</span></span><br><span class="line"></span><br><span class="line">ls /etc/rc2.d | grep denyhosts <span class="comment"># 如果有输出，证明安装程序已经设置开机自启</span></span><br><span class="line"></span><br><span class="line">vi /etc/hosts.deny <span class="comment"># 一段时间后可查看被禁 ip</span></span><br></pre></td></tr></table></figure>
-<p>如果自己 ip 被屏蔽了，可以换个 ip 登陆，再参考 <a href="http://denyhosts.sourceforge.net/faq.html#3_19" target="_blank" rel="noopener">删除 DenyHosts 屏蔽 ip 方法</a>，其中 <code>WORK_DIR</code> 可能为 <code>/var/lib/denyhosts</code>。</p>
-<h4 id="本机端口转发">本机端口转发</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/sysctl.conf</span><br><span class="line"><span class="comment"># 添加下句</span></span><br><span class="line"><span class="comment"># net.ipv4.ip_forward=1</span></span><br><span class="line">sudo sysctl -p</span><br><span class="line">sudo iptables -t nat -A PREROUTING -d 本机IP -p tcp --dport 源端口 -j DNAT --to-destination 本机IP:目的端口</span><br><span class="line">sudo vi /etc/rc.local</span><br><span class="line"><span class="comment"># 将命令写入，实现开机启动</span></span><br><span class="line"><span class="comment"># iptables -t nat -A PREROUTING -d 本机IP -p tcp --dport 源端口 -j DNAT --to-destination 本机IP:目的端口</span></span><br><span class="line"><span class="comment"># 用此命令查看nat列表</span></span><br><span class="line">sudo iptables -t nat --list</span><br></pre></td></tr></table></figure>
-<h4 id="发送邮件">发送邮件</h4>
-<p>用 heirloom-mailx 工具</p>
-<h5 id="heirloom-mailx-安装"><a href="http://www.jincon.com/archives/121/" target="_blank" rel="noopener">heirloom-mailx 安装</a></h5>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install heirloom-mailx</span><br><span class="line">sudo vi /etc/nail.rc <span class="comment"># 必须配置发送账号及其 stmp 服务器</span></span><br><span class="line"><span class="comment">###############配置</span></span><br><span class="line"><span class="built_in">set</span> from=USER@163.com</span><br><span class="line"><span class="built_in">set</span> smtp=smtp.163.com</span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=USER</span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=PASSWORD</span><br><span class="line"><span class="built_in">set</span> smtp-auth=login</span><br><span class="line"><span class="comment">###############</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送邮件</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"邮件内容"</span> | heirloom-mailx -s <span class="string">"邮件标题"</span> toWho@email.address</span><br></pre></td></tr></table></figure>
-<h4 id="安装配置网络代理shadowsocks">安装配置网络代理——shadowsocks</h4>
-<ul>
-<li><a href="http://vc2tea.com/whats-shadowsocks/" target="_blank" rel="noopener">shadowsocks 简介</a></li>
-<li><a href="https://github.com/shadowsocks/shadowsocks/wiki" target="_blank" rel="noopener">shadowsocks github 主页</a></li>
-</ul>
-<p>服务器端 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br><span class="line">sudo pip install shadowsocks <span class="comment"># 安装 shadowsocks</span></span><br><span class="line"></span><br><span class="line">sudo vi /etc/shadowsocks.conf <span class="comment"># 编辑配置文件</span></span><br><span class="line"><span class="comment">###############配置</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="string">"server"</span>:<span class="string">"server ip"</span>,</span><br><span class="line"> <span class="string">"server_port"</span>:8388,</span><br><span class="line"> <span class="string">"local_port"</span>:1080,</span><br><span class="line"> <span class="string">"password"</span>:<span class="string">"your password"</span>,</span><br><span class="line"> <span class="string">"timeout"</span>:600,</span><br><span class="line"> <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">###############</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">sudo /usr/<span class="built_in">local</span>/bin/ssserver -v --<span class="built_in">log</span>-file /var/<span class="built_in">log</span>/shadowsocks.log -c /etc/shadowsocks.conf -d start</span><br><span class="line"></span><br><span class="line">sudo vi /etc/rc.local <span class="comment"># 加入以下命令以开机自启</span></span><br><span class="line"><span class="comment">###############配置</span></span><br><span class="line">/usr/<span class="built_in">local</span>/bin/ssserver -v --<span class="built_in">log</span>-file /var/<span class="built_in">log</span>/shadowsocks.log  -c /etc/shadowsocks.conf -d start</span><br><span class="line"><span class="comment">###############</span></span><br><span class="line"></span><br><span class="line">vi /var/<span class="built_in">log</span>/shadowsocks.log <span class="comment"># 可查看运行日志</span></span><br></pre></td></tr></table></figure></p>
-<p>主页下可以找到 <a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">windows 客户端下载</a> 与 <a href="https://github.com/shadowsocks/shadowsocks-android/releases" target="_blank" rel="noopener">android 客户端下载</a>。</p>
-<p>Ubuntu 客户端： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br><span class="line">sudo pip install shadowsocks <span class="comment"># 安装 shadowsocks</span></span><br><span class="line"></span><br><span class="line">vi ~/.shadowsocks.conf <span class="comment"># 编辑配置文件</span></span><br><span class="line"><span class="comment">###############配置</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="string">"server"</span>:<span class="string">"server ip"</span>,</span><br><span class="line"> <span class="string">"server_port"</span>:8388,</span><br><span class="line"> <span class="string">"local_port"</span>:1080,</span><br><span class="line"> <span class="string">"password"</span>:<span class="string">"your password"</span>,</span><br><span class="line"> <span class="string">"timeout"</span>:600,</span><br><span class="line"> <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">###############</span></span><br><span class="line"></span><br><span class="line">nohup sslocal -c ~/.shadowsocks.conf &amp;&gt;/dev/null &amp; <span class="comment"># 启动，可将输出重定向作为日志</span></span><br><span class="line">vi ~/.profile <span class="comment"># 开机自启，加入下列命令</span></span><br><span class="line"><span class="comment">###############配置</span></span><br><span class="line">nohup sslocal -c ~/.shadowsocks.conf &amp;&gt;/dev/null &amp;</span><br><span class="line"><span class="comment">###############</span></span><br></pre></td></tr></table></figure></p>
-<p>Ubuntu图形客户端 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:hzwhuang/ss-qt5</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install shadowsocks-qt5</span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">ss-qt5</span><br></pre></td></tr></table></figure></p>
-<h4 id="文件处理之-sed">文件处理之 sed</h4>
-<p>参考网页：<a href="http://blog.csdn.net/holandstone/article/details/8488434" target="_blank" rel="noopener">远有青山——Sed 命令详解 正则表达式元字符</a>， <a href="http://www.cnblogs.com/dong008259/archive/2011/12/07/2279897.html" target="_blank" rel="noopener">东方雨中漫步者——linux之sed用法</a>，<a href="sucre.iteye.com/blog/587673">学习 进步——linux sed命令详解</a></p>
-<p>sed [选项] [输入文件]</p>
-<p>常用选项：</p>
-<ul>
-<li>-i 直接修改读取的档案内容</li>
-<li>-n 使用安静（silent）模式。在一般sed的用法中，所有来自STDIN的资料一般都会被列出到萤幕上。但如果加上-n参数后，则只有经过sed特殊处理的那一行才会被列出来。</li>
-</ul>
-<p>常用命令：</p>
-<ul>
-<li>s：字符串替换</li>
-<li>p: 打印</li>
-</ul>
-<p>元字符：</p>
-<ul>
-<li>$：行尾或最后一行</li>
-<li>^: 行开头</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">'$s/./a/1'</span> file.txt <span class="comment"># 最后一行第一个字符替换为 'a'</span></span><br><span class="line">sed -n <span class="string">"/^root$/p"</span> file.txt <span class="comment"># 打印内容为root的行</span></span><br></pre></td></tr></table></figure>
-<h4 id="文件处理之-awk">文件处理之 awk</h4>
-<h3 id="文件">文件</h3>
-<h4 id="etcnetworkif-up.d-目录">/etc/network/if-up.d 目录</h4>
-<p>网络建立后会执行其下脚本</p>
-<h4 id="usrlocal-与-opt">/usr/local 与 /opt</h4>
-<p>两者都是手动（非 apt）安装程序目录，当然都需要 root 权限。不同在于，/usr/local 下有 bin, src, include 之类目录，程序各部分分家，遵从系统程序安装习惯，而 /opt 就没有这个约束，所以，像 Tomcat 这种拥有自己目录结构的程序应该置于 /opt 下，并且拥有独立的目录，如 /opt/tomcat。</p>
-<h4 id="etcrc.d">/etc/rc#.d</h4>
-<p>目录，# 是数字，代表运行级别。其下有多个脚本，多是 /etc/init.d 目录下脚本的链接，在转换到相应运行级别时按序执行，如 init 0，会执行 rc0.d 下脚本。文件命名以 K, S 开头，分别表示关闭、开启服务。</p>
-<h4 id="etcrc.local">/etc/rc.local</h4>
-<p>开机后系统自动执行的脚本</p>
-<h4 id="etcinit.d">/etc/init.d</h4>
-<p>存放各种管理服务——如 mysql——的脚本的目录。可以用 service 命令调用这些脚本以执行服务的启动关闭等操作，当然也可直接执行，如 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql status</span><br><span class="line">sudo /etc/init.d/mysql status</span><br></pre></td></tr></table></figure></p>
-<h4 id="etcissue">/etc/issue</h4>
-<p>系统发布版本</p>
-<h4 id="proccpuinfo">/proc/cpuinfo</h4>
-<p>cpu 信息。processor 逻辑 cpu 编号，总计为 cpu 线程数，physical id 物理 cpu 编号，总计为 cpu 个数，core id 为 cpu 的（对应某cpu的）核心编号，总计为 cpu 核心数。机器可有多个 cpu，每个 cpu 可有多个核心，每个核心可以开多个线程。</p>
-<h4 id="procmeminfo">/proc/meminfo</h4>
-<p>内存信息。也可用 free 命令查看内存</p>
-<h3 id="常识">常识</h3>
-<h4 id="运行级别">运行级别</h4>
-<ol start="0" type="1">
-<li>关机</li>
-<li>单用户，Does not configure network interfaces, start daemons, or allow non-root logins</li>
-<li>多用户，无网络连接 Does not configure network interfaces or start daemons</li>
-<li>多用户，启动网络连接，仅启动命令行界面 Starts the system normally.</li>
-<li>用户自定义</li>
-<li>多用户，带图形界面</li>
-<li>重启</li>
-</ol>
-<p>摘自<a href="https://zh.wikipedia.org/wiki/%E8%BF%90%E8%A1%8C%E7%BA%A7%E5%88%AB" target="_blank" rel="noopener">wikipedia</a>, 在Debian Linux中，2－5这四个运行级别合为多用户状态，默认2。可用 init 命令切换运行状态。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/12/C-Cpp-operatorPrecedence/" itemprop="url">
-                  C/C++ 操作符优先级
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-12T20:42:58+08:00" content="2016-05-12">
-              2016-05-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="参考">参考</h3>
-<ul>
-<li><a href="http://en.cppreference.com/w/cpp/language/operator_precedence" target="_blank" rel="noopener">cppreference: C++ Operator Precedence</a></li>
-<li><a href="http://c.biancheng.net/cpp/html/462.html" target="_blank" rel="noopener">C语言中文网：C语言运算符的优先级和结合性一览表</a></li>
-</ul>
-<h3 id="优先级">优先级</h3>
-<ol type="1">
-<li>单目运算符，只需一个操作数，先右后左，越靠近操作数越优先，如：++*p.f 即 ++(*(p.f))</li>
-<li>算术运算符：+, -, *, /, %</li>
-<li>移位运算符：&gt;&gt;, &lt;&lt;</li>
-<li>关系运算符：&gt;, &lt;, == 等</li>
-<li>位逻辑运算符: &amp;, |, ^</li>
-<li>逻辑运算符：&amp;&amp;, ||</li>
-<li>条件运算符：先右</li>
-<li>赋值运算符：先右，如：a=b=b+c 即 a=(b=b+c)</li>
-<li>逗号: 自左向右运算，仅保留最后一个值</li>
-</ol>
-<p>其实没有必要记下来，如果不确定就加括号。 ：P</p>
-<h3 id="容易出错的情况">容易出错的情况</h3>
-<p>这是 <em>C语言中文网</em> 博文中附的，总结得非常好，就直接借鉴了： <img src="/2016/05/12/C-Cpp-operatorPrecedence/operater_precedence_note.jpg" title="operater precedence note"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/11/ML-SGD-RPCS/" itemprop="url">
-                  RPCS —— SGD 下降速率方案与 LIBMF 分析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-11T13:37:46+08:00" content="2016-05-11">
-              2016-05-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="声明">声明</h3>
-<p>先导知识：随机梯度下降法（SGD），矩阵分解。</p>
-<p>本文是对学习 <a href="http://www.csie.ntu.edu.tw/~cjlin/libmf/" target="_blank" rel="noopener">LIBMF 2.01</a> 的备忘录，其中相当多的内容直接来自于论文: <a href="http://www.csie.ntu.edu.tw/~cjlin/papers/libmf/mf_adaptive_pakdd.pdf" target="_blank" rel="noopener">W.-S. Chin, Y. Zhuang, Y.-C. Juan, and C.-J. Lin. A Learning-rate Schedule for Stochastic Gradient Methods to Matrix Factorization. PAKDD, 2015.</a> 另外可参考LIBMF分析的姊妹篇：<a href="/2016/05/09/ML-libmf/" title="FSPD算法与LIBMF API浅析">FSPD算法与LIBMF API浅析</a></p>
-<h3 id="简介">简介</h3>
-<p>RPCS 是一种在随机梯度下降过程中动态改变下降速率以提高效率的算法。此方法被用于分解矩阵的开源 API <a href="http://www.csie.ntu.edu.tw/~cjlin/libmf/" target="_blank" rel="noopener">LIBMF</a> （2.01）中，由台湾大学机器学习团队开发。</p>
-<h3 id="矩阵分解与sgd">矩阵分解与SGD</h3>
-<p>运用SGD分解矩阵，更详细的说明请参考：<a href="/2016/05/09/ML-libmf/" title="FSPD算法与LIBMF API浅析">FSPD算法与LIBMF API浅析</a>的简介部分，这里引用损失函数： <span class="math display">\[\min_{P, Q} \sum_{u, v}((r_{u,v} - p_u^\mathrm{T}q_v)^2 - \lambda ||p_u||^2 - \lambda ||q_v||^2) \label{opt} \tag{1}\]</span> SGD 需要分解矩阵 <span class="math inline">\(R_{u,v}\)</span>，求解出最优的 <span class="math inline">\(P_{k,u}\)</span> 与 <span class="math inline">\(Q_{k,v}\)</span>， 其中 <span class="math inline">\({\lambda}\)</span> 是正则化参数。</p>
-<p>求解出梯度： <span class="math display">\[g_u = \frac{1}{2} (-e_{u,v} q_v + \lambda p_u) \label{gradP} \tag{2}\]</span></p>
-<p><span class="math display">\[h_v = \frac{1}{2} (-e_{u,v} p_u + \lambda q_v) \label{gradQ} \tag{3}\]</span></p>
-<p>其中，<span class="math inline">\(e_{u,v} = r_{u,v} - p_u^\mathrm{T} q_v\)</span></p>
-<p><span class="math inline">\(P\)</span>, <span class="math inline">\(Q\)</span> 下降公式分别为： <span class="math display">\[p_u \leftarrow p_u - \eta g_u \label{descP} \tag{4}\]</span> <span class="math display">\[q_v \leftarrow q_v - \eta h_v \label{descQ} \tag{5}\]</span></p>
-<p>其中 <span class="math inline">\(\eta\)</span> 为下降速率。</p>
-<h3 id="下降速率方案">下降速率方案</h3>
-<p>下降速率 <span class="math inline">\(\eta\)</span> 对梯度下降法有重要的影响，合适的 <span class="math inline">\(\eta\)</span> 往往能减小所需迭代下降的次数。</p>
-<h4 id="固定速率">固定速率</h4>
-<p>固定速率 <span class="math inline">\(\eta\)</span>，相比其他方法，无需计算 <span class="math inline">\(\eta\)</span> 的开销。</p>
-<h4 id="单调下降mds">单调下降（MDS）</h4>
-<p>Monotonically Decreasing Schedule (MDS)方法，在第 <span class="math inline">\(z\)</span> 次下降中： <span class="math display">\[\eta^z = \frac{\alpha}{1 + \beta z^{1.5}}\]</span> 其中 <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> 为指定常数。<span class="math inline">\(\eta\)</span> 随着迭代的进行逐渐下降，类似的公式就不在此列举。</p>
-<h4 id="bold-driver-schedule-bds">Bold-driver Schedule (BDS)</h4>
-<p>设 <span class="math inline">\(\Delta_z\)</span> 为损失函数 <span class="math inline">\((\ref{opt})\)</span> 的值在第z次迭代与在前次迭代之差，BDS的方案是：</p>
-<p>if <span class="math inline">\(\Delta_z \lt 0\)</span> then <span class="math inline">\(\eta_{z+1} = \alpha \eta_z\)</span> else <span class="math inline">\(\eta_{z+1} = \beta \eta_z\)</span></p>
-<p>其中 <span class="math inline">\(\alpha \gt 1\)</span> 而 <span class="math inline">\(0 \lt \beta \lt 1\)</span>。也就是说，当损失函数成功下降时，<span class="math inline">\(\eta\)</span> 增大，反之减小。</p>
-<h4 id="per-coordinate-schedule-pcs">Per-coordinate Schedule (PCS)</h4>
-<p>研发者给出中间矩阵 <span class="math inline">\(G_u\)</span> 和 <span class="math inline">\(P_v\)</span>，并给出更新公式 ：<img src="/2016/05/11/ML-SGD-RPCS/PCS-G_PUpdate.PNG" title="update G, P by g, h"> 显然 <span class="math inline">\(G_u\)</span>, <span class="math inline">\(P_v\)</span> 与 <span class="math inline">\(g_u\)</span>, <span class="math inline">\(p_v\)</span> 相关。然后转换下降公式 <span class="math inline">\((\ref{descP})\)</span>, <span class="math inline">\((\ref{descQ})\)</span> 为： <span class="math display">\[p_u \leftarrow p_u - \eta G_u^{-1/2} g_u \label{PCSDescP} \tag{6}\]</span> <span class="math display">\[q_v \leftarrow q_v - \eta H_v^{-1/2} h_v \label{PCSDescQ} \tag{7}\]</span></p>
-<h3 id="rpcs">RPCS</h3>
-<p>Reduced Per-coordinate Schedule (RPCS) 在 RCS 基础上改进并用于矩阵分解。</p>
-<h4 id="各元素统一-eta">各元素统一 <span class="math inline">\(\eta\)</span></h4>
-<p>如果以 <span class="math inline">\(p_u\)</span> 各元素为单位（而非向量）思考式子 <span class="math inline">\((\ref{PCSDescP})\)</span>，可发现每个元素的下降速率是不同的。这造成的问题是，<span class="math inline">\(G_u\)</span> 必须记录每个 <span class="math inline">\(p_u\)</span> 元素的下降速率，共 <span class="math inline">\(k\)</span> 个，考虑到整个 <span class="math inline">\(P\)</span> 矩阵，将消耗 <span class="math inline">\(m \times k\)</span> 个单元。</p>
-<p>RPCS的方案是，将 <span class="math inline">\(G\)</span>, <span class="math inline">\(H\)</span> 的更新公式改为： <span class="math display">\[G_u \leftarrow G_u + \frac{g_u^\mathrm{T}g_u}{k} \label{RPCSUpdateG} \tag{8}\]</span> <span class="math display">\[H_v \leftarrow H_v + \frac{h_v^\mathrm{T}h_v}{k}\]</span> <span class="math inline">\(G_v\)</span> 变成了标量，只需1个存储单元，空间开销大大减小。<span class="math inline">\(H_v\)</span> 同理。而且，研究者证明，使用相同的 <span class="math inline">\(\eta\)</span> 对 PCS 方法几乎没影响。</p>
-<h4 id="合并循环">合并循环</h4>
-<p>研究者注意到 <span class="math inline">\(p_u\)</span> 是一个向量，一次更新需要一个循环，而每次循环需要计算一次 <span class="math inline">\((g_u)_i\)</span> (即 <span class="math inline">\(g_u\)</span> 的当前更新的第 <span class="math inline">\(i\)</span> 个元素）。同时，<span class="math inline">\(G_u\)</span> 每次更新同样需要一个循环，并且每次需计算 <span class="math inline">\((g_u)_i\)</span>。RPCS 利用这一点，将2个循环合并而无需重复计算 <span class="math inline">\((g_u)_i\)</span>。<span class="math inline">\(q_u\)</span> 同理。作者提供的一次迭代伪代码_：<img src="/2016/05/11/ML-SGD-RPCS/RPCS.PNG" title="RPCS pseudo code"></p>
-<h4 id="twin-learners-tl">Twin Learners (TL)</h4>
-<p>RPCS 的下降速率总是下降的，然而，作者发现，在经历了头几次迭代后，下降速率急剧下降，甚至在第一次迭代后，下降速率就已经减半。其原因可能是，因为最初没有经过下降，用随机方法初始化的 <span class="math inline">\(P\)</span> 与最优解相差较大，使得梯度误差 <span class="math inline">\(e_{u,v}\)</span>，梯度 <span class="math inline">\(g_u\)</span> 较大，导致 <span class="math inline">\(G_u\)</span> 过大，下降速率急剧下降。</p>
-<p>TL 方案将 <span class="math inline">\(p_u\)</span> 的更新分为2个部分，<span class="math inline">\(p_{1:k}\)</span> （取 <span class="math inline">\(p_u\)</span> 1至个元素构成一个向量）与 <span class="math inline">\(p_{(k+1):u}\)</span>， 前者称为慢速学习部分，后者称为快速学习部分。相应有 <span class="math inline">\(G_{1:k}\)</span> 与 <span class="math inline">\(G_{(k+1):u}\)</span>，它们同样分别用式子 <span class="math inline">\((\ref{RPCSUpdateG})\)</span> 更新。与 RPCS 不同的是，在第一次下降中，<span class="math inline">\(G_{(k+1):u}\)</span> 不更新，也就是说，快速学习部分第一次迭代速率不作下降。</p>
-<p>作者的实验表明，慢速学习部分相对 RPCS 在头几次迭代后，下降速率下降得更大，但快速学习部分，因为慢速学习部分“吸收了”误差带来的影响，保持着较高的下降速率。<span class="math inline">\(q_v\)</span> 同理。TL 使得下降次数相对 RPCS 有显著减少。</p>
+<p>在 n 维空间中，满足方程<br>$$a_1 x_1 + a_2 x_2 + … + a_n x_n = b $$<br>的向量 $(x_1, x_2,…,x_n)$ 构成的空间称为 <strong>超平面</strong>。 例如，立体空间中它表示平面，平面中它表示直线。表面上有 n 个自由维度，实际上当 $(n-1)$ 个维度值确定时，剩下的一个维度也确定了。</p>
+<h4 id="参数的取值范围与-Perceptron"><a href="#参数的取值范围与-Perceptron" class="headerlink" title="参数的取值范围与 Perceptron"></a>参数的取值范围与 Perceptron</h4><p>单层感知器（Perceptron）利用超平面分类数据。输入训练数据为向量 $\mathbf{x} = (x_1, x_2,…, x_n)$， 其目标是训练出权重向量 $\mathbf{w} = (w_1, w_2,…, w_n)$ 与偏值 $b$， 使得所有满足 $\mathbf{w}\cdot \mathbf{x}\ge b$ 的数据同为一类，而满足 $\mathbf{w}\cdot \mathbf{x}&lt; b$ 的数据同为另一类。形象地理解就是，给定 n 维空间的许多点，分为两种类型，要求找到一个超平面，将这两种类型的点分开。再形象点，在二维空间中，有许多红点和蓝点，Perceptron 需要划一条直线将红点蓝点分开。（当然，Perceptron 往往不能对数据完全正确分类，所以有后续的处理。这里只是理想情况）</p>
+<p>值得注意的是，偏值 $b$ 容易被误认为无需训练，直接设为定值就行（比如零）。实际上，将权重向量的任何一个元素及偏值 $b$ 固定为常量，都会导致（ $\mathbf{w}, b$ ）所能表示的超平面减少，从而导致分类的能力下降。可以参考平面下直线的表达式： $ax+by=c$ ，如果固定 $c=0$， 该直线必定过原点，不能表示许多不过原点的直线。</p>
+<h4 id="点到超平面距离与-SVM"><a href="#点到超平面距离与-SVM" class="headerlink" title="点到超平面距离与 SVM"></a>点到超平面距离与 SVM</h4><p>支持向量机（SVM）也是利用超平面分类向量的，它关注的是点与超平面的距离。</p>
+<p>已知超平面的法向量 $\mathbf{w}=(w_1,w_2,…,w_n)$ 和数 $b$， 超平面表示为：</p>
+<p>$$ \mathbf{w}\cdot\mathbf{x} + b=0 $$</p>
+<p>$\mathbf{x}= (x_1, x_2,…, x_n)$ 表示超平面上的任意一点。设 $\mathbf{y}_0= (y_1, y_2,…, y_n)$ 为超平面上一点，则有 $\mathbf{w}\cdot\mathbf{y}_0 = -b$。可得点 $\mathbf{s}= (s_1, s_2,…, s_n)$ 与超平面的距离 $d$：</p>
+<p>$$ d=\left| \frac{\mathbf{w}\cdot(\mathbf{s}_0 - \mathbf{y}_0)}{||\mathbf{w}||} \right|=\left| \frac{\mathbf{w}\cdot\mathbf{s}_0 + b}{||\mathbf{w}||} \right| $$</p>
 
           
         
@@ -1937,7 +1630,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1945,7 +1638,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1954,7 +1647,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1991,7 +1684,7 @@ subject\ to \ y_n(\mathbf{w^T x_n} - b) \ge 1
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

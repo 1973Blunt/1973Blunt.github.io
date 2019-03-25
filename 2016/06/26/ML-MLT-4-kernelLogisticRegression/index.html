@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="此文是学习林轩田老师的机器学习技法第五课——Kernel Logistic Regression——的课程笔记。 这节课主要讨论了 SVM 与 Logistic 回归的相似性，其目标是解决“SVM 从 0/1 分类到概率分类的转换”以及“Logistic 从低维空间到高维空间的转换”，提出了二个方法，一是，将 SVM 训练结果代入 Logistic 中训练，二是，使用 Logistic Regr">
+<meta name="description" content="此文是学习林轩田老师的机器学习技法第五课——Kernel Logistic Regression——的课程笔记。 这节课主要讨论了 SVM 与 Logistic 回归的相似性，其目标是解决“SVM 从 0/1 分类到概率分类的转换”以及“Logistic 从低维空间到高维空间的转换”，提出了二个方法，一是，将 SVM 训练结果代入 Logistic 中训练，二是，使用 Logistic Regre">
 <meta name="keywords" content="ML,机器学习技法,SVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习技法第五课——Kernel Logistic Regression">
 <meta property="og:url" content="http://yoursite.com/2016/06/26/ML-MLT-4-kernelLogisticRegression/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="此文是学习林轩田老师的机器学习技法第五课——Kernel Logistic Regression——的课程笔记。 这节课主要讨论了 SVM 与 Logistic 回归的相似性，其目标是解决“SVM 从 0/1 分类到概率分类的转换”以及“Logistic 从低维空间到高维空间的转换”，提出了二个方法，一是，将 SVM 训练结果代入 Logistic 中训练，二是，使用 Logistic Regr">
+<meta property="og:description" content="此文是学习林轩田老师的机器学习技法第五课——Kernel Logistic Regression——的课程笔记。 这节课主要讨论了 SVM 与 Logistic 回归的相似性，其目标是解决“SVM 从 0/1 分类到概率分类的转换”以及“Logistic 从低维空间到高维空间的转换”，提出了二个方法，一是，将 SVM 训练结果代入 Logistic 中训练，二是，使用 Logistic Regre">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习技法第五课——Kernel Logistic Regression">
-<meta name="twitter:description" content="此文是学习林轩田老师的机器学习技法第五课——Kernel Logistic Regression——的课程笔记。 这节课主要讨论了 SVM 与 Logistic 回归的相似性，其目标是解决“SVM 从 0/1 分类到概率分类的转换”以及“Logistic 从低维空间到高维空间的转换”，提出了二个方法，一是，将 SVM 训练结果代入 Logistic 中训练，二是，使用 Logistic Regr">
+<meta name="twitter:description" content="此文是学习林轩田老师的机器学习技法第五课——Kernel Logistic Regression——的课程笔记。 这节课主要讨论了 SVM 与 Logistic 回归的相似性，其目标是解决“SVM 从 0/1 分类到概率分类的转换”以及“Logistic 从低维空间到高维空间的转换”，提出了二个方法，一是，将 SVM 训练结果代入 Logistic 中训练，二是，使用 Logistic Regre">
 
 
 
@@ -300,64 +300,49 @@
       
         <p>此文是学习林轩田老师的机器学习技法第五课——Kernel Logistic Regression——的课程笔记。</p>
 <p>这节课主要讨论了 SVM 与 Logistic 回归的相似性，其目标是解决“SVM 从 0/1 分类到概率分类的转换”以及“Logistic 从低维空间到高维空间的转换”，提出了二个方法，一是，将 SVM 训练结果代入 Logistic 中训练，二是，使用 Logistic Regression 的 kernel 模型进行训练。</p>
-<h3 id="参考">参考</h3>
-<ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/205_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Platt_scaling" target="_blank" rel="noopener">Platt scaling</a></li>
-<li><a href="/2016/06/05/ML-MLT-2-kernelSVM/" title="Kernel SVM">Kernel SVM</a></li>
+<li><a href="/2016/06/05/ML-MLT-2-kernelSVM/" title="Kernel SVM">Kernel SVM</a>
+</li>
 </ul>
-<h3 id="svm-与-l2-正则化">SVM 与 L2 正则化</h3>
-<p>推导 <a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a> 的原始公式： <span class="math display">\[  \min_{b,\mathbf{w},\xi} \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}\xi_n \\\\
-s.t.\ y_n(\mathbf{w^Tz_n} + b) \ge 1 - \xi_n \\\\
-s.t.\ \xi_n \ge 0
-\]</span> <span class="math inline">\(\xi\)</span> 是松弛变量，也可视作 err，衡量越过 Margin 或分类超平面的程度，大致可以写成 <span class="math inline">\(err = \xi_n = \max{(1-y_n(w^T z_n + b),\; 0)}\)</span>, 原式大概可以写成： <span class="math display">\[  \min_{b,\mathbf{w}} \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}{\max{(1-y_n(w^T z_n + b),\; 0)}}
-\]</span> <span class="math display">\[即\;\min{\frac{1}{2}\mathbf{w^Tw} + C\sum{err}}\]</span> 这个公式与<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>部分的带 L2 正则化的 PLA 算法比较相似。SVM 大致可以视作一个带 L2 正则化的分类器。（这个 error 常被称作 hinge loss）</p>
-<h3 id="svm-与-logistic-相似">SVM 与 Logistic 相似</h3>
-<p>令 <span class="math inline">\(s=w^T z + b\)</span> （超平面分类得分），引入<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>中的 0/1 错误、 Logistic 回归的错误与 SVM 错误比较：</p>
+<h3 id="SVM-与-L2-正则化"><a href="#SVM-与-L2-正则化" class="headerlink" title="SVM 与 L2 正则化"></a>SVM 与 L2 正则化</h3><p>推导 <a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a> 的原始公式：<br>$$  \min<em>{b,\mathbf{w},\xi} \frac{1}{2}\mathbf{w^Tw} + C \sum</em>{n=1}^{N}\xi_n \\<br>s.t.\ y_n(\mathbf{w^Tz_n} + b) \ge 1 - \xi_n \\<br>s.t.\ \xi_n \ge 0<br>$$<br>$\xi$ 是松弛变量，也可视作 err，衡量越过 Margin 或分类超平面的程度，大致可以写成 $err = \xi_n = \max{(1-y_n(w^T z<em>n + b),\; 0)}$, 原式大概可以写成：<br>$$  \min</em>{b,\mathbf{w}} \frac{1}{2}\mathbf{w^Tw} + C \sum_{n=1}^{N}{\max{(1-y_n(w^T z_n + b),\; 0)}}<br>$$<br>$$即\;\min{\frac{1}{2}\mathbf{w^Tw} + C\sum{err}}$$<br>这个公式与<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>部分的带 L2 正则化的 PLA 算法比较相似。SVM 大致可以视作一个带 L2 正则化的分类器。（这个 error 常被称作 hinge loss）</p>
+<h3 id="SVM-与-Logistic-相似"><a href="#SVM-与-Logistic-相似" class="headerlink" title="SVM 与 Logistic 相似"></a>SVM 与 Logistic 相似</h3><p>令 $s=w^T z + b$ （超平面分类得分），引入<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>中的 0/1 错误、 Logistic 回归的错误与 SVM 错误比较：</p>
 <table>
 <thead>
-<tr class="header">
-<th style="text-align: center;">err type</th>
-<th style="text-align: center;">function</th>
+<tr>
+<th style="text-align:center">err type</th>
+<th style="text-align:center">function</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;">0/1</td>
-<td style="text-align: center;">[<span class="math inline">\(ys \le 0\)</span>]</td>
+<tr>
+<td style="text-align:center">0/1</td>
+<td style="text-align:center">[$ys \le 0$]</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">logistic</td>
-<td style="text-align: center;"><span class="math inline">\(\ln(1+\exp(-ys))\)</span></td>
+<tr>
+<td style="text-align:center">logistic</td>
+<td style="text-align:center">$\ln(1+\exp(-ys))$</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">SVM</td>
-<td style="text-align: center;"><span class="math inline">\(\max(1-ys,\; 0)\)</span></td>
+<tr>
+<td style="text-align:center">SVM</td>
+<td style="text-align:center">$\max(1-ys,\; 0)$</td>
 </tr>
 </tbody>
 </table>
-<p>课程中作图更直观，在此就大致解释下 ：P。 <span class="math inline">\(y, s\)</span> 同号时，分类正确，0/1 分类中 “[]” 表示 bool 判断，如果 <span class="math inline">\(ys \le 0\)</span> 取1，反之取0，即分类正确 err 为 0，错误取 1 以记录错误。与之不同的是，Logistic 与 SVM 在分类错误时，不止记录了错误，而且在 <span class="math inline">\(ys\)</span> 越小时，err 取值越大。在分类正确时，后两者要么直接取 0，要么取一个 <span class="math inline">\(0 \sim 1\)</span> 的数。Logistic 与 SVM 都放大了分类错误数据的影响，而忽略分类正确数据的影响。</p>
-<h3 id="platts-scaling">Platt’s scaling</h3>
-<p><a href="https://en.wikipedia.org/wiki/Platt_scaling" target="_blank" rel="noopener">Platt scaling</a> 又称 Platt calibration，将分类模型对数据的预测评分作为输入，训练 Logistic 模型，将它转化成概率模型。运用这个方法将 SVM 与 Logistic 结合，使得 SVM 拥有概率特征，而 Logistic 可以用 SVM kernel 处理多维空间转换。大致过程为</p>
+<p>课程中作图更直观，在此就大致解释下 ：P。 $y, s$ 同号时，分类正确，0/1 分类中 “[]” 表示 bool 判断，如果 $ys \le 0$ 取1，反之取0，即分类正确 err 为 0，错误取 1 以记录错误。与之不同的是，Logistic 与 SVM 在分类错误时，不止记录了错误，而且在 $ys$ 越小时，err 取值越大。在分类正确时，后两者要么直接取 0，要么取一个 $0 \sim 1$ 的数。Logistic 与 SVM 都放大了分类错误数据的影响，而忽略分类正确数据的影响。</p>
+<h3 id="Platt’s-scaling"><a href="#Platt’s-scaling" class="headerlink" title="Platt’s scaling"></a>Platt’s scaling</h3><p><a href="https://en.wikipedia.org/wiki/Platt_scaling" target="_blank" rel="noopener">Platt scaling</a> 又称 Platt calibration，将分类模型对数据的预测评分作为输入，训练 Logistic 模型，将它转化成概率模型。运用这个方法将 SVM 与 Logistic 结合，使得 SVM 拥有概率特征，而 Logistic 可以用 SVM kernel 处理多维空间转换。大致过程为</p>
 <ul>
-<li>run SVM get <span class="math inline">\(\Phi_{svm}(z_n) = w^T z_n + b\)</span></li>
-<li>run Logistic problem get A, B: <span class="math display">\[  \min_{A, B} {\frac{1}{N} \sum_{n=1}^{N}{ \ln{(1 + \exp(-y_n (A \Phi_{svm}(z_n) + B)))} }}
-\]</span> 这里 A 是对 SVM 模型的一个放缩，对结果影响不大，而 B 有对原 SVM 有一定影响，应该尽量接近 0。在课程中，将这个模型称为 probabilistic SVM。</li>
+<li>run SVM get $\Phi_{svm}(z_n) = w^T z_n + b$</li>
+<li>run Logistic problem get A, B:<br>$$  \min<em>{A, B} {\frac{1}{N} \sum</em>{n=1}^{N}{ \ln{(1 + \exp(-y<em>n (A \Phi</em>{svm}(z_n) + B)))} }}<br>$$<br>这里 A 是对 SVM 模型的一个放缩，对结果影响不大，而 B 有对原 SVM 有一定影响，应该尽量接近 0。在课程中，将这个模型称为 probabilistic SVM。</li>
 </ul>
-<h3 id="kernel-logistic-regression">Kernel Logistic Regression</h3>
-<p>这一部分试图推导出 Logistic 的 kernel，以解决 Logistic 向高维空间映射的问题。提前声明一下，由于此模型不具有 SVM 的稀疏性，林老师在下节课会说明此方法相对 Platt’s scaling 较少使用。</p>
-<p>首先，对于以下形式的“带 L2 正则化的线性模型” <span class="math display">\[  \min_{\mathbf{w}} \frac{\lambda}{N}\mathbf{w^Tw} + \frac{1}{N} \sum_{n=1}^{N}{err(y_n, w^T z_n)}
-\]</span> 老师用奇妙的方法证明了其中的 <span class="math inline">\(\mathbf{w}\)</span> 可以被 <span class="math inline">\(\mathbf{z}\)</span> 线性表示 <span class="math display">\[\mathbf{w} = \sum_{n=1}^N \beta_n z_n\]</span> ，而且该模型能被转换成 kernel 形式。（至于如何证明的，因为十分奇妙在此略过 ：P）</p>
-<p>当然，带 L2 正则化的 Logistic 回归模型符合以上条件。 <span class="math display">\[  \min_{w} { \frac{\lambda}{N}\mathbf{w^Tw}  +\frac{1}{N} \sum_{n=1}^{N}{ \ln{(1 + \exp(-y_n w^T z_n))} }}
-\]</span></p>
-<p>在 <a href="/2016/06/05/ML-MLT-2-kernelSVM/" title="Kernel SVM">Kernel SVM</a> 中，用 kernel 函数 <span class="math inline">\(K(\mathbf{x, x&#39;})\)</span> 替换 <span class="math inline">\(\mathbf{z^Tz&#39;}\)</span>，所以，接下来要把高维空间的 <span class="math inline">\(\mathbf{w, z}\)</span> 用 kernel 替换。 <span class="math display">\[ \mathbf{w^Tw} = \sum_{n=1}^{N}\sum_{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x_m})\quad （向量内积分配律）\\\\
- \mathbf{w^Tz_n} = \sum_{m=1}^N {\beta_m K(\mathbf{x_m, x_n})}
-\]</span></p>
-<p>最后问题变成求解 <span class="math inline">\(\beta\)</span> <span class="math display">\[  \min_{w} { \frac{\lambda}{N} \sum_{n=1}^{N}\sum_{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x_m})
- +\frac{1}{N} \sum_{n=1}^{N}{ \ln{(1 + \exp(-y_n \sum_{m=1}^N {\beta_m K(\mathbf{x_m, x_n})}))} }}
-\]</span> 需要说明，<span class="math inline">\(\beta\)</span> 往往非 0，而对比 SVM 中的 <span class="math inline">\(\alpha\)</span>，则大多是 0（非支持向量），后者具有稀疏性。</p>
+<h3 id="Kernel-Logistic-Regression"><a href="#Kernel-Logistic-Regression" class="headerlink" title="Kernel Logistic Regression"></a>Kernel Logistic Regression</h3><p>这一部分试图推导出 Logistic 的 kernel，以解决 Logistic 向高维空间映射的问题。提前声明一下，由于此模型不具有 SVM 的稀疏性，林老师在下节课会说明此方法相对 Platt’s scaling 较少使用。</p>
+<p>首先，对于以下形式的“带 L2 正则化的线性模型”<br>$$  \min<em>{\mathbf{w}} \frac{\lambda}{N}\mathbf{w^Tw} + \frac{1}{N} \sum</em>{n=1}^{N}{err(y_n, w^T z<em>n)}<br>$$<br>老师用奇妙的方法证明了其中的 $\mathbf{w}$ 可以被 $\mathbf{z}$ 线性表示<br>$$\mathbf{w} = \sum</em>{n=1}^N \beta_n z_n$$<br>，而且该模型能被转换成 kernel 形式。（至于如何证明的，因为十分奇妙在此略过 ：P）</p>
+<p>当然，带 L2 正则化的 Logistic 回归模型符合以上条件。<br>$$  \min<em>{w} { \frac{\lambda}{N}\mathbf{w^Tw}  +\frac{1}{N} \sum</em>{n=1}^{N}{ \ln{(1 + \exp(-y_n w^T z_n))} }}<br>$$</p>
+<p>在 <a href="/2016/06/05/ML-MLT-2-kernelSVM/" title="Kernel SVM">Kernel SVM</a> 中，用 kernel 函数 $K(\mathbf{x, x’})$ 替换 $\mathbf{z^Tz’}$，所以，接下来要把高维空间的 $\mathbf{w, z}$ 用 kernel 替换。<br>$$ \mathbf{w^Tw} = \sum<em>{n=1}^{N}\sum</em>{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x_m})\quad （向量内积分配律）\\<br> \mathbf{w^Tz<em>n} = \sum</em>{m=1}^N {\beta_m K(\mathbf{x_m, x_n})}<br>$$</p>
+<p>最后问题变成求解 $\beta$<br>$$  \min<em>{w} { \frac{\lambda}{N} \sum</em>{n=1}^{N}\sum_{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x<em>m})<br> +\frac{1}{N} \sum</em>{n=1}^{N}{ \ln{(1 + \exp(-y<em>n \sum</em>{m=1}^N {\beta_m K(\mathbf{x_m, x_n})}))} }}<br>$$<br>需要说明，$\beta$ 往往非 0，而对比 SVM 中的 $\alpha$，则大多是 0（非支持向量），后者具有稀疏性。</p>
 
       
     </div>
@@ -471,7 +456,7 @@ s.t.\ \xi_n \ge 0
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -479,7 +464,7 @@ s.t.\ \xi_n \ge 0
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -488,7 +473,7 @@ s.t.\ \xi_n \ge 0
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -517,7 +502,7 @@ s.t.\ \xi_n \ge 0
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#svm-与-l2-正则化"><span class="nav-number">2.</span> <span class="nav-text">SVM 与 L2 正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#svm-与-logistic-相似"><span class="nav-number">3.</span> <span class="nav-text">SVM 与 Logistic 相似</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#platts-scaling"><span class="nav-number">4.</span> <span class="nav-text">Platt’s scaling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel-logistic-regression"><span class="nav-number">5.</span> <span class="nav-text">Kernel Logistic Regression</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVM-与-L2-正则化"><span class="nav-number">2.</span> <span class="nav-text">SVM 与 L2 正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVM-与-Logistic-相似"><span class="nav-number">3.</span> <span class="nav-text">SVM 与 Logistic 相似</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Platt’s-scaling"><span class="nav-number">4.</span> <span class="nav-text">Platt’s scaling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel-Logistic-Regression"><span class="nav-number">5.</span> <span class="nav-text">Kernel Logistic Regression</span></a></li></ol></div>
             
           </div>
         </section>
@@ -536,7 +521,7 @@ s.t.\ \xi_n \ge 0
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

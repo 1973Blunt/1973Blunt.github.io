@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="RNN \[ h^{(i)} = \sigma{( W^{hx} x^{t} + W^{hh}h^{(t-1)} + b_h  )} \] LSTM \[ g^{(t)} = \Phi(W^{gx} x^{(t)} + W^{gh}h^{(t-1)} + b_g ) \] \[ i^{(t)} = \Phi(W^{ix} x^{(t)} + W^{ih}h^{(t-1)} + b_i ) \">
+<meta name="description" content="RNN$$ h^{(i)} = \sigma{( W^{hx} x^{t} + W^{hh}h^{(t-1)} + b_h  )} $$ LSTM$$ g^{(t)} = \Phi(W^{gx} x^{(t)} + W^{gh}h^{(t-1)} + b_g ) $$$$ i^{(t)} = \Phi(W^{ix} x^{(t)} + W^{ih}h^{(t-1)} + b_i ) $$$$ f^">
 <meta name="keywords" content="ML,NN,RNN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度网络笔记">
 <meta property="og:url" content="http://yoursite.com/2018/04/01/ML-NN-RNN/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="RNN \[ h^{(i)} = \sigma{( W^{hx} x^{t} + W^{hh}h^{(t-1)} + b_h  )} \] LSTM \[ g^{(t)} = \Phi(W^{gx} x^{(t)} + W^{gh}h^{(t-1)} + b_g ) \] \[ i^{(t)} = \Phi(W^{ix} x^{(t)} + W^{ih}h^{(t-1)} + b_i ) \">
+<meta property="og:description" content="RNN$$ h^{(i)} = \sigma{( W^{hx} x^{t} + W^{hh}h^{(t-1)} + b_h  )} $$ LSTM$$ g^{(t)} = \Phi(W^{gx} x^{(t)} + W^{gh}h^{(t-1)} + b_g ) $$$$ i^{(t)} = \Phi(W^{ix} x^{(t)} + W^{ih}h^{(t-1)} + b_i ) $$$$ f^">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-04-01T14:19:02.342Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度网络笔记">
-<meta name="twitter:description" content="RNN \[ h^{(i)} = \sigma{( W^{hx} x^{t} + W^{hh}h^{(t-1)} + b_h  )} \] LSTM \[ g^{(t)} = \Phi(W^{gx} x^{(t)} + W^{gh}h^{(t-1)} + b_g ) \] \[ i^{(t)} = \Phi(W^{ix} x^{(t)} + W^{ih}h^{(t-1)} + b_i ) \">
+<meta name="twitter:description" content="RNN$$ h^{(i)} = \sigma{( W^{hx} x^{t} + W^{hh}h^{(t-1)} + b_h  )} $$ LSTM$$ g^{(t)} = \Phi(W^{gx} x^{(t)} + W^{gh}h^{(t-1)} + b_g ) $$$$ i^{(t)} = \Phi(W^{ix} x^{(t)} + W^{ih}h^{(t-1)} + b_i ) $$$$ f^">
 
 
 
@@ -298,13 +298,10 @@
       
 
       
-        <h4 id="rnn">RNN</h4>
-<p><span class="math display">\[ h^{(i)} = \sigma{( W^{hx} x^{t} + W^{hh}h^{(t-1)} + b_h  )} \]</span></p>
-<h4 id="lstm">LSTM</h4>
-<p><span class="math display">\[ g^{(t)} = \Phi(W^{gx} x^{(t)} + W^{gh}h^{(t-1)} + b_g ) \]</span> <span class="math display">\[ i^{(t)} = \Phi(W^{ix} x^{(t)} + W^{ih}h^{(t-1)} + b_i ) \]</span> <span class="math display">\[ f^{(t)} = \Phi(W^{fx} x^{(t)} + W^{fh}h^{(t-1)} + b_f ) \]</span> <span class="math display">\[ o^{(t)} = \Phi(W^{ox} x^{(t)} + W^{oh}h^{(t-1)} + b_o ) \]</span> <span class="math display">\[ s^{(t)} = g^{(t)} \odot i^{(t)} + s^{(t-1)} \odot f^{(t)} \]</span> <span class="math display">\[ h^{(t)} = \Phi (s^{(t)}) \odot o^{(t)} \]</span></p>
-<p>各个门i, f, o与g近似，都含有<span class="math inline">\(h^{(t-1)}\)</span>成分，拥有前面状态的记忆。</p>
-<h4 id="gru">GRU</h4>
-<p><span class="math display">\[ z^{(t)} = \sigma(W^{zx} x^{(t)} + W^{zh}h^{(t-1)} ) \]</span> <span class="math display">\[ r^{(t)} = \sigma(W^{rx} x^{(t)} + W^{rh}h^{(t-1)} ) \]</span> <span class="math display">\[ \tilde{h}^{(t)} = \tanh (W^{hx} x^{(t)} + W^{hh} (r^{(t)} \odot h^{(t-1)})) \]</span> <span class="math display">\[ h^{(t)} = (1-z^{(t)}) \odot h^{(t-1)} + z^{(t)} \odot \tilde{h}^{(t)} \]</span></p>
+        <h4 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h4><p>$$ h^{(i)} = \sigma{( W^{hx} x^{t} + W^{hh}h^{(t-1)} + b_h  )} $$</p>
+<h4 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h4><p>$$ g^{(t)} = \Phi(W^{gx} x^{(t)} + W^{gh}h^{(t-1)} + b_g ) $$<br>$$ i^{(t)} = \Phi(W^{ix} x^{(t)} + W^{ih}h^{(t-1)} + b_i ) $$<br>$$ f^{(t)} = \Phi(W^{fx} x^{(t)} + W^{fh}h^{(t-1)} + b_f ) $$<br>$$ o^{(t)} = \Phi(W^{ox} x^{(t)} + W^{oh}h^{(t-1)} + b_o ) $$<br>$$ s^{(t)} = g^{(t)} \odot i^{(t)} + s^{(t-1)} \odot f^{(t)} $$<br>$$ h^{(t)} = \Phi (s^{(t)}) \odot o^{(t)} $$</p>
+<p>各个门i, f, o与g近似，都含有$h^{(t-1)}$成分，拥有前面状态的记忆。</p>
+<h4 id="GRU"><a href="#GRU" class="headerlink" title="GRU"></a>GRU</h4><p>$$ z^{(t)} = \sigma(W^{zx} x^{(t)} + W^{zh}h^{(t-1)} ) $$<br>$$ r^{(t)} = \sigma(W^{rx} x^{(t)} + W^{rh}h^{(t-1)} ) $$<br>$$ \tilde{h}^{(t)} = \tanh (W^{hx} x^{(t)} + W^{hh} (r^{(t)} \odot h^{(t-1)})) $$<br>$$ h^{(t)} = (1-z^{(t)}) \odot h^{(t-1)} + z^{(t)} \odot \tilde{h}^{(t)} $$</p>
 
       
     </div>
@@ -418,7 +415,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -426,7 +423,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -435,7 +432,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -464,7 +461,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#rnn"><span class="nav-number">1.</span> <span class="nav-text">RNN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lstm"><span class="nav-number">2.</span> <span class="nav-text">LSTM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gru"><span class="nav-number">3.</span> <span class="nav-text">GRU</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#RNN"><span class="nav-number">1.</span> <span class="nav-text">RNN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LSTM"><span class="nav-number">2.</span> <span class="nav-text">LSTM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GRU"><span class="nav-number">3.</span> <span class="nav-text">GRU</span></a></li></ol></div>
             
           </div>
         </section>
@@ -483,7 +480,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
