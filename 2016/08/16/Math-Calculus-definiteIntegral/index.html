@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="微积分笔记 换元积分注意积分上下限的变化，关键是 积分上下限与被积变量对应 第一类换元法$g=g(x)$ ，如果视 $g$ 为被积变量 $$ \inta^bf(g(x)) g’(x) dx = \int{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} $$ 如果仍视 $x$ 为被积变量 $$ \int_a^bf(g(x)) g’(x) dx =">
+<meta name="description" content="微积分笔记 换元积分 注意积分上下限的变化，关键是 积分上下限与被积变量对应 第一类换元法 \(g=g(x)\) ，如果视 \(g\) 为被积变量 \[ \int_a^bf(g(x)) g&amp;#39;(x) dx = \int_{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} \] 如果仍视 \(x\) 为被积变量 \[ \int_">
 <meta name="keywords" content="Math,Calculus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="定积分">
 <meta property="og:url" content="http://yoursite.com/2016/08/16/Math-Calculus-definiteIntegral/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="微积分笔记 换元积分注意积分上下限的变化，关键是 积分上下限与被积变量对应 第一类换元法$g=g(x)$ ，如果视 $g$ 为被积变量 $$ \inta^bf(g(x)) g’(x) dx = \int{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} $$ 如果仍视 $x$ 为被积变量 $$ \int_a^bf(g(x)) g’(x) dx =">
+<meta property="og:description" content="微积分笔记 换元积分 注意积分上下限的变化，关键是 积分上下限与被积变量对应 第一类换元法 \(g=g(x)\) ，如果视 \(g\) 为被积变量 \[ \int_a^bf(g(x)) g&amp;#39;(x) dx = \int_{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} \] 如果仍视 \(x\) 为被积变量 \[ \int_">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="定积分">
-<meta name="twitter:description" content="微积分笔记 换元积分注意积分上下限的变化，关键是 积分上下限与被积变量对应 第一类换元法$g=g(x)$ ，如果视 $g$ 为被积变量 $$ \inta^bf(g(x)) g’(x) dx = \int{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} $$ 如果仍视 $x$ 为被积变量 $$ \int_a^bf(g(x)) g’(x) dx =">
+<meta name="twitter:description" content="微积分笔记 换元积分 注意积分上下限的变化，关键是 积分上下限与被积变量对应 第一类换元法 \(g=g(x)\) ，如果视 \(g\) 为被积变量 \[ \int_a^bf(g(x)) g&amp;#39;(x) dx = \int_{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} \] 如果仍视 \(x\) 为被积变量 \[ \int_">
 
 
 
@@ -299,18 +299,24 @@
 
       
         <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="换元积分"><a href="#换元积分" class="headerlink" title="换元积分"></a>换元积分</h3><p>注意积分上下限的变化，关键是 <strong>积分上下限与被积变量对应</strong></p>
-<h4 id="第一类换元法"><a href="#第一类换元法" class="headerlink" title="第一类换元法"></a>第一类换元法</h4><p>$g=g(x)$ ，如果视 $g$ 为被积变量</p>
-<p>$$ \int<em>a^bf(g(x)) g’(x) dx = \int</em>{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} $$</p>
-<p>如果仍视 $x$ 为被积变量</p>
-<p>$$ \int_a^bf(g(x)) g’(x) dx = \int<em>a^b f(g(x)) dg(x) =  F(g(x))  \bigg|</em>{a}^b $$</p>
-<h4 id="第二类换元法"><a href="#第二类换元法" class="headerlink" title="第二类换元法"></a>第二类换元法</h4><p>$$ \int<em>a^bf(x) dx = \int</em>{x^{-1}(a)}^{x^{-1}(b)} f(x(t)) x’(t) dt =  F(t)  \bigg|_{x^{-1}(a)}^{x^{-1}(b)} $$</p>
-<h3 id="无穷项数列和的极限"><a href="#无穷项数列和的极限" class="headerlink" title="无穷项数列和的极限"></a>无穷项数列和的极限</h3><p>可考虑使用定积分的定义：</p>
-<p>$$ \int<em>a^b f(x) dx = \lim</em>{n \rightarrow \infty} \frac{b-a}{n} \sum_{i=1}^n f(a+\frac{b-a}{n} i) $$</p>
-<p>其关键是猜测出上下限，分离出 $\frac{b-a}{n}$ ，确认 $f(x)$</p>
-<h3 id="分段积分"><a href="#分段积分" class="headerlink" title="分段积分"></a>分段积分</h3><p>对分段函数，绝对值函数等</p>
-<h3 id="变上限积分"><a href="#变上限积分" class="headerlink" title="变上限积分"></a>变上限积分</h3><p>注意，求导时被积函数不能包含自变量，同时，注意在积分外部，自变量不是常数。例子：</p>
-<p>$$ F’(x) = \left( \int_0^x x f(t) dt \right)’ =\left( x \int_0^x  f(t) dt \right)’ = \int_0^x f(t) dt + x f(x)$$</p>
+<h3 id="换元积分">换元积分</h3>
+<p>注意积分上下限的变化，关键是 <strong>积分上下限与被积变量对应</strong></p>
+<h4 id="第一类换元法">第一类换元法</h4>
+<p><span class="math inline">\(g=g(x)\)</span> ，如果视 <span class="math inline">\(g\)</span> 为被积变量</p>
+<p><span class="math display">\[ \int_a^bf(g(x)) g&#39;(x) dx = \int_{g(a)}^{g(b)} f(g) dg =  F(g)  \bigg|_{g(a)}^{g(b)} \]</span></p>
+<p>如果仍视 <span class="math inline">\(x\)</span> 为被积变量</p>
+<p><span class="math display">\[ \int_a^bf(g(x)) g&#39;(x) dx = \int_a^b f(g(x)) dg(x) =  F(g(x))  \bigg|_{a}^b \]</span></p>
+<h4 id="第二类换元法">第二类换元法</h4>
+<p><span class="math display">\[ \int_a^bf(x) dx = \int_{x^{-1}(a)}^{x^{-1}(b)} f(x(t)) x&#39;(t) dt =  F(t)  \bigg|_{x^{-1}(a)}^{x^{-1}(b)} \]</span></p>
+<h3 id="无穷项数列和的极限">无穷项数列和的极限</h3>
+<p>可考虑使用定积分的定义：</p>
+<p><span class="math display">\[ \int_a^b f(x) dx = \lim_{n \rightarrow \infty} \frac{b-a}{n} \sum_{i=1}^n f(a+\frac{b-a}{n} i) \]</span></p>
+<p>其关键是猜测出上下限，分离出 <span class="math inline">\(\frac{b-a}{n}\)</span> ，确认 <span class="math inline">\(f(x)\)</span></p>
+<h3 id="分段积分">分段积分</h3>
+<p>对分段函数，绝对值函数等</p>
+<h3 id="变上限积分">变上限积分</h3>
+<p>注意，求导时被积函数不能包含自变量，同时，注意在积分外部，自变量不是常数。例子：</p>
+<p><span class="math display">\[ F&#39;(x) = \left( \int_0^x x f(t) dt \right)&#39; =\left( x \int_0^x  f(t) dt \right)&#39; = \int_0^x f(t) dt + x f(x)\]</span></p>
 
       
     </div>
@@ -422,7 +428,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -439,7 +445,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

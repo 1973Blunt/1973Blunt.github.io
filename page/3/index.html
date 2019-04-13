@@ -240,6 +240,284 @@
             
               
                 
+                <a class="post-title-link" href="/2017/01/15/ML-Preprcs-NormStd/" itemprop="url">
+                  数据预处理——中心化、归一化与标准化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-15T12:34:08+08:00" content="2017-01-15">
+              2017-01-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考： <a href="http://www.zhaokv.com/2016/01/normalization-and-standardization.html" target="_blank" rel="noopener">归一化与标准化</a></p>
+<p>中心化（mean normalization）、归一化（normalization）和标准化（standardization）对原始数据进行处理，有利于后续的训练与分析工作。</p>
+<p>中心化处理后的数据均值为 0：</p>
+<p><span class="math display">\[ x&#39; = x-\mu \]</span></p>
+<p>归一化将数据映射到 <code>[0, 1]</code> 之间：</p>
+<p><span class="math display">\[ x&#39; = \frac{x-x_{min}}{x_{max}-x_{min}} \]</span></p>
+<p>标准化处理后的数据均值为 0，方差为 1：</p>
+<p><span class="math display">\[ x&#39; = \frac{x-\mu}{\sigma} \]</span></p>
+<p>以上 <span class="math inline">\(\mu, \sigma\)</span> 分别为原始数据的均值与方差。</p>
+<p>对于标准化和归一化，sklearn 提供了函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</span><br><span class="line">x = np.array([[ <span class="number">1.</span>, <span class="number">-1.</span>,  <span class="number">2.</span>],[ <span class="number">2.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>],[ <span class="number">0.</span>,  <span class="number">1.</span>, <span class="number">-1.</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个中心化处理调用</span></span><br><span class="line">mean_x = x - x.mean(axis=<span class="number">0</span>)</span><br><span class="line">mean_x = preprocessing.StandardScaler(with_std=<span class="keyword">False</span>).fit_transform(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 两个标准化处理调用</span></span><br><span class="line">std_x = preprocessing.scale(x)</span><br><span class="line">std_x = preprocessing.StandardScaler().fit_transform(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 归一化处理</span></span><br><span class="line">norm_x = preprocessing.MinMaxScaler().fit_transform(x)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/17/ML-MLT-10-GBDT/" itemprop="url">
+                  机器学习技法第十课——Gradient Boosted Decision Tree
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-17T18:22:18+08:00" content="2016-10-17">
+              2016-10-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文是本人学习<a href="http://www.csie.ntu.edu.tw/~htlin/" target="_blank" rel="noopener">林轩田老师</a>教授的机器学习技法第十一课—— Gradient Boosted Decision Tree ——的笔记。这节课会讲两个模型：Adaptive Boosted Decision Tree 和 Gradient Boosted Decision Tree (GBDT)。本质上讲，两者同属 boosting 方法结合 Decision Tree，只是他们的 error function 不同，训练方法稍有差别。（这节课有许多证明，因为太笨没懂就没详述 :-) ）</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/211_handout.pdf" target="_blank" rel="noopener">课件</a></li>
+<li><a href="/2016/07/28/ML-MLT-7-adaBoost/" title="机器学习技法第八课——Adaptive Boosting">机器学习技法第八课——Adaptive Boosting</a></li>
+<li><a href="/2016/08/03/ML-MLT-8-decisionTree/" title="机器学习技法第九课——Decision Tree">机器学习技法第九课——Decision Tree</a></li>
+<li><a href="https://en.wikipedia.org/wiki/AdaBoost" target="_blank" rel="noopener">AdaBoost - wikipedia</a></li>
+<li><a href="http://suanfazu.com/t/gbdt-die-dai-jue-ce-shu-ru-men-jiao-cheng/135" target="_blank" rel="noopener">Gbdt 迭代决策树入门教程</a></li>
+</ul>
+<h3 id="adaptive-boosted-decision-tree">Adaptive Boosted Decision Tree</h3>
+<p>Adaptive Boosted，即 AdaBoost，与 Decision Tree 已经在前面课程做过介绍，Adaptive Boosted Decision Tree 以 AdaBoost 为框架，以 Decision Tree 为弱模型，整合成一个模型。而在 <a href="/2016/07/28/ML-MLT-7-adaBoost/" title="机器学习技法第八课——Adaptive Boosting">机器学习技法第八课——Adaptive Boosting</a> 中，弱模型简单地选取 Decision Stump，这也算 Adaptive Boosted Decision Tree 的一个特例，老师称之为 <strong>AdaBoost-Stump</strong>。</p>
+<h4 id="模型训练">模型训练</h4>
+<p>在训练过程中，应该注意两点。</p>
+<p>一、决策树应该剪枝。一方面为了正则化，另一方面，完全决策树的误差为零，这使得以修正误差为中心的 AdaBoost 难以进行。</p>
+<p>二、从整个训练集中抽样出每次迭代的训练数据，每笔数据的选中概率正比于 AdaBoost 所计算的权重，替代了原来（第八课）将权重直接用于 error function 的方式。一方面与剪枝目的相同，避免将所有数据输入完全树导致误差为零。另一方面，权重不仅能通过抽取概率体现数据的重要程度，同时又能避免对弱模型 error function 的修改。</p>
+<p>训练过程可参考第八课，改动的只有：在训练弱模型时，根据权重随机抽取训练数据，并训练出剪枝的决策树。</p>
+<h4 id="adaboost-与梯度下降">AdaBoost 与梯度下降</h4>
+<p>课上，老师详细证明了 AdaBoost 的训练过程是在最小（优）化函数，所谓的 loss function ：</p>
+<p><span class="math display">\[ loss = \frac{1}{N} \sum_{n=1}^N \exp (-y_n s_n^{(T)}) \]</span></p>
+<p>其中 <span class="math inline">\(N\)</span> 表示数据量， <span class="math inline">\(T\)</span> 表示迭代次数， <span class="math inline">\(s_n^{(T)}\)</span> 表示 <span class="math inline">\(T\)</span> 次迭代后模型估计值：</p>
+<p><span class="math display">\[ s_n^{(T)} = \sum_{t=1}^T\alpha_t g_t(\mathbf{x}_n) \]</span></p>
+<p>类似梯度下降，AdaBoost 的每次迭代都向最优点靠近，最终到达最优点。AdaBoost 的正向推导可参考：<a href="https://en.wikipedia.org/wiki/AdaBoost" target="_blank" rel="noopener">AdaBoost - wikipedia</a>。</p>
+<h3 id="gradient-boosted-decision-tree">Gradient Boosted Decision Tree</h3>
+<p>简称 GBDT，它的思想与 AdaBoost 是相同的，只是 loss function 被替换成其他函数。流行用残差平方函数替换 AdaBoost 中的 <span class="math inline">\(\exp\)</span> 函数，以下只介绍这种 GBDT。</p>
+<p><span class="math display">\[ loss=\frac{1}{N} \sum_{n=1}^N (s_n^{(T)} - y_n)^2 \]</span></p>
+<h4 id="模型训练-1">模型训练</h4>
+<p>GBDT 的训练流程与 AdaBoost 稍有不同。</p>
+<p>每次迭代根据上次估计值与实际值的残差（residual）训练决策树，不断减小残差使估计值逼近实际值。参考博文 <a href="http://suanfazu.com/t/gbdt-die-dai-jue-ce-shu-ru-men-jiao-cheng/135" target="_blank" rel="noopener">Gbdt 迭代决策树入门教程</a>，它详细介绍了 GBDT 所隐含的直觉。</p>
+<p>每次迭代的权重计算公式：</p>
+<p><span class="math display">\[ \alpha_t = \frac{\sum_{n=1}^N g_t(\mathbf{x}_n)(y_n-s_n^{(t-1)})}{\sum_{n=1}^N g_t^2(\mathbf{x}_n)} \]</span></p>
+<p>其中 <span class="math inline">\(s_n^{(t-1)}\)</span> 表示 <span class="math inline">\(t-1\)</span> 次迭代（前次迭代）后模型估计值。</p>
+<ul>
+<li><span class="math inline">\(s_1=s_2=...=s_n\)</span></li>
+<li>for t=1,2,…,T
+<ul>
+<li>根据数据集 <span class="math inline">\(\{(\mathbf{x}_n, y_n-s_n)\}\)</span>，训练出决策树 <span class="math inline">\(g_t\)</span></li>
+<li>根据数据集 <span class="math inline">\(\{(g_t(\mathbf{x}_n),y_n-s_n)\}\)</span> 计算权重 <span class="math inline">\(\alpha_t\)</span></li>
+<li>更新 <span class="math inline">\(s_n \leftarrow s_n + \alpha_t g_t(\mathbf{x}_n)\)</span></li>
+</ul></li>
+<li>返回模型 <span class="math inline">\(G(\mathbf{x})=\sum\alpha_t g_t(\mathbf{x}_n)\)</span></li>
+</ul>
+<p>注，在一些实现中，权重 <span class="math inline">\(\alpha_t\)</span> 直接设定为 1，没有经过计算。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/28/Math-LinAlg-analyticGeometry/" itemprop="url">
                   空间解析几何
                 </a>
@@ -303,42 +581,67 @@
       
         
           
-            <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>\<br><a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a>
-<h3 id="平面"><a href="#平面" class="headerlink" title="平面"></a>平面</h3><p>平面有两个自由度</p>
-<h4 id="平面表示方法"><a href="#平面表示方法" class="headerlink" title="平面表示方法"></a>平面表示方法</h4><h5 id="点法式方程"><a href="#点法式方程" class="headerlink" title="点法式方程"></a>点法式方程</h5><p>$$ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 $$</p>
-<p>其中 $M_0(x_0,y_0,z_0)$ 为平面上一点， $\mathbf{n}=(a,b,c)$ 为平面法向量</p>
-<h5 id="一般式方程"><a href="#一般式方程" class="headerlink" title="一般式方程"></a>一般式方程</h5><p>$$ ax + by + cz + d = 0 $$</p>
-<p>其中 $\mathbf{n}=(a,b,c)$ 为平面法向量。若 $d=0$，平面过原点；若 $a=0$ 且 $d\ne0$， 法向量正交 x 轴，故平面平行于 x 轴。</p>
-<h4 id="平面间位置关系"><a href="#平面间位置关系" class="headerlink" title="平面间位置关系"></a>平面间位置关系</h4><ul>
-<li>平行 $\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}\ne\frac{d_1}{d_2}$</li>
-<li>重合 $\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}=\frac{d_1}{d_2}$</li>
-<li>相交 $\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}$ 不成立</li>
-</ul>
-<h4 id="点到平面距离"><a href="#点到平面距离" class="headerlink" title="点到平面距离"></a>点到平面距离</h4><p>点 $(x_0,y_0,z_0)$， 平面 $Ax+By+Cz+D=0$</p>
-<p>$$ d=\frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}} $$</p>
-<h3 id="直线"><a href="#直线" class="headerlink" title="直线"></a>直线</h3><p>直线只有一个自由度</p>
-<h4 id="直线表示方法"><a href="#直线表示方法" class="headerlink" title="直线表示方法"></a>直线表示方法</h4><h5 id="点向式方程"><a href="#点向式方程" class="headerlink" title="点向式方程"></a>点向式方程</h5><p>$$ \frac{x-x_0}{m}=\frac{y-y_0}{n}=\frac{z-z_0}{p} $$</p>
-<p>其中 $M_0(x_0,y_0,z_0)$ 为直线上一点， $\mathbf{s}=(m,n,p)$ 为直线的 <strong>方向向量</strong>。 如果 $m=0$， 应该转化为 $x=x_0$。</p>
-<h5 id="参数式方程"><a href="#参数式方程" class="headerlink" title="参数式方程"></a>参数式方程</h5><p>$$ \left{ \begin{array}{l}<br>x=\lambda m + x_0\<br>y=\lambda n + y_0\<br>z=\lambda p + z_0<br>\end{array} \right. $$</p>
-<p>其中 $M_0(x_0,y_0,z_0)$ 为直线上一点， $\mathbf{s}=(m,n,p)$ 为直线的 <strong>方向向量</strong>。</p>
-<h5 id="一般式方程-1"><a href="#一般式方程-1" class="headerlink" title="一般式方程"></a>一般式方程</h5><p>$$ \left{ \begin{array}{l}<br>a_1 x+ b_1 y + c_1 z+ d_1 = 0\<br>a_2 x+ b_2 y + c_2 z+ d_2 = 0<br>\end{array} \right. $$</p>
-<p>两平面相交的直线方程。</p>
-<h4 id="直线间位置关系"><a href="#直线间位置关系" class="headerlink" title="直线间位置关系"></a>直线间位置关系</h4><p>$\mathbf{s}_1$ 与 $\mathbf{s}_2$ 分别为两直线的方向向量， $M_1$ 与 $M_2$ 分别为其上两点。</p>
+            <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>
+<p><br>
+<a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a></p>
+<h3 id="平面">平面</h3>
+<p>平面有两个自由度</p>
+<h4 id="平面表示方法">平面表示方法</h4>
+<h5 id="点法式方程">点法式方程</h5>
+<p><span class="math display">\[ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 \]</span></p>
+<p>其中 <span class="math inline">\(M_0(x_0,y_0,z_0)\)</span> 为平面上一点， <span class="math inline">\(\mathbf{n}=(a,b,c)\)</span> 为平面法向量</p>
+<h5 id="一般式方程">一般式方程</h5>
+<p><span class="math display">\[ ax + by + cz + d = 0 \]</span></p>
+<p>其中 <span class="math inline">\(\mathbf{n}=(a,b,c)\)</span> 为平面法向量。若 <span class="math inline">\(d=0\)</span>，平面过原点；若 <span class="math inline">\(a=0\)</span> 且 <span class="math inline">\(d\ne0\)</span>， 法向量正交 x 轴，故平面平行于 x 轴。</p>
+<h4 id="平面间位置关系">平面间位置关系</h4>
 <ul>
-<li>两直线平行 $\Leftrightarrow$ 方向向量平行且不平行于 ${M_1M_2}$</li>
-<li>两直线重合 $\Leftrightarrow$ 方向向量平行且平行于 ${M_1M_2}$</li>
-<li>两直线相交 $\Leftrightarrow$ 方向向量不平行且与 ${M_1M_2}$ 混合积为零（共面）</li>
-<li>两直线异面 $\Leftrightarrow$ 方向向量不平行且与 ${M_1M_2}$ 混合积不为零（非共面）</li>
+<li>平行 <span class="math inline">\(\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}\ne\frac{d_1}{d_2}\)</span></li>
+<li>重合 <span class="math inline">\(\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}=\frac{d_1}{d_2}\)</span></li>
+<li>相交 <span class="math inline">\(\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}\)</span> 不成立</li>
 </ul>
-<h4 id="直线与平面的位置关系"><a href="#直线与平面的位置关系" class="headerlink" title="直线与平面的位置关系"></a>直线与平面的位置关系</h4><ul>
-<li>平行 $\Leftrightarrow$ 方向向量与平面法向量正交，且直线至少有一点不在平面上</li>
-<li>直线在平面上 $\Leftrightarrow$ 方向向量与平面法向量正交，且直线至少有一点在平面上</li>
-<li>相交 $\Leftrightarrow$ 方向向量与平面法向量非正交</li>
+<h4 id="点到平面距离">点到平面距离</h4>
+<p>点 <span class="math inline">\((x_0,y_0,z_0)\)</span>， 平面 <span class="math inline">\(Ax+By+Cz+D=0\)</span></p>
+<p><span class="math display">\[ d=\frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}} \]</span></p>
+<h3 id="直线">直线</h3>
+<p>直线只有一个自由度</p>
+<h4 id="直线表示方法">直线表示方法</h4>
+<h5 id="点向式方程">点向式方程</h5>
+<p><span class="math display">\[ \frac{x-x_0}{m}=\frac{y-y_0}{n}=\frac{z-z_0}{p} \]</span></p>
+<p>其中 <span class="math inline">\(M_0(x_0,y_0,z_0)\)</span> 为直线上一点， <span class="math inline">\(\mathbf{s}=(m,n,p)\)</span> 为直线的 <strong>方向向量</strong>。 如果 <span class="math inline">\(m=0\)</span>， 应该转化为 <span class="math inline">\(x=x_0\)</span>。</p>
+<h5 id="参数式方程">参数式方程</h5>
+<p><span class="math display">\[ \left\{ \begin{array}{l}
+x=\lambda m + x_0\\
+y=\lambda n + y_0\\
+z=\lambda p + z_0
+\end{array} \right. \]</span></p>
+<p>其中 <span class="math inline">\(M_0(x_0,y_0,z_0)\)</span> 为直线上一点， <span class="math inline">\(\mathbf{s}=(m,n,p)\)</span> 为直线的 <strong>方向向量</strong>。</p>
+<h5 id="一般式方程-1">一般式方程</h5>
+<p><span class="math display">\[ \left\{ \begin{array}{l}
+a_1 x+ b_1 y + c_1 z+ d_1 = 0\\
+a_2 x+ b_2 y + c_2 z+ d_2 = 0
+\end{array} \right. \]</span></p>
+<p>两平面相交的直线方程。</p>
+<h4 id="直线间位置关系">直线间位置关系</h4>
+<p><span class="math inline">\(\mathbf{s}_1\)</span> 与 <span class="math inline">\(\mathbf{s}_2\)</span> 分别为两直线的方向向量， <span class="math inline">\(M_1\)</span> 与 <span class="math inline">\(M_2\)</span> 分别为其上两点。</p>
+<ul>
+<li>两直线平行 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量平行且不平行于 <span class="math inline">\({M_1M_2}\)</span></li>
+<li>两直线重合 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量平行且平行于 <span class="math inline">\({M_1M_2}\)</span></li>
+<li>两直线相交 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量不平行且与 <span class="math inline">\({M_1M_2}\)</span> 混合积为零（共面）</li>
+<li>两直线异面 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量不平行且与 <span class="math inline">\({M_1M_2}\)</span> 混合积不为零（非共面）</li>
+</ul>
+<h4 id="直线与平面的位置关系">直线与平面的位置关系</h4>
+<ul>
+<li>平行 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量与平面法向量正交，且直线至少有一点不在平面上</li>
+<li>直线在平面上 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量与平面法向量正交，且直线至少有一点在平面上</li>
+<li>相交 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量与平面法向量非正交</li>
 </ul>
 <p>对直线：</p>
-<p>$$ \left{ \begin{array}{l}<br>a_1 x+ b_1 y + c_1 z+ d_1 = 0\<br>a_2 x+ b_2 y + c_2 z+ d_2 = 0<br>\end{array} \right. $$</p>
+<p><span class="math display">\[ \left\{ \begin{array}{l}
+a_1 x+ b_1 y + c_1 z+ d_1 = 0\\
+a_2 x+ b_2 y + c_2 z+ d_2 = 0
+\end{array} \right. \]</span></p>
 <p>则过直线的平面方程可表示为：</p>
-<p>$$ \alpha(a_1 x+ b_1 y + c_1 z+ d_1) + \beta (a_2 x+ b_2 y + c_2 z+ d_2) = 0 $$</p>
+<p><span class="math display">\[ \alpha(a_1 x+ b_1 y + c_1 z+ d_1) + \beta (a_2 x+ b_2 y + c_2 z+ d_2) = 0 \]</span></p>
 
           
         
@@ -452,25 +755,40 @@
         
           
             <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="多元函数极值"><a href="#多元函数极值" class="headerlink" title="多元函数极值"></a>多元函数极值</h3><h4 id="存在的必要条件"><a href="#存在的必要条件" class="headerlink" title="存在的必要条件"></a>存在的必要条件</h4><p>多元函数在极值点处若存在偏导数，则必为零。</p>
-<h4 id="存在的充分条件"><a href="#存在的充分条件" class="headerlink" title="存在的充分条件"></a>存在的充分条件</h4><p>若 $f(x,y)$ 在 $(x_0, y_0)$ 存在二阶偏导，一阶偏导为零， <strong>黑塞矩阵</strong> 为：</p>
-<p>$$ H = \begin{bmatrix}<br>        f<em>{xx} &amp; f</em>{xy} \<br>        f<em>{yx} &amp; f</em>{yy} \<br>        \end{bmatrix}<br>$$</p>
+<h3 id="多元函数极值">多元函数极值</h3>
+<h4 id="存在的必要条件">存在的必要条件</h4>
+<p>多元函数在极值点处若存在偏导数，则必为零。</p>
+<h4 id="存在的充分条件">存在的充分条件</h4>
+<p>若 <span class="math inline">\(f(x,y)\)</span> 在 <span class="math inline">\((x_0, y_0)\)</span> 存在二阶偏导，一阶偏导为零， <strong>黑塞矩阵</strong> 为：</p>
+<p><span class="math display">\[ H = \begin{bmatrix}
+        f_{xx} &amp; f_{xy} \\
+        f_{yx} &amp; f_{yy} \\
+        \end{bmatrix}
+\]</span></p>
 <p>则有以下结论：</p>
 <ul>
-<li>若 $f<em>{xx}f</em>{yy}-f<em>{xy}f</em>{yx}&gt;0$ 且 $f_{xx}&gt;0$， 则 $H$ 为正定矩阵，故 $f(x_0,y_0)$ 为极小值</li>
-<li>若 $f<em>{xx}f</em>{yy}-f<em>{xy}f</em>{yx}&gt;0$ 且 $f_{xx}&lt;0$， 则 $H$ 为负定矩阵，故 $f(x_0,y_0)$ 为极大值</li>
-<li>若 $f<em>{xx}f</em>{yy}-f<em>{xy}f</em>{yx}&lt;0$， 则 $H$ 为不定矩阵，故 $f(x_0,y_0)$ 不是极值</li>
+<li>若 <span class="math inline">\(f_{xx}f_{yy}-f_{xy}f_{yx}&gt;0\)</span> 且 <span class="math inline">\(f_{xx}&gt;0\)</span>， 则 <span class="math inline">\(H\)</span> 为正定矩阵，故 <span class="math inline">\(f(x_0,y_0)\)</span> 为极小值</li>
+<li>若 <span class="math inline">\(f_{xx}f_{yy}-f_{xy}f_{yx}&gt;0\)</span> 且 <span class="math inline">\(f_{xx}&lt;0\)</span>， 则 <span class="math inline">\(H\)</span> 为负定矩阵，故 <span class="math inline">\(f(x_0,y_0)\)</span> 为极大值</li>
+<li>若 <span class="math inline">\(f_{xx}f_{yy}-f_{xy}f_{yx}&lt;0\)</span>， 则 <span class="math inline">\(H\)</span> 为不定矩阵，故 <span class="math inline">\(f(x_0,y_0)\)</span> 不是极值</li>
 </ul>
-<h3 id="有界闭区域上的最值"><a href="#有界闭区域上的最值" class="headerlink" title="有界闭区域上的最值"></a>有界闭区域上的最值</h3><p>$f(x,y)$ 在某一有界闭区域上连续，则 $f(x,y)$ 必定有最大最小值。最值可能是区域内极值及边界上的最值。求最值的一般步骤：</p>
-<ol>
-<li>求 $f(x,y)$ 在区域内所有驻点（偏导为零）及其函数值</li>
-<li>求 $f(x,y)$ 在边界上的最值</li>
+<h3 id="有界闭区域上的最值">有界闭区域上的最值</h3>
+<p><span class="math inline">\(f(x,y)\)</span> 在某一有界闭区域上连续，则 <span class="math inline">\(f(x,y)\)</span> 必定有最大最小值。最值可能是区域内极值及边界上的最值。求最值的一般步骤：</p>
+<ol type="1">
+<li>求 <span class="math inline">\(f(x,y)\)</span> 在区域内所有驻点（偏导为零）及其函数值</li>
+<li>求 <span class="math inline">\(f(x,y)\)</span> 在边界上的最值</li>
 <li>比较前两步的函数值，得出最值</li>
 </ol>
 <p>求边界上的最值，直接将边界函数代入目标函数或使用拉格朗日乘数法。</p>
-<h3 id="条件极值与拉格朗日乘数法"><a href="#条件极值与拉格朗日乘数法" class="headerlink" title="条件极值与拉格朗日乘数法"></a>条件极值与拉格朗日乘数法</h3><p>求目标函数极值： $u=f(x,y)$\<br>约束函数： $\varphi(x,y)=0$\<br>拉格朗日函数： $F(x,y,\lambda)=f(x,y)+\lambda\varphi(x,y)$</p>
+<h3 id="条件极值与拉格朗日乘数法">条件极值与拉格朗日乘数法</h3>
+<p>求目标函数极值： <span class="math inline">\(u=f(x,y)\)</span><br>
+约束函数： <span class="math inline">\(\varphi(x,y)=0\)</span><br>
+拉格朗日函数： <span class="math inline">\(F(x,y,\lambda)=f(x,y)+\lambda\varphi(x,y)\)</span></p>
 <p>目标函数极值点满足（必要条件）拉格朗日函数偏导为零：</p>
-<p>$$ \left{ \begin{array}{l}<br>F_x = 0 \<br>F<em>y = 0 \<br>F</em>\lambda = \varphi(x,y) = 0<br>\end{array} \right. $$</p>
+<p><span class="math display">\[ \left\{ \begin{array}{l}
+F_x = 0 \\
+F_y = 0 \\
+F_\lambda = \varphi(x,y) = 0
+\end{array} \right. \]</span></p>
 <p>可推广到多元函数多约束函数情况。</p>
 
           
@@ -584,83 +902,116 @@
       
         
           
-            <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="概率论与数理统计">概率论与数理统计</a>\<br><a href="/2016/09/21/Math-PrStats-statistics/" title="数理统计基本概念">数理统计基本概念</a>
+            <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="概率论与数理统计">概率论与数理统计</a>
+<p><br>
+<a href="/2016/09/21/Math-PrStats-statistics/" title="数理统计基本概念">数理统计基本概念</a></p>
 <p>参考：<a href="http://support.minitab.com/zh-cn/minitab/17/topic-library/basic-statistics-and-graphs/introductory-concepts/p-value-and-significance-level/significance-level/" target="_blank" rel="noopener">我应该对显著性水平使用什么值？</a></p>
-<p><strong>参数估计</strong> 指用样本估计总体分布的参数。分点估计和区间估计。\<br><strong>假设检验</strong> 指对总体情况的假设做检验，在给定显著水平下做出拒绝或接受的判断。</p>
-<h3 id="参数的点估计"><a href="#参数的点估计" class="headerlink" title="参数的点估计"></a>参数的点估计</h3><p>构造一个适当的统计量 $\hat{\theta}=\hat{\theta}(X_1,X_2,…,X_n)$， 作为对总体参数 $\theta$ 的估计。称函数（也是随机变量） $\hat{\theta}$ 为参数 $\theta$ 的 <strong>估计量</strong>， 代入样本观测值得到函数值，称为 <strong>估计值</strong>。</p>
-<h4 id="矩估计"><a href="#矩估计" class="headerlink" title="矩估计"></a>矩估计</h4><p>矩估计的依据：大数定律</p>
-<p>用总体矩表示总体参数，然后用对应样本矩作为总体矩的估计，达到以样本矩估计总体参数的目的。以下用矩估计期望 $\mu$ 和二阶中心矩 $M_2$：</p>
-<p>$$ \hat{\mu} = \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i \<br>   \hat{\sigma}^2 = M<em>2 = \frac{1}{n} \sum</em>{i=1}^n (X_i - \overline{X})^2<br>$$</p>
-<h4 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h4><p>按照最大可能性估计参数。构造抽出当前样本的概率——<strong>似然函数</strong>，（常用 <strong>似然方程</strong>）估计最优参数使该概率最大。</p>
-<p>似然函数：样本个体概率之积（离散型）或概率密度之积（连续型），记为 $L(x_1,x_2,…,x_n;\theta_1,\theta_2,…,\theta_m)$；\<br>似然方程：似然函数的对数对参数求偏导</p>
-<p>$$ \frac{\partial\ln L}{\partial\theta_k},\quad k=1,2,…,m$$</p>
-<h3 id="估计量的优良性准则"><a href="#估计量的优良性准则" class="headerlink" title="估计量的优良性准则"></a>估计量的优良性准则</h3><p>不同方法求出的估计量很可能不同，估计量的优良性准则就可用于挑选优良估计量。</p>
-<h4 id="无偏性"><a href="#无偏性" class="headerlink" title="无偏性"></a>无偏性</h4><p>如果 $E(\hat{\theta})=\theta$， 则称 $\hat{\theta}$ 为 <strong>无偏估计量</strong>。 样本方差是总体方差的无偏估计。</p>
-<h4 id="有效性"><a href="#有效性" class="headerlink" title="有效性"></a>有效性</h4><p>如果无偏估计 $\hat{\theta}_1$ 和 $\hat{\theta}_2$ 满足 $D(\hat{\theta}_1) \le D(\hat{\theta}_2)$， 则称 $\hat{\theta}_1$ 比 $\hat{\theta}_2$ <strong>有效</strong>。如果 $\hat{\theta}$ 是 $\theta$ 估计中方差最小的，称为 <strong>最小方差无偏估计</strong>。</p>
-<h4 id="相合性"><a href="#相合性" class="headerlink" title="相合性"></a>相合性</h4><p>估计量应随着样本容量增大而接近总体参数的真值。当样本容量 $n\rightarrow \infty$ 时， $\hat{\theta}_n$ 依概率收敛于 $\theta$， 即对任意 $\epsilon &gt; 0$， 满足</p>
-<p>$$ \lim_{n\rightarrow \infty} P{ |\hat{\theta}_n - \theta| &lt; \epsilon } = 1 $$</p>
-<p>则称 $\hat{\theta}_n$ 为 $\theta$ 的 <strong>相合估计量</strong> 或 <strong>一致估计量</strong>。</p>
-<h3 id="区间估计"><a href="#区间估计" class="headerlink" title="区间估计"></a>区间估计</h3><p>点估计不能给出估计值的可信程度，区间估计弥补了这点。区间估计指估计参数的取值区间及对应的可信程度（概率）。它有 2 个基本要求，可信程度（概率）尽可能大和区间尽可能小，显然这是矛盾的。一般的做法是先指定可信程度，再在该前提下尽可能缩小区间。</p>
+<p><strong>参数估计</strong> 指用样本估计总体分布的参数。分点估计和区间估计。<br>
+<strong>假设检验</strong> 指对总体情况的假设做检验，在给定显著水平下做出拒绝或接受的判断。</p>
+<h3 id="参数的点估计">参数的点估计</h3>
+<p>构造一个适当的统计量 <span class="math inline">\(\hat{\theta}=\hat{\theta}(X_1,X_2,...,X_n)\)</span>， 作为对总体参数 <span class="math inline">\(\theta\)</span> 的估计。称函数（也是随机变量） <span class="math inline">\(\hat{\theta}\)</span> 为参数 <span class="math inline">\(\theta\)</span> 的 <strong>估计量</strong>， 代入样本观测值得到函数值，称为 <strong>估计值</strong>。</p>
+<h4 id="矩估计">矩估计</h4>
+<p>矩估计的依据：大数定律</p>
+<p>用总体矩表示总体参数，然后用对应样本矩作为总体矩的估计，达到以样本矩估计总体参数的目的。以下用矩估计期望 <span class="math inline">\(\mu\)</span> 和二阶中心矩 <span class="math inline">\(M_2\)</span>：</p>
+<p><span class="math display">\[ \hat{\mu} = \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i \\
+   \hat{\sigma}^2 = M_2 = \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2
+\]</span></p>
+<h4 id="极大似然估计">极大似然估计</h4>
+<p>按照最大可能性估计参数。构造抽出当前样本的概率——<strong>似然函数</strong>，（常用 <strong>似然方程</strong>）估计最优参数使该概率最大。</p>
+<p>似然函数：样本个体概率之积（离散型）或概率密度之积（连续型），记为 <span class="math inline">\(L(x_1,x_2,...,x_n;\theta_1,\theta_2,...,\theta_m)\)</span>；<br>
+似然方程：似然函数的对数对参数求偏导</p>
+<p><span class="math display">\[ \frac{\partial\ln L}{\partial\theta_k},\quad k=1,2,...,m\]</span></p>
+<h3 id="估计量的优良性准则">估计量的优良性准则</h3>
+<p>不同方法求出的估计量很可能不同，估计量的优良性准则就可用于挑选优良估计量。</p>
+<h4 id="无偏性">无偏性</h4>
+<p>如果 <span class="math inline">\(E(\hat{\theta})=\theta\)</span>， 则称 <span class="math inline">\(\hat{\theta}\)</span> 为 <strong>无偏估计量</strong>。 样本方差是总体方差的无偏估计。</p>
+<h4 id="有效性">有效性</h4>
+<p>如果无偏估计 <span class="math inline">\(\hat{\theta}_1\)</span> 和 <span class="math inline">\(\hat{\theta}_2\)</span> 满足 <span class="math inline">\(D(\hat{\theta}_1) \le D(\hat{\theta}_2)\)</span>， 则称 <span class="math inline">\(\hat{\theta}_1\)</span> 比 <span class="math inline">\(\hat{\theta}_2\)</span> <strong>有效</strong>。如果 <span class="math inline">\(\hat{\theta}\)</span> 是 <span class="math inline">\(\theta\)</span> 估计中方差最小的，称为 <strong>最小方差无偏估计</strong>。</p>
+<h4 id="相合性">相合性</h4>
+<p>估计量应随着样本容量增大而接近总体参数的真值。当样本容量 <span class="math inline">\(n\rightarrow \infty\)</span> 时， <span class="math inline">\(\hat{\theta}_n\)</span> 依概率收敛于 <span class="math inline">\(\theta\)</span>， 即对任意 <span class="math inline">\(\epsilon &gt; 0\)</span>， 满足</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} P\{ |\hat{\theta}_n - \theta| &lt; \epsilon \} = 1 \]</span></p>
+<p>则称 <span class="math inline">\(\hat{\theta}_n\)</span> 为 <span class="math inline">\(\theta\)</span> 的 <strong>相合估计量</strong> 或 <strong>一致估计量</strong>。</p>
+<h3 id="区间估计">区间估计</h3>
+<p>点估计不能给出估计值的可信程度，区间估计弥补了这点。区间估计指估计参数的取值区间及对应的可信程度（概率）。它有 2 个基本要求，可信程度（概率）尽可能大和区间尽可能小，显然这是矛盾的。一般的做法是先指定可信程度，再在该前提下尽可能缩小区间。</p>
 <p>如果满足</p>
-<p>$$ P{\hat{\theta}_1(X_1,X_2,…,X_n) \le \theta \le \hat{\theta}_2(X_1,X_2,…,X_n)} = 1 -\alpha $$</p>
-<p>则称 $[\hat{\theta}_1,\hat{\theta}_2]$ 为 $\theta$ 的 <strong>置信度</strong> 为 $1-\alpha$ 的  <strong>置信区间</strong>。</p>
-<h4 id="枢轴变量法"><a href="#枢轴变量法" class="headerlink" title="枢轴变量法"></a>枢轴变量法</h4><p>在 <a href="/2016/09/21/Math-PrStats-statistics/" title="几个抽样分布定理">几个抽样分布定理</a> 中，可见 <strong>统计量、总体分布参数与抽样分布</strong> 三者存在一定关系，利用这些关系构造“统计量与总体参数的函数”——服从已知分布的 <strong>枢轴变量</strong>， 及其指定置信度下的概率方程，解出枢轴变量估计区间，进而解出参数估计区间。</p>
-<p>例如，已知 <strong>正态</strong> 总体分布方差 $\sigma^2$ 和一个容量为 n 的样本，给定置信度 $1-\alpha$， 求期望 $\mu$，可构造枢轴变量</p>
-<p>$$ U = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}} \sim N(0,1),\quad because\; \overline{X} \sim N(\mu,\frac{\sigma^2}{n})  $$</p>
-<p>$$ \Rightarrow P{ -u<em>{\alpha/2} \le U \le u</em>{\alpha/2}} = 1-\alpha $$</p>
-<p>其中 $u_{\alpha/2}$ 是正态分布 <strong>上侧 $\frac{\alpha}{2}$ 分位数</strong>， 可以查表解出得到 $U$ 的估计区间，进而解聘 $\mu$ 的估计区间。</p>
-<h4 id="一个正态总体的区间估计"><a href="#一个正态总体的区间估计" class="headerlink" title="一个正态总体的区间估计"></a>一个正态总体的区间估计</h4><p>以下是用枢轴变量法解出的正态总体参数的估计区间结果。 $\mu，\sigma^2$ 分别为期望、方差，指定置信度为 $1-\alpha$。</p>
-<h5 id="mu-置信区间"><a href="#mu-置信区间" class="headerlink" title="$\mu$ 置信区间"></a>$\mu$ 置信区间</h5><p>$$ [\overline{X}-\frac{\sigma}{\sqrt{n}}u<em>{\alpha/2},\;\; \overline{X}+\frac{\sigma}{\sqrt{n}}u</em>{\alpha/2}],\quad with\; \sigma^2\; known$$</p>
-<p>$$ [\overline{X}-\frac{S}{\sqrt{n}}t<em>{\alpha/2}(n-1),\;\; \overline{X}+\frac{S}{\sqrt{n}}t</em>{\alpha/2}(n-1)],\quad with\; \sigma^2\; unknown$$</p>
-<p>其中 $u<em>{\alpha/2},\;t</em>{\alpha/2}$ 分别是正态分布与 T 分布的上侧分位数。</p>
-<h5 id="sigma-2-置信区间"><a href="#sigma-2-置信区间" class="headerlink" title="$\sigma^2$ 置信区间"></a>$\sigma^2$ 置信区间</h5><p>$$ [\frac{(n-1)S^2}{\chi^2<em>{\alpha/2}(n-1)} ,\;\; \frac{(n-1)S^2}{\chi^2</em>{1-\alpha/2}(n-1)}] ,\quad with\; \mu\; unknown $$</p>
-<p>其中 $\chi^2<em>{\alpha/2},\;\chi^2</em>{1-\alpha/2}$ 为 $\chi^2$ 上侧分位数。</p>
-<h4 id="两个正态总体的区间估计"><a href="#两个正态总体的区间估计" class="headerlink" title="两个正态总体的区间估计"></a>两个正态总体的区间估计</h4><p>以下是用枢轴变量法解出的正态总体参数的区间估计。 $\mu_1，\sigma_1^2$ 与 $\mu_2，\sigma_2^2$ 分别为两个总体的期望、方差，指定置信度为 $1-\alpha$。</p>
-<h5 id="mu-1-mu-2"><a href="#mu-1-mu-2" class="headerlink" title="$\mu_1 - \mu_2$"></a>$\mu_1 - \mu_2$</h5><p>$$ [\overline{X} - \overline{Y} - u_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n<em>2}} ,\;\; \overline{X} - \overline{Y} + u</em>{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} ],\quad with\; \sigma_1^2,\sigma_2^2\; known$$</p>
-<p>如果 $\sigma_1^2,\sigma_2^2$ 未知但相等，则区间为</p>
-<p>$$ [(\overline{X}-\overline{Y})-t_{\alpha/2}(n_1+n_2-2)S_w\sqrt{\frac{1}{n_1}+\frac{1}{n<em>2}}  ,\quad  (\overline{X}-\overline{Y})+t</em>{\alpha/2}(n_1+n_2-2)S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}] $$</p>
-<p>$$ S_w = \sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} $$</p>
-<p>其中 $u<em>{\alpha/2},\;t</em>{\alpha/2}$ 分别是正态分布与 T 分布的上侧分位数。</p>
-<h5 id="frac-sigma-1-2-sigma-2-2-区间"><a href="#frac-sigma-1-2-sigma-2-2-区间" class="headerlink" title="$\frac{\sigma_1^2}{\sigma_2^2}$ 区间"></a>$\frac{\sigma_1^2}{\sigma_2^2}$ 区间</h5><p>$$ [\frac{S_2^2}{S<em>1^2}F</em>{1-\alpha/2}(n_1-1,n_2-1),\;\;  \frac{S_2^2}{S<em>1^2}F</em>{\alpha/2}(n_1-1,n_2-1)],\quad with\; \mu_1,\mu_2\; unknown$$</p>
-<p>其中 $F<em>{\alpha/2},F</em>{1-\alpha/2}$ 为 F 分布上侧分位数。</p>
-<h4 id="大样本方法"><a href="#大样本方法" class="headerlink" title="大样本方法"></a>大样本方法</h4><p>用“样本均值”与“总体期望方差”构造出枢轴变量，使之满足中心极限定理，当样本容量足够大时，近似服从正态分布，从而得到指定置信度下的概率方程，解出置信区间。如果总体期望方差均未知，可用点估计代替其中一个解另一个。</p>
-<h4 id="单侧置信区间"><a href="#单侧置信区间" class="headerlink" title="单侧置信区间"></a>单侧置信区间</h4><p>指估计区间只要求上限或下限，与双侧置信区间解法区别不大。</p>
-<h3 id="假设检验"><a href="#假设检验" class="headerlink" title="假设检验"></a>假设检验</h3><p>为了检验假设 $H_0$， 称为 <strong>原假设</strong> 或 <strong>零假设</strong>， 假定 $H_0$ 是正确的，进行推导，如果指导出小概率事件，就有理由拒绝原假设，反之，接受原假设。</p>
-<p>原假设的逆命题 $H_1$ 称为 <strong>对立假设</strong> 或 <strong>备择假设</strong>。 使原假设接受的（根据假设构造的） <strong>检验统计量</strong> 取值区域称为 <strong>检验的接受域</strong>， 反之为 <strong>检验的拒绝域</strong>。</p>
-<h4 id="假设检验的两类错误"><a href="#假设检验的两类错误" class="headerlink" title="假设检验的两类错误"></a>假设检验的两类错误</h4><p>假设检验可能犯两类错误， <strong>第一类错误“弃真”</strong> 和 <strong>第二类错误“纳伪”</strong>。 犯第一类错误的概率：</p>
-<p>$$ P{ 拒绝 H_0 | H_0 为真} = \alpha $$</p>
+<p><span class="math display">\[ P\{\hat{\theta}_1(X_1,X_2,...,X_n) \le \theta \le \hat{\theta}_2(X_1,X_2,...,X_n)\} = 1 -\alpha \]</span></p>
+<p>则称 <span class="math inline">\([\hat{\theta}_1,\hat{\theta}_2]\)</span> 为 <span class="math inline">\(\theta\)</span> 的 <strong>置信度</strong> 为 <span class="math inline">\(1-\alpha\)</span> 的 <strong>置信区间</strong>。</p>
+<h4 id="枢轴变量法">枢轴变量法</h4>
+<p>在 <a href="/2016/09/21/Math-PrStats-statistics/" title="几个抽样分布定理">几个抽样分布定理</a> 中，可见 <strong>统计量、总体分布参数与抽样分布</strong> 三者存在一定关系，利用这些关系构造“统计量与总体参数的函数”——服从已知分布的 <strong>枢轴变量</strong>， 及其指定置信度下的概率方程，解出枢轴变量估计区间，进而解出参数估计区间。</p>
+<p>例如，已知 <strong>正态</strong> 总体分布方差 <span class="math inline">\(\sigma^2\)</span> 和一个容量为 n 的样本，给定置信度 <span class="math inline">\(1-\alpha\)</span>， 求期望 <span class="math inline">\(\mu\)</span>，可构造枢轴变量</p>
+<p><span class="math display">\[ U = \frac{\overline{X} - \mu}{\sigma / \sqrt{n}} \sim N(0,1),\quad because\; \overline{X} \sim N(\mu,\frac{\sigma^2}{n})  \]</span></p>
+<p><span class="math display">\[ \Rightarrow P\{ -u_{\alpha/2} \le U \le u_{\alpha/2}\} = 1-\alpha \]</span></p>
+<p>其中 <span class="math inline">\(u_{\alpha/2}\)</span> 是正态分布 <strong>上侧 <span class="math inline">\(\frac{\alpha}{2}\)</span> 分位数</strong>， 可以查表解出得到 <span class="math inline">\(U\)</span> 的估计区间，进而解聘 <span class="math inline">\(\mu\)</span> 的估计区间。</p>
+<h4 id="一个正态总体的区间估计">一个正态总体的区间估计</h4>
+<p>以下是用枢轴变量法解出的正态总体参数的估计区间结果。 <span class="math inline">\(\mu，\sigma^2\)</span> 分别为期望、方差，指定置信度为 <span class="math inline">\(1-\alpha\)</span>。</p>
+<h5 id="mu-置信区间"><span class="math inline">\(\mu\)</span> 置信区间</h5>
+<p><span class="math display">\[ [\overline{X}-\frac{\sigma}{\sqrt{n}}u_{\alpha/2},\;\; \overline{X}+\frac{\sigma}{\sqrt{n}}u_{\alpha/2}],\quad with\; \sigma^2\; known\]</span></p>
+<p><span class="math display">\[ [\overline{X}-\frac{S}{\sqrt{n}}t_{\alpha/2}(n-1),\;\; \overline{X}+\frac{S}{\sqrt{n}}t_{\alpha/2}(n-1)],\quad with\; \sigma^2\; unknown\]</span></p>
+<p>其中 <span class="math inline">\(u_{\alpha/2},\;t_{\alpha/2}\)</span> 分别是正态分布与 T 分布的上侧分位数。</p>
+<h5 id="sigma2-置信区间"><span class="math inline">\(\sigma^2\)</span> 置信区间</h5>
+<p><span class="math display">\[ [\frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)} ,\;\; \frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)}] ,\quad with\; \mu\; unknown \]</span></p>
+<p>其中 <span class="math inline">\(\chi^2_{\alpha/2},\;\chi^2_{1-\alpha/2}\)</span> 为 <span class="math inline">\(\chi^2\)</span> 上侧分位数。</p>
+<h4 id="两个正态总体的区间估计">两个正态总体的区间估计</h4>
+<p>以下是用枢轴变量法解出的正态总体参数的区间估计。 <span class="math inline">\(\mu_1，\sigma_1^2\)</span> 与 <span class="math inline">\(\mu_2，\sigma_2^2\)</span> 分别为两个总体的期望、方差，指定置信度为 <span class="math inline">\(1-\alpha\)</span>。</p>
+<h5 id="mu_1---mu_2"><span class="math inline">\(\mu_1 - \mu_2\)</span></h5>
+<p><span class="math display">\[ [\overline{X} - \overline{Y} - u_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} ,\;\; \overline{X} - \overline{Y} + u_{\alpha/2}\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}} ],\quad with\; \sigma_1^2,\sigma_2^2\; known\]</span></p>
+<p>如果 <span class="math inline">\(\sigma_1^2,\sigma_2^2\)</span> 未知但相等，则区间为</p>
+<p><span class="math display">\[ [(\overline{X}-\overline{Y})-t_{\alpha/2}(n_1+n_2-2)S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}  ,\quad  (\overline{X}-\overline{Y})+t_{\alpha/2}(n_1+n_2-2)S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}] \]</span></p>
+<p><span class="math display">\[ S_w = \sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} \]</span></p>
+<p>其中 <span class="math inline">\(u_{\alpha/2},\;t_{\alpha/2}\)</span> 分别是正态分布与 T 分布的上侧分位数。</p>
+<h5 id="fracsigma_12sigma_22-区间"><span class="math inline">\(\frac{\sigma_1^2}{\sigma_2^2}\)</span> 区间</h5>
+<p><span class="math display">\[ [\frac{S_2^2}{S_1^2}F_{1-\alpha/2}(n_1-1,n_2-1),\;\;  \frac{S_2^2}{S_1^2}F_{\alpha/2}(n_1-1,n_2-1)],\quad with\; \mu_1,\mu_2\; unknown\]</span></p>
+<p>其中 <span class="math inline">\(F_{\alpha/2},F_{1-\alpha/2}\)</span> 为 F 分布上侧分位数。</p>
+<h4 id="大样本方法">大样本方法</h4>
+<p>用“样本均值”与“总体期望方差”构造出枢轴变量，使之满足中心极限定理，当样本容量足够大时，近似服从正态分布，从而得到指定置信度下的概率方程，解出置信区间。如果总体期望方差均未知，可用点估计代替其中一个解另一个。</p>
+<h4 id="单侧置信区间">单侧置信区间</h4>
+<p>指估计区间只要求上限或下限，与双侧置信区间解法区别不大。</p>
+<h3 id="假设检验">假设检验</h3>
+<p>为了检验假设 <span class="math inline">\(H_0\)</span>， 称为 <strong>原假设</strong> 或 <strong>零假设</strong>， 假定 <span class="math inline">\(H_0\)</span> 是正确的，进行推导，如果指导出小概率事件，就有理由拒绝原假设，反之，接受原假设。</p>
+<p>原假设的逆命题 <span class="math inline">\(H_1\)</span> 称为 <strong>对立假设</strong> 或 <strong>备择假设</strong>。 使原假设接受的（根据假设构造的） <strong>检验统计量</strong> 取值区域称为 <strong>检验的接受域</strong>， 反之为 <strong>检验的拒绝域</strong>。</p>
+<h4 id="假设检验的两类错误">假设检验的两类错误</h4>
+<p>假设检验可能犯两类错误， <strong>第一类错误“弃真”</strong> 和 <strong>第二类错误“纳伪”</strong>。 犯第一类错误的概率：</p>
+<p><span class="math display">\[ P\{ 拒绝 H_0 | H_0 为真\} = \alpha \]</span></p>
 <p>称为 <strong>显著性水平</strong>， 通常是一个 <strong>小概率</strong>。 <strong>第一二类错误概率发生概率是互相矛盾的</strong>， 在实际应用中，根据二者犯错代价设置显著性水平大小。（参考：<a href="http://support.minitab.com/zh-cn/minitab/17/topic-library/basic-statistics-and-graphs/introductory-concepts/p-value-and-significance-level/significance-level/" target="_blank" rel="noopener">我应该对显著性水平使用什么值？</a>）</p>
-<h4 id="显著性检验的步骤"><a href="#显著性检验的步骤" class="headerlink" title="显著性检验的步骤"></a>显著性检验的步骤</h4><p>整个过程类似参数区间估计</p>
+<h4 id="显著性检验的步骤">显著性检验的步骤</h4>
+<p>整个过程类似参数区间估计</p>
 <ul>
 <li>提出假设</li>
-<li>构造检验统计量，并 <strong>在 $H_0$ 成立的条件下</strong>， 能确定检验统计量的分布</li>
-<li>选定显著性水平 $\alpha$， 确定拒绝域</li>
+<li>构造检验统计量，并 <strong>在 <span class="math inline">\(H_0\)</span> 成立的条件下</strong>， 能确定检验统计量的分布</li>
+<li>选定显著性水平 <span class="math inline">\(\alpha\)</span>， 确定拒绝域</li>
 <li>根据样本观测值和拒绝域，作出检验决策</li>
 </ul>
-<h4 id="单个正态总体假设检验"><a href="#单个正态总体假设检验" class="headerlink" title="单个正态总体假设检验"></a>单个正态总体假设检验</h4><h5 id="期望-mu-检验"><a href="#期望-mu-检验" class="headerlink" title="期望 $\mu$ 检验"></a>期望 $\mu$ 检验</h5><p>$H_0: \mu=\mu_0,\quad H_1: \mu \ne \mu_0$</p>
-<p><strong>总体方差 $\sigma^2$ 已知</strong>， 检验统计量：</p>
-<p>$$ U = \frac{\overline{X} - \mu<em>0}{\sigma/\sqrt{n}} \sim N(0,1),\quad 拒绝域：|u|&gt; u</em>{\alpha/2} $$</p>
+<h4 id="单个正态总体假设检验">单个正态总体假设检验</h4>
+<h5 id="期望-mu-检验">期望 <span class="math inline">\(\mu\)</span> 检验</h5>
+<p><span class="math inline">\(H_0: \mu=\mu_0,\quad H_1: \mu \ne \mu_0\)</span></p>
+<p><strong>总体方差 <span class="math inline">\(\sigma^2\)</span> 已知</strong>， 检验统计量：</p>
+<p><span class="math display">\[ U = \frac{\overline{X} - \mu_0}{\sigma/\sqrt{n}} \sim N(0,1),\quad 拒绝域：|u|&gt; u_{\alpha/2} \]</span></p>
 <p><strong>总体方差未知</strong>， 检验统计量：</p>
-<p>$$ T = \frac{\overline{X} - \mu<em>0}{S/\sqrt{n}} \sim t(n-1),\quad 拒绝域：|t|&gt; t</em>{\alpha/2}(n-1) $$</p>
-<p>其中， $u<em>{\alpha/2},\;t</em>{\alpha/2}(n-1)$ 为正态分布与 T 分布上侧分位数。对于备择假设为不等式的情况，统计量不变，拒绝域稍做变化。</p>
-<h5 id="方差-sigma-2-检验"><a href="#方差-sigma-2-检验" class="headerlink" title="方差 $\sigma^2$ 检验"></a>方差 $\sigma^2$ 检验</h5><p>$H_0: \sigma^2=\sigma^2_0,\quad H_1: \sigma^2 \ne \sigma^2_0$</p>
+<p><span class="math display">\[ T = \frac{\overline{X} - \mu_0}{S/\sqrt{n}} \sim t(n-1),\quad 拒绝域：|t|&gt; t_{\alpha/2}(n-1) \]</span></p>
+<p>其中， <span class="math inline">\(u_{\alpha/2},\;t_{\alpha/2}(n-1)\)</span> 为正态分布与 T 分布上侧分位数。对于备择假设为不等式的情况，统计量不变，拒绝域稍做变化。</p>
+<h5 id="方差-sigma2-检验">方差 <span class="math inline">\(\sigma^2\)</span> 检验</h5>
+<p><span class="math inline">\(H_0: \sigma^2=\sigma^2_0,\quad H_1: \sigma^2 \ne \sigma^2_0\)</span></p>
 <p><strong>总体期望未知</strong>，检验统计量：</p>
-<p>$$ \chi^2 = (n-1)\frac{S^2}{\sigma<em>0^2} \sim \chi^2(n-1),\quad 拒绝域：\chi^2 &gt; \chi</em>{\alpha/2}^2(n-1)\; 或\; \chi^2 &lt; \chi_{1-\alpha/2}^2(n-1) $$</p>
-<p><strong>总体期望 $\mu$ 已知</strong>，检验统计量：</p>
-<p>$$ \chi^2 = \frac{\sum_{i=1}^n (X_i - \mu)^2}{\sigma<em>0^2} \sim \chi^{2}(n),\quad 拒绝域：\chi^2 &gt; \chi</em>{\alpha/2}^2(n)\; 或\; \chi^2 &lt; \chi_{1-\alpha/2}^2(n)  $$</p>
-<p>参考“期望 $\mu$ 检验”备注。</p>
-<h4 id="两个正态总体假设检验"><a href="#两个正态总体假设检验" class="headerlink" title="两个正态总体假设检验"></a>两个正态总体假设检验</h4><h5 id="期望差-mu-1-mu-2-检验"><a href="#期望差-mu-1-mu-2-检验" class="headerlink" title="期望差 $\mu_1 - \mu_2$ 检验"></a>期望差 $\mu_1 - \mu_2$ 检验</h5><p>$H_0: \mu_1 - \mu_2 = 0,\quad H_1: \mu_1 - \mu_2 \ne 0$</p>
-<p><strong>总体方差 $\sigma_1^2,\;\sigma_2^2$ 均已知</strong>， 检验统计量：</p>
-<p>$$ U=\cfrac{(\overline{X}-\overline{Y})}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n<em>2}} \sim N(0,1),\quad 拒绝域：|u|&gt;u</em>{\alpha/2}$$</p>
-<p><strong>总体方差 $\sigma_1^2,\;\sigma_2^2$ 均未知，但 $\sigma_1^2=\sigma_2^2=\sigma$</strong>， 检验统计量：</p>
-<p>$$ T=\cfrac{(\overline{X}-\overline{Y})}{S_w\sqrt{1/n_1+1/n_2}} \sim t(n_1+n<em>2-2),\quad 拒绝域：|t|&gt;t</em>{\alpha/2}(n_1+n_2-2)$$</p>
-<p>$$ S_w = \sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} $$</p>
-<p>参考“期望 $\mu$ 检验”备注。</p>
-<h5 id="方差比-frac-sigma-1-2-sigma-1-2-检验"><a href="#方差比-frac-sigma-1-2-sigma-1-2-检验" class="headerlink" title="方差比 $\frac{\sigma_1^2}{\sigma_1^2}$ 检验"></a>方差比 $\frac{\sigma_1^2}{\sigma_1^2}$ 检验</h5><p>$H_0:\sigma_1^2=\sigma_2^2,\quad H_1:\sigma_1^2\ne\sigma_2^2$</p>
+<p><span class="math display">\[ \chi^2 = (n-1)\frac{S^2}{\sigma_0^2} \sim \chi^2(n-1),\quad 拒绝域：\chi^2 &gt; \chi_{\alpha/2}^2(n-1)\; 或\; \chi^2 &lt; \chi_{1-\alpha/2}^2(n-1) \]</span></p>
+<p><strong>总体期望 <span class="math inline">\(\mu\)</span> 已知</strong>，检验统计量：</p>
+<p><span class="math display">\[ \chi^2 = \frac{\sum_{i=1}^n (X_i - \mu)^2}{\sigma_0^2} \sim \chi^{2}(n),\quad 拒绝域：\chi^2 &gt; \chi_{\alpha/2}^2(n)\; 或\; \chi^2 &lt; \chi_{1-\alpha/2}^2(n)  \]</span></p>
+<p>参考“期望 <span class="math inline">\(\mu\)</span> 检验”备注。</p>
+<h4 id="两个正态总体假设检验">两个正态总体假设检验</h4>
+<h5 id="期望差-mu_1---mu_2-检验">期望差 <span class="math inline">\(\mu_1 - \mu_2\)</span> 检验</h5>
+<p><span class="math inline">\(H_0: \mu_1 - \mu_2 = 0,\quad H_1: \mu_1 - \mu_2 \ne 0\)</span></p>
+<p><strong>总体方差 <span class="math inline">\(\sigma_1^2,\;\sigma_2^2\)</span> 均已知</strong>， 检验统计量：</p>
+<p><span class="math display">\[ U=\cfrac{(\overline{X}-\overline{Y})}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}} \sim N(0,1),\quad 拒绝域：|u|&gt;u_{\alpha/2}\]</span></p>
+<p><strong>总体方差 <span class="math inline">\(\sigma_1^2,\;\sigma_2^2\)</span> 均未知，但 <span class="math inline">\(\sigma_1^2=\sigma_2^2=\sigma\)</span></strong>， 检验统计量：</p>
+<p><span class="math display">\[ T=\cfrac{(\overline{X}-\overline{Y})}{S_w\sqrt{1/n_1+1/n_2}} \sim t(n_1+n_2-2),\quad 拒绝域：|t|&gt;t_{\alpha/2}(n_1+n_2-2)\]</span></p>
+<p><span class="math display">\[ S_w = \sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} \]</span></p>
+<p>参考“期望 <span class="math inline">\(\mu\)</span> 检验”备注。</p>
+<h5 id="方差比-fracsigma_12sigma_12-检验">方差比 <span class="math inline">\(\frac{\sigma_1^2}{\sigma_1^2}\)</span> 检验</h5>
+<p><span class="math inline">\(H_0:\sigma_1^2=\sigma_2^2,\quad H_1:\sigma_1^2\ne\sigma_2^2\)</span></p>
 <p><strong>总体期望均未知</strong>， 检验统计量：</p>
-<p>$$ F=\frac{S_1^2}{S_2^2} \sim F(n_1-1, n<em>2-2),\quad 拒绝域：f &gt; F</em>{\alpha/2}(n_1-1,n<em>2-1)\; 或\; f &lt; F</em>{1-\alpha/2}(n_1-1,n_2-1) $$</p>
-<p>参考“期望 $\mu$ 检验”备注。</p>
-<h4 id="大样本检验法"><a href="#大样本检验法" class="headerlink" title="大样本检验法"></a>大样本检验法</h4><p>类比区间估计的大样本方法</p>
+<p><span class="math display">\[ F=\frac{S_1^2}{S_2^2} \sim F(n_1-1, n_2-2),\quad 拒绝域：f &gt; F_{\alpha/2}(n_1-1,n_2-1)\; 或\; f &lt; F_{1-\alpha/2}(n_1-1,n_2-1) \]</span></p>
+<p>参考“期望 <span class="math inline">\(\mu\)</span> 检验”备注。</p>
+<h4 id="大样本检验法">大样本检验法</h4>
+<p>类比区间估计的大样本方法</p>
 
           
         
@@ -773,39 +1124,76 @@
       
         
           
-            <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="概率论与数理统计">概率论与数理统计</a>\<br><a href="/2016/09/21/Math-PrStats-estimationTesting/" title="参数估计与假设检验">参数估计与假设检验</a>
-<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="样本与样本观测值"><a href="#样本与样本观测值" class="headerlink" title="样本与样本观测值"></a>样本与样本观测值</h4><p>样本是由 <strong>总体</strong> 中的一部分 <strong>个体</strong> 组成，是一组随机变量，记为 $X_1,\,X_2,…,X_n$， 其中 n 为 <strong>样本容量</strong>。样本中个体的实际取值 $x_1,\,x_2,…,x_n$ 称为 <strong>样本观测值</strong>。</p>
-<h4 id="统计量与统计值"><a href="#统计量与统计值" class="headerlink" title="统计量与统计值"></a>统计量与统计值</h4><p><strong>统计量</strong> 是不含未知参数的样本函数 $g(X_1,\,X_2,\,…,X_n)$， 也是一个随机变量。统计量是对总体进行推断的基础。 <strong>统计值</strong> 是样本观测值代入统计量中得到的函数值。</p>
-<h4 id="抽样分布"><a href="#抽样分布" class="headerlink" title="抽样分布"></a>抽样分布</h4><p>统计量的分布</p>
-<h3 id="常用统计量"><a href="#常用统计量" class="headerlink" title="常用统计量"></a>常用统计量</h3><p>$$  样本均值\, —— \, \overline{X} = \frac{1}{n} \sum_{i=1}^n X<em>i \<br>    样本方差\, —— \, S^2 = \frac{1}{n-1} \sum</em>{i=1}^n (X_i - \overline{X})^2 \<br>    样本标准差\, —— \, S\<br>    样本\, k\, 阶原点矩\, —— \, A<em>k = \frac{1}{n} \sum</em>{i=1}^n X_i^k \<br>    样本\, k\, 阶中心矩\,—— \, M<em>k = \frac{1}{n} \sum</em>{i=1}^n (X_i - \overline{X})^k<br>$$</p>
-<h3 id="抽样分布-1"><a href="#抽样分布-1" class="headerlink" title="抽样分布"></a>抽样分布</h3><h4 id="chi-2-分布"><a href="#chi-2-分布" class="headerlink" title="$\chi^2$ 分布"></a>$\chi^2$ 分布</h4><p>若随机变量 $X$ 的概率密度函数为：<br>$$ f(x) = \left{\begin{array}{}<br>\cfrac{1}{2\Gamma(\frac{n}{2})} (\frac{x}{2})^{\frac{n}{2}-1} e^{-\frac{x}{2}},\quad x&gt;0\<br>0,\quad x \le 0<br>\end{array}\right. $$</p>
-<p>则称 $X$ <strong>服从自由度为 n 的 $\chi^2$ 分布</strong>， 记 $X\sim \chi^2(n)$。 其中，</p>
-<p>$$ \Gamma(s) = \int_0^{+\infty} x^{s-1}e^{-x}\,dx$$</p>
-<h5 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h5><p>$$  X \sim \chi^2(n) \Rightarrow E(X) = n,\;  D(X)=2n\<br>    X,\;Y\;相互独立，且\;X\sim\chi^2(n_1),\;Y\sim\chi^2(n_2) \Rightarrow X+Y\sim\chi^2(n_1+n<em>2)\<br>    \chi</em>\alpha^2(n) \approx n+u<em>\alpha\sqrt{2n},\quad with\; big\; n\<br>    \chi^2(n)\;近似服从\;N(n,2n) ,\quad with\; big\; n<br>$$<br>在第三条性质中， $\chi</em>\alpha^2(n)$ 为上侧概率为 $\alpha$ 的 $\chi^2(n)$ 上侧分位数， $u_\alpha$ 为上侧概率为 $\alpha$ 的标准正态分布的上侧分位数。</p>
-<h4 id="t-分布"><a href="#t-分布" class="headerlink" title="$t$ 分布"></a>$t$ 分布</h4><p>随机变量 T 的概率密度函数为：</p>
-<p>$$ f(x) = \cfrac{\Gamma(\frac{n+1}{2})}{\sqrt{n\pi}\Gamma(\frac{n}{2})} (1+\frac{x^2}{n})^{-\frac{n+1}{2}},\quad -\infty&lt;x&lt;+\infty $$</p>
-<p>则称 T <strong>服从自由度为 n 的 t 分布</strong>， 记 $T \sim t(n)$</p>
-<p>当 n 足够大时， T 近似服从 $N(0,1)$ 分布。</p>
-<h4 id="F-分布"><a href="#F-分布" class="headerlink" title="$F$ 分布"></a>$F$ 分布</h4><p>设随机变量 F 的概率密度函数为</p>
-<p>$$ f(x) = \left{\begin{array}{}<br>  n_1^{n_1/2} n_2^{n_2/2} \cfrac{\Gamma((n_1+n_2)/2)}{\Gamma(n_1 / 2)\Gamma(n_2/2)} x^{n_1/2-1}(n_1 x + n_2)^{(n_1+n_2)/2},\quad x &gt; 0\<br>  0,\quad x \le 0<br>  \end{array}\right. $$</p>
-<p>则称 F <strong>服从第一自由度为 $n_1$， 服从第二自由度为 $n_2$ 的 F 分布</strong>， 记为 $F\sim F(n_1,n_2)$</p>
-<h5 id="性质-1"><a href="#性质-1" class="headerlink" title="性质"></a>性质</h5><p>$$ F \sim F(n_1,n_2) \Rightarrow \frac{1}{F} \sim F(n_2, n<em>1) $$<br>$$ F</em>{1-\alpha}(n_1,n<em>2)=\frac{1}{F</em>\alpha(n_2,n_1)} $$</p>
-<h3 id="抽样分布定理"><a href="#抽样分布定理" class="headerlink" title="抽样分布定理"></a>抽样分布定理</h3><h4 id="服从抽样分布的随机变量"><a href="#服从抽样分布的随机变量" class="headerlink" title="服从抽样分布的随机变量"></a>服从抽样分布的随机变量</h4><p>n 个相互独立并服从标准正态分布的随机变量的平方和服从自由度为 n 的 $\chi^2$ 分布：</p>
-<p>$$ \sum_{i=1}^n X_i^2 \sim \chi^2(n) $$</p>
-<p>相互独立的随机变量 X，Y， $X\sim N(0,1),\;Y\sim \chi^2(n)$ 有</p>
-<p>$$ T = \frac{X}{\sqrt{Y/n}} \sim t(n) $$</p>
-<p>相互独立的随机变量 X，Y， $X\sim \chi^2(n_1),\;Y\sim \chi^2(n_2)$ 有</p>
-<p>$$ F = \frac{X/n_1}{Y/n_2} \sim F(n_1,n_2) $$</p>
-<h4 id="单样本抽样分布"><a href="#单样本抽样分布" class="headerlink" title="单样本抽样分布"></a>单样本抽样分布</h4><p>样本 $X_1,\,X_2\,…,X_n$ 来自于分布为 $N(\mu,\sigma^2)$ 的正态总体， $\overline{X},\;S^2$ 分别为样本均值与方差，则有</p>
-<p>$$ \overline{X}\; 与 \;S^2\; 相互独立\<br>\overline{X} \sim N(\mu,\frac{\sigma^2}{n})\<br>\frac{n-1}{\sigma^2}S^2 \sim \chi^2(n-1)\<br>\frac{\overline{X}-\mu}{S/\sqrt{n}} \sim t(n-1) $$</p>
-<h4 id="双样本抽样分布"><a href="#双样本抽样分布" class="headerlink" title="双样本抽样分布"></a>双样本抽样分布</h4><p>两样本分别来自于正态总体 $N(\mu_1,\sigma_1^2)$ 和 $N(\mu_2,\sigma_2^2)$， 它们相互独立，样本均值和方差分别为 $\overline{X},\;S_1^2$ 及 $\overline{Y},\;S_2^2$， 样本容量分别为 $n_1,\;n_2$。 则有</p>
-<p>$$\frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2} \sim F(n_1-1,n_2-1)$$</p>
-<p>$$ with\; \sigma_1^2=\sigma_2^2,\quad<br>\cfrac{(\overline{X}- \overline{Y})-(\mu_1 - \mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}} \sim t(n_1+n_2 - 2) $$</p>
+            <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="概率论与数理统计">概率论与数理统计</a>
+<p><br>
+<a href="/2016/09/21/Math-PrStats-estimationTesting/" title="参数估计与假设检验">参数估计与假设检验</a></p>
+<h3 id="基本概念">基本概念</h3>
+<h4 id="样本与样本观测值">样本与样本观测值</h4>
+<p>样本是由 <strong>总体</strong> 中的一部分 <strong>个体</strong> 组成，是一组随机变量，记为 <span class="math inline">\(X_1,\,X_2,...,X_n\)</span>， 其中 n 为 <strong>样本容量</strong>。样本中个体的实际取值 <span class="math inline">\(x_1,\,x_2,...,x_n\)</span> 称为 <strong>样本观测值</strong>。</p>
+<h4 id="统计量与统计值">统计量与统计值</h4>
+<p><strong>统计量</strong> 是不含未知参数的样本函数 <span class="math inline">\(g(X_1,\,X_2,\,...,X_n)\)</span>， 也是一个随机变量。统计量是对总体进行推断的基础。 <strong>统计值</strong> 是样本观测值代入统计量中得到的函数值。</p>
+<h4 id="抽样分布">抽样分布</h4>
+<p>统计量的分布</p>
+<h3 id="常用统计量">常用统计量</h3>
+<p><span class="math display">\[  样本均值\, —— \, \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i \\
+    样本方差\, —— \, S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2 \\
+    样本标准差\, —— \, S\\
+    样本\, k\, 阶原点矩\, —— \, A_k = \frac{1}{n} \sum_{i=1}^n X_i^k \\
+    样本\, k\, 阶中心矩\,—— \, M_k = \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^k
+\]</span></p>
+<h3 id="抽样分布-1">抽样分布</h3>
+<h4 id="chi2-分布"><span class="math inline">\(\chi^2\)</span> 分布</h4>
+<p>若随机变量 <span class="math inline">\(X\)</span> 的概率密度函数为： <span class="math display">\[ f(x) = \left\{\begin{array}{}
+\cfrac{1}{2\Gamma(\frac{n}{2})} (\frac{x}{2})^{\frac{n}{2}-1} e^{-\frac{x}{2}},\quad x&gt;0\\
+0,\quad x \le 0
+\end{array}\right. \]</span></p>
+<p>则称 <span class="math inline">\(X\)</span> <strong>服从自由度为 n 的 <span class="math inline">\(\chi^2\)</span> 分布</strong>， 记 <span class="math inline">\(X\sim \chi^2(n)\)</span>。 其中，</p>
+<p><span class="math display">\[ \Gamma(s) = \int_0^{+\infty} x^{s-1}e^{-x}\,dx\]</span></p>
+<h5 id="性质">性质</h5>
+<p><span class="math display">\[  X \sim \chi^2(n) \Rightarrow E(X) = n,\;  D(X)=2n\\
+    X,\;Y\;相互独立，且\;X\sim\chi^2(n_1),\;Y\sim\chi^2(n_2) \Rightarrow X+Y\sim\chi^2(n_1+n_2)\\
+    \chi_\alpha^2(n) \approx n+u_\alpha\sqrt{2n},\quad with\; big\; n\\
+    \chi^2(n)\;近似服从\;N(n,2n) ,\quad with\; big\; n
+\]</span> 在第三条性质中， <span class="math inline">\(\chi_\alpha^2(n)\)</span> 为上侧概率为 <span class="math inline">\(\alpha\)</span> 的 <span class="math inline">\(\chi^2(n)\)</span> 上侧分位数， <span class="math inline">\(u_\alpha\)</span> 为上侧概率为 <span class="math inline">\(\alpha\)</span> 的标准正态分布的上侧分位数。</p>
+<h4 id="t-分布"><span class="math inline">\(t\)</span> 分布</h4>
+<p>随机变量 T 的概率密度函数为：</p>
+<p><span class="math display">\[ f(x) = \cfrac{\Gamma(\frac{n+1}{2})}{\sqrt{n\pi}\Gamma(\frac{n}{2})} (1+\frac{x^2}{n})^{-\frac{n+1}{2}},\quad -\infty&lt;x&lt;+\infty \]</span></p>
+<p>则称 T <strong>服从自由度为 n 的 t 分布</strong>， 记 <span class="math inline">\(T \sim t(n)\)</span></p>
+<p>当 n 足够大时， T 近似服从 <span class="math inline">\(N(0,1)\)</span> 分布。</p>
+<h4 id="f-分布"><span class="math inline">\(F\)</span> 分布</h4>
+<p>设随机变量 F 的概率密度函数为</p>
+<p><span class="math display">\[ f(x) = \left\{\begin{array}{}
+  n_1^{n_1/2} n_2^{n_2/2} \cfrac{\Gamma((n_1+n_2)/2)}{\Gamma(n_1 / 2)\Gamma(n_2/2)} x^{n_1/2-1}(n_1 x + n_2)^{(n_1+n_2)/2},\quad x &gt; 0\\
+  0,\quad x \le 0
+  \end{array}\right. \]</span></p>
+<p>则称 F <strong>服从第一自由度为 <span class="math inline">\(n_1\)</span>， 服从第二自由度为 <span class="math inline">\(n_2\)</span> 的 F 分布</strong>， 记为 <span class="math inline">\(F\sim F(n_1,n_2)\)</span></p>
+<h5 id="性质-1">性质</h5>
+<p><span class="math display">\[ F \sim F(n_1,n_2) \Rightarrow \frac{1}{F} \sim F(n_2, n_1) \]</span> <span class="math display">\[ F_{1-\alpha}(n_1,n_2)=\frac{1}{F_\alpha(n_2,n_1)} \]</span></p>
+<h3 id="抽样分布定理">抽样分布定理</h3>
+<h4 id="服从抽样分布的随机变量">服从抽样分布的随机变量</h4>
+<p>n 个相互独立并服从标准正态分布的随机变量的平方和服从自由度为 n 的 <span class="math inline">\(\chi^2\)</span> 分布：</p>
+<p><span class="math display">\[ \sum_{i=1}^n X_i^2 \sim \chi^2(n) \]</span></p>
+<p>相互独立的随机变量 X，Y， <span class="math inline">\(X\sim N(0,1),\;Y\sim \chi^2(n)\)</span> 有</p>
+<p><span class="math display">\[ T = \frac{X}{\sqrt{Y/n}} \sim t(n) \]</span></p>
+<p>相互独立的随机变量 X，Y， <span class="math inline">\(X\sim \chi^2(n_1),\;Y\sim \chi^2(n_2)\)</span> 有</p>
+<p><span class="math display">\[ F = \frac{X/n_1}{Y/n_2} \sim F(n_1,n_2) \]</span></p>
+<h4 id="单样本抽样分布">单样本抽样分布</h4>
+<p>样本 <span class="math inline">\(X_1,\,X_2\,...,X_n\)</span> 来自于分布为 <span class="math inline">\(N(\mu,\sigma^2)\)</span> 的正态总体， <span class="math inline">\(\overline{X},\;S^2\)</span> 分别为样本均值与方差，则有</p>
+<p><span class="math display">\[ \overline{X}\; 与 \;S^2\; 相互独立\\
+\overline{X} \sim N(\mu,\frac{\sigma^2}{n})\\
+\frac{n-1}{\sigma^2}S^2 \sim \chi^2(n-1)\\
+\frac{\overline{X}-\mu}{S/\sqrt{n}} \sim t(n-1) \]</span></p>
+<h4 id="双样本抽样分布">双样本抽样分布</h4>
+<p>两样本分别来自于正态总体 <span class="math inline">\(N(\mu_1,\sigma_1^2)\)</span> 和 <span class="math inline">\(N(\mu_2,\sigma_2^2)\)</span>， 它们相互独立，样本均值和方差分别为 <span class="math inline">\(\overline{X},\;S_1^2\)</span> 及 <span class="math inline">\(\overline{Y},\;S_2^2\)</span>， 样本容量分别为 <span class="math inline">\(n_1,\;n_2\)</span>。 则有</p>
+<p><span class="math display">\[\frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2} \sim F(n_1-1,n_2-1)\]</span></p>
+<p><span class="math display">\[ with\; \sigma_1^2=\sigma_2^2,\quad
+\cfrac{(\overline{X}- \overline{Y})-(\mu_1 - \mu_2)}{S_w\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}} \sim t(n_1+n_2 - 2) \]</span></p>
 <p>其中</p>
-<p>$$ S_w = \sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} $$</p>
-<h4 id="无偏估计"><a href="#无偏估计" class="headerlink" title="无偏估计"></a>无偏估计</h4><p>样本均值与方差的期望分别是总体分布的期望与方差。</p>
-<p>$$ E(\overline{X}) = \mu $$</p>
-<p>$$ E(S^2) = \sigma^2 $$</p>
+<p><span class="math display">\[ S_w = \sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} \]</span></p>
+<h4 id="无偏估计">无偏估计</h4>
+<p>样本均值与方差的期望分别是总体分布的期望与方差。</p>
+<p><span class="math display">\[ E(\overline{X}) = \mu \]</span></p>
+<p><span class="math display">\[ E(S^2) = \sigma^2 \]</span></p>
 
           
         
@@ -919,32 +1307,47 @@
         
           
             <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
+<h3 id="参考">参考：</h3>
+<ul>
 <li><a href="http://www.yalewoo.com/linear_algebra_6_quadratic-form.html" target="_blank" rel="noopener">线性代数知识梳理6——二次型</a></li>
 <li><a href="/2016/09/17/Math-LinAlg-eigenOrthDiag/" title="矩阵特征值、正交化与对角化">矩阵特征值、正交化与对角化</a></li>
 <li><a href="https://zh.wikipedia.org/wiki/%E8%A5%BF%E5%B0%94%E7%BB%B4%E6%96%AF%E7%89%B9%E6%83%AF%E6%80%A7%E5%AE%9A%E7%90%86" target="_blank" rel="noopener">西尔维斯特惯性定理</a></li>
 </ul>
-<h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><h4 id="可逆线性变换"><a href="#可逆线性变换" class="headerlink" title="可逆线性变换"></a>可逆线性变换</h4><p>$$ \mathbf{X} = \mathbf{CY} $$</p>
-<p>该公式实现从未知数向量 $\mathbf{Y}$ 到 $\mathbf{X}$ 的线性变换，当 $\mathbf{C}$ 可逆时，称为可逆线性变换。</p>
-<h4 id="标准形"><a href="#标准形" class="headerlink" title="标准形"></a>标准形</h4><p>平方和形式的二次型，其系数矩阵为对角矩阵。</p>
-<h4 id="规范形"><a href="#规范形" class="headerlink" title="规范形"></a>规范形</h4><p>二次型是平方和形式、且系数为 $\pm 1$， 正在前，负在后。</p>
-<h4 id="惯性指数"><a href="#惯性指数" class="headerlink" title="惯性指数"></a>惯性指数</h4><p>标准形中正系数的项数为正惯性指数，负系数的项数为负惯性指数。</p>
-<h3 id="二次型化为标准形"><a href="#二次型化为标准形" class="headerlink" title="二次型化为标准形"></a>二次型化为标准形</h3><p>通过可逆线性变换 $\mathbf{X} = \mathbf{CY}$， 变换二次型 $f(\mathbf{X})=\mathbf{X^T A X}=\mathbf{Y^T (C^T A C) Y}$。 要求 C 可逆，因为 <strong>可逆线性变换不改变二次型的秩</strong>。\<br>二次型化通过可逆线性变换为标准形，即求可逆 $\mathbf{C}$ 使得系数矩阵 $\mathbf{A}$ 的 <strong>合同</strong> 矩阵 $\mathbf{\Lambda}=\mathbf{C^T A C}$ 为对角矩阵。（当然 $\mathbf{\Lambda}$ 也解出了）整个过程可视作对实对称矩阵 A 的合同对角化。</p>
-<h4 id="配方法"><a href="#配方法" class="headerlink" title="配方法"></a>配方法</h4><p>对 x 挨个配方，再用 x 表示 y 构成方程组，求该方程组系数矩阵的逆矩阵即 $\mathbf{C}$， 标准形在配方时可知。 （参考：<a href="http://www.yalewoo.com/linear_algebra_6_quadratic-form.html" target="_blank" rel="noopener">线性代数知识梳理6——二次型</a>）</p>
-<h4 id="正交变换"><a href="#正交变换" class="headerlink" title="正交变换"></a>正交变换</h4><p>在可逆线性变换 $\mathbf{X} = \mathbf{CY}$ 的基础上，进一步要求 $\mathbf{C}$ 为正交矩阵。\<br>求解步骤参考 <a href="/2016/09/17/Math-LinAlg-eigenOrthDiag/" title="实对称矩阵的相似对角化">实对称矩阵的相似对角化</a>。</p>
-<h3 id="相关定理"><a href="#相关定理" class="headerlink" title="相关定理"></a>相关定理</h3><h4 id="惯性定理"><a href="#惯性定理" class="headerlink" title="惯性定理"></a>惯性定理</h4><p>二次型通过可逆线性变换能化为规范形且规范形唯一。所以， <em>可逆线性变换不改变二次型的秩和正负惯性指数</em>。（参考：<a href="https://zh.wikipedia.org/wiki/%E8%A5%BF%E5%B0%94%E7%BB%B4%E6%96%AF%E7%89%B9%E6%83%AF%E6%80%A7%E5%AE%9A%E7%90%86" target="_blank" rel="noopener">西尔维斯特惯性定理</a>）</p>
-<h4 id="正定矩阵的充要条件"><a href="#正定矩阵的充要条件" class="headerlink" title="正定矩阵的充要条件"></a>正定矩阵的充要条件</h4><p>对实对称矩阵 $\mathbf{A}$</p>
+<h3 id="相关概念">相关概念</h3>
+<h4 id="可逆线性变换">可逆线性变换</h4>
+<p><span class="math display">\[ \mathbf{X} = \mathbf{CY} \]</span></p>
+<p>该公式实现从未知数向量 <span class="math inline">\(\mathbf{Y}\)</span> 到 <span class="math inline">\(\mathbf{X}\)</span> 的线性变换，当 <span class="math inline">\(\mathbf{C}\)</span> 可逆时，称为可逆线性变换。</p>
+<h4 id="标准形">标准形</h4>
+<p>平方和形式的二次型，其系数矩阵为对角矩阵。</p>
+<h4 id="规范形">规范形</h4>
+<p>二次型是平方和形式、且系数为 <span class="math inline">\(\pm 1\)</span>， 正在前，负在后。</p>
+<h4 id="惯性指数">惯性指数</h4>
+<p>标准形中正系数的项数为正惯性指数，负系数的项数为负惯性指数。</p>
+<h3 id="二次型化为标准形">二次型化为标准形</h3>
+<p>通过可逆线性变换 <span class="math inline">\(\mathbf{X} = \mathbf{CY}\)</span>， 变换二次型 <span class="math inline">\(f(\mathbf{X})=\mathbf{X^T A X}=\mathbf{Y^T (C^T A C) Y}\)</span>。 要求 C 可逆，因为 <strong>可逆线性变换不改变二次型的秩</strong>。<br>
+二次型化通过可逆线性变换为标准形，即求可逆 <span class="math inline">\(\mathbf{C}\)</span> 使得系数矩阵 <span class="math inline">\(\mathbf{A}\)</span> 的 <strong>合同</strong> 矩阵 <span class="math inline">\(\mathbf{\Lambda}=\mathbf{C^T A C}\)</span> 为对角矩阵。（当然 <span class="math inline">\(\mathbf{\Lambda}\)</span> 也解出了）整个过程可视作对实对称矩阵 A 的合同对角化。</p>
+<h4 id="配方法">配方法</h4>
+<p>对 x 挨个配方，再用 x 表示 y 构成方程组，求该方程组系数矩阵的逆矩阵即 <span class="math inline">\(\mathbf{C}\)</span>， 标准形在配方时可知。 （参考：<a href="http://www.yalewoo.com/linear_algebra_6_quadratic-form.html" target="_blank" rel="noopener">线性代数知识梳理6——二次型</a>）</p>
+<h4 id="正交变换">正交变换</h4>
+<p>在可逆线性变换 <span class="math inline">\(\mathbf{X} = \mathbf{CY}\)</span> 的基础上，进一步要求 <span class="math inline">\(\mathbf{C}\)</span> 为正交矩阵。<br>
+求解步骤参考 <a href="/2016/09/17/Math-LinAlg-eigenOrthDiag/" title="实对称矩阵的相似对角化">实对称矩阵的相似对角化</a>。</p>
+<h3 id="相关定理">相关定理</h3>
+<h4 id="惯性定理">惯性定理</h4>
+<p>二次型通过可逆线性变换能化为规范形且规范形唯一。所以， <em>可逆线性变换不改变二次型的秩和正负惯性指数</em>。（参考：<a href="https://zh.wikipedia.org/wiki/%E8%A5%BF%E5%B0%94%E7%BB%B4%E6%96%AF%E7%89%B9%E6%83%AF%E6%80%A7%E5%AE%9A%E7%90%86" target="_blank" rel="noopener">西尔维斯特惯性定理</a>）</p>
+<h4 id="正定矩阵的充要条件">正定矩阵的充要条件</h4>
+<p>对实对称矩阵 <span class="math inline">\(\mathbf{A}\)</span></p>
 <ul>
 <li>特征值全为正实数</li>
 <li>与单位矩阵合同</li>
 <li>顺序主子式全大于零</li>
 </ul>
 <p><em>顺序主子式</em>： 方阵的前 k 行 k 列的行列式</p>
-<h4 id="负定矩阵的充要条件"><a href="#负定矩阵的充要条件" class="headerlink" title="负定矩阵的充要条件"></a>负定矩阵的充要条件</h4><p>对实对称矩阵 $\mathbf{A}$</p>
+<h4 id="负定矩阵的充要条件">负定矩阵的充要条件</h4>
+<p>对实对称矩阵 <span class="math inline">\(\mathbf{A}\)</span></p>
 <ul>
 <li>特征值全为负实数</li>
 <li>二次型负惯性指数为 n</li>
-<li>顺序主子式满足： $(-1)^k P_k &gt;0\;\;(k=1,2,…,n)$</li>
+<li>顺序主子式满足： <span class="math inline">\((-1)^k P_k &gt;0\;\;(k=1,2,...,n)\)</span></li>
 </ul>
 
           
@@ -1059,46 +1462,67 @@
         
           
             <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>
-<p>几何上看，特征向量乘对应矩阵相当于做一次“伸缩”变换。 <strong>每个方阵都有（实数或复数）特征值</strong>， 而一个特征值对应无数个特征向量。\<br>对角化指 <strong>相似对角化</strong>， 指求解与方阵 <strong>相似</strong> 的对角矩阵的过程。\<br>正交化指求解与线性无关向量组 <strong>等价</strong> 的正交向量组的过程，因为等价，两个向量组在同一子空间。</p>
-<h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><h4 id="特征子空间（eigenspace）"><a href="#特征子空间（eigenspace）" class="headerlink" title="特征子空间（eigenspace）"></a>特征子空间（eigenspace）</h4><p>具有相同特征值的特征向量与一个同维数的零向量的集合。</p>
-<h4 id="特征方程"><a href="#特征方程" class="headerlink" title="特征方程"></a>特征方程</h4><p>关于 $\lambda$ 的方程</p>
-<p>$$ \det (\lambda \mathbf{I}-\mathbf{A}) = 0 $$</p>
-<p>称为方阵 $\mathbf{A}$ 的特征方程。由特征值的定义公式推导，其解为方阵 $\mathbf{A}$ 的特征值，被称为 <strong>特征根</strong>， 根据解的重数分为单特征根与 k 重特征根。</p>
-<h4 id="特征值的代数重数与几何重数"><a href="#特征值的代数重数与几何重数" class="headerlink" title="特征值的代数重数与几何重数"></a>特征值的代数重数与几何重数</h4><p>特征方程特征值（特征根） $\lambda$ 的重数称为 $\lambda$ 的代数重数，而 $\lambda$ 的特征子空间的维数（基向量个数）称为几何重数。 <strong>特征值的几何重数不大于它的代数重数</strong>。</p>
-<h3 id="特征值与特征向量的计算"><a href="#特征值与特征向量的计算" class="headerlink" title="特征值与特征向量的计算"></a>特征值与特征向量的计算</h3><ol>
-<li>根据特征方程 $\det (\lambda \mathbf{I}-\mathbf{A}) = 0$ 计算全部特征根 $\lambda_1 \sim \lambda_k\;(k \le n)$</li>
-<li>线性方程组 $(\lambda_i \mathbf{I}-\mathbf{A})\mathbf{X}=\mathbf{0}$ 的通解 <strong>除去零向量</strong> 即对应于 $\lambda_i$ 的所有特征向量</li>
+<p>几何上看，特征向量乘对应矩阵相当于做一次“伸缩”变换。 <strong>每个方阵都有（实数或复数）特征值</strong>， 而一个特征值对应无数个特征向量。<br>
+对角化指 <strong>相似对角化</strong>， 指求解与方阵 <strong>相似</strong> 的对角矩阵的过程。<br>
+正交化指求解与线性无关向量组 <strong>等价</strong> 的正交向量组的过程，因为等价，两个向量组在同一子空间。</p>
+<h3 id="相关概念">相关概念</h3>
+<h4 id="特征子空间eigenspace">特征子空间（eigenspace）</h4>
+<p>具有相同特征值的特征向量与一个同维数的零向量的集合。</p>
+<h4 id="特征方程">特征方程</h4>
+<p>关于 <span class="math inline">\(\lambda\)</span> 的方程</p>
+<p><span class="math display">\[ \det (\lambda \mathbf{I}-\mathbf{A}) = 0 \]</span></p>
+<p>称为方阵 <span class="math inline">\(\mathbf{A}\)</span> 的特征方程。由特征值的定义公式推导，其解为方阵 <span class="math inline">\(\mathbf{A}\)</span> 的特征值，被称为 <strong>特征根</strong>， 根据解的重数分为单特征根与 k 重特征根。</p>
+<h4 id="特征值的代数重数与几何重数">特征值的代数重数与几何重数</h4>
+<p>特征方程特征值（特征根） <span class="math inline">\(\lambda\)</span> 的重数称为 <span class="math inline">\(\lambda\)</span> 的代数重数，而 <span class="math inline">\(\lambda\)</span> 的特征子空间的维数（基向量个数）称为几何重数。 <strong>特征值的几何重数不大于它的代数重数</strong>。</p>
+<h3 id="特征值与特征向量的计算">特征值与特征向量的计算</h3>
+<ol type="1">
+<li>根据特征方程 <span class="math inline">\(\det (\lambda \mathbf{I}-\mathbf{A}) = 0\)</span> 计算全部特征根 <span class="math inline">\(\lambda_1 \sim \lambda_k\;(k \le n)\)</span></li>
+<li>线性方程组 <span class="math inline">\((\lambda_i \mathbf{I}-\mathbf{A})\mathbf{X}=\mathbf{0}\)</span> 的通解 <strong>除去零向量</strong> 即对应于 <span class="math inline">\(\lambda_i\)</span> 的所有特征向量</li>
 </ol>
-<h3 id="一般矩阵的相似对角化"><a href="#一般矩阵的相似对角化" class="headerlink" title="一般矩阵的相似对角化"></a>一般矩阵的相似对角化</h3><p>$$ \mathbf{P}^{-1}\mathbf{A}\mathbf{P} = \mathbf{Diag}[\lambda_1, \lambda_2,…,\lambda_n] $$</p>
-<p>现需求解 $\lambda$ 与 $\mathbf{P}$。首先要求 A 能对角化。</p>
-<ol>
-<li>求解 A 的特征值 $\lambda$， 相似对角矩阵的对角元素即 $\lambda$， 每个特征值出现的次数与其代数重数相等</li>
+<h3 id="一般矩阵的相似对角化">一般矩阵的相似对角化</h3>
+<p><span class="math display">\[ \mathbf{P}^{-1}\mathbf{A}\mathbf{P} = \mathbf{Diag}[\lambda_1, \lambda_2,...,\lambda_n] \]</span></p>
+<p>现需求解 <span class="math inline">\(\lambda\)</span> 与 <span class="math inline">\(\mathbf{P}\)</span>。首先要求 A 能对角化。</p>
+<ol type="1">
+<li>求解 A 的特征值 <span class="math inline">\(\lambda\)</span>， 相似对角矩阵的对角元素即 <span class="math inline">\(\lambda\)</span>， 每个特征值出现的次数与其代数重数相等</li>
 <li>求解每个特征值对应的特征向量，检查是否满足对角化条件。P 即特征列向量构成的矩阵，排列顺序与特征值相同。</li>
 </ol>
-<h3 id="施密特正交化"><a href="#施密特正交化" class="headerlink" title="施密特正交化"></a>施密特正交化</h3><p>前提是 <strong>向量组线性无关</strong>。 对 $\alpha_1,\alpha_2,…,\alpha_s$ 施密特正交化：</p>
-<p>$\beta_1 = \alpha_1$\<br>$\beta_2 = \alpha_2  - (\alpha_2\cdot \beta_1)/(\beta_1\cdot \beta_1)\,\beta_1$\<br>$\beta_3 = \alpha_3  - (\alpha_3\cdot \beta_1)/(\beta_1\cdot \beta_1)\,\beta_1 - (\alpha_3\cdot \beta_2)/(\beta_2\cdot \beta_2)\,\beta_2$\<br>…\<br>$\beta_s = \alpha_s  - (\alpha_s\cdot \beta_1)/(\beta_1\cdot \beta_1)\,\beta_1 - (\alpha_s\cdot \beta_2)/(\beta_2\cdot \beta_2)\,\beta_2-… - (\alpha<em>s\cdot \beta</em>{s-1})/(\beta<em>{s-1}\cdot \beta</em>{s-1})\,\beta_{s-1}$</p>
-<p>得到正交向量组，再令 $\gamma_i = \beta_i / (|\beta_i|)$ 得到标准正交向量组</p>
-<h3 id="实对称矩阵的相似对角化"><a href="#实对称矩阵的相似对角化" class="headerlink" title="实对称矩阵的相似对角化"></a>实对称矩阵的相似对角化</h3><p>与一般矩阵的相似对角化相同，但习惯更进一步，要求 $\mathbf{P}$ 正交，所以在对每个特征值求解出特征向量组后，需要做标准正交化处理。（不同特征值的特征向量彼此正交，不必处理）</p>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><h4 id="特征值的和积"><a href="#特征值的和积" class="headerlink" title="特征值的和积"></a>特征值的和积</h4><p>$$ \lambda_1 + \lambda_2 + … \lambda<em>n = a</em>{1,1} + a<em>{2,2} + … + a</em>{n,n} \<br>\lambda_1\lambda_2…\lambda_n = \det \mathbf{A} $$</p>
+<h3 id="施密特正交化">施密特正交化</h3>
+<p>前提是 <strong>向量组线性无关</strong>。 对 <span class="math inline">\(\alpha_1,\alpha_2,...,\alpha_s\)</span> 施密特正交化：</p>
+<p><span class="math inline">\(\beta_1 = \alpha_1\)</span><br>
+<span class="math inline">\(\beta_2 = \alpha_2 - (\alpha_2\cdot \beta_1)/(\beta_1\cdot \beta_1)\,\beta_1\)</span><br>
+<span class="math inline">\(\beta_3 = \alpha_3 - (\alpha_3\cdot \beta_1)/(\beta_1\cdot \beta_1)\,\beta_1 - (\alpha_3\cdot \beta_2)/(\beta_2\cdot \beta_2)\,\beta_2\)</span><br>
+…<br>
+<span class="math inline">\(\beta_s = \alpha_s - (\alpha_s\cdot \beta_1)/(\beta_1\cdot \beta_1)\,\beta_1 - (\alpha_s\cdot \beta_2)/(\beta_2\cdot \beta_2)\,\beta_2-... - (\alpha_s\cdot \beta_{s-1})/(\beta_{s-1}\cdot \beta_{s-1})\,\beta_{s-1}\)</span></p>
+<p>得到正交向量组，再令 <span class="math inline">\(\gamma_i = \beta_i / (|\beta_i|)\)</span> 得到标准正交向量组</p>
+<h3 id="实对称矩阵的相似对角化">实对称矩阵的相似对角化</h3>
+<p>与一般矩阵的相似对角化相同，但习惯更进一步，要求 <span class="math inline">\(\mathbf{P}\)</span> 正交，所以在对每个特征值求解出特征向量组后，需要做标准正交化处理。（不同特征值的特征向量彼此正交，不必处理）</p>
+<h3 id="性质">性质</h3>
+<h4 id="特征值的和积">特征值的和积</h4>
+<p><span class="math display">\[ \lambda_1 + \lambda_2 + ... \lambda_n = a_{1,1} + a_{2,2} + ... + a_{n,n} \\
+\lambda_1\lambda_2...\lambda_n = \det \mathbf{A} \]</span></p>
 <p>其中包括复数特征根。可得 <strong>方阵可逆的充要条件是其所有特征值全不为零</strong>。</p>
-<h4 id="不同特征值的特征向量线性无关"><a href="#不同特征值的特征向量线性无关" class="headerlink" title="不同特征值的特征向量线性无关"></a>不同特征值的特征向量线性无关</h4><h4 id="对角化与特征值的相关定理"><a href="#对角化与特征值的相关定理" class="headerlink" title="对角化与特征值的相关定理"></a>对角化与特征值的相关定理</h4><ul>
+<h4 id="不同特征值的特征向量线性无关">不同特征值的特征向量线性无关</h4>
+<h4 id="对角化与特征值的相关定理">对角化与特征值的相关定理</h4>
+<ul>
 <li><strong>相似矩阵的特征值相同</strong></li>
-<li>n 阶方阵能对角化的充要条件<ul>
-<li>A 的每个特征值 $\lambda_i$ 的代数重数 $k_i$ 等于方程组 $(\lambda_i \mathbf{I} - \mathbf{A}) \mathbf{X} = \mathbf{0}$ 的基础解系向量个数，即 $k_i=n - R(\lambda_i \mathbf{I} - \mathbf{A})$</li>
+<li>n 阶方阵能对角化的充要条件
+<ul>
+<li>A 的每个特征值 <span class="math inline">\(\lambda_i\)</span> 的代数重数 <span class="math inline">\(k_i\)</span> 等于方程组 <span class="math inline">\((\lambda_i \mathbf{I} - \mathbf{A}) \mathbf{X} = \mathbf{0}\)</span> 的基础解系向量个数，即 <span class="math inline">\(k_i=n - R(\lambda_i \mathbf{I} - \mathbf{A})\)</span></li>
 <li>A 有 n 个线性无关的特征向量</li>
 <li>充分条件：特征值都是单特征根</li>
-</ul>
-</li>
+</ul></li>
 <li>相似对角方阵的对角元素是全部特征值</li>
 </ul>
-<h4 id="正交矩阵的相关性质"><a href="#正交矩阵的相关性质" class="headerlink" title="正交矩阵的相关性质"></a>正交矩阵的相关性质</h4><ul>
-<li>$\det \mathbf{A} = \pm 1$</li>
-<li>$\mathbf{A},\;\mathbf{B}$ 正交，则 $\mathbf{AB}$ 正交</li>
+<h4 id="正交矩阵的相关性质">正交矩阵的相关性质</h4>
+<ul>
+<li><span class="math inline">\(\det \mathbf{A} = \pm 1\)</span></li>
+<li><span class="math inline">\(\mathbf{A},\;\mathbf{B}\)</span> 正交，则 <span class="math inline">\(\mathbf{AB}\)</span> 正交</li>
 </ul>
-<h4 id="实对称矩阵相关性质"><a href="#实对称矩阵相关性质" class="headerlink" title="实对称矩阵相关性质"></a>实对称矩阵相关性质</h4><ul>
+<h4 id="实对称矩阵相关性质">实对称矩阵相关性质</h4>
+<ul>
 <li>特征值都是实数</li>
 <li>不同特征值的特征向量彼此正交</li>
-<li>一定有 <strong>正交方阵</strong> $\mathbf{C}$ 使之相似对角化 $\mathbf{C^{-1}AC}=\mathbf{C^TAC}$</li>
+<li>一定有 <strong>正交方阵</strong> <span class="math inline">\(\mathbf{C}\)</span> 使之相似对角化 <span class="math inline">\(\mathbf{C^{-1}AC}=\mathbf{C^TAC}\)</span></li>
 </ul>
 
           
@@ -1213,89 +1637,111 @@
         
           
             <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><table>
+<h3 id="意义">意义</h3>
+<table>
 <thead>
-<tr>
-<th>微元 $d\Omega$</th>
-<th style="text-align:center">典型具象</th>
-<th style="text-align:center">$f(x) \cdot d\Omega$ 典型具象</th>
+<tr class="header">
+<th>微元 <span class="math inline">\(d\Omega\)</span></th>
+<th style="text-align: center;">典型具象</th>
+<th style="text-align: center;"><span class="math inline">\(f(x) \cdot d\Omega\)</span> 典型具象</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>$dx$</td>
-<td style="text-align:center">线段微元</td>
-<td style="text-align:center">面积或线质量</td>
+<tr class="odd">
+<td><span class="math inline">\(dx\)</span></td>
+<td style="text-align: center;">线段微元</td>
+<td style="text-align: center;">面积或线质量</td>
 </tr>
-<tr>
-<td>$dx\;dy$</td>
-<td style="text-align:center">面积微元</td>
-<td style="text-align:center">体积或面质量</td>
+<tr class="even">
+<td><span class="math inline">\(dx\;dy\)</span></td>
+<td style="text-align: center;">面积微元</td>
+<td style="text-align: center;">体积或面质量</td>
 </tr>
-<tr>
-<td>$dx\;dy\;dz$</td>
-<td style="text-align:center">体积微元</td>
-<td style="text-align:center">体积质量</td>
+<tr class="odd">
+<td><span class="math inline">\(dx\;dy\;dz\)</span></td>
+<td style="text-align: center;">体积微元</td>
+<td style="text-align: center;">体积质量</td>
 </tr>
 </tbody>
 </table>
-<p>用 $f(x) dx$ 或 $1\cdot dx\,dy$ 都可以在数值上求面积，类似的还有体积</p>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p><strong>线性</strong>， <strong>区域可加性</strong>， <strong>保序性</strong> 可见微积分笔记中定积分性质。</p>
-<h4 id="估值定理"><a href="#估值定理" class="headerlink" title="估值定理"></a>估值定理</h4><p>设 K 与 k 分别为 f(M) 在闭区间 $\Omega$ 上的最大最小值，则</p>
-<p>$$ k \cdot (\Omega 的度量) \le \int_\Omega f(M) d\Omega  \le K \cdot (\Omega 的度量) $$</p>
-<h4 id="积分中值定理"><a href="#积分中值定理" class="headerlink" title="积分中值定理"></a>积分中值定理</h4><p>设 $f(M)$ 在闭区间 $\Omega$ 上连续，则 $\exists M_0 \in \Omega$， 使得</p>
-<p>$$ \int_\Omega f(M) d\Omega = f(M_0) \cdot (\Omega 的度量) $$</p>
-<h4 id="对称性"><a href="#对称性" class="headerlink" title="对称性"></a>对称性</h4><p>当积分域 $\Omega$ 关于 $x=0$ 对称时，\<br>若被积函数 $f(M)$ 关于变量 $x$ 为奇函数，则 $\int<em>\Omega f(M) d\Omega=0$ \<br>若被积函数 $f(M)$ 关于变量 $x$ 为偶函数，则 $\int</em>\Omega f(M) d\Omega=2\int_{\Omega(x&gt;0)} f(M) d\Omega$</p>
-<h3 id="二重积分计算"><a href="#二重积分计算" class="headerlink" title="二重积分计算"></a>二重积分计算</h3><h4 id="直角坐标系"><a href="#直角坐标系" class="headerlink" title="直角坐标系"></a>直角坐标系</h4><p>以下以先 x 后 y 为例：\<br>先积 x 的积分区域应该 <strong>可沿 x 轴投影而不重叠</strong>  —— 所有平行于 x 轴的直线与积分区域的交点不超过 2 个 —— 如果不是，可考虑交换积分顺序或对区域分割。</p>
-<ol>
+<p>用 <span class="math inline">\(f(x) dx\)</span> 或 <span class="math inline">\(1\cdot dx\,dy\)</span> 都可以在数值上求面积，类似的还有体积</p>
+<h3 id="性质">性质</h3>
+<p><strong>线性</strong>， <strong>区域可加性</strong>， <strong>保序性</strong> 可见微积分笔记中定积分性质。</p>
+<h4 id="估值定理">估值定理</h4>
+<p>设 K 与 k 分别为 f(M) 在闭区间 <span class="math inline">\(\Omega\)</span> 上的最大最小值，则</p>
+<p><span class="math display">\[ k \cdot (\Omega 的度量) \le \int_\Omega f(M) d\Omega  \le K \cdot (\Omega 的度量) \]</span></p>
+<h4 id="积分中值定理">积分中值定理</h4>
+<p>设 <span class="math inline">\(f(M)\)</span> 在闭区间 <span class="math inline">\(\Omega\)</span> 上连续，则 <span class="math inline">\(\exists M_0 \in \Omega\)</span>， 使得</p>
+<p><span class="math display">\[ \int_\Omega f(M) d\Omega = f(M_0) \cdot (\Omega 的度量) \]</span></p>
+<h4 id="对称性">对称性</h4>
+<p>当积分域 <span class="math inline">\(\Omega\)</span> 关于 <span class="math inline">\(x=0\)</span> 对称时，<br>
+若被积函数 <span class="math inline">\(f(M)\)</span> 关于变量 <span class="math inline">\(x\)</span> 为奇函数，则 <span class="math inline">\(\int_\Omega f(M) d\Omega=0\)</span><br>
+若被积函数 <span class="math inline">\(f(M)\)</span> 关于变量 <span class="math inline">\(x\)</span> 为偶函数，则 <span class="math inline">\(\int_\Omega f(M) d\Omega=2\int_{\Omega(x&gt;0)} f(M) d\Omega\)</span></p>
+<h3 id="二重积分计算">二重积分计算</h3>
+<h4 id="直角坐标系">直角坐标系</h4>
+<p>以下以先 x 后 y 为例：<br>
+先积 x 的积分区域应该 <strong>可沿 x 轴投影而不重叠</strong> —— 所有平行于 x 轴的直线与积分区域的交点不超过 2 个 —— 如果不是，可考虑交换积分顺序或对区域分割。</p>
+<ol type="1">
 <li>作 x - y 图</li>
-<li>画 x 轴平行线，探测 x 积分区间 $(x_1(y),\; x_2(y))$</li>
-<li>将积分区域沿 x 轴投影，得到 y 积分区间 $(y_1, y_2)$</li>
+<li>画 x 轴平行线，探测 x 积分区间 <span class="math inline">\((x_1(y),\; x_2(y))\)</span></li>
+<li>将积分区域沿 x 轴投影，得到 y 积分区间 <span class="math inline">\((y_1, y_2)\)</span></li>
 <li>用公式积分，注意对 x 积分时，视 y 为常数</li>
 </ol>
 <p>积分公式：</p>
-<p>$$ \int_{y_1}^{y<em>2} \int</em>{x_1(y)}^{x_2(y)} f(x, y) dx\,dy $$</p>
-<h4 id="极坐标系"><a href="#极坐标系" class="headerlink" title="极坐标系"></a>极坐标系</h4><p>r 表示到原点距离， $\theta$ 表示与 x 轴夹角。如果被积函数含有 $x^2+y^2$， $\frac{y}{x}$ 或 D 的边界含有圆弧时，可以考虑用极坐标。直角坐标与极坐标互换：</p>
-<p>$$ \underset{D}{\int\int} f(x,y) dx\,dy = \underset{D}{\int\int} f(r \cos \theta, r \sin \theta) r \,dr\,d\theta $$</p>
-<p>极坐标系积分思想与直角坐标系积分类似。习惯先积 $r$ 再积 $\theta$。</p>
-<h3 id="三重积分计算"><a href="#三重积分计算" class="headerlink" title="三重积分计算"></a>三重积分计算</h3><h4 id="直角坐标-——-投影法"><a href="#直角坐标-——-投影法" class="headerlink" title="直角坐标 —— 投影法"></a>直角坐标 —— 投影法</h4><p>又称 <strong>先一后二</strong>。 参考二重积分，其积分过程大概是：作轴平行线，找积分区间，沿轴投影，如此循环。以下以先 z 后 x、y 的顺序积分。\<br>同样，先积 z 的积分区域应该可沿 z 轴投影而不重叠，如果不是，可考虑交换积分顺序或对区域分割。</p>
-<ol>
+<p><span class="math display">\[ \int_{y_1}^{y_2} \int_{x_1(y)}^{x_2(y)} f(x, y) dx\,dy \]</span></p>
+<h4 id="极坐标系">极坐标系</h4>
+<p>r 表示到原点距离， <span class="math inline">\(\theta\)</span> 表示与 x 轴夹角。如果被积函数含有 <span class="math inline">\(x^2+y^2\)</span>， <span class="math inline">\(\frac{y}{x}\)</span> 或 D 的边界含有圆弧时，可以考虑用极坐标。直角坐标与极坐标互换：</p>
+<p><span class="math display">\[ \underset{D}{\int\int} f(x,y) dx\,dy = \underset{D}{\int\int} f(r \cos \theta, r \sin \theta) r \,dr\,d\theta \]</span></p>
+<p>极坐标系积分思想与直角坐标系积分类似。习惯先积 <span class="math inline">\(r\)</span> 再积 <span class="math inline">\(\theta\)</span>。</p>
+<h3 id="三重积分计算">三重积分计算</h3>
+<h4 id="直角坐标-投影法">直角坐标 —— 投影法</h4>
+<p>又称 <strong>先一后二</strong>。 参考二重积分，其积分过程大概是：作轴平行线，找积分区间，沿轴投影，如此循环。以下以先 z 后 x、y 的顺序积分。<br>
+同样，先积 z 的积分区域应该可沿 z 轴投影而不重叠，如果不是，可考虑交换积分顺序或对区域分割。</p>
+<ol type="1">
 <li>作 x - y - z 图</li>
-<li>画 z 轴平行线，探测 z 积分区间 $(z_1(x,y), z_2(x,y))$</li>
+<li>画 z 轴平行线，探测 z 积分区间 <span class="math inline">\((z_1(x,y), z_2(x,y))\)</span></li>
 <li>将积分区域沿 z 轴投影，同时对 z 积分</li>
 <li>对 x、y 继续做二重积分</li>
 </ol>
 <p>积分公式：</p>
-<p>$$ \underset{D<em>{xy}}{\int\int}dx\,dy\int</em>{z_1(x,y)}^{z_2(x,y)} f(x,y,z) dz $$</p>
-<h4 id="直角坐标-——-截面法"><a href="#直角坐标-——-截面法" class="headerlink" title="直角坐标 —— 截面法"></a>直角坐标 —— 截面法</h4><p>又称 <strong>切片法</strong> 或 <strong>先二后一</strong>。 以下以先 x、y 后 z 为例：</p>
+<p><span class="math display">\[ \underset{D_{xy}}{\int\int}dx\,dy\int_{z_1(x,y)}^{z_2(x,y)} f(x,y,z) dz \]</span></p>
+<h4 id="直角坐标-截面法">直角坐标 —— 截面法</h4>
+<p>又称 <strong>切片法</strong> 或 <strong>先二后一</strong>。 以下以先 x、y 后 z 为例：</p>
 <p>习惯上满足 2 个条件，先二后一比先一后二更容易：</p>
-<ol>
-<li>被积函数是关于 z 的一元函数 $f(z)$</li>
+<ol type="1">
+<li>被积函数是关于 z 的一元函数 <span class="math inline">\(f(z)\)</span></li>
 <li>垂直于 z 轴的截面易知，可含参数 z</li>
 </ol>
 <p>计算步骤：</p>
-<ol>
+<ol type="1">
 <li>作 x - y -z 图</li>
-<li>作垂直于 z 轴的截面，计算 x、y 积分区域 $D_{xy}$, 其中 z 可视作常数</li>
-<li>将整个积分区域投影到 z 轴，得到 z 的积分区间 $(z_1, z_2)$</li>
+<li>作垂直于 z 轴的截面，计算 x、y 积分区域 <span class="math inline">\(D_{xy}\)</span>, 其中 z 可视作常数</li>
+<li>将整个积分区域投影到 z 轴，得到 z 的积分区间 <span class="math inline">\((z_1, z_2)\)</span></li>
 <li>用积分公式计算</li>
 </ol>
-<p>$$ \int_{z_1}^{z<em>2} f(z) dz \underset{D</em>{xy}}{\int\int} dx\,dy $$</p>
-<h4 id="柱面坐标系"><a href="#柱面坐标系" class="headerlink" title="柱面坐标系"></a>柱面坐标系</h4><p>底面为极坐标系，z 轴与之垂直。与直角坐标系的转化：</p>
-<p>$$ \underset{D}{\int\int\int} f(x,y,z) dx\,dy\,dz= \underset{D}{\int\int\int} f(r\cos \theta, r\sin \theta, z) r \, dr\, d\theta\,dz $$</p>
-<p>如果被积函数含有如 $x^2+y^2$ 形式，或 D 的边界含有圆柱时，使用柱面积分可能比较容易。积分步骤参考直角坐标系的投影法及截面法。</p>
-<h4 id="球面坐标系"><a href="#球面坐标系" class="headerlink" title="球面坐标系"></a>球面坐标系</h4><ul>
-<li>$\rho$ —— 点到原点距离</li>
-<li>$\varphi$ —— 与正 z 轴夹角 $\in [0,\pi]$</li>
-<li>$\theta$ —— 与 x 轴夹角</li>
+<p><span class="math display">\[ \int_{z_1}^{z_2} f(z) dz \underset{D_{xy}}{\int\int} dx\,dy \]</span></p>
+<h4 id="柱面坐标系">柱面坐标系</h4>
+<p>底面为极坐标系，z 轴与之垂直。与直角坐标系的转化：</p>
+<p><span class="math display">\[ \underset{D}{\int\int\int} f(x,y,z) dx\,dy\,dz= \underset{D}{\int\int\int} f(r\cos \theta, r\sin \theta, z) r \, dr\, d\theta\,dz \]</span></p>
+<p>如果被积函数含有如 <span class="math inline">\(x^2+y^2\)</span> 形式，或 D 的边界含有圆柱时，使用柱面积分可能比较容易。积分步骤参考直角坐标系的投影法及截面法。</p>
+<h4 id="球面坐标系">球面坐标系</h4>
+<ul>
+<li><span class="math inline">\(\rho\)</span> —— 点到原点距离</li>
+<li><span class="math inline">\(\varphi\)</span> —— 与正 z 轴夹角 <span class="math inline">\(\in [0,\pi]\)</span></li>
+<li><span class="math inline">\(\theta\)</span> —— 与 x 轴夹角</li>
 </ul>
 <p>与直角坐标系的转化：</p>
-<p>$$ \underset{D}{\int\int\int} f(x,y,z) dx\,dy\,dz= \underset{D}{\int\int\int} f(\rho \sin \varphi \cos \theta,\; \rho \sin \varphi \sin \theta,\; \rho \cos \varphi) \rho^2 \sin \varphi \, d\rho \, d\varphi\,d\theta $$</p>
-<p>如果被积函数含有如 $x^2+y^2+z^2$ 形式，或 D 的边界含有球时，使用球面积分可能比较容易。积分步骤参考直角体系的投影法。</p>
-<h3 id="物理应用"><a href="#物理应用" class="headerlink" title="物理应用"></a>物理应用</h3><h4 id="质心"><a href="#质心" class="headerlink" title="质心"></a>质心</h4><p><strong>密度均匀</strong> 时，有</p>
-<p>$$ \overline{x} = \frac{\int<em>{\Omega} x \,d\Omega}{\int</em>{\Omega} \,d\Omega},\quad \overline{y} = \frac{\int<em>{\Omega} y \,d\Omega}{\int</em>{\Omega} \,d\Omega},\quad \overline{z} = \frac{\int<em>{\Omega} z \,d\Omega}{\int</em>{\Omega} \,d\Omega} $$</p>
-<h3 id="解题技巧"><a href="#解题技巧" class="headerlink" title="解题技巧"></a>解题技巧</h3><h4 id="变换积分顺序或方法"><a href="#变换积分顺序或方法" class="headerlink" title="变换积分顺序或方法"></a>变换积分顺序或方法</h4><p>证明题中可能用上</p>
-<h4 id="轮换"><a href="#轮换" class="headerlink" title="轮换"></a>轮换</h4><p>被积函数与积分区域可轮换时适用</p>
+<p><span class="math display">\[ \underset{D}{\int\int\int} f(x,y,z) dx\,dy\,dz= \underset{D}{\int\int\int} f(\rho \sin \varphi \cos \theta,\; \rho \sin \varphi \sin \theta,\; \rho \cos \varphi) \rho^2 \sin \varphi \, d\rho \, d\varphi\,d\theta \]</span></p>
+<p>如果被积函数含有如 <span class="math inline">\(x^2+y^2+z^2\)</span> 形式，或 D 的边界含有球时，使用球面积分可能比较容易。积分步骤参考直角体系的投影法。</p>
+<h3 id="物理应用">物理应用</h3>
+<h4 id="质心">质心</h4>
+<p><strong>密度均匀</strong> 时，有</p>
+<p><span class="math display">\[ \overline{x} = \frac{\int_{\Omega} x \,d\Omega}{\int_{\Omega} \,d\Omega},\quad \overline{y} = \frac{\int_{\Omega} y \,d\Omega}{\int_{\Omega} \,d\Omega},\quad \overline{z} = \frac{\int_{\Omega} z \,d\Omega}{\int_{\Omega} \,d\Omega} \]</span></p>
+<h3 id="解题技巧">解题技巧</h3>
+<h4 id="变换积分顺序或方法">变换积分顺序或方法</h4>
+<p>证明题中可能用上</p>
+<h4 id="轮换">轮换</h4>
+<p>被积函数与积分区域可轮换时适用</p>
 
           
         
@@ -1410,462 +1856,45 @@
           
             <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="概率论与数理统计">概率论与数理统计</a>
 <p>参考： <a href="http://www.cnblogs.com/vamei/p/3460965.html" target="_blank" rel="noopener">中心极限定律 - Vamei</a></p>
-<h3 id="随机变量序列收敛的定义"><a href="#随机变量序列收敛的定义" class="headerlink" title="随机变量序列收敛的定义"></a>随机变量序列收敛的定义</h3><h4 id="依概率收敛"><a href="#依概率收敛" class="headerlink" title="依概率收敛"></a>依概率收敛</h4><p>有随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$， 和随机变量（或常数） X，如果对任意给定的正数 $\epsilon$， 有</p>
-<p>$$ \lim_{n\rightarrow \infty} P{ |X_n-X| &lt; \epsilon } = 1 $$</p>
-<p>则称 $X_1,\;X_2,\;X_3,…,X_n,…$ 依概率收敛于 $X$</p>
-<h4 id="依分布收敛"><a href="#依分布收敛" class="headerlink" title="依分布收敛"></a>依分布收敛</h4><p>有随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$， 和随机变量（或常数） X，分别对应分布函数 $F_n(x)$ 和 $F(x)$， 如果在 $F(x)$ 的连续点 $x$ 处均有：</p>
-<p>$$ \lim_{n\rightarrow \infty} F_n(x) = F(x) $$</p>
-<p>则称 $X_1,\;X_2,\;X_3,…,X_n,…$ 依分布收敛于 $X$</p>
-<h3 id="大数定律"><a href="#大数定律" class="headerlink" title="大数定律"></a>大数定律</h3><p>随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$ 对应期望 $E(X_i)$ 都存在，对任意正实数 $\epsilon$ 有</p>
-<p>$$ \lim_{n\rightarrow \infty} P{|\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i) | &lt; \epsilon } = 1 $$</p>
-<p>即 $Y_n=\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i)$ （n=1, 2, 3…）依概率收敛于零，则称该随机变量序列服从大数定律。</p>
-<h4 id="切比雪夫大数定律"><a href="#切比雪夫大数定律" class="headerlink" title="切比雪夫大数定律"></a>切比雪夫大数定律</h4><p>随机变量序列中每个变量期望与方差存在，且方差有界，则该随机变量序列服从大数定律</p>
-<h4 id="辛软大数定律"><a href="#辛软大数定律" class="headerlink" title="辛软大数定律"></a>辛软大数定律</h4><p>随机变量序列 <strong>相互独立同分布</strong> (IID, Independent and Identically Distributed)，数学期望存在，则该随机变量序列服从大数定律</p>
-<h4 id="伯努利大数定律"><a href="#伯努利大数定律" class="headerlink" title="伯努利大数定律"></a>伯努利大数定律</h4><p>设 m 是 n 重伯努利试验中事件 A 出现的次数， p 是 A 在每次试验中发生的频率，则对任意给定的正数 $\epsilon$， 有</p>
-<p>$$ \lim_{n \rightarrow \infty} P{ |\frac{m}{n} - p| &lt; \epsilon } = 1 $$</p>
+<h3 id="随机变量序列收敛的定义">随机变量序列收敛的定义</h3>
+<h4 id="依概率收敛">依概率收敛</h4>
+<p>有随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span>， 和随机变量（或常数） X，如果对任意给定的正数 <span class="math inline">\(\epsilon\)</span>， 有</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} P\{ |X_n-X| &lt; \epsilon \} = 1 \]</span></p>
+<p>则称 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 依概率收敛于 <span class="math inline">\(X\)</span></p>
+<h4 id="依分布收敛">依分布收敛</h4>
+<p>有随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span>， 和随机变量（或常数） X，分别对应分布函数 <span class="math inline">\(F_n(x)\)</span> 和 <span class="math inline">\(F(x)\)</span>， 如果在 <span class="math inline">\(F(x)\)</span> 的连续点 <span class="math inline">\(x\)</span> 处均有：</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} F_n(x) = F(x) \]</span></p>
+<p>则称 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 依分布收敛于 <span class="math inline">\(X\)</span></p>
+<h3 id="大数定律">大数定律</h3>
+<p>随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 对应期望 <span class="math inline">\(E(X_i)\)</span> 都存在，对任意正实数 <span class="math inline">\(\epsilon\)</span> 有</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} P\{|\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i) | &lt; \epsilon \} = 1 \]</span></p>
+<p>即 <span class="math inline">\(Y_n=\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i)\)</span> （n=1, 2, 3…）依概率收敛于零，则称该随机变量序列服从大数定律。</p>
+<h4 id="切比雪夫大数定律">切比雪夫大数定律</h4>
+<p>随机变量序列中每个变量期望与方差存在，且方差有界，则该随机变量序列服从大数定律</p>
+<h4 id="辛软大数定律">辛软大数定律</h4>
+<p>随机变量序列 <strong>相互独立同分布</strong> (IID, Independent and Identically Distributed)，数学期望存在，则该随机变量序列服从大数定律</p>
+<h4 id="伯努利大数定律">伯努利大数定律</h4>
+<p>设 m 是 n 重伯努利试验中事件 A 出现的次数， p 是 A 在每次试验中发生的频率，则对任意给定的正数 <span class="math inline">\(\epsilon\)</span>， 有</p>
+<p><span class="math display">\[ \lim_{n \rightarrow \infty} P\{ |\frac{m}{n} - p| &lt; \epsilon \} = 1 \]</span></p>
 <p>其实是随机变量服从伯努利分布的辛软大数定律的形式</p>
-<h3 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h3><p>随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$ 的 <strong>标准化随机变量序列</strong> 通项为</p>
-<p>$$ Z_n = \frac{\sum X_i - \sum E(X_i)}{\sqrt{\sum D(X_i)}},\quad (n = 1,\;2,\;…) $$</p>
-<p>记 $Z_n$ 的分布函数为 $F_n(z)$， 如果满足</p>
-<p>$$ \lim_{n\rightarrow \infty} F_n(z) = \Phi(z) $$</p>
-<p>即随机变量序列 <strong>${Z_n}$ 依分布收敛于标准正态分布</strong>，则称随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$ 服从中心极限定理。</p>
-<h4 id="独立同分布中心极限定理"><a href="#独立同分布中心极限定理" class="headerlink" title="独立同分布中心极限定理"></a>独立同分布中心极限定理</h4><p>随机变量序列相互独立同分布，且期望与方差存在，则服从中心极限定理。</p>
-<p>$E(X)=\mu,\;D(x)=\sigma$， 常用计算公式：</p>
-<p>$$ P{ x<em>1 \le \sum</em>{i=1}^n X_i \le x_2 } = P{ \frac{x_1 - n\mu}{\sqrt{n\sigma}} \le Z_n \le \frac{x_2 - n\mu}{\sqrt{n\sigma}}} \approx \Phi(\frac{x_2 - n\mu}{\sqrt{n\sigma}}) - \Phi(\frac{x_1 - n\mu}{\sqrt{n\sigma}}) $$</p>
-<h4 id="棣莫弗——拉普拉斯中心极限定理"><a href="#棣莫弗——拉普拉斯中心极限定理" class="headerlink" title="棣莫弗——拉普拉斯中心极限定理"></a>棣莫弗——拉普拉斯中心极限定理</h4><p>随机变量 $Y_n \sim B(n,p),\; (n=1,\;2,…)$， 则对任意实数 $x$ 有</p>
-<p>$$ \lim_{n \rightarrow \infty} P{ \frac{Y_n - np}{\sqrt{np(1-p)}} \le x} = \Phi(x) $$</p>
+<h3 id="中心极限定理">中心极限定理</h3>
+<p>随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 的 <strong>标准化随机变量序列</strong> 通项为</p>
+<p><span class="math display">\[ Z_n = \frac{\sum X_i - \sum E(X_i)}{\sqrt{\sum D(X_i)}},\quad (n = 1,\;2,\;...) \]</span></p>
+<p>记 <span class="math inline">\(Z_n\)</span> 的分布函数为 <span class="math inline">\(F_n(z)\)</span>， 如果满足</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} F_n(z) = \Phi(z) \]</span></p>
+<p>即随机变量序列 <strong><span class="math inline">\(\{Z_n\}\)</span> 依分布收敛于标准正态分布</strong>，则称随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 服从中心极限定理。</p>
+<h4 id="独立同分布中心极限定理">独立同分布中心极限定理</h4>
+<p>随机变量序列相互独立同分布，且期望与方差存在，则服从中心极限定理。</p>
+<p><span class="math inline">\(E(X)=\mu,\;D(x)=\sigma\)</span>， 常用计算公式：</p>
+<p><span class="math display">\[ P\{ x_1 \le \sum_{i=1}^n X_i \le x_2 \} = P\{ \frac{x_1 - n\mu}{\sqrt{n\sigma}} \le Z_n \le \frac{x_2 - n\mu}{\sqrt{n\sigma}}\} \approx \Phi(\frac{x_2 - n\mu}{\sqrt{n\sigma}}) - \Phi(\frac{x_1 - n\mu}{\sqrt{n\sigma}}) \]</span></p>
+<h4 id="棣莫弗拉普拉斯中心极限定理">棣莫弗——拉普拉斯中心极限定理</h4>
+<p>随机变量 <span class="math inline">\(Y_n \sim B(n,p),\; (n=1,\;2,...)\)</span>， 则对任意实数 <span class="math inline">\(x\)</span> 有</p>
+<p><span class="math display">\[ \lim_{n \rightarrow \infty} P\{ \frac{Y_n - np}{\sqrt{np(1-p)}} \le x\} = \Phi(x) \]</span></p>
 <p>其实是随机变量序列相互独立同伯努利分布的中心极限定理表现形式</p>
-<h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><h4 id="切比雪夫不等式"><a href="#切比雪夫不等式" class="headerlink" title="切比雪夫不等式"></a>切比雪夫不等式</h4><p>随机变量 X 的期望与方差存在，则对任意正常数 $\epsilon$， 下列不等式成立：</p>
-<p>$$ P{ |X - E(x)| \ge \epsilon } \le \frac{D(X)}{\epsilon^2}, \quad 即\; P{ |X - E(x)| &lt; \epsilon } \ge 1 - \frac{D(X)}{\epsilon^2} $$</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/08/Math-PrStats-twoVariable/" itemprop="url">
-                  二维随机变量及其概率分布
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-08T19:55:21+08:00" content="2016-09-08">
-              2016-09-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="概率论与数理统计">概率论与数理统计</a>
-<p>参考： <a href="http://www.cnblogs.com/vamei/p/3226755.html" target="_blank" rel="noopener">随机变量函数 - Vamei</a></p>
-<h3 id="联合分布函数"><a href="#联合分布函数" class="headerlink" title="联合分布函数"></a>联合分布函数</h3><h4 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h4><ul>
-<li>$P { x_1 &lt; X \le x_2,\;\; y_1 &lt; Y \le y_2 } \ge 0$</li>
-<li>分别对 x，y 单调不降，即 $x_1 &lt; x_2$ 有 $F(x_1,y) \le F(x_2,y)$</li>
-<li>对每个变量 F(x,y) 是右连续的，有 $\lim_{x\rightarrow x_0^+} F(x,y)= F(x_0,y)$</li>
-<li>$0\le F(x,y) \le 1$ 且 $\lim<em>{x\rightarrow -\infty} F(x,y) =0$ 且 $\lim</em>{x\rightarrow +\infty,\;y\rightarrow +\infty} F(x,y) =1$</li>
-</ul>
-<h4 id="联合分布律"><a href="#联合分布律" class="headerlink" title="联合分布律"></a>联合分布律</h4><p>$$ P{ X = x_i, Y= y<em>i } = p</em>{ij} $$</p>
-<h5 id="性质-1"><a href="#性质-1" class="headerlink" title="性质"></a>性质</h5><ul>
-<li>$p_{ij}$ 和为 1</li>
-<li>$P{ X = x<em>i}=p</em>{i\cdot}$ 边缘分布函数</li>
-</ul>
-<h4 id="联合概率密度"><a href="#联合概率密度" class="headerlink" title="联合概率密度"></a>联合概率密度</h4><p>$$ F(x,y) = \int<em>{-\infty}^x \int</em>{-\infty}^y f(u,v) \; du\;dv $$</p>
-<h5 id="边缘概率密度"><a href="#边缘概率密度" class="headerlink" title="边缘概率密度"></a>边缘概率密度</h5><p> $$ f<em>X(x) = \int</em>{-\infty}^{+\infty} f(x,y) dy $$</p>
-<h5 id="概率由密度函数计算"><a href="#概率由密度函数计算" class="headerlink" title="概率由密度函数计算"></a>概率由密度函数计算</h5><p>$$ P{ (X,Y) \in G } = \underset{G}{\int\int} f(x,y) d\sigma $$</p>
-<h4 id="二维均匀分布"><a href="#二维均匀分布" class="headerlink" title="二维均匀分布"></a>二维均匀分布</h4><p>$$ f(x,y) = \left{ \begin{array}{l}<br>\frac{1}{S(G)},\quad (x,y) \in G \<br>0,\quad (x,y) \notin G<br>\end{array} \right. $$</p>
-<h4 id="二维正态分布"><a href="#二维正态分布" class="headerlink" title="二维正态分布"></a>二维正态分布</h4><p>$(X,Y) \sim N(\mu_1, \sigma^2; \mu_2, \sigma_2^2; \rho)$， $-1 &lt; \rho &lt; 1$</p>
-<p>当 $\rho=0$，</p>
-<p>$$ \varphi(x,y) = \frac{1}{2 \pi \sigma_1 \sigma_2} \exp(-\frac{1}{2} ( \frac{(x-\mu_1)^2}{\sigma_1^2} + \frac{(y-\mu_2)^2}{\sigma_2^2} ) ) $$</p>
-<p>有：若 $(X,Y) \sim N(\mu_1, \sigma^2; \mu_2, \sigma_2^2; \rho)$， 则 $X\sim N(\mu_1,\sigma_1^2)$, $Y\sim N(\mu_2,\sigma_2^2)$， 所以二维正态随机变量的边缘分布仍为正态分布。</p>
-<h3 id="随机变量的独立性"><a href="#随机变量的独立性" class="headerlink" title="随机变量的独立性"></a>随机变量的独立性</h3><p>满足 $P{ X \le x,\; Y\le y } = P{ X \le x} P{Y \le x}$， 则 X 与 Y 相互独立。</p>
-<p>离散型的等价条件： $P{ X = x,\; Y = y } = P{ X = x} P{Y = x}$</p>
-<p>连续型的等价条件： $f(x,y)=f_X(x)f_Y(y)$</p>
-<h3 id="条件分布"><a href="#条件分布" class="headerlink" title="条件分布"></a>条件分布</h3><h4 id="条件分布律"><a href="#条件分布律" class="headerlink" title="条件分布律"></a>条件分布律</h4><p>对离散型，有：</p>
-<p>$$ P{ X = x_i,\; Y =  y<em>i} = \frac{p</em>{ij}}{p_{\cdot j}} $$</p>
-<h4 id="条件概率密度"><a href="#条件概率密度" class="headerlink" title="条件概率密度"></a>条件概率密度</h4><p>若 $f(x,y)$， $f_Y(y)$ 在 $(x,y)$ 及邻域连续，则</p>
-<p>$$ f_{X|Y}(x|y) = \frac{f(x,y)}{f_Y(y)} $$</p>
-<p>条件概率计算：</p>
-<p>$$ P{ a &lt; X \le b | Y = c }  = \int<em>a^b f</em>{X|Y}(x|c) dx $$</p>
-<h3 id="求解技巧"><a href="#求解技巧" class="headerlink" title="求解技巧"></a>求解技巧</h3><h4 id="随机变量函数的分布"><a href="#随机变量函数的分布" class="headerlink" title="随机变量函数的分布"></a><a href="http://www.cnblogs.com/vamei/p/3226755.html" target="_blank" rel="noopener">随机变量函</a>数的分布</h4><h5 id="连续型单调函数"><a href="#连续型单调函数" class="headerlink" title="连续型单调函数"></a>连续型单调函数</h5><p>连续型随机变量 X 有概率密度 $f_X(x),\; x\in R$， $Y=g(X) \in (a,b)$ 为 <strong>可导单调</strong> 函数，则 Y 为连续型随机变量，其概率密度为：</p>
-<p>$$ f_Y(y) = \left{ \begin{array}{l}<br>f_X(g^{-1}(y)) \cdot g^{-1’}(y),\quad  y \in (a,b) \<br>0,\quad 其他<br>\end{array} \right. $$</p>
-<p>来源： $f_Y(y)=F’(g^{-1}(y))$</p>
-<h5 id="一般解法"><a href="#一般解法" class="headerlink" title="一般解法"></a>一般解法</h5><p>已知 $X$ 的概率密度 $f(x)$ 及 $Y=g(X)$</p>
-<ol>
-<li>根据 $g(X)$ 对 $y$ 分段，注意 <strong>区间右连续</strong></li>
-<li>$F(y)=P{ g(X) \le y }$， 求解 $X$ 的取值范围</li>
-<li>根据 X 分布求解出 $F(y)$</li>
-</ol>
-<h4 id="求解条件概率密度"><a href="#求解条件概率密度" class="headerlink" title="求解条件概率密度"></a>求解条件概率密度</h4><p>已知联合概率密度 $f(x,y)$， 求解 $f_{X|Y}(x|y)$</p>
-<ol>
-<li>作积分区域图</li>
-<li>求解边缘概率密度 $f_Y(y)$</li>
-<li>对 $y$ 分段讨论，求解条件概率密度</li>
-</ol>
-<h4 id="两个随机变量简单函数的概率密度"><a href="#两个随机变量简单函数的概率密度" class="headerlink" title="两个随机变量简单函数的概率密度"></a>两个随机变量简单函数的概率密度</h4><h5 id="Z-X-Y"><a href="#Z-X-Y" class="headerlink" title="Z = X + Y"></a>Z = X + Y</h5><p>利用公式</p>
-<p>$$ f<em>Z(z) = \int</em>{-\infty}^{+\infty} f(x, z-x) dx $$</p>
-<ol>
-<li>求解 $f(x,y)$</li>
-<li>转化 $f(x, z-x)$</li>
-<li>作 z - x 积分区域图</li>
-<li>利用公式求得 $f_Z(z)$， 可能需要对 z 分段</li>
-</ol>
-<h5 id="一般方法"><a href="#一般方法" class="headerlink" title="一般方法"></a>一般方法</h5><ol>
-<li>求解 $f(x,y)$</li>
-<li>作 y - x 积分区域图</li>
-<li>对 z 分段讨论，二重积分得到 z 的分布函数</li>
-<li>对分布函数求导</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/02/Math-PrStats-cheatSheet/" itemprop="url">
-                  概率论与数理统计
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T19:55:21+08:00" content="2016-09-02">
-              2016-09-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="系列笔记"><a href="#系列笔记" class="headerlink" title="系列笔记"></a>系列笔记</h3><ul>
-<li><a href="/2016/09/08/Math-PrStats-twoVariable/" title="二维随机变量及其概率分布">二维随机变量及其概率分布</a></li>
-<li><a href="/2016/09/10/Math-PrStats-largeNumbers/" title="大数定律与中心极限定理">大数定律与中心极限定理</a></li>
-<li><a href="/2016/09/21/Math-PrStats-statistics/" title="数理统计基本概念">数理统计基本概念</a></li>
-<li><a href="/2016/09/21/Math-PrStats-estimationTesting/" title="参数估计与假设检验">参数估计与假设检验</a>
-</li>
-</ul>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="http://www.ruanyifeng.com/blog/2015/06/poisson-distribution.html" target="_blank" rel="noopener">泊松分布与指数分布</a></li>
-<li><a href="http://www.cnblogs.com/vamei/p/3224111.html" target="_blank" rel="noopener">联合分布 - Vamei</a></li>
-<li><a href="http://www.cnblogs.com/vamei/p/3416138.html" target="_blank" rel="noopener">协方差与相关系数 - Vamei</a></li>
-</ul>
-<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="基本事件"><a href="#基本事件" class="headerlink" title="基本事件"></a>基本事件</h4><p>随机试验发生的一个简单的事件。若干基本事件组合成 <strong>复合事件</strong>。</p>
-<h4 id="样本空间"><a href="#样本空间" class="headerlink" title="样本空间"></a>样本空间</h4><p>由全体基本事件所组成的集合，每个基本事件称为 <strong>样本点</strong>。</p>
-<h4 id="随机事件"><a href="#随机事件" class="headerlink" title="随机事件"></a>随机事件</h4><p>样本空间的一个子集。</p>
-<h5 id="互斥与对立"><a href="#互斥与对立" class="headerlink" title="互斥与对立"></a>互斥与对立</h5><p>事件 $A$ 与 $B$ 互斥： $A \cap B=\varnothing$ \<br>事件 $A$ 与 $B$ 对立： $A \cap B=\varnothing$ 且 $A \cup B=\Omega$</p>
-<h5 id="相互独立"><a href="#相互独立" class="headerlink" title="相互独立"></a>相互独立</h5><p>事件 A，B 满足： $P(AB)=P(A)P(B)$， 即 <strong>一事件的发生不会影响到另一事件发生的概率</strong>，与 <strong>互斥事件</strong> 明显不同。</p>
-<p>事件 A, B 相互独立，则 A 与 $\overline{B}$， $\overline{A}$ 与 B， $\overline{A}$ 与 B 相互独立。</p>
-<h5 id="完备事件组"><a href="#完备事件组" class="headerlink" title="完备事件组"></a>完备事件组</h5><p>设 $\Omega$ 为样本空间，$B_1,\;B_2,\;…B_n$ 为一组对立事件，即：</p>
-<ul>
-<li>$B_i \cap B_j = \varnothing$</li>
-<li>$B_1 \cup B_2 \cup … \cup B_n = \Omega$</li>
-</ul>
-<p>称 $B_1,\;B_2,\;…B_n$ 为 $\Omega$ 的一个 <strong>划分</strong> 或 <strong>完备事件组</strong>。</p>
-<h4 id="古典概率"><a href="#古典概率" class="headerlink" title="古典概率"></a>古典概率</h4><p>$$ P(A) = \frac{A 所含基本事件个数}{基本事件总数} $$</p>
-<p><strong>几何型概率</strong>： 每个事件发生的概率只与构成该事件区域的长度（面积或体积或度数）成比例</p>
-<h4 id="随机变量"><a href="#随机变量" class="headerlink" title="随机变量"></a>随机变量</h4><p>设 $\Omega$ 是随机试验的样本空间，若对于每个样本点 $\omega \in \Omega$， 都有 <strong>唯一的实数</strong> $X(\omega)$ 与之对应，称 $X$ 为随机变量。由定义可知，<strong>随机变量实质上是函数</strong>。</p>
-<h4 id="分布函数"><a href="#分布函数" class="headerlink" title="分布函数"></a>分布函数</h4><p>设 $\Omega$ 是随机试验的样本空间， $x$ 是任意实数，称函数</p>
-<p>$$ F(x) = P{X \le x} = P{ \omega : X(\omega) \le x } $$</p>
-<p>为 <strong>随机变量 X 的分布函数</strong>， $F(x)$ 也可记为 $F_X(x)$</p>
-<h4 id="概率分布"><a href="#概率分布" class="headerlink" title="概率分布"></a>概率分布</h4><p>狭义地，指随机变量的概率分布函数</p>
-<h4 id="n-维随机变量"><a href="#n-维随机变量" class="headerlink" title="n 维随机变量"></a>n 维随机变量</h4><p>n 个随机变量 $(X_1, X_2,…,X_n)$ 同一个样本空间</p>
-<h4 id="联合分布函数"><a href="#联合分布函数" class="headerlink" title="联合分布函数"></a>联合分布函数</h4><p>$$ F(x,y) = P{ X \le x, Y \le y } $$</p>
-<p>$F_X(x),\; F_Y(y)$ 分别为 <strong>边缘分布函数</strong>， 有：</p>
-<p>$$ F<em>X(x) = \lim</em>{y \rightarrow +\infty} F(x,y) $$</p>
-<h3 id="离散型随机变量与及其分布"><a href="#离散型随机变量与及其分布" class="headerlink" title="离散型随机变量与及其分布"></a>离散型随机变量与及其分布</h3><h4 id="离散型随机变量"><a href="#离散型随机变量" class="headerlink" title="离散型随机变量"></a>离散型随机变量</h4><p>全部可能的取值只有 <strong>有限个</strong> 或 <strong>可列无穷个</strong> 的随机变量。\<br>离散型随机变量的 <strong>分布律</strong>： $P{ X=x_i } = p_i$， 常用表格表示。</p>
-<h4 id="伯努利分布"><a href="#伯努利分布" class="headerlink" title="伯努利分布"></a>伯努利分布</h4><p>又称 <strong>两点分布</strong>， <strong>0-1分布</strong>， 由 <strong>伯努利试验</strong> 得到，其样本空间只有两个对立的样本点。</p>
-<h4 id="二项分布"><a href="#二项分布" class="headerlink" title="二项分布"></a>二项分布</h4><p>n 次重复独立的伯努利试验称为 <strong>n 重伯努利试验</strong>。\<br>二项分布（Binomial Distribution）是 n 重伯努利试验中成功次数的离散概率分布，记每次试验的成功概率为 p，成功次数为 k，随机变量 X=k，则 X 的分布律为：</p>
-<p>$$ P{X=k}=P_n(k) = C_n^k p^k(1-p)^{n-k} $$</p>
-<p>X 服从二项分布，记 $X\sim B(n,p)$。 X 可视作 n 个同伯努利分布随机变量之和。</p>
-<h4 id="几何分布"><a href="#几何分布" class="headerlink" title="几何分布"></a>几何分布</h4><ul>
-<li>在伯努利试验中，得到一次成功所需要的試驗次数 X</li>
-<li>在得到第一次成功之前所经历的失败次数 Y = X − 1</li>
-</ul>
-<p>X，Y 服从几何分布，其分布律分别为</p>
-<p>$$ P{ X=k } = (1-p)^kp.\quad P{ Y=k } = (1-p)^{k-1}p$$</p>
-<p>因其分布律为等比数列，又称几何数列而得名。</p>
-<h4 id="超几何分布"><a href="#超几何分布" class="headerlink" title="超几何分布"></a>超几何分布</h4><p>从 N 个物件中不放回地抽取 n 个，抽取到（初始）总数为 M 的物件的个数 X=k 服从超几何分布，记 $X \sim H(n,M,N)$, $X$ 的分布律为：</p>
-<p>$$ P{ X=k } = \frac{C<em>M^kC</em>{N-M}^{n-k}}{C_N^n} $$</p>
-<p>因其分布律数列前后项之比是一个关于 k 的函数，故称为超几何分布。如果 N，M 无穷大，每次抽出指定物件的概率几乎不变，退化为二项分布。</p>
-<h4 id="泊松分布"><a href="#泊松分布" class="headerlink" title="泊松分布"></a>泊松分布</h4><p>泊松分布由二项分布 <a href="http://baike.baidu.com/view/79815.htm" target="_blank" rel="noopener">极限近似推导</a> 而成，当 $X \sim B(n,p)$ 中 <strong>$n$ 很大 $p$ 很小</strong> 时，可视为 X 近似服从泊松分布（$\lambda=np$），记 $X \sim P(\lambda)$， 其分布律为：</p>
-<p>$$ P(X=k) = \frac{\lambda^k}{k!} e^{-\lambda} $$</p>
-<p>泊松分布可用于描述随机事件发生的次数，如某一服务设施到达的人数，其中 $\lambda$ 是随机事件的平均发生次数。</p>
-<h3 id="连续型随机变量与及其分布"><a href="#连续型随机变量与及其分布" class="headerlink" title="连续型随机变量与及其分布"></a>连续型随机变量与及其分布</h3><h4 id="连续型随机变量与概率密度函数"><a href="#连续型随机变量与概率密度函数" class="headerlink" title="连续型随机变量与概率密度函数"></a>连续型随机变量与概率密度函数</h4><p>对随机变量 X 的分布函数 $F(x)$， 存在非负函数 $f(x)$， 满足</p>
-<p>$$ F(x) = \int_{-\infty}^x f(u) du $$</p>
-<p>则 X 是 <strong>连续型随机变量</strong>， 称 $f(x)$ 为 X 的 <strong>概率密度函数</strong>。 注意， $f(x)$ <strong>可积而不一定连续</strong>， 故 F(x) 不一定可导。</p>
-<h4 id="均匀分布"><a href="#均匀分布" class="headerlink" title="均匀分布"></a>均匀分布</h4><p>$X \sim U(a,b)$， 概率密度：</p>
-<p>$$ f(x) = \left{ \begin{array}{l}<br>\frac{1}{b-a},\quad a &lt; x &lt; b \<br>0, \quad 其它<br>\end{array} \right. $$</p>
-<h4 id="指数分布"><a href="#指数分布" class="headerlink" title="指数分布"></a>指数分布</h4><p>$X \sim Exp(\lambda)$， 概率密度：</p>
-<p>$$ f(x) = \left{ \begin{array}{l}<br>\lambda e^{-\lambda x},\quad x \ge 0 \<br>0, \quad x &lt; 0<br>\end{array} \right. $$</p>
-<p>指数分布描述独立随机事件发生的间隔，如电子元件下次损坏的时间，其中 $\lambda$ 为平均发生次数。具有 <strong>无记忆性</strong>：</p>
-<p>$$ P{ X &gt; t + s \ | X &gt; t}  = P{ X &gt; s } $$</p>
-<h4 id="正态分布"><a href="#正态分布" class="headerlink" title="正态分布"></a>正态分布</h4><p>$X \sim N(\mu, \sigma^2)$， 概率密度：</p>
-<p>$$ \varphi(x;\mu, \sigma^2) = \frac{1}{\sigma \sqrt{2 \pi}} \exp( \frac{-(x-\mu)^2}{2 \sigma^2} ) $$</p>
-<p>正态分布具有可加性： $X\sim N(\mu_1, \sigma_1^2),\; Y\sim N(\mu_2, \sigma_2^2)$， 则 $X\pm Y \sim N(\mu_1 \pm \mu_2, \sigma_1^2+\sigma_2^2)$</p>
-<h5 id="标准正态分布"><a href="#标准正态分布" class="headerlink" title="标准正态分布"></a>标准正态分布</h5><p>$X \sim N(0,1)$， 概率密度：</p>
-<p>$$ \varphi(x) = \frac{1}{\sqrt{2 \pi}} \exp( \frac{-x^2}{2} ) $$</p>
-<h5 id="上侧-alpha-分位数"><a href="#上侧-alpha-分位数" class="headerlink" title="上侧 $\alpha$ 分位数"></a>上侧 $\alpha$ 分位数</h5><p>对连续型随机变量 X：</p>
-<p>$$ P{ X \ge u<em>\alpha } = \int</em>{u_\alpha}^{+\infty} f(x) dx = \alpha $$</p>
-<p>称 $u_\alpha$ 为上侧 $\alpha$ 分位数</p>
-<h3 id="随机变量的数字特征"><a href="#随机变量的数字特征" class="headerlink" title="随机变量的数字特征"></a>随机变量的数字特征</h3><h4 id="（数学）期望"><a href="#（数学）期望" class="headerlink" title="（数学）期望"></a>（数学）期望</h4><p>离散型：</p>
-<p>$$ E(X) = \sum_{i=1}^{\infty} x_i p_i $$</p>
-<p>连续型：</p>
-<p>$$ E(X) = \int_{-\infty}^{+\infty} x f(x) dx $$</p>
-<p>又称随机变量 X 的 <strong>均值</strong>。</p>
-<h4 id="方差"><a href="#方差" class="headerlink" title="方差"></a>方差</h4><p>$$ D(X)=E{[X-E(X)]^2} $$</p>
-<p>常用计算 $D(X)=E(X^2)-[E(X)]^2$</p>
-<p><strong>标准差</strong> 或 <strong>均方差</strong>： $\sigma(X)=\sqrt{D(X)}$</p>
-<h4 id="协方差"><a href="#协方差" class="headerlink" title="协方差"></a>协方差</h4><p>$$ cov(X,Y) = E{ [X-E(X)] [Y-E(Y)] } $$</p>
-<p>特别有 $D(X) = cov(X,X)$</p>
-<p>常用计算： $cov(X,Y)=E(XY)-E(X)E(Y)$</p>
-<h4 id="相关系数"><a href="#相关系数" class="headerlink" title="相关系数"></a>相关系数</h4><p>$$ \rho_{XY} = \frac{cov(X,Y)}{\sqrt{D(X)D(Y)}} $$</p>
-<p>$\rho<em>{XY} \in [-1,1]$， 当 $\rho</em>{XY}=0$， 称 $X,\;Y$ <strong>不相关</strong>，当 $\rho<em>{XY}=1$， 称 <strong>正相关</strong>，当 $\rho</em>{XY}=-1$， 称 <strong>负相关</strong>。</p>
-<p>若 X 与 Y 相互独立，则 X 与 Y 不相关，反之则不一定</p>
-<h4 id="矩"><a href="#矩" class="headerlink" title="矩"></a>矩</h4><p><strong>k 阶原点矩</strong>：</p>
-<p>$$ \gamma_k = E(X^k) $$</p>
-<p><strong>k 阶中心矩</strong>：</p>
-<p>$$ \mu_k = E{ (X-E(X))^k } $$</p>
-<p><strong>k 阶绝对原点矩</strong>： $\alpha_k = E(|X|^k)$\<br><strong>k 阶绝对中心矩</strong>： $\beta_k = E{ |X-E(X)|^k }$</p>
-<p>一阶中心矩 $\mu_1=0$， 二阶中心矩 $\mu_2$ 即方差</p>
-<h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><h4 id="概率运算公式"><a href="#概率运算公式" class="headerlink" title="概率运算公式"></a>概率运算公式</h4><h5 id="加法公式"><a href="#加法公式" class="headerlink" title="加法公式"></a>加法公式</h5><p>$$ P(A\cup B)=P(A) + P(B) - P(AB) $$</p>
-<h5 id="减法公式"><a href="#减法公式" class="headerlink" title="减法公式"></a>减法公式</h5><p>$$ P(A-B)=P(A\overline{B})=P(A)-P(AB) $$</p>
-<h5 id="乘法公式"><a href="#乘法公式" class="headerlink" title="乘法公式"></a>乘法公式</h5><p>$$ P(AB) = P(B)P(A|B) $$</p>
-<h4 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h4><p>$$ P(A|B) = \frac{P(AB)}{P(B)} \quad (P(B)&gt;0) $$</p>
-<h4 id="全概率公式"><a href="#全概率公式" class="headerlink" title="全概率公式"></a>全概率公式</h4><p>$$ P(A) = \sum_{i=1}^{n} P(B_i)P(A|B_i) $$</p>
-<p>其中 $B_1,\;B_2,\;…B_n$ 为完备事件组。</p>
-<h4 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h4><p>$$ P(B_i | A)=\frac{ P(B_i)P(A|B<em>i) }{ \sum</em>{j=1}^n P(B_j)P(A|B_j) } $$</p>
-<p>其中 $B_1,\;B_2,\;…B_n$ 为完备事件组。</p>
-<h4 id="概率由分布函数计算"><a href="#概率由分布函数计算" class="headerlink" title="概率由分布函数计算"></a>概率由分布函数计算</h4><p>$$ P{ a &lt; X \le b } = F(b) - F(a) $$</p>
-<p>$$ P{ X &lt; x_0 } = F(x_0 - 0)  $$</p>
-<p>$$ P{ X = x_0 } = F(x_0) - F(x_0 - 0) $$</p>
-<p>$$ P{ x_1 &lt; X \le x_2,\;\; y_1 &lt; Y \le y_2 }=F(x_2,y_2) - F(x_1,y_2) - F(x_2, y_1) + F(x_1,y_1) $$</p>
-<h4 id="正态分布计算"><a href="#正态分布计算" class="headerlink" title="正态分布计算"></a>正态分布计算</h4><p>$X \sim N(\mu, \sigma^2)$， 标准正态分布函数 $\Phi(x)$， 有：</p>
-<p>$$ P(x_1 &lt; X \le x_2) = \Phi(\frac{x_2-\mu}{\sigma}) - \Phi(\frac{x_1-\mu}{\sigma}) $$</p>
-<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><h4 id="分布函数的性质"><a href="#分布函数的性质" class="headerlink" title="分布函数的性质"></a>分布函数的性质</h4><ul>
-<li>单调不减</li>
-<li>$F(x)\in[0,1]$ 且 $\lim<em>{x\rightarrow -\infty} F(x)=0$, $\lim</em>{x\rightarrow +\infty} F(x)=1$</li>
-<li>右连续，即 $F(x+0)=F(x)$</li>
-</ul>
-<h4 id="概率密度函数性质"><a href="#概率密度函数性质" class="headerlink" title="概率密度函数性质"></a>概率密度函数性质</h4><ul>
-<li>$f(x) \ge 0$</li>
-<li>$\int_{-\infty}^{+\infty} f(x) dx=1$</li>
-<li>$P{x_1 \le X \le x<em>2} = \int</em>{x_1}^{x_2} f(x) dx$</li>
-<li>若 $f(x)$ 可导， $F’(x) = f(x)$</li>
-<li>分布函数 $F(x)$ 连续</li>
-<li>$P(X=x_0) = 0$</li>
-</ul>
-<h4 id="期望的性质"><a href="#期望的性质" class="headerlink" title="期望的性质"></a>期望的性质</h4><ul>
-<li>对常数 C 有 $E(C) = C$</li>
-<li>对常数 C 有 $E(CX)=CE(X)$</li>
-<li>$E(X+Y)=E(X)+E(Y)$</li>
-<li>$X,\; Y$ 相互独立 $E(XY)=E(X)E(Y)$</li>
-</ul>
-<h4 id="方差的性质"><a href="#方差的性质" class="headerlink" title="方差的性质"></a>方差的性质</h4><ul>
-<li>对常数 C 有 $D(C)=0$</li>
-<li>对常数 C 有 $D(CX) = C^2 D(X)$</li>
-<li>$D(X \pm Y)=D(X)+D(Y) \pm 2E{ [X-E(X)] [Y-E(Y)] }=D(X)+D(Y) \pm 2 cov(X,Y)$</li>
-<li>$X,\; Y$ 相互独立，有 $D(X \pm Y)=D(X)+D(Y)$</li>
-<li>对常数 C 有 $D(X+C)=D(X)$</li>
-</ul>
-<h4 id="常见分布的期望与方差"><a href="#常见分布的期望与方差" class="headerlink" title="常见分布的期望与方差"></a>常见分布的期望与方差</h4><p>$$ X\sim B(n,p),\quad E(X)=np,\quad D(X)=np(1-p) $$</p>
-<p>$$ X \sim P(\lambda),\quad E(X)=D(X)=\lambda $$</p>
-<p>$$ X \sim U(a,b),\quad E(X) = \frac{a+b}{2},\quad D(X)=\frac{(b-a)^2}{12} $$</p>
-<p>$$ X \sim Exp(\lambda),\quad E(X)=\frac{1}{\lambda},\quad D(X) = \frac{1}{\lambda^2} $$</p>
-<p>$$ X \sim N(\mu, \sigma^2),\quad E(X)=\mu,\quad D(X)=\sigma^2 $$</p>
-<h4 id="协方差的性质"><a href="#协方差的性质" class="headerlink" title="协方差的性质"></a>协方差的性质</h4><ul>
-<li>$cov(aX,bY)=ab \cdot cov(Y,X)$</li>
-<li>$cov(X_1+X_2, Y)=cov(X_1,Y)+cov(X_2,Y)$</li>
-</ul>
-<h4 id="期望方差等几个等价命题"><a href="#期望方差等几个等价命题" class="headerlink" title="期望方差等几个等价命题"></a>期望方差等几个等价命题</h4><ul>
-<li>$E(XY)=E(X)E(Y)$</li>
-<li>$D(X\pm Y)=D(X) + D(Y)$</li>
-<li>$cov(X,Y)=0$</li>
-<li>$\rho = 0$</li>
-</ul>
-<p>X、Y 独立是以上命题的充分条件</p>
+<h3 id="相关">相关</h3>
+<h4 id="切比雪夫不等式">切比雪夫不等式</h4>
+<p>随机变量 X 的期望与方差存在，则对任意正常数 <span class="math inline">\(\epsilon\)</span>， 下列不等式成立：</p>
+<p><span class="math display">\[ P\{ |X - E(x)| \ge \epsilon \} \le \frac{D(X)}{\epsilon^2}, \quad 即\; P\{ |X - E(x)| &lt; \epsilon \} \ge 1 - \frac{D(X)}{\epsilon^2} \]</span></p>
 
           
         
@@ -1939,7 +1968,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1956,7 +1985,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

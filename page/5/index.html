@@ -240,6 +240,269 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/12/ML-validation/" itemprop="url">
+                  模型验证
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-12T16:19:15+08:00" content="2016-08-12">
+              2016-08-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>机器学习中，“模型验证”用验证数据集对模型做测试。一般用于 <strong>模型选择</strong> ，针对多个模型在同一验证数据集的测试表现，选择表现最佳的模型。如果同种模型，有不同参数可选，也可用验证手段选择最佳参数，称为 <strong>参数选择</strong>。 （其实，同种模型不同参数也可视作不同模型，那么“参数选择”也属于“模型选择”了）</p>
+<h3 id="模型测试与验证">模型测试与验证</h3>
+<p>两者都对模型进行测试以观察模型的表现，并无本质区别。只是模型测试的目的是估计模型的实际表现。例如，在竞赛中，测试数据往往是参赛者未知的，测试由主办方进行。所以，模型测试一般是在模型确定后进行的。而模型验证的目的一般是模型选择，针对多个候选模型进行测试。验证数据一般是可知的，实际上，一般从训练数据分出一部分做验证（另一部分做训练）。在竞赛中，参赛者可能从得到的训练数据（“已知的”）中分出一部分做验证（剩下的做训练），选出自己的最佳模型。</p>
+<h3 id="验证数据">验证数据</h3>
+<p><strong>测试（不管是模型测试还是验证）数据应该与训练数据不同</strong> 。这样，训练出的模型对测试数据是“未知”的，其测试表现才能更接近于实际情况。反之，如果用训练数据测试模型，其表现与实际情况相差可能是很大的。例如，未经剪枝的 <a href="/2016/08/03/ML-MLT-8-decisionTree/" title="决策树模型">决策树模型</a> ，即完全树，在训练数据上做分类预测可以做到 0 误差，即完全正确分类，而实际应用时差许多。</p>
+<h3 id="holdout-验证">Holdout 验证</h3>
+<p>Holdout 验证是常用的模型验证方法，它随机地从原始的样本数据中抽取一部分（一般小于1/3）留做验证，剩下的作为训练数据。</p>
+<h3 id="k-folder-交叉验证">K-Folder 交叉验证</h3>
+<p>由于验证数据与训练数据必须分开，Holdout 验证又为了保证训练数据的数量，可能导致其验证数据比较少。交叉验证，即 <strong>Cross Validation（CV）</strong>，避开了上述问题。</p>
+<p>k-folder 交叉验证将样本数据分成 k 份。做 k 次训练和验证，每次取其中一份作为验证数据，其余作为训练数据。最后取 k 次验证的平均作为结果。这样，验证数据的数量与原始样本数据量持平，充分利用了原始数据。k 常取 10。</p>
+<h3 id="留一验证">留一验证</h3>
+<p>留一验证，即 <strong>Leave One Out Cross Validation，记为LOOCV</strong> ，是 K-Folder 交叉验证中的特殊情况。顾名思义，每次只留下一笔数据做验证，相当于 K-Folder 交叉验证中 k 取原始样本数据量。它把 K-Folder 交叉验证的优势发挥到极致，但相应地计算量相当高。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/06/ML-MLT-9-randomForest/" itemprop="url">
+                  机器学习技法第十课——Random Forest
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-06T16:26:43+08:00" content="2016-08-06">
+              2016-08-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>此文是本人学习<a href="http://www.csie.ntu.edu.tw/~htlin/" target="_blank" rel="noopener">林轩田老师</a>教授的机器学习技法第十——Decision Tree——的笔记。</p>
+<p><strong>Random Forest</strong> 模型概括讲，就是以 <a href="/2016/08/03/ML-MLT-8-decisionTree/" title="Decision Tree">Decision Tree</a> 为基础模型，这里选择未经剪枝的完全树，用 <a href="/2016/07/23/ML-MLT-6-blendingBagging/" title="Bagging">Bagging</a> 进行集合训练。完全决策树在训练集上的零误差，对样本选择十分敏感，有较大的 varaince，但有着训练高效等优点。而 Bagging 能够降低模型预测的 varaince 误差，特别适用于对样本敏感的波动比较大的模型。所以，结合两者应该可以取得好效果。</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
+<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/210_handout.pdf" target="_blank" rel="noopener">课件</a></li>
+<li><a href="/2016/08/03/ML-MLT-8-decisionTree/" title="Decision Tree">Decision Tree</a></li>
+<li><a href="/2016/07/23/ML-MLT-6-blendingBagging/" title="Bagging">Bagging</a></li>
+<li><a href="http://www.plob.org/2012/12/19/3176.html" target="_blank" rel="noopener">置换检验</a></li>
+</ul>
+<h3 id="增强随机性">增强随机性</h3>
+<p>在 Random Forest 中，为了进一步降低算法 variance 误差，不仅抽取样本时做到随机抽取，还在选择特征时保证一定的随机性。普遍使用方式是 <em>随机选取子空间</em>。</p>
+<h4 id="随机选取子空间random-subspace">随机选取子空间（random subspace）</h4>
+<p>在训练 Decision Tree 的每一个节点时，需要按照某种准则（如基尼值）选取一个特征用于数据划分。未经处理的特征选择数目是所有特征的数目 <span class="math inline">\(M\)</span>， 为了增大随机性，随机抽取其中的 <span class="math inline">\(m\)</span> （往往 <span class="math inline">\(M,m\)</span> 差距比较大）个特征供选择。一项数据 <span class="math inline">\((\mathbf{x}, y)\)</span>， 将 <span class="math inline">\(\mathbf{x}\)</span> 视作一个空间向量，每个特征对应一个维度，所以，这个过程可以理解成随机抽取一个子空间用做训练。</p>
+<h4 id="随机结合子空间random-combination">随机结合子空间（random combination）</h4>
+<p>与<em>随机选取子空间</em>不同，随机结合子空间将数据向量 <span class="math inline">\(\mathbf{x}\)</span> 投影到另一个空间成为 <span class="math inline">\(\mathbf{x&#39;}\)</span>。 <span class="math inline">\(\mathbf{x&#39;}\)</span> 的每一维都是从原 <span class="math inline">\(\mathbf{x}\)</span> 的 <span class="math inline">\(M\)</span> 维中随机选择 <span class="math inline">\(m\)</span> 维结合（相加）而得。</p>
+<h3 id="out-of-bag-验证">Out Of Bag 验证</h3>
+<p>Bagging 采用 Bootstrapping 的方式取样，有些样本没有被抽到不能用作训练数据，称其为 Out Of Bag（简称 OOB） 数据，但它们也可以被利用起来，作为验证使用。</p>
+<p>具体做法是，在为每个 Decision Tree 抽取训练数据时就标记那些未被抽取的 OOB 数据，在整个 Random Forest 训练结束后用 OOB 做验证。在用某项 OOB 数据做验证时，该数据可能被一些 Decision Tree 用作训练数据，所以必须排除这些 Decision Tree。</p>
+<h3 id="特征选择置换重要性">特征选择——置换重要性</h3>
+<p><strong>特征选择</strong> 指从所有特征中选取对结果有影响（有用）的特征，剔除无关特征。Random Forest 能很容易实现这个功能。</p>
+<p>如果一个特征 <span class="math inline">\(x_i\)</span> 对结果 <span class="math inline">\(y\)</span> 无影响，那么 <span class="math inline">\(x_i\)</span> 与 <span class="math inline">\(y\)</span> 是否正确对应也就无关紧要。基于这个思想，研究者提出一个通过置换特征计算其重要程度的方法：</p>
+<p><span class="math display">\[ importance(i) = E_{oob}(G) - E_{oob}^{(p)}(G) \]</span></p>
+<p>其中，G 指已经训练完成的 Random Forest 模型， <span class="math inline">\(E_{oob}\)</span> 指 OOB 验证误差，未经任何处理，而 <span class="math inline">\(E_{oob}^{(p)}\)</span> 指在进行 OOB 验证前，所有 OOB 数据的第 <span class="math inline">\(i\)</span> 个特征（第 <span class="math inline">\(i\)</span> 维数值 <span class="math inline">\(x_i\)</span>）相互间进行随机置换（互换）。</p>
+<p>这个思想类似 permutation test <a href="http://www.plob.org/2012/12/19/3176.html" target="_blank" rel="noopener">置换检验</a>。</p>
+<h3 id="树越多越好">树越多越好？</h3>
+<p>老师指出，理论上讲，树越多，Random Forest 的越强，建议在预测效果不好时，适当增加树的个数。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/04/Tools-MathJax/" itemprop="url">
                   MathJax Cheat Sheet
                 </a>
@@ -303,19 +566,35 @@
       
         
           
-            <p>$$\underset{a}{\arg\min}$$</p>
-<p>$$\overline{y}$$</p>
-<p>$$ |_{a}^b,\; \big|<em>a^b,\; \bigg|</em>{a}^b $$</p>
-<p>$$ y = \left{ \begin{array}{l}<br>first\<br>second<br>\end{array} \right. $$</p>
-<p>$$<br>        \begin{bmatrix}<br>        1 &amp; x &amp; x^2 \<br>        1 &amp; y &amp; y^2 \<br>        1 &amp; z &amp; z^2 \<br>        \end{bmatrix}<br>$$</p>
-<p>$$<br>    \left|\begin{array}{}<br>    \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \<br>    a_1 &amp; a_2 &amp; a_3 \<br>    b_1 &amp; b_2 &amp; b_3<br>    \end{array}\right|<br>$$</p>
-<p>$$ A \cap B=\varnothing $$</p>
-<p>$$ A \cup B=\Omega $$</p>
-<p>$$ \approx $$</p>
-<p>$$ \frac{\partial z}{\partial x} $$</p>
-<p>$$ \equiv $$</p>
-<p>$$ \Leftrightarrow $$</p>
-<h3 id="MathJax"><a href="#MathJax" class="headerlink" title="MathJax"></a>MathJax</h3><p><a href="http://blog.csdn.net/lanxuezaipiao/article/details/44341645" target="_blank" rel="noopener">markdown语法之如何使用LaTeX语法编写数学公式</a></p>
+            <p><span class="math display">\[\underset{a}{\arg\min}\]</span></p>
+<p><span class="math display">\[\overline{y}\]</span></p>
+<p><span class="math display">\[ |_{a}^b,\; \big|_a^b,\; \bigg|_{a}^b \]</span></p>
+<p><span class="math display">\[ y = \left\{ \begin{array}{l}
+first\\
+second
+\end{array} \right. \]</span></p>
+<p><span class="math display">\[
+        \begin{bmatrix}
+        1 &amp; x &amp; x^2 \\
+        1 &amp; y &amp; y^2 \\
+        1 &amp; z &amp; z^2 \\
+        \end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+    \left|\begin{array}{}
+    \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
+    a_1 &amp; a_2 &amp; a_3 \\
+    b_1 &amp; b_2 &amp; b_3
+    \end{array}\right|
+\]</span></p>
+<p><span class="math display">\[ A \cap B=\varnothing \]</span></p>
+<p><span class="math display">\[ A \cup B=\Omega \]</span></p>
+<p><span class="math display">\[ \approx \]</span></p>
+<p><span class="math display">\[ \frac{\partial z}{\partial x} \]</span></p>
+<p><span class="math display">\[ \equiv \]</span></p>
+<p><span class="math display">\[ \Leftrightarrow \]</span></p>
+<h3 id="mathjax">MathJax</h3>
+<p><a href="http://blog.csdn.net/lanxuezaipiao/article/details/44341645" target="_blank" rel="noopener">markdown语法之如何使用LaTeX语法编写数学公式</a></p>
 
           
         
@@ -429,39 +708,49 @@
         
           
             <p>此文是本人学习<a href="http://www.csie.ntu.edu.tw/~htlin/" target="_blank" rel="noopener">林轩田老师</a>教授的机器学习技法第九课——Decision Tree——的笔记。这节课主要讲解 <strong>CART (Classification And Regression Tree)</strong> 算法，属于决策树。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/209_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 </ul>
-<h3 id="决策树的基本思想"><a href="#决策树的基本思想" class="headerlink" title="决策树的基本思想"></a>决策树的基本思想</h3><p>就举课上的例子好了。要处理的问题是：我回家后是否看学习视频呢？处理这个问题，首先可能想到，我是什么时候回家的呢？那么这个问题分成2种情况。如果回家很早，那么，我是不是有什么约会呢？有约会就不看了，没约会就看。如果回家晚，那么，学习的截止时间是不是快到了呢？快截止了就勉强看下吧，否则就算了。</p>
+<h3 id="决策树的基本思想">决策树的基本思想</h3>
+<p>就举课上的例子好了。要处理的问题是：我回家后是否看学习视频呢？处理这个问题，首先可能想到，我是什么时候回家的呢？那么这个问题分成2种情况。如果回家很早，那么，我是不是有什么约会呢？有约会就不看了，没约会就看。如果回家晚，那么，学习的截止时间是不是快到了呢？快截止了就勉强看下吧，否则就算了。</p>
 <p>决策树模型与上述处理问题的过程类似。决策树顾名思义，是一棵树。树的节点是决策器，决策器输入问题，稍做判断，又将问题交给某个合适的下层决策器（下层节点），最终最下层的决策器输出这个问题的处理结果。所以，在处理问题时，问题从决策树的根节点进入，经过一层层的决策，最终输出决策结果。</p>
 <p><strong>CART</strong> 是决策树中的一种，它是一棵二叉树，可处理分类或回归问题。</p>
-<h3 id="CART-训练步骤"><a href="#CART-训练步骤" class="headerlink" title="CART 训练步骤"></a>CART 训练步骤</h3><p>CART 模型训练主要分为 2 步，一、生成完全树，二、剪枝。</p>
+<h3 id="cart-训练步骤">CART 训练步骤</h3>
+<p>CART 模型训练主要分为 2 步，一、生成完全树，二、剪枝。</p>
 <p><strong>完全树</strong> 是能够将所有训练数据都完全无误地预测的决策树，即在训练集上的误差为 0。实际上，训练数据往往有误差，而完全树做到对训练数据判断的无误差，导致在实际预测时误差较大，有很大的复杂度方面的代价。所以，需要做正则化方面的工作，CART 采用的就是 <strong>剪枝</strong> 。顾名思义，剪枝会剪去完全树的部分树枝，减小模型的复杂度。</p>
-<h4 id="生成完全树"><a href="#生成完全树" class="headerlink" title="生成完全树"></a>生成完全树</h4><p>完全树的训练可用递归方式。完全树的节点是“决策器”，实际上是分类器（或回归算法）。决策器将数据大致分类（或用回归预测做大致分类），然后分别交给下层的决策器。</p>
+<h4 id="生成完全树">生成完全树</h4>
+<p>完全树的训练可用递归方式。完全树的节点是“决策器”，实际上是分类器（或回归算法）。决策器将数据大致分类（或用回归预测做大致分类），然后分别交给下层的决策器。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function trainCART：</span><br><span class="line">  - 输入：训练数据集 D</span><br><span class="line">  - 输出：CART 二叉树 Tree</span><br><span class="line">学习决策器 decisionNode，将 D 分为 Dl, Dr;</span><br><span class="line">if Dl 可以再分：</span><br><span class="line">  call trainCART 处理 Dl 得到 treeL;</span><br><span class="line">同上处理 Dr 得到 treeR;</span><br><span class="line">decisionNode 作为根节点，合并 treeL, treeR, 得到二叉树 tree;</span><br><span class="line">return tree;</span><br></pre></td></tr></table></figure>
-<h5 id="递归训练终止条件"><a href="#递归训练终止条件" class="headerlink" title="递归训练终止条件"></a>递归训练终止条件</h5><p>整个递归的终止条件是“数据是否可再分”，在两种条件下不再分。如果训练数据都相同，即 $\mathbf{x}_n$ 都相同，无法分割；如果训练数据分类都相同，即 $y_n$ 都相同，不用分割。</p>
-<h5 id="决策器选择指标与不纯度"><a href="#决策器选择指标与不纯度" class="headerlink" title="决策器选择指标与不纯度"></a>决策器选择指标与不纯度</h5><p>学习决策器时，CART 的每个决策器被称为 <strong>决策树桩（decision stump）</strong> ，每个决策树桩对输入数据进行切割。对于多个候选决策器，CART 的选择标准为：</p>
-<p>$$  \underset{decision\; stumps\; h<em>i(\mathbf{x})}{argmin} \frac{|D</em>{i,l}|}{|D|} \cdot impurity(D<em>{i,l}) + \frac{|D</em>{i,r}|}{|D|} \cdot impurity(D_{i,r})  $$</p>
-<p>其中，$h<em>i(\mathbf{x})$ 指第 $i$ 个决策树桩模型， $D$ 指训练数据， $D</em>{i,l},\; D_{i,r}$ 分别是 $h<em>i(\mathbf{x})$ 将 $D$ 划分的数据，  $\frac{|D</em>{i,l}|}{|D|}$ 计算了 $D_{i,l}$ 数据量在 $D$ 中的占比， impurity 是计算划分数据的 <strong>不纯度</strong> 函数。一个决策树桩划分的数据的不纯度越小越好。</p>
-<p>不纯度指数据中类别的不相同的程度。比如，”被判定为鸭群，有 7 只鸭和 3 只鸡”比“被判定为鸡群，有 9 只鸡和 1 只鸭”更“不纯”，前者不纯度更高。</p>
+<h5 id="递归训练终止条件">递归训练终止条件</h5>
+<p>整个递归的终止条件是“数据是否可再分”，在两种条件下不再分。如果训练数据都相同，即 <span class="math inline">\(\mathbf{x}_n\)</span> 都相同，无法分割；如果训练数据分类都相同，即 <span class="math inline">\(y_n\)</span> 都相同，不用分割。</p>
+<h5 id="决策器选择指标与不纯度">决策器选择指标与不纯度</h5>
+<p>学习决策器时，CART 的每个决策器被称为 <strong>决策树桩（decision stump）</strong> ，每个决策树桩对输入数据进行切割。对于多个候选决策器，CART 的选择标准为：</p>
+<p><span class="math display">\[  \underset{decision\; stumps\; h_i(\mathbf{x})}{argmin} \frac{|D_{i,l}|}{|D|} \cdot impurity(D_{i,l}) + \frac{|D_{i,r}|}{|D|} \cdot impurity(D_{i,r})  \]</span></p>
+<p>其中，<span class="math inline">\(h_i(\mathbf{x})\)</span> 指第 <span class="math inline">\(i\)</span> 个决策树桩模型， <span class="math inline">\(D\)</span> 指训练数据， <span class="math inline">\(D_{i,l},\; D_{i,r}\)</span> 分别是 <span class="math inline">\(h_i(\mathbf{x})\)</span> 将 <span class="math inline">\(D\)</span> 划分的数据， <span class="math inline">\(\frac{|D_{i,l}|}{|D|}\)</span> 计算了 <span class="math inline">\(D_{i,l}\)</span> 数据量在 <span class="math inline">\(D\)</span> 中的占比， impurity 是计算划分数据的 <strong>不纯度</strong> 函数。一个决策树桩划分的数据的不纯度越小越好。</p>
+<p>不纯度指数据中类别的不相同的程度。比如，“被判定为鸭群，有 7 只鸭和 3 只鸡”比“被判定为鸡群，有 9 只鸡和 1 只鸭”更“不纯”，前者不纯度更高。</p>
 <p>CART 对于回归与分类的不纯度公式稍有区别。</p>
-<h6 id="回归不纯度公式"><a href="#回归不纯度公式" class="headerlink" title="回归不纯度公式"></a>回归不纯度公式</h6><p>$$ impurity(D) = \frac{1}{N} \sum_{n=1}^N (y_n - \overline{y})^2 $$</p>
-<h6 id="分类不纯度——Gini-指数"><a href="#分类不纯度——Gini-指数" class="headerlink" title="分类不纯度——Gini 指数"></a>分类不纯度——Gini 指数</h6><p>$$ impurity(D) = 1-\sum<em>{k=1}^K(\frac{\sum</em>{n=1}^N [y_n=k]}{N})^2 $$</p>
-<p>其中， $K$ 是分类的种数，对于二分类， $K=2$； $k$ 表示分类编号； $[y_n=k]$ 是一个布尔判断，如果第 $n$ 个数据是第 $k$ 类，得 1，否则为 0。</p>
-<h4 id="剪枝（Pruning）"><a href="#剪枝（Pruning）" class="headerlink" title="剪枝（Pruning）"></a>剪枝（Pruning）</h4><p>CART 采用 <strong>后剪枝(Post-Pruning)</strong>，即在已生成的完全树上进行剪枝。大致流程：</p>
+<h6 id="回归不纯度公式">回归不纯度公式</h6>
+<p><span class="math display">\[ impurity(D) = \frac{1}{N} \sum_{n=1}^N (y_n - \overline{y})^2 \]</span></p>
+<h6 id="分类不纯度gini-指数">分类不纯度——Gini 指数</h6>
+<p><span class="math display">\[ impurity(D) = 1-\sum_{k=1}^K(\frac{\sum_{n=1}^N [y_n=k]}{N})^2 \]</span></p>
+<p>其中， <span class="math inline">\(K\)</span> 是分类的种数，对于二分类， <span class="math inline">\(K=2\)</span>； <span class="math inline">\(k\)</span> 表示分类编号； <span class="math inline">\([y_n=k]\)</span> 是一个布尔判断，如果第 <span class="math inline">\(n\)</span> 个数据是第 <span class="math inline">\(k\)</span> 类，得 1，否则为 0。</p>
+<h4 id="剪枝pruning">剪枝（Pruning）</h4>
+<p>CART 采用 <strong>后剪枝(Post-Pruning)</strong>，即在已生成的完全树上进行剪枝。大致流程：</p>
 <ul>
 <li>分别剪去一个叶子节点，得到多棵决策树</li>
 <li>计算每棵决策树剪枝“代价”，保留代价最小的决策树</li>
 <li>重复以上流程，直至剪枝代价高于不剪枝的代价</li>
 </ul>
 <p>代价公式可表示为：</p>
-<p>$$ cost(G) = E_{in}(G) + \lambda\cdot NumberOfLeaves(G) $$</p>
-<p>其中， $G$ 表示一个决策树模型， $NumberOfLeaves(G)$ 即决策树的树叶数目，树叶数目越少，模型越复杂，（回归）越容易过拟合， $\lambda$ 是指定的正则化参数。</p>
-<h3 id="决策树桩（decision-stump）"><a href="#决策树桩（decision-stump）" class="headerlink" title="决策树桩（decision stump）"></a>决策树桩（decision stump）</h3><p>如前撰述，决策树桩是深度为一的决策树，典型的弱分类器，也可用于回归，常被用作集成学习中的基础模型。它可以将输入数据按照某种标准分为两部分。</p>
-<p>决策树桩需要选择一个恰当的特征维度 $i$（ 输入向量 $\mathbf{x}$ 的一个维度）、 阈值 $\theta$ 与方向 $s={-1,1}$ 进行切割。它的分类器可表示为：</p>
-<p>$$h_{s,i,\theta}(\mathbf{x}) = s \cdot sign(x_i - \theta)$$</p>
-<p>对于训练数据 $D$ ，如何训练出一个最佳的决策树桩？根据决策树的训练方法，最原始的方法应该是尝试每一个可选的 $i, \theta, s$ ，计算不纯度，选择不纯度最低的一组参数。</p>
+<p><span class="math display">\[ cost(G) = E_{in}(G) + \lambda\cdot NumberOfLeaves(G) \]</span></p>
+<p>其中， <span class="math inline">\(G\)</span> 表示一个决策树模型， <span class="math inline">\(NumberOfLeaves(G)\)</span> 即决策树的树叶数目，树叶数目越少，模型越复杂，（回归）越容易过拟合， <span class="math inline">\(\lambda\)</span> 是指定的正则化参数。</p>
+<h3 id="决策树桩decision-stump">决策树桩（decision stump）</h3>
+<p>如前撰述，决策树桩是深度为一的决策树，典型的弱分类器，也可用于回归，常被用作集成学习中的基础模型。它可以将输入数据按照某种标准分为两部分。</p>
+<p>决策树桩需要选择一个恰当的特征维度 <span class="math inline">\(i\)</span>（ 输入向量 <span class="math inline">\(\mathbf{x}\)</span> 的一个维度）、 阈值 <span class="math inline">\(\theta\)</span> 与方向 <span class="math inline">\(s=\{-1,1\}\)</span> 进行切割。它的分类器可表示为：</p>
+<p><span class="math display">\[h_{s,i,\theta}(\mathbf{x}) = s \cdot sign(x_i - \theta)\]</span></p>
+<p>对于训练数据 <span class="math inline">\(D\)</span> ，如何训练出一个最佳的决策树桩？根据决策树的训练方法，最原始的方法应该是尝试每一个可选的 <span class="math inline">\(i, \theta, s\)</span> ，计算不纯度，选择不纯度最低的一组参数。</p>
 
           
         
@@ -575,16 +864,18 @@
         
           
             <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="极值点、拐点与泰勒公式"><a href="#极值点、拐点与泰勒公式" class="headerlink" title="极值点、拐点与泰勒公式"></a>极值点、拐点与泰勒公式</h3><p>$$  f(x) = f(x_0) + f’(x_0)(x-x_0) + \frac{f’’(x_0)}{2!}(x-x_0)^2 + … + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + R_n(x)<br>$$</p>
+<h3 id="极值点拐点与泰勒公式">极值点、拐点与泰勒公式</h3>
+<p><span class="math display">\[  f(x) = f(x_0) + f&#39;(x_0)(x-x_0) + \frac{f&#39;&#39;(x_0)}{2!}(x-x_0)^2 + ... + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + R_n(x)
+\]</span></p>
 <p>对存在 n 阶导数的函数，</p>
 <ul>
 <li>极值点要求一阶导数为 0，并且函数在邻域内先增后减或先减后增，称为“折回”的趋势；</li>
 <li>拐点要求二阶导数为 0，并且要求二阶导数在邻域内左右异号，即单调的趋势。</li>
 </ul>
-<p>从泰勒公式可见，在 $x_0$ 的 <strong>附近</strong> ，</p>
+<p>从泰勒公式可见，在 <span class="math inline">\(x_0\)</span> 的 <strong>附近</strong> ，</p>
 <ul>
-<li>在 $x_0$ 的非 0 的偶数次导数使函数有“折回”的趋势（不受 $(x-x_0)$ 符号影响），</li>
-<li>在 $x_0$ 的非 0 的奇数次导数使函数有单调趋势。</li>
+<li>在 <span class="math inline">\(x_0\)</span> 的非 0 的偶数次导数使函数有“折回”的趋势（不受 <span class="math inline">\((x-x_0)\)</span> 符号影响），</li>
+<li>在 <span class="math inline">\(x_0\)</span> 的非 0 的奇数次导数使函数有单调趋势。</li>
 <li>低阶导数比高阶导数更有“影响力”。</li>
 </ul>
 <p>所以，有以下结论：</p>
@@ -592,33 +883,36 @@
 <li>对极值点，要求一阶导数为 0，还要求第一个非 0 的更高阶导数的阶数为偶数；若为正，增加了附近的函数值，所以该点值更小，故为极小值，反之，极大值</li>
 <li>对拐点，要求二阶导数为 0，还要求第一个非 0 的更高阶导数的阶数为奇数</li>
 </ul>
-<h3 id="凹凸性与泰勒公式"><a href="#凹凸性与泰勒公式" class="headerlink" title="凹凸性与泰勒公式"></a>凹凸性与泰勒公式</h3><p>对存在 n 阶导数的函数，</p>
+<h3 id="凹凸性与泰勒公式">凹凸性与泰勒公式</h3>
+<p>对存在 n 阶导数的函数，</p>
 <ul>
 <li>上凸函数要求附近的值比切线值小一点，即曲线在切线的下方</li>
 <li>下凸函数要求附近的值比切线值大一点，即曲线在切线的上方</li>
 </ul>
 <p>对偶数阶导数，因为折回的趋势，对凹凸性有着影响；而对奇数阶导数，对函数左边加右边减或右边减左边加，且程度相同，对凹凸性没影响。</p>
 <p>类似极值点，第一个非 0 的偶数阶导数，若为正，增加了附近的函数值，为下凸，反之为上凸。</p>
-<h3 id="微分中值定理"><a href="#微分中值定理" class="headerlink" title="微分中值定理"></a>微分中值定理</h3><ul>
-<li>类柯西定理证明，存在一值使得等式成立： <strong>构造辅助函数（原函数）</strong><ul>
+<h3 id="微分中值定理">微分中值定理</h3>
+<ul>
+<li>类柯西定理证明，存在一值使得等式成立： <strong>构造辅助函数（原函数）</strong>
+<ul>
 <li>必要时用积分，有时需要变换方程方便积分</li>
 <li>必要时解微分方程</li>
-</ul>
-</li>
+</ul></li>
 <li>定理运用经典条件：开区间可导，定区间连续，（罗尔中值定理）两点值相等</li>
-<li>判断方程根存在<ul>
+<li>判断方程根存在
+<ul>
 <li>介值定理</li>
 <li>罗尔中值定理，也需构造辅助函数（原函数）</li>
-</ul>
-</li>
-<li>用中值定理处理 2 个变量的等式<ul>
+</ul></li>
+<li>用中值定理处理 2 个变量的等式
+<ul>
 <li>首先考虑两者相等</li>
 <li>寻找三点值相等</li>
 <li>解 k 法：将其中一部分视为常数 k，构造辅助函数，令端点值相等（罗尔中值条件），解出 k 并用变量表示。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="泰勒公式"><a href="#泰勒公式" class="headerlink" title="泰勒公式"></a>泰勒公式</h3><p>出现二阶及以上的导数，可以用泰勒公式，展开点多选择特殊点，如极值点，中点等。  </p>
+<h3 id="泰勒公式">泰勒公式</h3>
+<p>出现二阶及以上的导数，可以用泰勒公式，展开点多选择特殊点，如极值点，中点等。</p>
 
           
         
@@ -732,29 +1026,39 @@
         
           
             <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="第一类换元法（凑微分）"><a href="#第一类换元法（凑微分）" class="headerlink" title="第一类换元法（凑微分）"></a>第一类换元法（凑微分）</h3><p>将 <strong>积分变量</strong> 视作换元方程的 <strong>自变量</strong><br>$$\int f[u(x)]u’(x) dx = \int f[u(x)] du(x)$$</p>
-<h3 id="第二类换元法"><a href="#第二类换元法" class="headerlink" title="第二类换元法"></a>第二类换元法</h3><p>将 <strong>积分变量</strong> 视作换元方程的 <strong>函数</strong><br>$$\int f(x) dx = \int f[x(t)]x’(t) dt$$<br>对 <strong>根式</strong> 可考虑第二类换元。</p>
-<h4 id="三角换元"><a href="#三角换元" class="headerlink" title="三角换元"></a>三角换元</h4><p>存在下列类型的 <strong>根式</strong>，做三角换元：<br> $$\sqrt{a^2 - x^2},\quad let\; x=a\sin t$$<br> $$\sqrt{x^2 + a^2},\quad let\; x=a\tan t \quad (\tan^2t + 1 = \sec^2 t)$$<br> $$\sqrt{x^2 - a^2},\quad let\; x=a\sec t \quad (\sec^2t - 1 = \tan^2t )$$<br> 实际上，只要存在 <strong>变量平方与常数和</strong> 的因子，都可以考虑三角代换，（$x^2+bx+c$ 可变换成 $x^2+c$ 形式）</p>
-<h4 id="例代换"><a href="#例代换" class="headerlink" title="例代换"></a>例代换</h4><p>新旧变量之间互为倒数换元。一般适用于 <strong>被积函数分母的幂至少比分子的高二次</strong>。</p>
-<h3 id="分部积分法"><a href="#分部积分法" class="headerlink" title="分部积分法"></a>分部积分法</h3><p>$$\int u dv = uv - \int v du$$</p>
+<h3 id="第一类换元法凑微分">第一类换元法（凑微分）</h3>
+<p>将 <strong>积分变量</strong> 视作换元方程的 <strong>自变量</strong> <span class="math display">\[\int f[u(x)]u&#39;(x) dx = \int f[u(x)] du(x)\]</span></p>
+<h3 id="第二类换元法">第二类换元法</h3>
+<p>将 <strong>积分变量</strong> 视作换元方程的 <strong>函数</strong> <span class="math display">\[\int f(x) dx = \int f[x(t)]x&#39;(t) dt\]</span> 对 <strong>根式</strong> 可考虑第二类换元。</p>
+<h4 id="三角换元">三角换元</h4>
+<p>存在下列类型的 <strong>根式</strong>，做三角换元： <span class="math display">\[\sqrt{a^2 - x^2},\quad let\; x=a\sin t\]</span> <span class="math display">\[\sqrt{x^2 + a^2},\quad let\; x=a\tan t \quad (\tan^2t + 1 = \sec^2 t)\]</span> <span class="math display">\[\sqrt{x^2 - a^2},\quad let\; x=a\sec t \quad (\sec^2t - 1 = \tan^2t )\]</span> 实际上，只要存在 <strong>变量平方与常数和</strong> 的因子，都可以考虑三角代换，（<span class="math inline">\(x^2+bx+c\)</span> 可变换成 <span class="math inline">\(x^2+c\)</span> 形式）</p>
+<h4 id="例代换">例代换</h4>
+<p>新旧变量之间互为倒数换元。一般适用于 <strong>被积函数分母的幂至少比分子的高二次</strong>。</p>
+<h3 id="分部积分法">分部积分法</h3>
+<p><span class="math display">\[\int u dv = uv - \int v du\]</span></p>
 <ul>
-<li>适用 <strong><em>两类函数相乘的结构</em></strong>，同类的两个函数也可考虑，如 $\sqrt{x}/(x-1)^2$</li>
-<li>按 <strong>反、对、幂、三、指</strong> 的顺序选择 $u$ 效果较好</li>
+<li>适用 <strong><em>两类函数相乘的结构</em></strong>，同类的两个函数也可考虑，如 <span class="math inline">\(\sqrt{x}/(x-1)^2\)</span></li>
+<li>按 <strong>反、对、幂、三、指</strong> 的顺序选择 <span class="math inline">\(u\)</span> 效果较好</li>
 <li>注意 <strong>循环、递推公式</strong></li>
 </ul>
-<p>分部积分中，<strong>首要任务</strong> 是发现被积函数是由两类函数构成的，而分式结构容易让人忽略这点，以下列举几个例子：<br>$$\frac{\arcsin x}{\sqrt{1+x}}, \quad \frac{\arctan e^x}{e^x}$$</p>
-<h3 id="有理公式"><a href="#有理公式" class="headerlink" title="有理公式"></a>有理公式</h3><p>两个实系数多项式的商所表示的函数，如 $x / (x^2+1)$。积分方法是</p>
-<ol>
+<p>分部积分中，<strong>首要任务</strong> 是发现被积函数是由两类函数构成的，而分式结构容易让人忽略这点，以下列举几个例子： <span class="math display">\[\frac{\arcsin x}{\sqrt{1+x}}, \quad \frac{\arctan e^x}{e^x}\]</span></p>
+<h3 id="有理公式">有理公式</h3>
+<p>两个实系数多项式的商所表示的函数，如 <span class="math inline">\(x / (x^2+1)\)</span>。积分方法是</p>
+<ol type="1">
 <li>化为多个 <strong>真分式</strong> 的和，真分式有：</li>
 </ol>
-<p>$$ \frac{A}{x+a},\quad \frac{A}{(x+a)^k},\quad \frac{Mx + N}{x^2+px+q},\quad \frac{Mx + N}{(x^2+px+q)^k} $$</p>
-<ol>
+<p><span class="math display">\[ \frac{A}{x+a},\quad \frac{A}{(x+a)^k},\quad \frac{Mx + N}{x^2+px+q},\quad \frac{Mx + N}{(x^2+px+q)^k} \]</span></p>
+<ol start="2" type="1">
 <li>对真分式分别积分</li>
 </ol>
-<h4 id="三角函数有理式"><a href="#三角函数有理式" class="headerlink" title="三角函数有理式"></a>三角函数有理式</h4><p>其分母总能用 $sin x, cos x$ 表示，可令 $\tan \frac{x}{2} = t$ 做换元积分，因为 $\arctan x$ 求导为有理式，所以被积函数可转化为有理式，被称为 <strong>万能代换</strong>。</p>
-<h3 id="无法用初等函数表示的积分"><a href="#无法用初等函数表示的积分" class="headerlink" title="无法用初等函数表示的积分"></a>无法用初等函数表示的积分</h3><p>$$\sin x^2,\quad e^{-x^2},\quad \sqrt{1+x^2},\quad \frac{\sin x}{x},\quad \frac{x}{\ln x}$$</p>
-<h3 id="连续必可积"><a href="#连续必可积" class="headerlink" title="连续必可积"></a>连续必可积</h3><p>连续函数必可积，但可积函数未必连续。</p>
-<h4 id="分段函数积分（包括绝对值函数）"><a href="#分段函数积分（包括绝对值函数）" class="headerlink" title="分段函数积分（包括绝对值函数）"></a>分段函数积分（包括绝对值函数）</h4><p>如果分段函数连续则可积。分段求出原函数后，注意，因为原函数可导必连续，分段的常数 $C$ 应该有关联。</p>
+<h4 id="三角函数有理式">三角函数有理式</h4>
+<p>其分母总能用 <span class="math inline">\(sin x, cos x\)</span> 表示，可令 <span class="math inline">\(\tan \frac{x}{2} = t\)</span> 做换元积分，因为 <span class="math inline">\(\arctan x\)</span> 求导为有理式，所以被积函数可转化为有理式，被称为 <strong>万能代换</strong>。</p>
+<h3 id="无法用初等函数表示的积分">无法用初等函数表示的积分</h3>
+<p><span class="math display">\[\sin x^2,\quad e^{-x^2},\quad \sqrt{1+x^2},\quad \frac{\sin x}{x},\quad \frac{x}{\ln x}\]</span></p>
+<h3 id="连续必可积">连续必可积</h3>
+<p>连续函数必可积，但可积函数未必连续。</p>
+<h4 id="分段函数积分包括绝对值函数">分段函数积分（包括绝对值函数）</h4>
+<p>如果分段函数连续则可积。分段求出原函数后，注意，因为原函数可导必连续，分段的常数 <span class="math inline">\(C\)</span> 应该有关联。</p>
 
           
         
@@ -868,25 +1172,32 @@
         
           
             <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="导数存在性"><a href="#导数存在性" class="headerlink" title="导数存在性"></a>导数存在性</h3><h4 id="导数定义"><a href="#导数定义" class="headerlink" title="导数定义"></a>导数定义</h4><p>首要注意在 $x_0$ 的某邻域内有定义</p>
-<p>以下是错误例子：<br>$$  f’(x<em>0) = \lim</em>{\Delta x \rightarrow 0} \frac {f(x_0 + \Delta x) - f(x_0 - \Delta x)} {2 \Delta x}<br>$$<br>这里有 2 个问题：</p>
-<ol>
-<li>在 $x_0$ 处是否有定义</li>
-<li>在 $x_0$ 即使有定义，如果不连续（跳跃间断点），左右导数不相等</li>
-</ol>
-<h4 id="左导数等于右导数"><a href="#左导数等于右导数" class="headerlink" title="左导数等于右导数"></a>左导数等于右导数</h4><h4 id="导函数判断"><a href="#导函数判断" class="headerlink" title="导函数判断"></a>导函数判断</h4><ul>
+<h3 id="导数存在性">导数存在性</h3>
+<h4 id="导数定义">导数定义</h4>
+<p>首要注意在 <span class="math inline">\(x_0\)</span> 的某邻域内有定义</p>
+<p>以下是错误例子： <span class="math display">\[  f&#39;(x_0) = \lim_{\Delta x \rightarrow 0} \frac {f(x_0 + \Delta x) - f(x_0 - \Delta x)} {2 \Delta x}
+\]</span> 这里有 2 个问题： 1. 在 <span class="math inline">\(x_0\)</span> 处是否有定义 2. 在 <span class="math inline">\(x_0\)</span> 即使有定义，如果不连续（跳跃间断点），左右导数不相等</p>
+<h4 id="左导数等于右导数">左导数等于右导数</h4>
+<h4 id="导函数判断">导函数判断</h4>
+<ul>
 <li>连续</li>
-<li>导函数左极限等于右极限<br>导函数左右极限与左右导数，顾名思义，并非同一个概念。注意，该条件是可导的充分非必要条件。该条件可用于对分段函数可导做快速判断。</li>
+<li>导函数左极限等于右极限 导函数左右极限与左右导数，顾名思义，并非同一个概念。注意，该条件是可导的充分非必要条件。该条件可用于对分段函数可导做快速判断。</li>
 </ul>
-<h3 id="一阶微分形式不变性"><a href="#一阶微分形式不变性" class="headerlink" title="一阶微分形式不变性"></a>一阶微分形式不变性</h3><p>无论 u 是中间变量还是自变量，都有 $dy = y’(u) du$。运用：</p>
+<h3 id="一阶微分形式不变性">一阶微分形式不变性</h3>
+<p>无论 u 是中间变量还是自变量，都有 <span class="math inline">\(dy = y&#39;(u) du\)</span>。运用：</p>
 <ul>
 <li>求复合函数的导数（微分）</li>
 <li>凑微分积分法</li>
 </ul>
-<h3 id="隐函数、反函数及参数函数求导"><a href="#隐函数、反函数及参数函数求导" class="headerlink" title="隐函数、反函数及参数函数求导"></a>隐函数、反函数及参数函数求导</h3><h4 id="隐函数"><a href="#隐函数" class="headerlink" title="隐函数"></a>隐函数</h4><p>方程 $F(x, y) = 0$ 所确定的隐式函数 $y=f(x)$，往往不能用显式公式表示。求导方法：方程两边同时求导，同时将 y 视为 x 的函数。</p>
-<h4 id="反函数求导"><a href="#反函数求导" class="headerlink" title="反函数求导"></a>反函数求导</h4><p>如果 $x = g(y)$ 为 $y=f(x)$ 的反函数，则 $g’(y) = \frac {1} {f’(x)}$</p>
-<h4 id="参数函数求导"><a href="#参数函数求导" class="headerlink" title="参数函数求导"></a>参数函数求导</h4><p>当参数方程不便将 y 由 x 表达时，用下列公式求导<br>$$\frac{dy}{dx} = \frac{\frac{dy}{dt}}{\frac{dx}{dt}}$$</p>
-<h3 id="n-阶导数"><a href="#n-阶导数" class="headerlink" title="n 阶导数"></a>n 阶导数</h3><p>往往可以提出低次幂因子并消去</p>
+<h3 id="隐函数反函数及参数函数求导">隐函数、反函数及参数函数求导</h3>
+<h4 id="隐函数">隐函数</h4>
+<p>方程 <span class="math inline">\(F(x, y) = 0\)</span> 所确定的隐式函数 <span class="math inline">\(y=f(x)\)</span>，往往不能用显式公式表示。求导方法：方程两边同时求导，同时将 y 视为 x 的函数。</p>
+<h4 id="反函数求导">反函数求导</h4>
+<p>如果 <span class="math inline">\(x = g(y)\)</span> 为 <span class="math inline">\(y=f(x)\)</span> 的反函数，则 <span class="math inline">\(g&#39;(y) = \frac {1} {f&#39;(x)}\)</span></p>
+<h4 id="参数函数求导">参数函数求导</h4>
+<p>当参数方程不便将 y 由 x 表达时，用下列公式求导 <span class="math display">\[\frac{dy}{dx} = \frac{\frac{dy}{dt}}{\frac{dx}{dt}}\]</span></p>
+<h3 id="n-阶导数">n 阶导数</h3>
+<p>往往可以提出低次幂因子并消去</p>
 
           
         
@@ -1000,24 +1311,31 @@
         
           
             <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="等价无穷小"><a href="#等价无穷小" class="headerlink" title="等价无穷小"></a>等价无穷小</h3><p><strong>化繁为简</strong>，要求 <strong>乘除因子</strong></p>
+<h3 id="等价无穷小">等价无穷小</h3>
+<p><strong>化繁为简</strong>，要求 <strong>乘除因子</strong></p>
 <ul>
-<li>真底互换 + 等价无穷小：$\lim<em>{x \rightarrow 0} {x+1} = \lim</em>{x \rightarrow 0} {e^x}$</li>
-<li>用带 $o(x)$ 余项的 <strong>泰勒公式</strong></li>
+<li>真底互换 + 等价无穷小：<span class="math inline">\(\lim_{x \rightarrow 0} {x+1} = \lim_{x \rightarrow 0} {e^x}\)</span></li>
+<li>用带 <span class="math inline">\(o(x)\)</span> 余项的 <strong>泰勒公式</strong></li>
 </ul>
-<h3 id="极限的四则运算及洛必达法则"><a href="#极限的四则运算及洛必达法则" class="headerlink" title="极限的四则运算及洛必达法则"></a>极限的四则运算及洛必达法则</h3><p>两者的共性是，分别处理后极限存在才能做分别处理，即分别处理后极限不存在不能说明原式极限不存在。</p>
-<h4 id="转化成-frac-0-0-frac-infty-infty"><a href="#转化成-frac-0-0-frac-infty-infty" class="headerlink" title="转化成 $\frac{0}{0}$, $\frac{\infty}{\infty}$"></a>转化成 $\frac{0}{0}$, $\frac{\infty}{\infty}$</h4><ul>
+<h3 id="极限的四则运算及洛必达法则">极限的四则运算及洛必达法则</h3>
+<p>两者的共性是，分别处理后极限存在才能做分别处理，即分别处理后极限不存在不能说明原式极限不存在。</p>
+<h4 id="转化成-frac00-fracinftyinfty">转化成 <span class="math inline">\(\frac{0}{0}\)</span>, <span class="math inline">\(\frac{\infty}{\infty}\)</span></h4>
+<ul>
 <li>使用 <strong>真底互换</strong> 处理幂型式子</li>
-<li>$f(x) + g(x) = g(x)(\frac{f(x)}{g(x)} + 1)$</li>
+<li><span class="math inline">\(f(x) + g(x) = g(x)(\frac{f(x)}{g(x)} + 1)\)</span></li>
 </ul>
-<h4 id="洛必达使用条件"><a href="#洛必达使用条件" class="headerlink" title="洛必达使用条件"></a>洛必达使用条件</h4><p><strong>去心邻域</strong> 函数必须可导，尤其在应用题中注意。</p>
-<h3 id="导数定义处理"><a href="#导数定义处理" class="headerlink" title="导数定义处理"></a>导数定义处理</h3><h3 id="数列极限"><a href="#数列极限" class="headerlink" title="数列极限"></a>数列极限</h3><p>常用 <strong>单调有界</strong> 证明极限存在，过程中常用数学归纳法。一般步骤：</p>
+<h4 id="洛必达使用条件">洛必达使用条件</h4>
+<p><strong>去心邻域</strong> 函数必须可导，尤其在应用题中注意。</p>
+<h3 id="导数定义处理">导数定义处理</h3>
+<h3 id="数列极限">数列极限</h3>
+<p>常用 <strong>单调有界</strong> 证明极限存在，过程中常用数学归纳法。一般步骤：</p>
 <ul>
 <li>代值猜测数列变化趋势（单调 上升或下降）</li>
 <li>证明单调性</li>
 <li>证明有界，可以先猜测得上界或下界，再证明</li>
 </ul>
-<h3 id="可导、连续与极限"><a href="#可导、连续与极限" class="headerlink" title="可导、连续与极限"></a>可导、连续与极限</h3><p>可导必连续，连续必存在极限，反之不一定</p>
+<h3 id="可导连续与极限">可导、连续与极限</h3>
+<p>可导必连续，连续必存在极限，反之不一定</p>
 
           
         
@@ -1132,49 +1450,56 @@
           
             <p>此文是本人学习<a href="http://www.csie.ntu.edu.tw/~htlin/" target="_blank" rel="noopener">林轩田老师</a>教授的机器学习技法第八课——Adaptive Boosting——的笔记。</p>
 <p>不同于 <a href="/2016/07/23/ML-MLT-6-blendingBagging/" title="Blending and Bagging">Blending and Bagging</a>，Boosting 提供一种增强式集成学习方法，它在顺序训练各模型时，要求后面的模型着重训练前面的模型失误的数据，使得总的模型误差不断减小。Adaptive Boosting，简称 AdaBoost， 是 Boosting 中的一种。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/208_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 <li><a href="https://en.wikipedia.org/wiki/AdaBoost" target="_blank" rel="noopener">AdaBoost wikipedia</a></li>
 </ul>
-<h3 id="AdaBoost-的形象类比与流程概要"><a href="#AdaBoost-的形象类比与流程概要" class="headerlink" title="AdaBoost 的形象类比与流程概要"></a>AdaBoost 的形象类比与流程概要</h3><p>课上举的例子实在太形象了，一定得记下啊。Boosting 好比老师教一群小学生（多个模型）学习如何辨识苹果（集成学习）。这里有一堆图片（数据），其中有的是苹果的，还有不是苹果的。老师让学生 A 讲一条辨识苹果的规则（训练一个模型），然后特别指出他/她出错的图片（强调标识失败数据），让下一个同学提出新的规则（训练下一个模型），如此往复，最终可以得到一系列规则，虽然每条规则的辨识能力可能都很弱，但组合起来可能就是很强了（一系列弱模型集成为强模型）。</p>
-<p>那么，AdaBoost 的流程就比较清楚了。模型 $g$ 辨识失败的数据， $g(\mathbf{x_n}) \ne y_n$ ，称为问题数据, 辨识正确的数据，称简单数据。以下是大致流程：</p>
-<ol>
+<h3 id="adaboost-的形象类比与流程概要">AdaBoost 的形象类比与流程概要</h3>
+<p>课上举的例子实在太形象了，一定得记下啊。Boosting 好比老师教一群小学生（多个模型）学习如何辨识苹果（集成学习）。这里有一堆图片（数据），其中有的是苹果的，还有不是苹果的。老师让学生 A 讲一条辨识苹果的规则（训练一个模型），然后特别指出他/她出错的图片（强调标识失败数据），让下一个同学提出新的规则（训练下一个模型），如此往复，最终可以得到一系列规则，虽然每条规则的辨识能力可能都很弱，但组合起来可能就是很强了（一系列弱模型集成为强模型）。</p>
+<p>那么，AdaBoost 的流程就比较清楚了。模型 <span class="math inline">\(g\)</span> 辨识失败的数据， <span class="math inline">\(g(\mathbf{x_n}) \ne y_n\)</span> ，称为问题数据, 辨识正确的数据，称简单数据。以下是大致流程：</p>
+<ol type="1">
 <li>依次训练各模型</li>
 <li>在一个模型训练完成后，向下一个模型强调问题数据</li>
 <li>为每个模型分配权重，集成各模型</li>
 </ol>
-<h3 id="“强调”问题数据"><a href="#“强调”问题数据" class="headerlink" title="“强调”问题数据"></a>“强调”问题数据</h3><p>明显流程第二点是关键。如何才能做到对模型”强调”问题数据呢？这里的“强调”，可以翻译为增加模型在问题数据上犯错的代价。在<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>，老师提到过一些方法。比如，在训练前，复制问题数据 $n$ 份，如果模型在其中一个数据上犯错，就相当于犯了 $n$ 次错，达到“强调”的目的。这里使用的方法是，如果抽取到问题数据做训练，就对 error function 乘上一个系数 $u$ （大于一）。这样，如果模型在问题数据上犯错，error 会扩大 $u-1$ 倍。以下把这种处理方法称为“为数据分配权重”。</p>
-<p>实际上，AdaBoost 不仅为问题数据分配权重，也为简单数据分配权重。不过没差，只要能达到“强调”问题数据的效果就行。这里引入 $m$:</p>
-<p>$$m = \sqrt{\frac{1-e}{e}}$$</p>
-<p>其中 $e$ 表示模型的失误率。AdaBoost 对问题数据乘以 $m$ ，对简单数据除以 $m$ 。其中有两点值得注意。</p>
-<p>第一，如果 $e \lt 0.5$， 则 $m \gt 1$，问题数据确实会被“强调”；而当 $e \gt 0.5$ 时， $m \lt 1$ ，问题数据似乎不被“强调”，反而简单数据被“强调”了。其实不差，当 $e \gt 0.5$ 时，意味着模型辨识能力比瞎猜（ $e=0.5$ ）都不如，在最后模型结合时给它分配负权重，把它的辨识结果反过来，这时就应该向后面的模型“强调”简单数据。</p>
-<p>第二，注意 $m(e)\;with\;e \gt 0$ 是一个单调下降的函数。这意味着， $e$ 越小，辨识越准确，模型出错也越少， $m$ 也会越大，AdaBoost “强调问题数据”越是“厉害”。为什么在模型出错更少时“更强调”问题数据呢？这是为了平衡简单数据与问题数据的影响，进而训练出更不同（diverse）的模型（对集成学习来说，模型 diversity 越高，效果越好）。（?-?对这话的因果关系存疑）实际上， $m$ 是推导的结果（参见 <a href="https://en.wikipedia.org/wiki/AdaBoost" target="_blank" rel="noopener">AdaBoost</a>），在推导过程中似乎并未对此解释或假设，但以上论点也是比较合理的假说。</p>
-<h3 id="模型权重公式"><a href="#模型权重公式" class="headerlink" title="模型权重公式"></a>模型权重公式</h3><p>$$ \alpha = \ln m = \ln \sqrt{\frac{1-e}{e}}$$</p>
-<p>当 $e \gt 0.5$ 时， $\alpha \lt 0$。 所以在预测能力小于0.5时，模型被分配负权重，反之，权重为正。</p>
-<h3 id="AdaBoost-流程"><a href="#AdaBoost-流程" class="headerlink" title="AdaBoost 流程"></a>AdaBoost 流程</h3><ul>
-<li>$\mathbf{u}=[\frac{1}{N},\frac{1}{N},\frac{1}{N},…]$，长度为 $N$ ，记录每个数据的权重</li>
-<li><p>for t=1,2,…,T</p>
+<h3 id="强调问题数据">“强调”问题数据</h3>
+<p>明显流程第二点是关键。如何才能做到对模型“强调”问题数据呢？这里的“强调”，可以翻译为增加模型在问题数据上犯错的代价。在<a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习基石</a>，老师提到过一些方法。比如，在训练前，复制问题数据 <span class="math inline">\(n\)</span> 份，如果模型在其中一个数据上犯错，就相当于犯了 <span class="math inline">\(n\)</span> 次错，达到“强调”的目的。这里使用的方法是，如果抽取到问题数据做训练，就对 error function 乘上一个系数 <span class="math inline">\(u\)</span> （大于一）。这样，如果模型在问题数据上犯错，error 会扩大 <span class="math inline">\(u-1\)</span> 倍。以下把这种处理方法称为“为数据分配权重”。</p>
+<p>实际上，AdaBoost 不仅为问题数据分配权重，也为简单数据分配权重。不过没差，只要能达到“强调”问题数据的效果就行。这里引入 <span class="math inline">\(m\)</span>:</p>
+<p><span class="math display">\[m = \sqrt{\frac{1-e}{e}}\]</span></p>
+<p>其中 <span class="math inline">\(e\)</span> 表示模型的失误率。AdaBoost 对问题数据乘以 <span class="math inline">\(m\)</span> ，对简单数据除以 <span class="math inline">\(m\)</span> 。其中有两点值得注意。</p>
+<p>第一，如果 <span class="math inline">\(e \lt 0.5\)</span>， 则 <span class="math inline">\(m \gt 1\)</span>，问题数据确实会被“强调”；而当 <span class="math inline">\(e \gt 0.5\)</span> 时， <span class="math inline">\(m \lt 1\)</span> ，问题数据似乎不被“强调”，反而简单数据被“强调”了。其实不差，当 <span class="math inline">\(e \gt 0.5\)</span> 时，意味着模型辨识能力比瞎猜（ <span class="math inline">\(e=0.5\)</span> ）都不如，在最后模型结合时给它分配负权重，把它的辨识结果反过来，这时就应该向后面的模型“强调”简单数据。</p>
+<p>第二，注意 <span class="math inline">\(m(e)\;with\;e \gt 0\)</span> 是一个单调下降的函数。这意味着， <span class="math inline">\(e\)</span> 越小，辨识越准确，模型出错也越少， <span class="math inline">\(m\)</span> 也会越大，AdaBoost “强调问题数据”越是“厉害”。为什么在模型出错更少时“更强调”问题数据呢？这是为了平衡简单数据与问题数据的影响，进而训练出更不同（diverse）的模型（对集成学习来说，模型 diversity 越高，效果越好）。（?-?对这话的因果关系存疑）实际上， <span class="math inline">\(m\)</span> 是推导的结果（参见 <a href="https://en.wikipedia.org/wiki/AdaBoost" target="_blank" rel="noopener">AdaBoost</a>），在推导过程中似乎并未对此解释或假设，但以上论点也是比较合理的假说。</p>
+<h3 id="模型权重公式">模型权重公式</h3>
+<p><span class="math display">\[ \alpha = \ln m = \ln \sqrt{\frac{1-e}{e}}\]</span></p>
+<p>当 <span class="math inline">\(e \gt 0.5\)</span> 时， <span class="math inline">\(\alpha \lt 0\)</span>。 所以在预测能力小于0.5时，模型被分配负权重，反之，权重为正。</p>
+<h3 id="adaboost-流程">AdaBoost 流程</h3>
 <ul>
-<li>根据训练数据与 $\mathbf{u}$ 训练出模型 $g_t$</li>
+<li><span class="math inline">\(\mathbf{u}=[\frac{1}{N},\frac{1}{N},\frac{1}{N},...]\)</span>，长度为 <span class="math inline">\(N\)</span> ，记录每个数据的权重</li>
+<li>for t=1,2,…,T
+<ul>
+<li>根据训练数据与 <span class="math inline">\(\mathbf{u}\)</span> 训练出模型 <span class="math inline">\(g_t\)</span></li>
 <li>计算</li>
 </ul>
-<p>$$m = \sqrt{\frac{1-e}{e}}\quad with\; e=\frac{\sum u_n[y_n \ne g_t(\mathbf{x_n})]}{\sum u_n}$$</p>
+<p><span class="math display">\[m = \sqrt{\frac{1-e}{e}}\quad with\; e=\frac{\sum u_n[y_n \ne g_t(\mathbf{x_n})]}{\sum u_n}\]</span></p>
 <ul>
-<li><p>更新 $\mathbf{u}$</p>
-<p>$$u_n = \left{ \begin{array}{l}<br>u_n \cdot m,\quad y_n \ne g_t(\mathbf{x_n})\<br>u_n / m,\quad y_n = g_t(\mathbf{x_n})<br>\end{array} \right.$$</p>
-</li>
-<li><p>计算 $\alpha_t = \ln (m)$</p>
-</li>
+<li><p>更新 <span class="math inline">\(\mathbf{u}\)</span></p>
+<p><span class="math display">\[u_n = \left\{ \begin{array}{l}
+u_n \cdot m,\quad y_n \ne g_t(\mathbf{x_n})\\
+u_n / m,\quad y_n = g_t(\mathbf{x_n})
+\end{array} \right.\]</span></p></li>
+<li>计算 <span class="math inline">\(\alpha_t = \ln (m)\)</span></li>
+</ul></li>
+<li><p>返回模型 <span class="math inline">\(G(\mathbf{x})=sign (\sum \alpha_t g_t(\mathbf{x}))\)</span></p></li>
 </ul>
-</li>
-<li>返回模型 $G(\mathbf{x})=sign (\sum \alpha_t g_t(\mathbf{x}))$</li>
-</ul>
-<h3 id="AdaBoost-的理论保证"><a href="#AdaBoost-的理论保证" class="headerlink" title="AdaBoost 的理论保证"></a>AdaBoost 的理论保证</h3><p>VC Bound：</p>
-<p>$$E<em>{out}(G)\le E</em>{in}(G) + O\left( \sqrt{O(d_{vc}(H) \cdot T\log T) \cdot \frac {\log N}{N}}  \right)$$</p>
-<p>$T$ 表示迭代的次数，实践证明，当迭代达到 $T=\log N$ 时， $E<em>{in}$ 会比较小，而此时的 VC Bound 也不太大，所以 $E</em>{out}$ 可以做得比较小。</p>
-<h3 id="基础模型选择——决策树桩"><a href="#基础模型选择——决策树桩" class="headerlink" title="基础模型选择——决策树桩"></a>基础模型选择——决策树桩</h3><p>流行选择 <a href="/2016/08/03/ML-MLT-8-decisionTree/" title="决策树桩（decision stump）">决策树桩（decision stump）</a> 作为基础模型（base algorithm）。决策树桩是深度为一的决策树，典型的弱分类器，常被用作集成学习中的基础模型。它的分类器为：</p>
-<p>$$h_{s,i,\theta}(\mathbf{x}) = s \cdot sign(x_i - \theta)$$</p>
+<h3 id="adaboost-的理论保证">AdaBoost 的理论保证</h3>
+<p>VC Bound：</p>
+<p><span class="math display">\[E_{out}(G)\le E_{in}(G) + O\left( \sqrt{O(d_{vc}(H) \cdot T\log T) \cdot \frac {\log N}{N}}  \right)\]</span></p>
+<p><span class="math inline">\(T\)</span> 表示迭代的次数，实践证明，当迭代达到 <span class="math inline">\(T=\log N\)</span> 时， <span class="math inline">\(E_{in}\)</span> 会比较小，而此时的 VC Bound 也不太大，所以 <span class="math inline">\(E_{out}\)</span> 可以做得比较小。</p>
+<h3 id="基础模型选择决策树桩">基础模型选择——决策树桩</h3>
+<p>流行选择 <a href="/2016/08/03/ML-MLT-8-decisionTree/" title="决策树桩（decision stump）">决策树桩（decision stump）</a> 作为基础模型（base algorithm）。决策树桩是深度为一的决策树，典型的弱分类器，常被用作集成学习中的基础模型。它的分类器为：</p>
+<p><span class="math display">\[h_{s,i,\theta}(\mathbf{x}) = s \cdot sign(x_i - \theta)\]</span></p>
 
           
         
@@ -1288,555 +1613,39 @@
         
           
             <p>此文是本人学习林轩田老师的机器学习技法第七课——Blending and Bagging。第七至第十一课学习 ML 中的各种集成学习（<a href="https://en.wikipedia.org/wiki/Ensemble_learning" target="_blank" rel="noopener">Ensemble Learning</a>）算法。简单地讲，Ensemble 集成各种模型为一个最终模型。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/207_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 <li><a href="http://mlwave.com/kaggle-ensembling-guide/" target="_blank" rel="noopener">Kaggle Ensembling Guide</a></li>
 <li><a href="http://scott.fortmann-roe.com/docs/BiasVariance.html" target="_blank" rel="noopener">Understanding the Bias-Variance Tradeoff</a></li>
 <li><a href="/2016/08/12/ML-validation/" title="模型验证">模型验证</a></li>
-<li><a href="/2016/08/14/Math-PrStats-bootstrapping/" title="Bootstrapping">Bootstrapping</a>
-</li>
+<li><a href="/2016/08/14/Math-PrStats-bootstrapping/" title="Bootstrapping">Bootstrapping</a></li>
 </ul>
-<h3 id="误差的-bias-和-variance"><a href="#误差的-bias-和-variance" class="headerlink" title="误差的 bias 和 variance"></a>误差的 bias 和 variance</h3><p>在此文——<a href="http://scott.fortmann-roe.com/docs/BiasVariance.html" target="_blank" rel="noopener">Understanding the Bias-Variance Tradeoff</a>——中有介绍，同种模型训练由于参数、抽样等不同，得到的模型的误差会有一定的随机性，所以有了模型误差的 bias 与 variance 的概念。</p>
+<h3 id="误差的-bias-和-variance">误差的 bias 和 variance</h3>
+<p>在此文——<a href="http://scott.fortmann-roe.com/docs/BiasVariance.html" target="_blank" rel="noopener">Understanding the Bias-Variance Tradeoff</a>——中有介绍，同种模型训练由于参数、抽样等不同，得到的模型的误差会有一定的随机性，所以有了模型误差的 bias 与 variance 的概念。</p>
 <p>简单地讲，bias 指误差的期望，即模型的预测偏离正确值的期望。而 variance 即误差的方差，衡量模型误差的分散程度。这两个值当然是越小越好。</p>
-<h3 id="Blending"><a href="#Blending" class="headerlink" title="Blending"></a>Blending</h3><p>Blending 是十分自然的集成方法。简单地讲，就是将各模型的预测作为数据进行回归或分类训练将其结合。训练过程如下：</p>
-<ol>
-<li>将训练集 $D<em>{train}$ 分为 $D</em>{train}^-$ 和 $D_{val}$，每条数据可表示为 $(x_1, x_2,…,y)$</li>
-<li>在 $D_{train}^-$ 上，训练出各模型 $G^-=(g_1^-(\mathbf{x}), g_2^-(\mathbf{x}), g_3^-(\mathbf{x}),…)$</li>
-<li>在 $D<em>{val}$，各模型分别做出预测，组合成新的数据集 $D</em>{pred}$，每条数据可表示为 $\Phi(\mathbf{x}) = (g_1(\mathbf{x}),g_2(\mathbf{x}),g_3(\mathbf{x}),…,y)$</li>
-<li>在 $D_{train}$ 上，训练出各模型 $G=(g_1(\mathbf{x}), g_2(\mathbf{x}), g_3(\mathbf{x}),…)$</li>
-<li>在 $D_{pred}$ 上，进行分类或回归训练，得到 Blending 模型参数，结合 $G$ 得到最终模型</li>
+<h3 id="blending">Blending</h3>
+<p>Blending 是十分自然的集成方法。简单地讲，就是将各模型的预测作为数据进行回归或分类训练将其结合。训练过程如下：</p>
+<ol type="1">
+<li>将训练集 <span class="math inline">\(D_{train}\)</span> 分为 <span class="math inline">\(D_{train}^-\)</span> 和 <span class="math inline">\(D_{val}\)</span>，每条数据可表示为 <span class="math inline">\((x_1, x_2,...,y)\)</span></li>
+<li>在 <span class="math inline">\(D_{train}^-\)</span> 上，训练出各模型 <span class="math inline">\(G^-=(g_1^-(\mathbf{x}), g_2^-(\mathbf{x}), g_3^-(\mathbf{x}),...)\)</span></li>
+<li>在 <span class="math inline">\(D_{val}\)</span>，各模型分别做出预测，组合成新的数据集 <span class="math inline">\(D_{pred}\)</span>，每条数据可表示为 <span class="math inline">\(\Phi(\mathbf{x}) = (g_1(\mathbf{x}),g_2(\mathbf{x}),g_3(\mathbf{x}),...,y)\)</span></li>
+<li>在 <span class="math inline">\(D_{train}\)</span> 上，训练出各模型 <span class="math inline">\(G=(g_1(\mathbf{x}), g_2(\mathbf{x}), g_3(\mathbf{x}),...)\)</span></li>
+<li>在 <span class="math inline">\(D_{pred}\)</span> 上，进行分类或回归训练，得到 Blending 模型参数，结合 <span class="math inline">\(G\)</span> 得到最终模型</li>
 </ol>
-<p>(注：$x_i$ 表示数值，加粗 $\mathbf{x}$ 表示一个向量，$\mathbf{x}=(x_1, x_2,…,x_n)$) 进行测试时，先用 $G$ 做出预测作为输入代入 Blending 模型得到最终预测值。这里有2个问题。</p>
-<p>为什么要把 $D<em>{train}$ 分为 $D</em>{train}^-$ 和 $D_{val}$，而不直接在训练集上做训练同时做预测，然后作为 Blending 的训练数据？因为训练得到的模型已经“知道了”其训练数据，在其训练数据上做预测不能反映其预测能力的真实情况，会付出复杂度方面的代价。所以，跟模型选择中所做的验证一样，需要使用模型未知的数据做验证。</p>
-<p>为什么使用 $G$ 而非 $G^-$ 得到最终模型？$G$ 在 $D<em>{train}$ 上训练得到，比在更小的训练集 $D</em>{train}^-$ 得到的 $G^-$ 更优。</p>
-<p>在课上，老师证明了各模型 $E<em>{out}$ 的期望大于 Blending 模型 $E</em>{out}$ 的期望，也就是说，Blending 模型的预测优于各模型的“平均水平”。（实际上只证明了 uniform blending，在此不细究）</p>
-<h4 id="Stacking"><a href="#Stacking" class="headerlink" title="Stacking"></a>Stacking</h4><p>根据博文 <a href="http://mlwave.com/kaggle-ensembling-guide/" target="_blank" rel="noopener">Kaggle Ensembling Guide</a>，Blending 可视为 Stacking 的简化。（Stacking 远早于 Blending 被提出）现在很多研究者视两者等同。</p>
+<p>(注：<span class="math inline">\(x_i\)</span> 表示数值，加粗 <span class="math inline">\(\mathbf{x}\)</span> 表示一个向量，<span class="math inline">\(\mathbf{x}=(x_1, x_2,...,x_n)\)</span>) 进行测试时，先用 <span class="math inline">\(G\)</span> 做出预测作为输入代入 Blending 模型得到最终预测值。这里有2个问题。</p>
+<p>为什么要把 <span class="math inline">\(D_{train}\)</span> 分为 <span class="math inline">\(D_{train}^-\)</span> 和 <span class="math inline">\(D_{val}\)</span>，而不直接在训练集上做训练同时做预测，然后作为 Blending 的训练数据？因为训练得到的模型已经“知道了”其训练数据，在其训练数据上做预测不能反映其预测能力的真实情况，会付出复杂度方面的代价。所以，跟模型选择中所做的验证一样，需要使用模型未知的数据做验证。</p>
+<p>为什么使用 <span class="math inline">\(G\)</span> 而非 <span class="math inline">\(G^-\)</span> 得到最终模型？<span class="math inline">\(G\)</span> 在 <span class="math inline">\(D_{train}\)</span> 上训练得到，比在更小的训练集 <span class="math inline">\(D_{train}^-\)</span> 得到的 <span class="math inline">\(G^-\)</span> 更优。</p>
+<p>在课上，老师证明了各模型 <span class="math inline">\(E_{out}\)</span> 的期望大于 Blending 模型 <span class="math inline">\(E_{out}\)</span> 的期望，也就是说，Blending 模型的预测优于各模型的“平均水平”。（实际上只证明了 uniform blending，在此不细究）</p>
+<h4 id="stacking">Stacking</h4>
+<p>根据博文 <a href="http://mlwave.com/kaggle-ensembling-guide/" target="_blank" rel="noopener">Kaggle Ensembling Guide</a>，Blending 可视为 Stacking 的简化。（Stacking 远早于 Blending 被提出）现在很多研究者视两者等同。</p>
 <p>可以很容易发现，Blending 的一至三步与 <a href="https://zh.wikipedia.org/wiki/%E4%BA%A4%E5%8F%89%E9%A9%97%E8%AD%89#Holdout_.E9.A9.97.E8.AD.89" target="_blank" rel="noopener">Hold-out Validation</a> 的步骤是相同的。存在多个模型时，常使用验证来选择模型，而 Hold-out 就是其中最基本的一种。而 Stacking 使用 <a href="https://zh.wikipedia.org/wiki/%E4%BA%A4%E5%8F%89%E9%A9%97%E8%AD%89#Holdout_.E9.A9.97.E8.AD.89" target="_blank" rel="noopener">Cross-Validation</a>。</p>
-<p>在 <a href="/2016/08/12/ML-validation/" title="模型验证">模型验证</a> 中， Cross-Validation 虽然比使用 Hold-out Validation 复杂，但是 Stacking 得到的 $D<em>{pred}$ 与 $D</em>{train}$ 数据量相等，而 Blending 得到的 $D<em>{pred}$ 与 $D</em>{val}$ （一般取 $D_{train}$ 的10%）等量，较小。</p>
-<h3 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h3><p>又称 Bootstrap Aggregation, 基于统计学上的 <strong><a href="/2016/08/14/Math-PrStats-bootstrapping/" title="Bootstrapping">Bootstrapping</a></strong> 方法。简单地讲，就是从一个样本集中有放回地抽样得到多个样本集。</p>
-<p>Bagging 利用 Bootstrapping 的原理，在训练集 $D_{train}$ 上有放回地抽样得到多个训练集 $D_1^-$, $D_2^-$, $D_3^-$,…，然后用抽取的训练集训练模型，由于抽取得到的训练集各不相同，得到的模型也各不相同（除非训练不受训练集影响，那还训练干嘛）。在预测时，取所有模型预测的均值。</p>
+<p>在 <a href="/2016/08/12/ML-validation/" title="模型验证">模型验证</a> 中， Cross-Validation 虽然比使用 Hold-out Validation 复杂，但是 Stacking 得到的 <span class="math inline">\(D_{pred}\)</span> 与 <span class="math inline">\(D_{train}\)</span> 数据量相等，而 Blending 得到的 <span class="math inline">\(D_{pred}\)</span> 与 <span class="math inline">\(D_{val}\)</span> （一般取 <span class="math inline">\(D_{train}\)</span> 的10%）等量，较小。</p>
+<h3 id="bagging">Bagging</h3>
+<p>又称 Bootstrap Aggregation, 基于统计学上的 <strong><a href="/2016/08/14/Math-PrStats-bootstrapping/" title="Bootstrapping">Bootstrapping</a></strong> 方法。简单地讲，就是从一个样本集中有放回地抽样得到多个样本集。</p>
+<p>Bagging 利用 Bootstrapping 的原理，在训练集 <span class="math inline">\(D_{train}\)</span> 上有放回地抽样得到多个训练集 <span class="math inline">\(D_1^-\)</span>, <span class="math inline">\(D_2^-\)</span>, <span class="math inline">\(D_3^-\)</span>,…，然后用抽取的训练集训练模型，由于抽取得到的训练集各不相同，得到的模型也各不相同（除非训练不受训练集影响，那还训练干嘛）。在预测时，取所有模型预测的均值。</p>
 <p>Bagging 能够降低模型预测的 varaince 误差，特别适用于对样本敏感的波动比较大的模型。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/10/ML-MLT-5-supportVectorRegression/" itemprop="url">
-                  机器学习技法第六课——Support Vector Regression
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-10T16:44:46+08:00" content="2016-07-10">
-              2016-07-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>此文是本人学习林轩田老师的机器学习技法第六课——Support Vector Regression——的课堂笔记。</p>
-<p>这节课介绍两个模型，与之前的 SVM 不同，都采用二次误差，一个是”kernel ridge regression”，另一个比较重要，是”Support Vector Regression”。最后，针对“机器学习基石”及本课程所讲的分类方法做一个总结。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
-<li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/206_handout.pdf" target="_blank" rel="noopener">课件</a></li>
-<li><a href="/2016/06/26/ML-MLT-4-kernelLogisticRegression/" title="Kernel Logistic Regression">Kernel Logistic Regression</a></li>
-<li><a href="http://blog.csdn.net/google19890102/article/details/27228279" target="_blank" rel="noopener">岭回归</a></li>
-<li><a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a>
-</li>
-</ul>
-<h3 id="Kernel-Ridge-Regression"><a href="#Kernel-Ridge-Regression" class="headerlink" title="Kernel Ridge Regression"></a>Kernel Ridge Regression</h3><p>ridge regression，即<a href="http://blog.csdn.net/google19890102/article/details/27228279" target="_blank" rel="noopener">岭回归</a>，简单地讲，是“在平方误差的基础上增加 L2 正则项的回归”。以下是基本公式，这部分目标是将其 kernel 化。<br>$$  \min<em>{\mathbf{w}} \frac{\lambda}{N}\mathbf{w^Tw} + \frac{1}{N} \sum</em>{n=1}^{N}{ (y_n - w^T z_n)^2 }<br>$$</p>
-<p>在上节课”“中的“Kernel Logistic Regression”一节，已经讲过“带 L2 正则化的线性模型”可以被 kernel 化，而且 $\mathbf{w}$ 可以被 $\mathbf{z}$ 线性表示，即 $\mathbf{w} = \sum \beta_n z_n$。</p>
-<p>因为这部分推导与”Kernel Logistic Regression”的推导相似，在此给出结果：<br>$$  \min<em>{\beta} { \frac{\lambda}{N} \sum</em>{n=1}^{N}\sum_{n=1}^{M} \beta_n \beta_m K(\mathbf{x_n, x<em>m})<br> +\frac{1}{N} \sum</em>{n=1}^{N}{ ( y<em>n - \sum</em>{m=1}^N {\beta_m K(\mathbf{x_m, x_n})} )^2 }}<br>$$</p>
-<p>接下来求解。首先矩阵化，代入 $\mathbf{\beta, y}$ 列矩阵，$\mathbf{K<em>{n \times n}}$ 矩阵，$\mathbf{K</em>{m,n}} = K(\mathbf(x_m, x<em>n)$：<br>$$  \min</em>{\beta} {\frac{\lambda}{N} \mathbf{\beta^T K \beta} + \frac{1}{N} ( \beta^T K \beta K - 2 \beta^T K^Ty + y^T y )}<br>$$</p>
-<p>求导，梯度为：<br>$$ \nabla = \frac{2}{N} \mathbf{K^T}( (\lambda \mathbf{I} + \mathbf{K}) \mathbf{\beta} - \mathbf{y} )<br>$$</p>
-<p>令梯度为 0, 则解得：<br>$$  \mathbf{\beta} = (\lambda \mathbf{I} + \mathbf{K})^{-1} \mathbf{y}<br>$$</p>
-<p>推导过程中省略了许多步骤 :-P。需要注意的是，该求解方法时间复杂度为 $O(N^3)$，而且 $\beta$ 内元素值多不为 0。课中讲到，用于分类的”Kernel Ridge Regression”被称作“least squares SVM (LSSVM)”。因为 $\beta_n$ 多数非 0，它求解得到的”Support Vector”非常多。</p>
-<h3 id="Support-Vector-Regression"><a href="#Support-Vector-Regression" class="headerlink" title="Support Vector Regression"></a>Support Vector Regression</h3><p>“Support Vector Regression (SVR)”尝试避免”Kernel Ridge Regression”的“Support Vector” dense 问题，同时保留类似二次误差(least squares error)的形式。</p>
-<p>相对于 SVM 的 <strong>hinge regression</strong>，Support Vector Regression 采用 <strong>tube regression</strong>（在上节课”“介绍过）。令 $s=w^T z + b$，两者加上 <strong>squared error</strong> 的 error function 表达式为：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">err type</th>
-<th style="text-align:center">function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">squared err</td>
-<td style="text-align:center">$(s-y)^2$</td>
-</tr>
-<tr>
-<td style="text-align:center">tube err</td>
-<td style="text-align:center">$\max(abs(s - y) - \epsilon,\; 0)$</td>
-</tr>
-<tr>
-<td style="text-align:center">hinge err</td>
-<td style="text-align:center">$\max(1-ys,\; 0)$</td>
-</tr>
-</tbody>
-</table>
-<p>（abs 取绝对值函数）很明显，squared err 与 tube err 的变化趋势相近，当 $s \rightarrow +\infty$，$err \rightarrow +\infty$，当 $s \rightarrow -\infty$，$err \rightarrow +\infty$。如果作图，两者都呈一个山谷状。</p>
-<p>在 <a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a> 中，使用了 hinge error，在此将其替换成 tube error 重新推导。<br>$$  \min<em>{b, \mathbf{w}} \frac{1}{2}\mathbf{w^Tw} + C \sum</em>{n=1}^{N}{\max(0, |w^T z_n + b - y_n| - \epsilon)}<br>$$</p>
-<p>首先，引入松弛变量 $\xi_n^\bigwedge, \xi<em>n^\bigvee$，同时去掉绝对值：<br>$$  \min</em>{b,\mathbf{w},\xi_n^\bigwedge, \xi_n^\bigvee} \frac{1}{2}\mathbf{w^Tw} + C \sum{ (\xi_n^\bigwedge + \xi_n^\bigvee) } \\<br>s.t.\quad  -\epsilon - \xi_n^\bigvee \le y_n - w^T z_n - b \le \epsilon + \xi_n^\bigwedge \\<br>\xi_n^\bigwedge \ge 0,\quad \xi_n^\bigvee \ge 0<br>$$</p>
-<p>之后，引入拉格朗日乘数 $\alpha_n^\bigwedge, \alpha<em>n^\bigvee$，分别对应限制条件的上限与下限，又经过一系列求导、KKT 条件、化简等处理（参考“<a href="/2016/06/09/ML-MLT-3-softSVM/" title="Soft Margin SVM">Soft Margin SVM</a>” :-P），得到最终公式：<br>$$  \min  \frac{1}{2} \sum</em>{n=1}^{n}\sum_{m=1}^{n} (\alpha_n^\bigwedge - \alpha_n^\bigvee)(\alpha_m^\bigwedge - \alpha_m^\bigvee)K(x_n, x<em>m) + \sum</em>{n=1}^N( (\epsilon - y_n) \alpha_n^\bigwedge + (\epsilon ＋ y_n) \alpha_n^\bigvee) \\<br>s.t.\quad \sum(\alpha_n^\bigwedge - \alpha_n^\bigvee) = 0 \\<br>0 \le \alpha_n^\bigwedge \le C, 0 \le \alpha_n^\bigvee \le C<br>$$<br>同样是 QP 问题，求解得出<br>$$  \mathbf{w} = \sum(\alpha_n^\bigwedge - \alpha_n^\bigvee)\mathbf{z_n}<br>$$<br>Support Vector 为 $\alpha_n^\bigwedge - \alpha_n^\bigvee \ne 0$ 对应的数据点，SVR 保证了 SV 的稀疏性。</p>
-<h3 id="分类器小结"><a href="#分类器小结" class="headerlink" title="分类器小结"></a>分类器小结</h3><p>目前学习的（二）分类器，可以“线性的”与“kernel化的”，从 error function 看，可分为 “0/1 error”, “hinge error”, “squared/tube error”, “logistic error”。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">linear / kernel</th>
-<th style="text-align:center">0/1 or hinge error</th>
-<th style="text-align:center">squared/tube error</th>
-<th style="text-align:center">　logistic error</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">linear</td>
-<td style="text-align:center">PLA/pocket</td>
-<td style="text-align:center">linear SVR</td>
-</tr>
-<tr>
-<td style="text-align:center">linear</td>
-<td style="text-align:center">linear soft-margin SVM</td>
-<td style="text-align:center">linear ridge regression</td>
-<td style="text-align:center">regularized logistic regression</td>
-</tr>
-<tr>
-<td style="text-align:center">kernel</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">kernel ridge regression</td>
-<td style="text-align:center">kernel regularized logistic regression</td>
-</tr>
-<tr>
-<td style="text-align:center">kernel</td>
-<td style="text-align:center">SVM</td>
-<td style="text-align:center">SVR</td>
-<td style="text-align:center">probabilistic SVM</td>
-</tr>
-</tbody>
-</table>
-<p>其中第二、四行是最常用的，老师推荐了开源库 LIBLINEAR 与 LIBSVM。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/30/Math-Calculus-cheatSheet/" itemprop="url">
-                  微积分笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-30T19:08:24+08:00" content="2016-06-30">
-              2016-06-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li>《微积分（第2版）（上册）》，傅英定 谢云荪 主编，高等教育出版社</li>
-</ul>
-<h3 id="微积分系列笔记"><a href="#微积分系列笔记" class="headerlink" title="微积分系列笔记"></a>微积分系列笔记</h3><ul>
-<li><a href="/2016/07/30/Math-Calculus-limit/" title="极限">极限</a></li>
-<li><a href="/2016/07/30/Math-Calculus-derivation/" title="导数">导数</a></li>
-<li><a href="/2016/07/30/Math-Calculus-indefiniteIntegration/" title="不定积分计算">不定积分计算</a></li>
-<li><a href="/2016/07/30/Math-Calculus-derivationApplication/" title="导数应用">导数应用</a></li>
-<li><a href="/2016/08/16/Math-Calculus-definiteIntegral/" title="定积分">定积分</a></li>
-<li><a href="/2016/08/20/Math-Calculus-definiteIntegralApp/" title="定积分的应用">定积分的应用</a></li>
-<li><a href="/2016/08/20/Math-Calculus-ordinaryDifferentialEq/" title="常微分方程">常微分方程</a></li>
-<li><a href="/2016/09/13/Math-Calculus-multiIntegral/" title="重积分">重积分</a></li>
-<li><a href="/2016/09/26/Math-Calculus-multiDerivat/" title="多元函数最值">多元函数最值</a>
-</li>
-</ul>
-<h3 id="常见处理"><a href="#常见处理" class="headerlink" title="常见处理"></a>常见处理</h3><h4 id="对-e-x-2-的积分"><a href="#对-e-x-2-的积分" class="headerlink" title="对 $e^{x^2}$ 的积分"></a>对 $e^{x^2}$ 的积分</h4><p>考虑正态分布</p>
-<h4 id="根式常见处理"><a href="#根式常见处理" class="headerlink" title="根式常见处理"></a>根式常见处理</h4><ul>
-<li>平方</li>
-<li>分子、分母有理化</li>
-<li>换元</li>
-</ul>
-<h4 id="幂指函数处理"><a href="#幂指函数处理" class="headerlink" title="幂指函数处理"></a>幂指函数处理</h4><ul>
-<li>指数真底互换</li>
-<li>取对数</li>
-</ul>
-<h4 id="乘法变加法"><a href="#乘法变加法" class="headerlink" title="乘法变加法"></a>乘法变加法</h4><p>取对数</p>
-<h4 id="积分被积变量"><a href="#积分被积变量" class="headerlink" title="积分被积变量"></a>积分被积变量</h4><p>非被积变量被视为常数，即使是自变量，如 $f(x) =x \int_a^x f(t) dt$， 也可以自由“出入”积分，如  $f(x) = \int_a^x x f(t) dt$</p>
-<h4 id="2-变量不等式证明"><a href="#2-变量不等式证明" class="headerlink" title="2 变量不等式证明"></a>2 变量不等式证明</h4><p>固定一个，变动另一个，即其中一个作为常数，另一个作为变量。另外，区间端点如 $a, b$， 也可视为 2 个变量。</p>
-<h4 id="无穷项数列和的极限"><a href="#无穷项数列和的极限" class="headerlink" title="无穷项数列和的极限"></a>无穷项数列和的极限</h4><ul>
-<li>夹逼准则</li>
-<li>定积分定义</li>
-<li>构造函数项无穷级数</li>
-</ul>
-<h4 id="不定积分"><a href="#不定积分" class="headerlink" title="不定积分"></a>不定积分</h4><p>不定积分的定积分形式： $\int f(x) dx = \int_0^x f(x) dx + C$</p>
-<h4 id="max-与-min-函数不等式"><a href="#max-与-min-函数不等式" class="headerlink" title="max 与 min 函数不等式"></a>max 与 min 函数不等式</h4><ol>
-<li>$\max(a,b) &lt; c$ 等价于 $a &lt; c\; \&amp;\&amp; \; b &lt; c$</li>
-<li>$\min(a,b) &gt; c$ 等价于 $a &gt; c\; \&amp;\&amp; \; b &gt; c$</li>
-<li>$\max(a,b) &gt; c$ 的逆命题是 $\max(a,b) \le c$， $\min$ 函数同理</li>
-</ol>
-<h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><h4 id="对数换底公式"><a href="#对数换底公式" class="headerlink" title="对数换底公式"></a>对数换底公式</h4><p>$$\log_a b = \frac{\log_c b}{\log_c a}=\frac{\ln b}{\ln a}$$</p>
-<h4 id="指数真底互换"><a href="#指数真底互换" class="headerlink" title="指数真底互换"></a>指数真底互换</h4><p>$$x^y =a^{y\log_a x}= e^{y\ln{x}}$$</p>
-<h4 id="求导公式"><a href="#求导公式" class="headerlink" title="求导公式"></a>求导公式</h4><p> $$(x^a)’ = a x^{a-1}$$</p>
-<p> $$(e^x)’ = e^x, \quad (a^x)’ = a^x \ln a$$</p>
-<p> $$(\ln x)’ = \frac{1}{x}, \quad (\log_a x)’ = \frac{1}{x \ln a} $$</p>
-<p> $$(\sin(x))’ = \cos(x), \quad (\cos(x))’ = -\sin(x)$$</p>
-<p> $$(\tan(x))’=\frac{1}{\cos^2 x}, \quad (\cot(x))’ = -\frac{1}{\sin^2(x)}$$</p>
-<p> $$(\arcsin(x))’ = \frac{1}{\sqrt{1-x^2}}, \quad (\arccos(x))’ = -\frac{1}{\sqrt{1-x^2}}$$</p>
-<p> $$(\arctan (x))’ = \frac{1}{x^2 + 1},\quad (arccot(x))’ = -\frac{1}{x^2 + 1}$$</p>
-<p> $$(\sec(x))’ = \sec(x)\tan(x),\quad (\csc(x))’ = -\csc(x)\cot(x)$$</p>
-<p> $$\frac{d}{dx}\int_{\psi (x)}^{\varphi (x)}f(t)dt=f\left[\varphi<br>  (x)\right]\varphi ‘(x)-f[\psi (x)]\psi ‘(x)$$</p>
-<h4 id="不定积分-1"><a href="#不定积分-1" class="headerlink" title="不定积分"></a>不定积分</h4><p> $$\int \frac{1}{\sqrt{a^2-x^2}} dx = \arcsin \frac{x}{a} + C$$</p>
-<p> $$\int \frac{1}{a^2+x^2} dx = \frac{1}{a} \arctan \frac{x}{a} + C$$</p>
-<p> $$\int \frac{1}{a^2-x^2} dx = \frac{1}{2a} \ln |\frac{a+x}{a-x}| + C$$</p>
-<p> $$\int \sec x dx = \ln |\sec x + \tan x|+ C$$</p>
-<p> $$\int \csc x dx = \ln |\csc x - \cot x|+ C$$</p>
-<p> $$\int \frac{1}{\sqrt{x^2 \pm a^2}} dx = \ln |x +\sqrt{x^2 \pm a^2}| + C$$</p>
-<h4 id="分部积分可循环形式"><a href="#分部积分可循环形式" class="headerlink" title="分部积分可循环形式"></a>分部积分可循环形式</h4><p>$\sqrt{x^2 \pm a^2}, \quad \sqrt{a^2 - x^2}$</p>
-<h4 id="几个简单函数的-n-阶导数"><a href="#几个简单函数的-n-阶导数" class="headerlink" title="几个简单函数的 n 阶导数"></a>几个简单函数的 n 阶导数</h4><p> $$(x^\alpha)^{(n)} = \alpha(\alpha-1)…(\alpha-n+1)x^{\alpha-n},\quad (x^n)^{(n)} = n!$$</p>
-<p> $$\sin^{(n)}x = \sin(x+\frac{\pi}{2}n), \quad \cos^{(n)}{x} = \cos(x+\frac{\pi}{2}n)$$</p>
-<p> $$(\frac{1}{x})^{(n)} = \frac{(-1)^n n!}{x^{n+1}}$$</p>
-<p> $$[\alpha u(x) + \beta v(x)]^{(n)} = \alpha u^{(n)}(x) + \beta v^{(n)}(x)$$</p>
-<p> $$(uv)^{(n)} = \sum_{k=0}^n u^{(n-k)} v^{(k)}\quad Leibniz 公式$$</p>
-<h4 id="三角公式"><a href="#三角公式" class="headerlink" title="三角公式"></a><a href="http://baike.so.com/doc/5350859-5586315.html" target="_blank" rel="noopener">三角公式</a></h4><h5 id="三角与反三角"><a href="#三角与反三角" class="headerlink" title="三角与反三角"></a>三角与反三角</h5><p>$\sec(x)\cos(x)=1,\quad \csc(x)\sin(x)=1,\quad \cot(x)\tan(x)=1,\quad$</p>
-<h5 id="两角和"><a href="#两角和" class="headerlink" title="两角和"></a>两角和</h5><p> $$\cos(\alpha+\beta)=\cos \alpha \cdot \cos \beta-\sin \alpha \cdot \sin \beta$$</p>
-<p> $$\sin(\alpha + \beta)=\sin \alpha  \cdot \cos \beta + \cos \alpha  \cdot \sin \beta$$</p>
-<p> $$\tan(\alpha+\beta)=\frac{\tan\alpha+\tan\beta}{1-\tan\alpha \cdot \tan\beta}$$</p>
-<h5 id="倍角公式"><a href="#倍角公式" class="headerlink" title="倍角公式"></a>倍角公式</h5><p> $$\sin(2\alpha)=2\sin\alpha\cdot\cos\alpha$$</p>
-<p> $$\cos(2\alpha)=(\cos\alpha)^2-(\sin\alpha)^2=2(\cos\alpha)^2-1=1-2(\sin\alpha)^2$$</p>
-<p> $$\tan(2\alpha)=\frac{2\tan\alpha}{1-\tan^2\alpha}$$</p>
-<h4 id="等价无穷小"><a href="#等价无穷小" class="headerlink" title="等价无穷小"></a>等价无穷小</h4><p> $$\sqrt[n]{x+1} - 1 \sim \frac{x}{n}$$</p>
-<p> $$1-\cos{x} \sim \frac{1}{2} x^2$$</p>
-<p> $$\arcsin(x) \sim \sin(x) \sim \tan(x) \sim \arctan(x) \sim x$$</p>
-<p> $$\tan(x) - \sin(x) \sim \frac{1}{2}x^3$$</p>
-<p> $$ \ln(1+x) \sim x, \quad \log_a(1+x) \sim \frac{x}{\ln a}  $$</p>
-<p> $$ e^x - 1 \sim x, \quad a^x - 1 \sim x\ln a $$</p>
-<h4 id="不等式"><a href="#不等式" class="headerlink" title="不等式"></a>不等式</h4><ul>
-<li>基本不等式：$a + b \ge 2\sqrt{a b}$</li>
-<li>$a + b \le 2(a^2 + b^2)$</li>
-</ul>
-<h4 id="方向余弦"><a href="#方向余弦" class="headerlink" title="方向余弦"></a>方向余弦</h4><p>对 $(\cos \alpha, \cos \beta)$ 有</p>
-<p>$$ \cos^2 \alpha + \cos^2 \beta = 1 $$</p>
-<h4 id="数列和"><a href="#数列和" class="headerlink" title="数列和"></a>数列和</h4><p>等比数列（几何数列） ${a_n}$ ，$a_n = a_1q^{n-1}$，  和：</p>
-<p>$$ S_n = \frac{a<em>1(1-q^n)}{1-q} = \frac{a</em>{n+1} - a_1}{q-1} $$</p>
-<h4 id="导数运算"><a href="#导数运算" class="headerlink" title="导数运算"></a>导数运算</h4><p>除法：</p>
-<p>$$ (\frac{u}{v})’(x) = \frac{u’(x)v(x) - u(x)v’(x)}{v^2(x)} $$</p>
-<p>参数方程： $y=y(t),\; x= x(t)$</p>
-<p>$$ \frac{dy}{dx} = \frac{dy}{dt}\frac{dt}{dx} = \cfrac{\frac{dy}{dt}}{\frac{dx}{dt}} $$</p>
-<p><strong>复合函数求导的链式法则</strong>： $z=z(u(x,y), v(x,y))$</p>
-<p>$$ \frac{\partial z}{\partial x} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial z}{\partial v}\frac{\partial v}{\partial x} $$</p>
-<p>隐函数：若 $F(x,y)=0$ 隐函数存在，则</p>
-<p>$$ \frac{dy}{dx} = -\frac{F_x}{F_y} $$</p>
-<p>隐函数推广到二元 $F(x,y,z)=0$ 有</p>
-<p>$$ \frac{\partial z}{\partial x}=-\frac{F_x}{F_z} $$</p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><h4 id="数列极限"><a href="#数列极限" class="headerlink" title="数列极限"></a>数列极限</h4><p>$\forall \epsilon \gt 0$，$\exists N \gt 0$，当 $n \gt N$ 时，有 $|a<em>n - A| \lt \epsilon$，则 $\lim</em>{n \rightarrow \infty}{a_n} = A$</p>
-<h4 id="函数极限（有限值）"><a href="#函数极限（有限值）" class="headerlink" title="函数极限（有限值）"></a>函数极限（有限值）</h4><p><strong>要求</strong> 在 $x_0$ 的某去心邻域有定义，对 $\forall \epsilon \gt 0$，都 $\exists \delta &gt; 0$，使满足 $0 \lt |x-x<em>0| \lt \delta$ 的所有x，都有 $|f(x) - A| \lt \delta$，则 $\lim</em>{n \rightarrow x_0}{f(x)} = A$</p>
-<h4 id="二重函数极限"><a href="#二重函数极限" class="headerlink" title="二重函数极限"></a>二重函数极限</h4><p>$f(x,y)$ 的定义为 $D$， $P_0(x_0,y_0)$ 为 $D_f$ 的聚点，对 $\forall \epsilon \gt 0$，都 $\exists \delta &gt; 0$， 使满足 $0&lt;||PP_0||=\sqrt{(x-x_0)^2+(y-y_0)^2}&lt;\sigma$ 的所有 $P(x,y)$， 都有 $|f(x,y)-A|&lt;\sigma$， 则</p>
-<p>$$ \lim_{(x,y)\rightarrow (x_0,y_0)} f(x,y) = A$$</p>
-<p>二重极限存在则 $P(x,y)$ 以 <strong>任意方式</strong> 接近 $P_0(x_0,y_0)$， 其极限都存在。可以推广到更多元函数极限。</p>
-<h4 id="连续"><a href="#连续" class="headerlink" title="连续"></a>连续</h4><p>极限等于函数值，则该处连续。</p>
-<h4 id="导数"><a href="#导数" class="headerlink" title="导数"></a>导数</h4><p>$$ f’(x<em>0) = \lim</em>{\Delta x \rightarrow 0} \frac {f(x_0 + \Delta x) - f(x_0)} {\Delta x} $$</p>
-<h4 id="偏导数"><a href="#偏导数" class="headerlink" title="偏导数"></a>偏导数</h4><p>$$ z<em>x= \frac{\partial z}{\partial x} = \lim</em>{\Delta x \rightarrow 0} \frac{f(x_0 + \Delta x, y_0) - f(x_0, y_0)}{\Delta x} $$</p>
-<h4 id="二阶偏导"><a href="#二阶偏导" class="headerlink" title="二阶偏导"></a>二阶偏导</h4><p>$$ \frac{\partial }{\partial x}(\frac{\partial z}{\partial x})=\frac{\partial^2 z }{\partial x^2} = f<em>{xx}(x,y),\quad \frac{\partial }{\partial y}(\frac{\partial z}{\partial x})=\frac{\partial^2 z }{\partial x \partial y} = f</em>{xy}(x,y) $$</p>
-<h4 id="方向导数"><a href="#方向导数" class="headerlink" title="方向导数"></a>方向导数</h4><p>若 $z=f(x,y)$ 可微，则存在沿 <a href="https://zh.wikipedia.org/wiki/%E6%96%B9%E5%90%91%E9%A4%98%E5%BC%A6" target="_blank" rel="noopener">方向余弦</a> 为 $(\cos\alpha, \cos\beta)$ 的方向 l 的方向导数</p>
-<p>$$ \frac{\partial z}{\partial l} = \frac{\partial z}{\partial x} \cos \alpha + \frac{\partial z}{\partial l} \cos \beta $$</p>
-<p>方向导数是函数沿 l 方向的变化率。偏导数是沿坐标轴的函数变化率。</p>
-<h4 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h4><p>梯度是一个向量：</p>
-<p>$$ \mathbf{grad} f= \frac{\partial f}{\partial x} \mathbf{i} + \frac{\partial f}{\partial y} \mathbf{j} $$</p>
-<h4 id="全微分"><a href="#全微分" class="headerlink" title="全微分"></a>全微分</h4><p><strong>全增量</strong>：</p>
-<p>$$ \Delta z = f(x+\Delta x, y+\Delta y) - f(x,y) $$</p>
-<p>若偏导数 $f_x(x_0, y_0）, f_y(x_0, y_0)$ 均存在，且存在极限：</p>
-<p>$$ \lim_{\Delta x,\Delta y \rightarrow 0} \frac{\Delta z - (f_x(x_0, y_0） \Delta x + f_y(x_0, y_0） \Delta y)}{\sqrt{\Delta x^2 + \Delta y^2}} = 0 $$</p>
-<p>则全微分存在：</p>
-<p>$$ dz = f_x(x_0, y_0) dx + f_y(x_0, y_0) dy $$</p>
-<p>$f_x(x_0, y_0) dx + f_y(x_0, y_0) dy$ 称为线性主部。可微时有： $\Delta z = f_x(x_0, y_0) \Delta x + f_y(x_0, y_0) \Delta y + o(\sqrt{\Delta x^2+\Delta y^2})$</p>
-<h4 id="微分"><a href="#微分" class="headerlink" title="微分"></a>微分</h4><p>若函数在某处可导，则有 $\Delta y = f’(x) \Delta x + o(\Delta x)$， 其中 $dy = f’(x)\Delta x = f’(x) dx$ 即该处微分。$f’(x)\Delta x$ 称为线性主部。</p>
-<h4 id="定积分"><a href="#定积分" class="headerlink" title="定积分"></a>定积分</h4><p>关键字：分割，近似，求和，取极限</p>
-<p>设函数 $f(x)$ 在有限区间 $[a, b]$ 上有界，将 $[a, b]$ 任意划分为 $n$ 个小区间，分点为：</p>
-<p>$$a=x_0&lt;x_1&lt;x_2&lt;…&lt;x_n=b$$</p>
-<p>在每个小区间 $[x_{i-1}, x_i]\; (i=1,2,…,n)$ 上任取一点 $\xi<em>i\; (x</em>{i-1} \le \xi_i \le x_i)$， 记</p>
-<p>$$ \Delta x_i =x<em>i - x</em>{i-1}\; (i=1,2,…,n),\; \lambda=\max_{1\le i \le n}{\Delta x_i} $$</p>
-<p>作和式</p>
-<p>$$ \sum_{i=1}^n f(\xi_i)\Delta x_i $$</p>
-<p>如果无论区间 $[a,b]$ 怎样划分及点 $\xi_i$ 怎样选取，极限</p>
-<p> $$ \lim<em>{\lambda \rightarrow 0} \sum</em>{i=1}^n f(\xi_i)\Delta x_i $$</p>
-<p>的值都为同一常数，则称 $f(x)$ 在 $[a,b]$ 上可积，此极限值称为 $f(x)$ 在 $[a,b]$ 上的定积分，记为 $\int_a^b f(x) dx$， 即</p>
-<p>$$ \int<em>a^b f(x) dx = \lim</em>{\lambda \rightarrow 0} \sum_{i=1}^n f(\xi_i)\Delta x_i $$</p>
-<p>其中 $x$ 称为 <strong>被积分变量</strong>， $f(x)$ 称为 <strong>被积函数</strong> ， $f(x)dx$ 称为 <strong>被积表达式</strong> ， $a,b$ 分别为 <strong>积分下限</strong>， <strong>积分上限</strong>， $\int$ 称为 <strong>积分符号</strong>， 表示和， $[a,b]$ 为 <strong>积分区间</strong> 。</p>
-<h4 id="不定积分-2"><a href="#不定积分-2" class="headerlink" title="不定积分"></a>不定积分</h4><p>在定义域内，如果 $(F(x))’ = f(x)$，则<br>$$\int f(x) dx = F(x) + C$$</p>
-<h4 id="间断点"><a href="#间断点" class="headerlink" title="间断点"></a>间断点</h4><p>不连续的点。第一类间断点，左右极限都存在。第二类间断点即不属于第一类间断点的间断点。</p>
-<h4 id="基本初等函数"><a href="#基本初等函数" class="headerlink" title="基本初等函数"></a>基本初等函数</h4><p>指六类函数：常量函数、幂函数、指数函数、对数函数、三角函数和反三角函数。以上函数通过有限次四则运算或有限次算命运算所得，且能用一个解析式表示的函数，称为 <strong>初等函数</strong>。</p>
-<h4 id="驻点"><a href="#驻点" class="headerlink" title="驻点"></a>驻点</h4><p>一阶导数为 0 的 $x$ 值。</p>
-<h4 id="极值点"><a href="#极值点" class="headerlink" title="极值点"></a>极值点</h4><p>对 $\forall x \in$ 去心邻域 $(x_0, \delta)$, 都有 $f(x) \lt f(x_0)$ （或 $f(x) \gt f(x_0)$） 则称 $x_0$ 为极大（小）值点。</p>
-<h4 id="函数凹凸性"><a href="#函数凹凸性" class="headerlink" title="函数凹凸性"></a>函数凹凸性</h4><p>$f(x)$ 在 $[a,b]$ 连续</p>
-<p> $$f(\frac{x_1+x_2}{2}) &lt; \frac{f(x_1) + f(x_2)}{2}$$  </p>
-<p> 则下凸，大于则上凸</p>
-<h4 id="拐点"><a href="#拐点" class="headerlink" title="拐点"></a>拐点</h4><p>$f(x)$ 在 $x_0$ 附近连续，且两侧凸性相反，则 <strong>$(x_0, f(x_0))$</strong> 为拐点</p>
-<h4 id="函数渐近线"><a href="#函数渐近线" class="headerlink" title="函数渐近线"></a>函数渐近线</h4><ul>
-<li>垂直渐近线 $x=x_0$</li>
-</ul>
-<p>$$\lim_{x \rightarrow x_0} f(x) = \infty$$</p>
-<ul>
-<li>水平渐近线 $y=b$</li>
-</ul>
-<p>$$\lim_{x \rightarrow \infty} f(x) = b$$</p>
-<ul>
-<li><p>斜渐近线 $y=k x + b$</p>
-<ul>
-<li><p>$$\lim_{x \rightarrow \infty} f(x) - (k x + b) = 0$$</p>
-</li>
-<li><p>$$k =\lim<em>{x\rightarrow \infty} \frac{f(x)}{x},\quad b = \lim</em>{x \rightarrow \infty} f(x) - k x$$</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="函数曲率"><a href="#函数曲率" class="headerlink" title="函数曲率"></a>函数曲率</h4><p>$\alpha \sim 角度,\quad s \sim 弧长,\quad K \sim 曲率$</p>
-<p>$$K = \lim_{\Delta s \rightarrow 0} |\frac{\Delta \alpha}{\Delta s}| = \frac{|y’’|}{(1+y’^2)^{\frac{3}{2}}}$$</p>
-<p>圆的曲率： $K = 1 / R$。 <strong>曲率半径：</strong> $1/K$, 曲率圆与函数曲线相切，以曲率半径为半径，曲率中心为曲率圆的圆心。</p>
-<h4 id="反常积分"><a href="#反常积分" class="headerlink" title="反常积分"></a>反常积分</h4><p><a href="https://zh.wikipedia.org/wiki/%E5%8F%8D%E5%B8%B8%E7%A9%8D%E5%88%86" target="_blank" rel="noopener">反常积分</a>又叫广义积分，是对普通定积分的推广，指含有无穷上限/下限，或者被积函数含有瑕点的积分，前者称为无穷限广义积分，后者称为瑕积分（又叫无界函数的反常积分）。</p>
-<h4 id="无穷级数"><a href="#无穷级数" class="headerlink" title="无穷级数"></a>无穷级数</h4><p>一个无穷序列的元素的和称为无穷级数。序列的通项称作级数的 <strong>通项</strong>， 若为常数，则称作常数项无穷级数，若为函数，称作函数项无穷级数。无穷级数是 <strong>函数逼近理论</strong> 的重要内容之一。</p>
-<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><h4 id="微分、偏导与连续"><a href="#微分、偏导与连续" class="headerlink" title="微分、偏导与连续"></a>微分、偏导与连续</h4><p>对一阶，可微必可导，可导必连续，连续有极限。</p>
-<p>对二阶，可微必偏导和连续，连续有极限。可微的充分条件：偏导函数存在且偏导函数连续。</p>
-<h4 id="微分中值定理"><a href="#微分中值定理" class="headerlink" title="微分中值定理"></a>微分中值定理</h4><h5 id="罗尔中值定理（导数根存在定理）"><a href="#罗尔中值定理（导数根存在定理）" class="headerlink" title="罗尔中值定理（导数根存在定理）"></a>罗尔中值定理（导数根存在定理）</h5><p>$f(x)$ 满足三个条件，一、在 $[a,b]$ 连续，二、在 $(a,b)$ 可导，三、 $f(a)=f(b)$ ，则 $\exists \xi \in (a,b)$, 使得 $f’(\xi)=0$。几何意义：存在切线与端点连线平行。</p>
-<h5 id="拉格朗日定理"><a href="#拉格朗日定理" class="headerlink" title="拉格朗日定理"></a>拉格朗日定理</h5><p>$f(x)$ 满足二个条件，一、在 $[a,b]$ 连续，二、在 $(a,b)$ 可导，则 $\exists \xi \in (a,b)$, 使得</p>
-<p>$$ f’(\xi) = \frac{f(b) - f(a)}{b - a} $$</p>
-<p>几何意义：存在切线与端点连线平行。</p>
-<h5 id="柯西中值定理"><a href="#柯西中值定理" class="headerlink" title="柯西中值定理"></a>柯西中值定理</h5><p>$f(x),\;g(x)$ 满足二个条件，一、在 $[a,b]$ 连续，二、在 $(a,b)$ 可导，另外， $\forall x \in (a,b)$， $g’(x) \ne 0$, 则 $\exists\xi \in (a,b)$, 使得</p>
-<p>$$ \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f’(\xi)}{g’(\xi)}$$</p>
-<h4 id="泰勒公式"><a href="#泰勒公式" class="headerlink" title="泰勒公式"></a>泰勒公式</h4><p>$f(x)$ 在 $x_0$ 处 $n$ 阶可导，则</p>
-<p>$$  f(x) = f(x_0) + f’(x_0)(x-x_0) + \frac{f’’(x_0)}{2!}(x-x_0)^2 + … + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + R_n(x)<br>$$</p>
-<p>$R_n(x)$ 称为余项</p>
-<ul>
-<li><strong>偑亚诺余项</strong> $R_n(x) = o((x-x_0)^n)$,</li>
-<li><strong>拉格朗日余项</strong> , $\xi$ 在 $x_0$ 与 $x$ 之间</li>
-</ul>
-<p>$$R_n(x)=\frac{f^{n+1}(\xi)}{(n+1)!}(x-x_0)^{n+1}$$</p>
-<h4 id="有界性定理"><a href="#有界性定理" class="headerlink" title="有界性定理"></a>有界性定理</h4><p>函数连续则有界</p>
-<h4 id="介值定理"><a href="#介值定理" class="headerlink" title="介值定理"></a>介值定理</h4><p>$f(x)$ 在 $[a,b]$ 上连续，则存在一个介于 $f(a) \sim f(b)$ 的值</p>
-<h5 id="根-零点存在定理"><a href="#根-零点存在定理" class="headerlink" title="根/零点存在定理"></a>根/零点存在定理</h5><p>如果 $f(x)$ 在 $[a,b]$ 连续，且 $f(a) \cdot f(b) &lt; 0$， 则 $f(x) = 0$ 存在根，如果 $f(x)$ 单调，则只存在一个根。</p>
-<h4 id="可积的充要条件"><a href="#可积的充要条件" class="headerlink" title="可积的充要条件"></a>可积的充要条件</h4><p>满足以下条件之一：</p>
-<ul>
-<li>f(x) 连续（则原函数可导）</li>
-<li>单调有界</li>
-<li>只有有限个第一类间断点且有界</li>
-</ul>
-<h4 id="定积分的性质"><a href="#定积分的性质" class="headerlink" title="定积分的性质"></a>定积分的性质</h4><h5 id="（定）积分中值定理"><a href="#（定）积分中值定理" class="headerlink" title="（定）积分中值定理"></a>（定）积分中值定理</h5><p>$f(x)$ 在 $[a,b]$ 上连续，则存在 $\xi \in (a,b)$</p>
-<p>$$\int_a^b f(x) dx = f(\xi) (b-a)$$</p>
-<h5 id="估值定理"><a href="#估值定理" class="headerlink" title="估值定理"></a>估值定理</h5><p>设 M 与 m 分别为 f(x) 在 [a,b] 上的最大最小值，则</p>
-<p>$$ m(b-a) \le \int_a^b f(x) dx  \le M(b-a) $$</p>
-<h5 id="保号性"><a href="#保号性" class="headerlink" title="保号性"></a>保号性</h5><p>如果在 [a,b] 上 $f(x) \ge 0$， 则 $\int_a^b f(x) dx \ge 0$</p>
-<p>推论1， <strong>保序性</strong>： 如果在 [a,b] 上 $f(x) \ge g(x)$， 则 $\int_a^b f(x) dx \ge \int_a^b g(x) dx$</p>
-<p>推论2： $\int_a^b |f(x)| dx \ge |\int_a^b f(x) dx|$</p>
-<h5 id="区间可加性"><a href="#区间可加性" class="headerlink" title="区间可加性"></a>区间可加性</h5><p>不论 a,b,c 三点相对位置，恒有 $\int_a^b f(x) dx = \int_a^c f(x) dx + \int_c^b f(x) dx$</p>
-<h5 id="线性性"><a href="#线性性" class="headerlink" title="线性性"></a>线性性</h5><p>$\int_a^b [k_1 f(x)+k_2 g(x)] dx = k_1 \int_a^b f(x) dx + k_2 \int_a^b g(x) dx$</p>
-<h4 id="奇偶函数的导函数"><a href="#奇偶函数的导函数" class="headerlink" title="奇偶函数的导函数"></a>奇偶函数的导函数</h4><p>奇函数的导数为偶函数，偶函数的导数为奇函数</p>
-<h4 id="极限的性质"><a href="#极限的性质" class="headerlink" title="极限的性质"></a>极限的性质</h4><h5 id="（局部）有界性"><a href="#（局部）有界性" class="headerlink" title="（局部）有界性"></a>（局部）有界性</h5><p>若 $lim_{x \rightarrow x_0} f(x) = A$, 则 $\exists\;M&gt;0,\;\delta &gt; 0$，对 $\forall\; x \in U^\circ(x_0, \delta)$， 都有 $|f(x)| \le M$</p>
-<h5 id="局部保号性"><a href="#局部保号性" class="headerlink" title="局部保号性"></a>局部保号性</h5><p>若 $lim_{x \rightarrow x_0} f(x) = A &gt; 0$ （或 $<0$ ）,="" 则="" $\exists="" \delta="">0$， 使得对 $\forall x \in U^\circ(x_0,\delta)$， 都有 $f(x) &gt; 0\;(&lt;0)$</0$></p>
-<h4 id="极限存在准则"><a href="#极限存在准则" class="headerlink" title="极限存在准则"></a>极限存在准则</h4><h5 id="夹逼准则"><a href="#夹逼准则" class="headerlink" title="夹逼准则"></a>夹逼准则</h5><p>若在 $x_0$ 的某个空心邻域 $(x_0,\delta<em>0)$ 内，有 $g(x) \le f(x) \le h(x)$ ，且 $\lim</em>{x\rightarrow x<em>0} g(x) =lim</em>{x\rightarrow x<em>0} h(x)=A$， 则 $lim</em>{x\rightarrow x_0} f(x)=A$</p>
-<h5 id="单调有界准则"><a href="#单调有界准则" class="headerlink" title="单调有界准则"></a>单调有界准则</h5><p>单调有界数列必有极限，包括单调增加有上界，单调减少有下界两种情况</p>
-<h4 id="隐函数存在定理（一个方程）"><a href="#隐函数存在定理（一个方程）" class="headerlink" title="隐函数存在定理（一个方程）"></a>隐函数存在定理（一个方程）</h4><p>设方程 $F(x,y)=0$ 的左端函数 $F(x,y)$ 满足</p>
-<ul>
-<li>在点 $P_0(x_0,y_0)$ 的某一邻域内具有连续的偏导数 $F_x,\; F_y$</li>
-<li>$F(x_0,y_0)=0$</li>
-<li>$F_y(x_0,y_0)\ne 0$</li>
-</ul>
-<p>则在点 $P_0(x_0, y_0)$ 的某一邻域内，由方程 $F(x,y)=0$ 唯一确定单值连续且有连续导数的函数 $y=f(x)$， 使得 $F(x, f(x)) \equiv 0$， 且 $y_0=f(x_0)$ 并有：</p>
-<p>$$ \frac{dy}{dx} = -\frac{F_x}{F_y} $$</p>
-<p>可推广到多元隐函数</p>
-<h4 id="偏导数与梯度"><a href="#偏导数与梯度" class="headerlink" title="偏导数与梯度"></a>偏导数与梯度</h4><p>单位向量 $\mathbf{l}(\cos \alpha, \cos \beta)$ 的偏导数</p>
-<p>$$ \frac{\partial f}{\partial l} = (\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}) \cdot (\cos \alpha, \cos \beta) = \mathbf{grad } f \cdot \mathbf{l} = ||\mathbf{grad} f|| \cdot \cos \theta $$</p>
-<p>其中 $\theta$ 为梯度 $\mathbf{grad} f$ 与方向向量 $\mathbf{l}$ 的夹角。有以下结论：</p>
-<ul>
-<li>方向导数沿梯度方向取得最大值 $||\mathbf{grad}f||$</li>
-<li>方向导数沿梯度反方向取得最小值 $-||\mathbf{grad}f||$</li>
-</ul>
 
           
         
@@ -1910,7 +1719,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1927,7 +1736,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

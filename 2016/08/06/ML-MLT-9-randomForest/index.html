@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="此文是本人学习林轩田老师教授的机器学习技法第十——Decision Tree——的笔记。 Random Forest 模型概括讲，就是以 Decision Tree 为基础模型，这里选择未经剪枝的完全树，用 Bagging 进行集合训练。完全决策树在训练集上的零误差，对样本选择十分敏感，有较大的 varaince，但有着训练高效等优点。而 Bagging 能够降低模型预测的 varaince 误差">
+<meta name="description" content="此文是本人学习林轩田老师教授的机器学习技法第十——Decision Tree——的笔记。 Random Forest 模型概括讲，就是以 Decision Tree 为基础模型，这里选择未经剪枝的完全树，用 Bagging 进行集合训练。完全决策树在训练集上的零误差，对样本选择十分敏感，有较大的 varaince，但有着训练高效等优点。而 Bagging 能够降低模型预测的 varaince 误">
 <meta name="keywords" content="ML,机器学习技法,Ensemble Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习技法第十课——Random Forest">
 <meta property="og:url" content="http://yoursite.com/2016/08/06/ML-MLT-9-randomForest/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="此文是本人学习林轩田老师教授的机器学习技法第十——Decision Tree——的笔记。 Random Forest 模型概括讲，就是以 Decision Tree 为基础模型，这里选择未经剪枝的完全树，用 Bagging 进行集合训练。完全决策树在训练集上的零误差，对样本选择十分敏感，有较大的 varaince，但有着训练高效等优点。而 Bagging 能够降低模型预测的 varaince 误差">
+<meta property="og:description" content="此文是本人学习林轩田老师教授的机器学习技法第十——Decision Tree——的笔记。 Random Forest 模型概括讲，就是以 Decision Tree 为基础模型，这里选择未经剪枝的完全树，用 Bagging 进行集合训练。完全决策树在训练集上的零误差，对样本选择十分敏感，有较大的 varaince，但有着训练高效等优点。而 Bagging 能够降低模型预测的 varaince 误">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习技法第十课——Random Forest">
-<meta name="twitter:description" content="此文是本人学习林轩田老师教授的机器学习技法第十——Decision Tree——的笔记。 Random Forest 模型概括讲，就是以 Decision Tree 为基础模型，这里选择未经剪枝的完全树，用 Bagging 进行集合训练。完全决策树在训练集上的零误差，对样本选择十分敏感，有较大的 varaince，但有着训练高效等优点。而 Bagging 能够降低模型预测的 varaince 误差">
+<meta name="twitter:description" content="此文是本人学习林轩田老师教授的机器学习技法第十——Decision Tree——的笔记。 Random Forest 模型概括讲，就是以 Decision Tree 为基础模型，这里选择未经剪枝的完全树，用 Bagging 进行集合训练。完全决策树在训练集上的零误差，对样本选择十分敏感，有较大的 varaince，但有着训练高效等优点。而 Bagging 能够降低模型预测的 varaince 误">
 
 
 
@@ -300,24 +300,31 @@
       
         <p>此文是本人学习<a href="http://www.csie.ntu.edu.tw/~htlin/" target="_blank" rel="noopener">林轩田老师</a>教授的机器学习技法第十——Decision Tree——的笔记。</p>
 <p><strong>Random Forest</strong> 模型概括讲，就是以 <a href="/2016/08/03/ML-MLT-8-decisionTree/" title="Decision Tree">Decision Tree</a> 为基础模型，这里选择未经剪枝的完全树，用 <a href="/2016/07/23/ML-MLT-6-blendingBagging/" title="Bagging">Bagging</a> 进行集合训练。完全决策树在训练集上的零误差，对样本选择十分敏感，有较大的 varaince，但有着训练高效等优点。而 Bagging 能够降低模型预测的 varaince 误差，特别适用于对样本敏感的波动比较大的模型。所以，结合两者应该可以取得好效果。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/" target="_blank" rel="noopener">机器学习技法</a></li>
 <li><a href="https://www.csie.ntu.edu.tw/~htlin/mooc/doc/210_handout.pdf" target="_blank" rel="noopener">课件</a></li>
 <li><a href="/2016/08/03/ML-MLT-8-decisionTree/" title="Decision Tree">Decision Tree</a></li>
 <li><a href="/2016/07/23/ML-MLT-6-blendingBagging/" title="Bagging">Bagging</a></li>
 <li><a href="http://www.plob.org/2012/12/19/3176.html" target="_blank" rel="noopener">置换检验</a></li>
 </ul>
-<h3 id="增强随机性"><a href="#增强随机性" class="headerlink" title="增强随机性"></a>增强随机性</h3><p>在 Random Forest 中，为了进一步降低算法 variance 误差，不仅抽取样本时做到随机抽取，还在选择特征时保证一定的随机性。普遍使用方式是 <em>随机选取子空间</em>。</p>
-<h4 id="随机选取子空间（random-subspace）"><a href="#随机选取子空间（random-subspace）" class="headerlink" title="随机选取子空间（random subspace）"></a>随机选取子空间（random subspace）</h4><p>在训练 Decision Tree 的每一个节点时，需要按照某种准则（如基尼值）选取一个特征用于数据划分。未经处理的特征选择数目是所有特征的数目 $M$， 为了增大随机性，随机抽取其中的 $m$ （往往 $M,m$ 差距比较大）个特征供选择。一项数据 $(\mathbf{x}, y)$， 将 $\mathbf{x}$ 视作一个空间向量，每个特征对应一个维度，所以，这个过程可以理解成随机抽取一个子空间用做训练。</p>
-<h4 id="随机结合子空间（random-combination）"><a href="#随机结合子空间（random-combination）" class="headerlink" title="随机结合子空间（random combination）"></a>随机结合子空间（random combination）</h4><p>与<em>随机选取子空间</em>不同，随机结合子空间将数据向量 $\mathbf{x}$ 投影到另一个空间成为 $\mathbf{x’}$。 $\mathbf{x’}$ 的每一维都是从原 $\mathbf{x}$ 的 $M$ 维中随机选择 $m$ 维结合（相加）而得。</p>
-<h3 id="Out-Of-Bag-验证"><a href="#Out-Of-Bag-验证" class="headerlink" title="Out Of Bag 验证"></a>Out Of Bag 验证</h3><p>Bagging 采用 Bootstrapping 的方式取样，有些样本没有被抽到不能用作训练数据，称其为 Out Of Bag（简称 OOB） 数据，但它们也可以被利用起来，作为验证使用。</p>
+<h3 id="增强随机性">增强随机性</h3>
+<p>在 Random Forest 中，为了进一步降低算法 variance 误差，不仅抽取样本时做到随机抽取，还在选择特征时保证一定的随机性。普遍使用方式是 <em>随机选取子空间</em>。</p>
+<h4 id="随机选取子空间random-subspace">随机选取子空间（random subspace）</h4>
+<p>在训练 Decision Tree 的每一个节点时，需要按照某种准则（如基尼值）选取一个特征用于数据划分。未经处理的特征选择数目是所有特征的数目 <span class="math inline">\(M\)</span>， 为了增大随机性，随机抽取其中的 <span class="math inline">\(m\)</span> （往往 <span class="math inline">\(M,m\)</span> 差距比较大）个特征供选择。一项数据 <span class="math inline">\((\mathbf{x}, y)\)</span>， 将 <span class="math inline">\(\mathbf{x}\)</span> 视作一个空间向量，每个特征对应一个维度，所以，这个过程可以理解成随机抽取一个子空间用做训练。</p>
+<h4 id="随机结合子空间random-combination">随机结合子空间（random combination）</h4>
+<p>与<em>随机选取子空间</em>不同，随机结合子空间将数据向量 <span class="math inline">\(\mathbf{x}\)</span> 投影到另一个空间成为 <span class="math inline">\(\mathbf{x&#39;}\)</span>。 <span class="math inline">\(\mathbf{x&#39;}\)</span> 的每一维都是从原 <span class="math inline">\(\mathbf{x}\)</span> 的 <span class="math inline">\(M\)</span> 维中随机选择 <span class="math inline">\(m\)</span> 维结合（相加）而得。</p>
+<h3 id="out-of-bag-验证">Out Of Bag 验证</h3>
+<p>Bagging 采用 Bootstrapping 的方式取样，有些样本没有被抽到不能用作训练数据，称其为 Out Of Bag（简称 OOB） 数据，但它们也可以被利用起来，作为验证使用。</p>
 <p>具体做法是，在为每个 Decision Tree 抽取训练数据时就标记那些未被抽取的 OOB 数据，在整个 Random Forest 训练结束后用 OOB 做验证。在用某项 OOB 数据做验证时，该数据可能被一些 Decision Tree 用作训练数据，所以必须排除这些 Decision Tree。</p>
-<h3 id="特征选择——置换重要性"><a href="#特征选择——置换重要性" class="headerlink" title="特征选择——置换重要性"></a>特征选择——置换重要性</h3><p><strong>特征选择</strong> 指从所有特征中选取对结果有影响（有用）的特征，剔除无关特征。Random Forest 能很容易实现这个功能。</p>
-<p>如果一个特征 $x_i$ 对结果 $y$ 无影响，那么 $x_i$ 与 $y$ 是否正确对应也就无关紧要。基于这个思想，研究者提出一个通过置换特征计算其重要程度的方法：</p>
-<p>$$ importance(i) = E<em>{oob}(G) - E</em>{oob}^{(p)}(G) $$</p>
-<p>其中，G 指已经训练完成的 Random Forest 模型， $E<em>{oob}$ 指 OOB 验证误差，未经任何处理，而 $E</em>{oob}^{(p)}$ 指在进行 OOB 验证前，所有 OOB 数据的第 $i$ 个特征（第 $i$ 维数值 $x_i$）相互间进行随机置换（互换）。</p>
+<h3 id="特征选择置换重要性">特征选择——置换重要性</h3>
+<p><strong>特征选择</strong> 指从所有特征中选取对结果有影响（有用）的特征，剔除无关特征。Random Forest 能很容易实现这个功能。</p>
+<p>如果一个特征 <span class="math inline">\(x_i\)</span> 对结果 <span class="math inline">\(y\)</span> 无影响，那么 <span class="math inline">\(x_i\)</span> 与 <span class="math inline">\(y\)</span> 是否正确对应也就无关紧要。基于这个思想，研究者提出一个通过置换特征计算其重要程度的方法：</p>
+<p><span class="math display">\[ importance(i) = E_{oob}(G) - E_{oob}^{(p)}(G) \]</span></p>
+<p>其中，G 指已经训练完成的 Random Forest 模型， <span class="math inline">\(E_{oob}\)</span> 指 OOB 验证误差，未经任何处理，而 <span class="math inline">\(E_{oob}^{(p)}\)</span> 指在进行 OOB 验证前，所有 OOB 数据的第 <span class="math inline">\(i\)</span> 个特征（第 <span class="math inline">\(i\)</span> 维数值 <span class="math inline">\(x_i\)</span>）相互间进行随机置换（互换）。</p>
 <p>这个思想类似 permutation test <a href="http://www.plob.org/2012/12/19/3176.html" target="_blank" rel="noopener">置换检验</a>。</p>
-<h3 id="树越多越好？"><a href="#树越多越好？" class="headerlink" title="树越多越好？"></a>树越多越好？</h3><p>老师指出，理论上讲，树越多，Random Forest 的越强，建议在预测效果不好时，适当增加树的个数。</p>
+<h3 id="树越多越好">树越多越好？</h3>
+<p>老师指出，理论上讲，树越多，Random Forest 的越强，建议在预测效果不好时，适当增加树的个数。</p>
 
       
     </div>
@@ -431,7 +438,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -448,7 +455,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -477,7 +484,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增强随机性"><span class="nav-number">2.</span> <span class="nav-text">增强随机性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#随机选取子空间（random-subspace）"><span class="nav-number">2.1.</span> <span class="nav-text">随机选取子空间（random subspace）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随机结合子空间（random-combination）"><span class="nav-number">2.2.</span> <span class="nav-text">随机结合子空间（random combination）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Out-Of-Bag-验证"><span class="nav-number">3.</span> <span class="nav-text">Out Of Bag 验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征选择——置换重要性"><span class="nav-number">4.</span> <span class="nav-text">特征选择——置换重要性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树越多越好？"><span class="nav-number">5.</span> <span class="nav-text">树越多越好？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增强随机性"><span class="nav-number">2.</span> <span class="nav-text">增强随机性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#随机选取子空间random-subspace"><span class="nav-number">2.1.</span> <span class="nav-text">随机选取子空间（random subspace）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随机结合子空间random-combination"><span class="nav-number">2.2.</span> <span class="nav-text">随机结合子空间（random combination）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#out-of-bag-验证"><span class="nav-number">3.</span> <span class="nav-text">Out Of Bag 验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征选择置换重要性"><span class="nav-number">4.</span> <span class="nav-text">特征选择——置换重要性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树越多越好"><span class="nav-number">5.</span> <span class="nav-text">树越多越好？</span></a></li></ol></div>
             
           </div>
         </section>

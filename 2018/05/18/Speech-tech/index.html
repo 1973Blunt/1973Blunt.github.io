@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="安装librosaWindows Anaconda环境下安装librosa：1conda install -c conda-forge librosa Ubuntu下报错1RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to set LLVM_CONFIG to the right executable path. 解决办法">
+<meta name="description" content="安装librosa Windows Anaconda环境下安装librosa： 1conda install -c conda-forge librosa Ubuntu下报错 1RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to set LLVM_CONFIG to the right executable path.">
 <meta name="keywords" content="Cheat Sheet,Speech">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Speech相关技术基础">
 <meta property="og:url" content="http://yoursite.com/2018/05/18/Speech-tech/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="安装librosaWindows Anaconda环境下安装librosa：1conda install -c conda-forge librosa Ubuntu下报错1RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to set LLVM_CONFIG to the right executable path. 解决办法">
+<meta property="og:description" content="安装librosa Windows Anaconda环境下安装librosa： 1conda install -c conda-forge librosa Ubuntu下报错 1RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to set LLVM_CONFIG to the right executable path.">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-18T14:45:29.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Speech相关技术基础">
-<meta name="twitter:description" content="安装librosaWindows Anaconda环境下安装librosa：1conda install -c conda-forge librosa Ubuntu下报错1RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to set LLVM_CONFIG to the right executable path. 解决办法">
+<meta name="twitter:description" content="安装librosa Windows Anaconda环境下安装librosa： 1conda install -c conda-forge librosa Ubuntu下报错 1RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to set LLVM_CONFIG to the right executable path.">
 
 
 
@@ -298,9 +298,10 @@
       
 
       
-        <h4 id="安装librosa"><a href="#安装librosa" class="headerlink" title="安装librosa"></a>安装librosa</h4><p>Windows Anaconda环境下安装librosa：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge librosa</span><br></pre></td></tr></table></figure></p>
-<p>Ubuntu下报错<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to <span class="built_in">set</span> LLVM_CONFIG to the right executable path.</span><br></pre></td></tr></table></figure></p>
-<p>解决办法，确认<code>ls /usr/bin/ | grep llvm-config</code>后缀版本是否是<code>6.0.x</code>，如果不是则属于版本不对应的问题，方案一是升级或降级llvmlite，方案二是安装对应版本的llvmlite和librosa。比如，当llvmlite版本是<code>0.5</code>，方案二应该安装：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install llvmlite==0.22 numba==0.36.1 librosa==0.5</span><br></pre></td></tr></table></figure></p>
+        <h4 id="安装librosa">安装librosa</h4>
+<p>Windows Anaconda环境下安装librosa： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge librosa</span><br></pre></td></tr></table></figure></p>
+<p>Ubuntu下报错 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeError: Building llvmlite requires LLVM 6.0.x. Be sure to <span class="built_in">set</span> LLVM_CONFIG to the right executable path.</span><br></pre></td></tr></table></figure></p>
+<p>解决办法，确认<code>ls /usr/bin/ | grep llvm-config</code>后缀版本是否是<code>6.0.x</code>，如果不是则属于版本不对应的问题，方案一是升级或降级llvmlite，方案二是安装对应版本的llvmlite和librosa。比如，当llvmlite版本是<code>0.5</code>，方案二应该安装： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install llvmlite==0.22 numba==0.36.1 librosa==0.5</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -412,7 +413,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -429,7 +430,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

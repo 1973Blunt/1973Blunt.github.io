@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="卷积padding参数参考stackoverflow上的问答，输入向量长13，卷积核长6，步长5，以此为例：  &amp;quot;VALID&amp;quot; = without padding: 123inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)               |________________|">
+<meta name="description" content="卷积padding参数 参考stackoverflow上的问答，输入向量长13，卷积核长6，步长5，以此为例：  &amp;quot;VALID&amp;quot; = without padding: 123inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)               |________________|">
 <meta name="keywords" content="Cheat Sheet,Tensorflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tensorflow-cheatSheet">
 <meta property="og:url" content="http://yoursite.com/2018/04/12/Tensorflow-cheatSheet/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="卷积padding参数参考stackoverflow上的问答，输入向量长13，卷积核长6，步长5，以此为例：  &amp;quot;VALID&amp;quot; = without padding: 123inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)               |________________|">
+<meta property="og:description" content="卷积padding参数 参考stackoverflow上的问答，输入向量长13，卷积核长6，步长5，以此为例：  &amp;quot;VALID&amp;quot; = without padding: 123inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)               |________________|">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-27T09:05:54.216Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tensorflow-cheatSheet">
-<meta name="twitter:description" content="卷积padding参数参考stackoverflow上的问答，输入向量长13，卷积核长6，步长5，以此为例：  &amp;quot;VALID&amp;quot; = without padding: 123inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)               |________________|">
+<meta name="twitter:description" content="卷积padding参数 参考stackoverflow上的问答，输入向量长13，卷积核长6，步长5，以此为例：  &amp;quot;VALID&amp;quot; = without padding: 123inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)               |________________|">
 
 
 
@@ -298,16 +298,14 @@
       
 
       
-        <h4 id="卷积padding参数"><a href="#卷积padding参数" class="headerlink" title="卷积padding参数"></a>卷积padding参数</h4><p>参考<a href="https://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t" target="_blank" rel="noopener">stackoverflow上的问答</a>，输入向量长13，卷积核长6，步长5，以此为例：</p>
+        <h4 id="卷积padding参数">卷积padding参数</h4>
+<p>参考<a href="https://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t" target="_blank" rel="noopener">stackoverflow上的问答</a>，输入向量长13，卷积核长6，步长5，以此为例：</p>
 <ul>
-<li><p><code>&quot;VALID&quot;</code> = without padding:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)</span><br><span class="line">               |________________|                dropped</span><br><span class="line">                              |_________________|</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>&quot;SAME&quot;</code> = with zero padding:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">            pad|                                      |pad</span><br><span class="line">inputs:      0 |1  2  3  4  5  6  7  8  9  10 11 12 13|0  0</span><br><span class="line">            |________________|</span><br><span class="line">                           |_________________|</span><br><span class="line">                                          |________________|</span><br></pre></td></tr></table></figure>
-</li>
+<li><p><code>&quot;VALID&quot;</code> = without padding: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inputs:         1  2  3  4  5  6  7  8  9  10 11 (12 13)</span><br><span class="line">               |________________|                dropped</span><br><span class="line">                              |_________________|</span><br></pre></td></tr></table></figure></p></li>
+<li><p><code>&quot;SAME&quot;</code> = with zero padding: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">            pad|                                      |pad</span><br><span class="line">inputs:      0 |1  2  3  4  5  6  7  8  9  10 11 12 13|0  0</span><br><span class="line">            |________________|</span><br><span class="line">                           |_________________|</span><br><span class="line">                                          |________________|</span><br></pre></td></tr></table></figure></p></li>
 </ul>
-<h4 id="安装TF旧版本"><a href="#安装TF旧版本" class="headerlink" title="安装TF旧版本"></a>安装TF旧版本</h4><p>用pip安装Python2.7 TF0.11，参考<a href="https://stackoverflow.com/questions/41937915/how-to-pip-install-old-version-of-librarytensorflow" target="_blank" rel="noopener">stackoverflow回答</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, CPU only, Python 2.7</span></span><br><span class="line"><span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.11.0-cp27-none-linux_x86_64.whl</span><br><span class="line"><span class="comment"># GPU版本</span></span><br><span class="line"><span class="comment"># export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp27-none-linux_x86_64.whl</span></span><br><span class="line">pip install --ignore-installed --upgrade <span class="variable">$TF_BINARY_URL</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="安装tf旧版本">安装TF旧版本</h4>
+<p>用pip安装Python2.7 TF0.11，参考<a href="https://stackoverflow.com/questions/41937915/how-to-pip-install-old-version-of-librarytensorflow" target="_blank" rel="noopener">stackoverflow回答</a> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu/Linux 64-bit, CPU only, Python 2.7</span></span><br><span class="line"><span class="built_in">export</span> TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.11.0-cp27-none-linux_x86_64.whl</span><br><span class="line"><span class="comment"># GPU版本</span></span><br><span class="line"><span class="comment"># export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.11.0-cp27-none-linux_x86_64.whl</span></span><br><span class="line">pip install --ignore-installed --upgrade <span class="variable">$TF_BINARY_URL</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -419,7 +417,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -436,7 +434,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -465,7 +463,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#卷积padding参数"><span class="nav-number">1.</span> <span class="nav-text">卷积padding参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装TF旧版本"><span class="nav-number">2.</span> <span class="nav-text">安装TF旧版本</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#卷积padding参数"><span class="nav-number">1.</span> <span class="nav-text">卷积padding参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装tf旧版本"><span class="nav-number">2.</span> <span class="nav-text">安装TF旧版本</span></a></li></ol></div>
             
           </div>
         </section>

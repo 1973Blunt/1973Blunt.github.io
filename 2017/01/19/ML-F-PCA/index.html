@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。 参考 线性代数之主成分分析(PCA)算法 白化 白化（Whitening）：PCA vs. ZCA  原理PCA最终目的是对表示 $m$ 条 $n$ 维（n个特征）数据的矩阵 $X{m \tim">
+<meta name="description" content="主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。 参考  线性代数之主成分分析(PCA)算法 白化 白化（Whitening）：PCA vs. ZCA  原理 PCA最终目的是对表示 \(m\) 条 \(n\) 维（n个特征）数">
 <meta name="keywords" content="ML,机器学习技法,ML基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="主成分分析">
 <meta property="og:url" content="http://yoursite.com/2017/01/19/ML-F-PCA/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。 参考 线性代数之主成分分析(PCA)算法 白化 白化（Whitening）：PCA vs. ZCA  原理PCA最终目的是对表示 $m$ 条 $n$ 维（n个特征）数据的矩阵 $X{m \tim">
+<meta property="og:description" content="主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。 参考  线性代数之主成分分析(PCA)算法 白化 白化（Whitening）：PCA vs. ZCA  原理 PCA最终目的是对表示 \(m\) 条 \(n\) 维（n个特征）数">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-05-19T07:31:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="主成分分析">
-<meta name="twitter:description" content="主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。 参考 线性代数之主成分分析(PCA)算法 白化 白化（Whitening）：PCA vs. ZCA  原理PCA最终目的是对表示 $m$ 条 $n$ 维（n个特征）数据的矩阵 $X{m \tim">
+<meta name="twitter:description" content="主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。 参考  线性代数之主成分分析(PCA)算法 白化 白化（Whitening）：PCA vs. ZCA  原理 PCA最终目的是对表示 \(m\) 条 \(n\) 维（n个特征）数">
 
 
 
@@ -299,43 +299,50 @@
 
       
         <p>主成分分析（Principal Components Analysis，简称PCA）是一种数据降维方法，在降低数据维度的同时，尽可能保留原始数据的特征。PCA的原理解释有多个版本，这篇笔记只讨论其中一个。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="http://www.qiujiawei.com/linear-algebra-17/" target="_blank" rel="noopener">线性代数之主成分分析(PCA)算法</a></li>
 <li><a href="http://ufldl.stanford.edu/wiki/index.php/%E7%99%BD%E5%8C%96" target="_blank" rel="noopener">白化</a></li>
-<li><a href="https://my.oschina.net/findbill/blog/543485" target="_blank" rel="noopener">白化（Whitening）：PCA vs. ZCA</a></li>
+<li><a href="https://my.oschina.net/findbill/blog/543485" target="_blank" rel="noopener">白化（Whitening）：PCA vs. ZCA</a></li>
 </ul>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>PCA最终目的是对表示 $m$ 条 $n$ 维（n个特征）数据的矩阵 $X<em>{m \times n}$ 做线性变换，得到矩阵 $Y</em>{m \times n}$，再从中选取 k 维：</p>
-<p>$$ Y<em>{m \times n} = X</em>{m \times n} P_{n \times n} $$</p>
-<p><strong>怎样求解变换矩阵 $P$？</strong> 我们想要的理想效果是 $Y$ 的 $n$ 个维度相互独立，这样每个维度保留各自的特征互不干扰，然后选取 $n$ 个维度中方差最大的 k 个维度，包含最丰富的信息。</p>
-<p>先介绍矩阵 $X$ 协方差矩阵的计算公式，这里假设已经处理 $X$ 每个维度使之均值为0：</p>
-<p>$$ C<em>X = \frac{1}{n}\sum</em>{i=1}^{m}(X[:,i]^T X[:,i]) = \frac{1}{n} X^TX $$</p>
-<p>其中 $X[:,i]$ 表示取 $X$ 的第 $i$ 列特征。这里引入 <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="协方差">协方差</a> 的概念，如果两个随机变量相互独立，那么它们的协方差为0。协方差矩阵的每个元素 $c_{ij}$ 等于对应 $i,j$ 维度的协方差，而对角元素等于对应维度的方差，所以我们的目标是 <strong>使 $Y$ 的协方差矩阵为对角矩阵</strong>。</p>
+<h3 id="原理">原理</h3>
+<p>PCA最终目的是对表示 <span class="math inline">\(m\)</span> 条 <span class="math inline">\(n\)</span> 维（n个特征）数据的矩阵 <span class="math inline">\(X_{m \times n}\)</span> 做线性变换，得到矩阵 <span class="math inline">\(Y_{m \times n}\)</span>，再从中选取 k 维：</p>
+<p><span class="math display">\[ Y_{m \times n} = X_{m \times n} P_{n \times n} \]</span></p>
+<p><strong>怎样求解变换矩阵 <span class="math inline">\(P\)</span>？</strong> 我们想要的理想效果是 <span class="math inline">\(Y\)</span> 的 <span class="math inline">\(n\)</span> 个维度相互独立，这样每个维度保留各自的特征互不干扰，然后选取 <span class="math inline">\(n\)</span> 个维度中方差最大的 k 个维度，包含最丰富的信息。</p>
+<p>先介绍矩阵 <span class="math inline">\(X\)</span> 协方差矩阵的计算公式，这里假设已经处理 <span class="math inline">\(X\)</span> 每个维度使之均值为0：</p>
+<p><span class="math display">\[ C_X = \frac{1}{n}\sum_{i=1}^{m}(X[:,i]^T X[:,i]) = \frac{1}{n} X^TX \]</span></p>
+<p>其中 <span class="math inline">\(X[:,i]\)</span> 表示取 <span class="math inline">\(X\)</span> 的第 <span class="math inline">\(i\)</span> 列特征。这里引入 <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="协方差">协方差</a> 的概念，如果两个随机变量相互独立，那么它们的协方差为0。协方差矩阵的每个元素 <span class="math inline">\(c_{ij}\)</span> 等于对应 <span class="math inline">\(i,j\)</span> 维度的协方差，而对角元素等于对应维度的方差，所以我们的目标是 <strong>使 <span class="math inline">\(Y\)</span> 的协方差矩阵为对角矩阵</strong>。</p>
 <p>同样，有：</p>
-<p>$$ C_Y = \frac{1}{n} Y^T Y = \frac{1}{n} (XP)^T(XP) = P^T (\frac{1}{n}X^TX) P \<br>= P^T C_X P $$</p>
-<p>因为 $C_X$ 为实对称矩阵，故能够进行对角化：</p>
-<p>$$ C_X = S\Lambda S^{-1} = S\Lambda S^{T}$$</p>
-<p>其中 $\Lambda$ 为对角矩阵，其对角线元素为 $C_X$ 的特征值，而 $S$ 是正交矩阵，有 $S^TS=I$。容易想到，如果令 $P=S$：</p>
-<p>$$ C_Y = (P^TS) \Lambda (P^TS)^T = \Lambda $$</p>
-<p>这就成功将 $C_Y$ 变换为对角矩阵，所以顺利解得 $P=S$。</p>
-<p>最后一步选取 $n$ 维中方差最大的 $k$ 维以达到降维的最终目的。$C_Y$ 的对角元素对应 $Y$ 每个维度的方差，所以我们只需保留 $k$ 个最大对角元对应的 $P$ 的 $k$ 个列向量，同时也是 $C_X$ 的 $k$ 个最大特征值对应的特征向量，得到 $n \times k$ 的变换矩阵 $P$，最后做线性变换 $Y=XP$。</p>
-<h3 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h3><p>$m$ 条 $n$ 维数据由矩阵 $X_{m \times n}$ 表示。以下是处理步骤：</p>
-<ol>
-<li>对 $X$ 每个维度做中心化（可进一步做标准化）</li>
-<li>求协方差矩阵 $C_X = X^TX$</li>
-<li>对角化： $C_X = S\Lambda S^{T}$</li>
-<li>从 $S$ 中挑选 $k$ 列特征值（$\Lambda$ 对角元）最大的特征向量得到 $P$</li>
-<li>$Y<em>{m\times k}=X</em>{m\times n}P_{n\times k}$</li>
+<p><span class="math display">\[ C_Y = \frac{1}{n} Y^T Y = \frac{1}{n} (XP)^T(XP) = P^T (\frac{1}{n}X^TX) P \\
+= P^T C_X P \]</span></p>
+<p>因为 <span class="math inline">\(C_X\)</span> 为实对称矩阵，故能够进行对角化：</p>
+<p><span class="math display">\[ C_X = S\Lambda S^{-1} = S\Lambda S^{T}\]</span></p>
+<p>其中 <span class="math inline">\(\Lambda\)</span> 为对角矩阵，其对角线元素为 <span class="math inline">\(C_X\)</span> 的特征值，而 <span class="math inline">\(S\)</span> 是正交矩阵，有 <span class="math inline">\(S^TS=I\)</span>。容易想到，如果令 <span class="math inline">\(P=S\)</span>：</p>
+<p><span class="math display">\[ C_Y = (P^TS) \Lambda (P^TS)^T = \Lambda \]</span></p>
+<p>这就成功将 <span class="math inline">\(C_Y\)</span> 变换为对角矩阵，所以顺利解得 <span class="math inline">\(P=S\)</span>。</p>
+<p>最后一步选取 <span class="math inline">\(n\)</span> 维中方差最大的 <span class="math inline">\(k\)</span> 维以达到降维的最终目的。<span class="math inline">\(C_Y\)</span> 的对角元素对应 <span class="math inline">\(Y\)</span> 每个维度的方差，所以我们只需保留 <span class="math inline">\(k\)</span> 个最大对角元对应的 <span class="math inline">\(P\)</span> 的 <span class="math inline">\(k\)</span> 个列向量，同时也是 <span class="math inline">\(C_X\)</span> 的 <span class="math inline">\(k\)</span> 个最大特征值对应的特征向量，得到 <span class="math inline">\(n \times k\)</span> 的变换矩阵 <span class="math inline">\(P\)</span>，最后做线性变换 <span class="math inline">\(Y=XP\)</span>。</p>
+<h3 id="实战">实战</h3>
+<p><span class="math inline">\(m\)</span> 条 <span class="math inline">\(n\)</span> 维数据由矩阵 <span class="math inline">\(X_{m \times n}\)</span> 表示。以下是处理步骤：</p>
+<ol type="1">
+<li>对 <span class="math inline">\(X\)</span> 每个维度做中心化（可进一步做标准化）</li>
+<li>求协方差矩阵 <span class="math inline">\(C_X = X^TX\)</span></li>
+<li>对角化： <span class="math inline">\(C_X = S\Lambda S^{T}\)</span></li>
+<li>从 <span class="math inline">\(S\)</span> 中挑选 <span class="math inline">\(k\)</span> 列特征值（<span class="math inline">\(\Lambda\)</span> 对角元）最大的特征向量得到 <span class="math inline">\(P\)</span></li>
+<li><span class="math inline">\(Y_{m\times k}=X_{m\times n}P_{n\times k}\)</span></li>
 </ol>
-<p>调用 sklearn API：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data  <span class="comment"># 加载实验数据，有 4 维</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> decomposition</span><br><span class="line"><span class="comment"># 调用只需这一句，n_components 指定降维后的维度数 3</span></span><br><span class="line">pX = decomposition.PCA(n_components=<span class="number">3</span>).fit_transform(X)</span><br></pre></td></tr></table></figure></p>
-<p>python 实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data <span class="comment"># 加载实验数据，有 4 维</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line">n_components = <span class="number">3</span> <span class="comment"># 指定降维后的维度数 3</span></span><br><span class="line"></span><br><span class="line">Xm = X - X.mean(axis=<span class="number">0</span>) <span class="comment"># 中心化</span></span><br><span class="line">Cx = Xm.T.dot(Xm) <span class="comment"># 协方差矩阵</span></span><br><span class="line">ev, S = LA.eigh(Cx) <span class="comment"># 对角化，S 特征向量按特征值升序排列</span></span><br><span class="line">P = S[:, [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>-n_components, <span class="number">4</span>)]] <span class="comment"># 选取特征向量，构造变换矩阵</span></span><br><span class="line">pX = Xm.dot(P)  <span class="comment"># 线性变换</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="白化"><a href="#白化" class="headerlink" title="白化"></a>白化</h3><p>白化的目的：</p>
+<p>调用 sklearn API： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data  <span class="comment"># 加载实验数据，有 4 维</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> decomposition</span><br><span class="line"><span class="comment"># 调用只需这一句，n_components 指定降维后的维度数 3</span></span><br><span class="line">pX = decomposition.PCA(n_components=<span class="number">3</span>).fit_transform(X)</span><br></pre></td></tr></table></figure></p>
+<p>python 实现： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line">iris = datasets.load_iris()</span><br><span class="line">X = iris.data <span class="comment"># 加载实验数据，有 4 维</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> linalg <span class="keyword">as</span> LA</span><br><span class="line"></span><br><span class="line">n_components = <span class="number">3</span> <span class="comment"># 指定降维后的维度数 3</span></span><br><span class="line"></span><br><span class="line">Xm = X - X.mean(axis=<span class="number">0</span>) <span class="comment"># 中心化</span></span><br><span class="line">Cx = Xm.T.dot(Xm) <span class="comment"># 协方差矩阵</span></span><br><span class="line">ev, S = LA.eigh(Cx) <span class="comment"># 对角化，S 特征向量按特征值升序排列</span></span><br><span class="line">P = S[:, [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>-n_components, <span class="number">4</span>)]] <span class="comment"># 选取特征向量，构造变换矩阵</span></span><br><span class="line">pX = Xm.dot(P)  <span class="comment"># 线性变换</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="白化">白化</h3>
+<p>白化的目的：</p>
 <ul>
 <li>特征之间相关性较低</li>
 <li>所有特征具有相同的方差</li>
 </ul>
-<p>前者可以用 <strong>不降维</strong> 的PCA做到。假设已经通过PCA得到变换矩阵 $P<em>{n\times n}$，则 $Y</em>{m \times n}=X<em>{m \times n}P</em>{n \times n}$。接下来需要达到后一个目标，使 $C_Y=I$。</p>
-<h4 id="PCA白化"><a href="#PCA白化" class="headerlink" title="PCA白化"></a>PCA白化</h4><p>由于 $C<em>Y = \frac{1}{n} Y^T Y= \Lambda$，所以只需更新 $Y</em>{PCAwhite}=Y\Lambda^{-1/2}$</p>
-<h4 id="ZCA白化"><a href="#ZCA白化" class="headerlink" title="ZCA白化"></a>ZCA白化</h4><p>ZCA (Zero-phase Component Analysis Whitening) 在PCA白化的基础上，把数据变换回原空间。更新公式 $Y<em>{ZCAwhite}=Y</em>{PCAwhite}P^T$，可检验 $C_Y$，仍满足单位矩阵。</p>
+<p>前者可以用 <strong>不降维</strong> 的PCA做到。假设已经通过PCA得到变换矩阵 <span class="math inline">\(P_{n\times n}\)</span>，则 <span class="math inline">\(Y_{m \times n}=X_{m \times n}P_{n \times n}\)</span>。接下来需要达到后一个目标，使 <span class="math inline">\(C_Y=I\)</span>。</p>
+<h4 id="pca白化">PCA白化</h4>
+<p>由于 <span class="math inline">\(C_Y = \frac{1}{n} Y^T Y= \Lambda\)</span>，所以只需更新 <span class="math inline">\(Y_{PCAwhite}=Y\Lambda^{-1/2}\)</span></p>
+<h4 id="zca白化">ZCA白化</h4>
+<p>ZCA (Zero-phase Component Analysis Whitening) 在PCA白化的基础上，把数据变换回原空间。更新公式 <span class="math inline">\(Y_{ZCAwhite}=Y_{PCAwhite}P^T\)</span>，可检验 <span class="math inline">\(C_Y\)</span>，仍满足单位矩阵。</p>
 
       
     </div>
@@ -449,7 +456,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -466,7 +473,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -495,7 +502,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战"><span class="nav-number">3.</span> <span class="nav-text">实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#白化"><span class="nav-number">4.</span> <span class="nav-text">白化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PCA白化"><span class="nav-number">4.1.</span> <span class="nav-text">PCA白化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZCA白化"><span class="nav-number">4.2.</span> <span class="nav-text">ZCA白化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战"><span class="nav-number">3.</span> <span class="nav-text">实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#白化"><span class="nav-number">4.</span> <span class="nav-text">白化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pca白化"><span class="nav-number">4.1.</span> <span class="nav-text">PCA白化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zca白化"><span class="nav-number">4.2.</span> <span class="nav-text">ZCA白化</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

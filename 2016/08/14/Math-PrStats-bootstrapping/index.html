@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="Bootstrapping 是统计学上通过对样本 重采样（re-sampling） 来估计样本分布情况，并将结果作为总体分布的参考。其背后的思想是样本与总体独立同分布，用样本分布估计总体分布似乎合理。重采样方式是，对样本做 有放回的随机抽取 以得到“新样本”。 Bootstrapping 取名自美国俚语 “pull oneself up by one’s bootstraps”，呵呵，用自己的提靴">
+<meta name="description" content="Bootstrapping 是统计学上通过对样本 重采样（re-sampling） 来估计样本分布情况，并将结果作为总体分布的参考。其背后的思想是样本与总体独立同分布，用样本分布估计总体分布似乎合理。重采样方式是，对样本做 有放回的随机抽取 以得到“新样本”。 Bootstrapping 取名自美国俚语 “pull oneself up by one’s bootstraps”，呵呵，用自己的提">
 <meta name="keywords" content="Math,概率统计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bootstrapping">
 <meta property="og:url" content="http://yoursite.com/2016/08/14/Math-PrStats-bootstrapping/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="Bootstrapping 是统计学上通过对样本 重采样（re-sampling） 来估计样本分布情况，并将结果作为总体分布的参考。其背后的思想是样本与总体独立同分布，用样本分布估计总体分布似乎合理。重采样方式是，对样本做 有放回的随机抽取 以得到“新样本”。 Bootstrapping 取名自美国俚语 “pull oneself up by one’s bootstraps”，呵呵，用自己的提靴">
+<meta property="og:description" content="Bootstrapping 是统计学上通过对样本 重采样（re-sampling） 来估计样本分布情况，并将结果作为总体分布的参考。其背后的思想是样本与总体独立同分布，用样本分布估计总体分布似乎合理。重采样方式是，对样本做 有放回的随机抽取 以得到“新样本”。 Bootstrapping 取名自美国俚语 “pull oneself up by one’s bootstraps”，呵呵，用自己的提">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bootstrapping">
-<meta name="twitter:description" content="Bootstrapping 是统计学上通过对样本 重采样（re-sampling） 来估计样本分布情况，并将结果作为总体分布的参考。其背后的思想是样本与总体独立同分布，用样本分布估计总体分布似乎合理。重采样方式是，对样本做 有放回的随机抽取 以得到“新样本”。 Bootstrapping 取名自美国俚语 “pull oneself up by one’s bootstraps”，呵呵，用自己的提靴">
+<meta name="twitter:description" content="Bootstrapping 是统计学上通过对样本 重采样（re-sampling） 来估计样本分布情况，并将结果作为总体分布的参考。其背后的思想是样本与总体独立同分布，用样本分布估计总体分布似乎合理。重采样方式是，对样本做 有放回的随机抽取 以得到“新样本”。 Bootstrapping 取名自美国俚语 “pull oneself up by one’s bootstraps”，呵呵，用自己的提">
 
 
 
@@ -300,13 +300,14 @@
       
         <p>Bootstrapping 是统计学上通过对样本 <strong>重采样（re-sampling）</strong> 来估计样本分布情况，并将结果作为总体分布的参考。其背后的思想是样本与总体独立同分布，用样本分布估计总体分布似乎合理。重采样方式是，对样本做 <em>有放回的随机抽取</em> 以得到“新样本”。</p>
 <p>Bootstrapping 取名自美国俚语 “pull oneself up by one’s bootstraps”，呵呵，用自己的提靴带把自己提起来，现指做事充分利用自身条件，所以被称为自助法，又称提靴法。</p>
-<p><a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics" target="_blank" rel="noopener">Bootstrapping (statistics)——wikipedia</a>) 上有个估计世界上人的身高均值的例子。当然，统计所有人身高是不现实的，所以可以抽取容量为 N 的样本，算出均值。但是，这个值有多可信呢？这需要知道总体的分布情况。这时可以采用 Bootstrapping。通过在样本中做有放回的随机抽样，抽取到容量为 N 的“新样本”，计算其均值。重复该步骤许多次（典型的1000或10000次），得到一系列身高均值数据，也就能估计总体均值的大致分布了，进而计算均值的置信区间。</p>
+<p><a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)" target="_blank" rel="noopener">Bootstrapping (statistics)——wikipedia</a> 上有个估计世界上人的身高均值的例子。当然，统计所有人身高是不现实的，所以可以抽取容量为 N 的样本，算出均值。但是，这个值有多可信呢？这需要知道总体的分布情况。这时可以采用 Bootstrapping。通过在样本中做有放回的随机抽样，抽取到容量为 N 的“新样本”，计算其均值。重复该步骤许多次（典型的1000或10000次），得到一系列身高均值数据，也就能估计总体均值的大致分布了，进而计算均值的置信区间。</p>
 <p>Bootstrapping 的优势在于对一系列估计量——如相关系数的置信区间——的简单直接的计算方式，引自 Wikipedia ：</p>
 <blockquote>
 <p>A great advantage of bootstrap is its simplicity. It is a straightforward way to derive estimates of standard errors and confidence intervals for complex estimators of complex parameters of the distribution, such as percentile points, proportions, odds ratio, and correlation coefficients.</p>
 </blockquote>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics" target="_blank" rel="noopener">Bootstrapping (statistics)——Wikipedia</a>)</li>
+<h3 id="参考">参考</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)" target="_blank" rel="noopener">Bootstrapping (statistics)——Wikipedia</a></li>
 </ul>
 
       
@@ -419,7 +420,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -436,7 +437,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

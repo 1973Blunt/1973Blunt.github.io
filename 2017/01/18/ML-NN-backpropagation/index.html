@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="本文主要对神经网络反向传播（Backpropagation Algorithm）的求导关键部分做笔记，并简要介绍自编码器概念（Autoencoder）。 参考 UFLDL 林轩田老师 教授的《机器学习技法》 12课：神经网络  符号   符号 含义     $(x^i, y^i)$ 第 $i$ 个训练样本   $h_{W,b}(x)$ 输入为 $x$ 时的假设输出，其中包含参数 $W,b$   $">
+<meta name="description" content="本文主要对神经网络反向传播（Backpropagation Algorithm）的求导关键部分做笔记，并简要介绍自编码器概念（Autoencoder）。 参考  UFLDL 林轩田老师 教授的《机器学习技法》 12课：神经网络  符号    符号 含义     \((x^i, y^i)\) 第 \(i\) 个训练样本   \(h_{W,b}(x)\) 输入">
 <meta name="keywords" content="ML,机器学习技法,NN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经网络之反向传播与自编码器">
 <meta property="og:url" content="http://yoursite.com/2017/01/18/ML-NN-backpropagation/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="本文主要对神经网络反向传播（Backpropagation Algorithm）的求导关键部分做笔记，并简要介绍自编码器概念（Autoencoder）。 参考 UFLDL 林轩田老师 教授的《机器学习技法》 12课：神经网络  符号   符号 含义     $(x^i, y^i)$ 第 $i$ 个训练样本   $h_{W,b}(x)$ 输入为 $x$ 时的假设输出，其中包含参数 $W,b$   $">
+<meta property="og:description" content="本文主要对神经网络反向传播（Backpropagation Algorithm）的求导关键部分做笔记，并简要介绍自编码器概念（Autoencoder）。 参考  UFLDL 林轩田老师 教授的《机器学习技法》 12课：神经网络  符号    符号 含义     \((x^i, y^i)\) 第 \(i\) 个训练样本   \(h_{W,b}(x)\) 输入">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-01-18T12:12:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经网络之反向传播与自编码器">
-<meta name="twitter:description" content="本文主要对神经网络反向传播（Backpropagation Algorithm）的求导关键部分做笔记，并简要介绍自编码器概念（Autoencoder）。 参考 UFLDL 林轩田老师 教授的《机器学习技法》 12课：神经网络  符号   符号 含义     $(x^i, y^i)$ 第 $i$ 个训练样本   $h_{W,b}(x)$ 输入为 $x$ 时的假设输出，其中包含参数 $W,b$   $">
+<meta name="twitter:description" content="本文主要对神经网络反向传播（Backpropagation Algorithm）的求导关键部分做笔记，并简要介绍自编码器概念（Autoencoder）。 参考  UFLDL 林轩田老师 教授的《机器学习技法》 12课：神经网络  符号    符号 含义     \((x^i, y^i)\) 第 \(i\) 个训练样本   \(h_{W,b}(x)\) 输入">
 
 
 
@@ -299,77 +299,90 @@
 
       
         <p>本文主要对神经网络反向传播（Backpropagation Algorithm）的求导关键部分做笔记，并简要介绍自编码器概念（Autoencoder）。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<h3 id="参考">参考</h3>
+<ul>
 <li><a href="http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial" target="_blank" rel="noopener">UFLDL</a></li>
 <li><a href="http://www.csie.ntu.edu.tw/~htlin/" target="_blank" rel="noopener">林轩田老师</a> 教授的《机器学习技法》 12课：神经网络</li>
 </ul>
-<h3 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h3><table>
+<h3 id="符号">符号</h3>
+<table>
 <thead>
-<tr>
-<th style="text-align:center">符号</th>
-<th style="text-align:center">含义</th>
+<tr class="header">
+<th style="text-align: center;">符号</th>
+<th style="text-align: center;">含义</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">$(x^i, y^i)$</td>
-<td style="text-align:center">第 $i$ 个训练样本</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\((x^i, y^i)\)</span></td>
+<td style="text-align: center;">第 <span class="math inline">\(i\)</span> 个训练样本</td>
 </tr>
-<tr>
-<td style="text-align:center">$h_{W,b}(x)$</td>
-<td style="text-align:center">输入为 $x$ 时的假设输出，其中包含参数 $W,b$</td>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(h_{W,b}(x)\)</span></td>
+<td style="text-align: center;">输入为 <span class="math inline">\(x\)</span> 时的假设输出，其中包含参数 <span class="math inline">\(W,b\)</span></td>
 </tr>
-<tr>
-<td style="text-align:center">$a_i^l$</td>
-<td style="text-align:center">第 $l$ 层 $i$ 单元的激活值，对第一层有 $a_i^1=x_i$</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(a_i^l\)</span></td>
+<td style="text-align: center;">第 <span class="math inline">\(l\)</span> 层 <span class="math inline">\(i\)</span> 单元的激活值，对第一层有 <span class="math inline">\(a_i^1=x_i\)</span></td>
 </tr>
-<tr>
-<td style="text-align:center">$W^l_{ij}$</td>
-<td style="text-align:center">连接第 $l$ 层 $j$ 单元和第 $l+1$ 层 $i$ 单元的参数</td>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(W^l_{ij}\)</span></td>
+<td style="text-align: center;">连接第 <span class="math inline">\(l\)</span> 层 <span class="math inline">\(j\)</span> 单元和第 <span class="math inline">\(l+1\)</span> 层 <span class="math inline">\(i\)</span> 单元的参数</td>
 </tr>
-<tr>
-<td style="text-align:center">$b^l_i$</td>
-<td style="text-align:center">连接第 $l$ 层偏置单元和第 $l+1$ 层 $i$ 单元的参数</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(b^l_i\)</span></td>
+<td style="text-align: center;">连接第 <span class="math inline">\(l\)</span> 层偏置单元和第 <span class="math inline">\(l+1\)</span> 层 <span class="math inline">\(i\)</span> 单元的参数</td>
 </tr>
-<tr>
-<td style="text-align:center">$z_i^l$</td>
-<td style="text-align:center">第 $l$ 层 $i$ 单元所有输入的加权和</td>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(z_i^l\)</span></td>
+<td style="text-align: center;">第 <span class="math inline">\(l\)</span> 层 <span class="math inline">\(i\)</span> 单元所有输入的加权和</td>
 </tr>
-<tr>
-<td style="text-align:center">$f()$</td>
-<td style="text-align:center">激活函数，可选 $sigmoid$ 或 $tanh$ 函数</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(f()\)</span></td>
+<td style="text-align: center;">激活函数，可选 <span class="math inline">\(sigmoid\)</span> 或 <span class="math inline">\(tanh\)</span> 函数</td>
 </tr>
-<tr>
-<td style="text-align:center">$s_l$</td>
-<td style="text-align:center">第 $l$ 层的单元数目（不包含偏置单元）</td>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(s_l\)</span></td>
+<td style="text-align: center;">第 <span class="math inline">\(l\)</span> 层的单元数目（不包含偏置单元）</td>
 </tr>
-<tr>
-<td style="text-align:center">$n_l$</td>
-<td style="text-align:center">神经网络层数</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(n_l\)</span></td>
+<td style="text-align: center;">神经网络层数</td>
 </tr>
 </tbody>
 </table>
 <p>有：</p>
-<p>$$z_i^{l+1} = b<em>i^{l} + \sum</em>{j=1}^{s<em>{l}} W</em>{ij}^{l} a_j^{l}$$</p>
-<p>$$a_i^l = f(z_i^l)$$</p>
-<h3 id="前向传播（forward-propagation）"><a href="#前向传播（forward-propagation）" class="headerlink" title="前向传播（forward propagation）"></a>前向传播（forward propagation）</h3><p>从输入层单元开始，逐层计算下层单元，直到求得输出层。可以说就是神经网络由输入预测输出的整个过程。</p>
-<h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>反向传播运用梯度下降试图寻找最优模型参数，即 $W_{ij}^l$ 与 $b_i^l$，使得代价函数最小。梯度下降开始前给参数随机赋值，用前向传播计算出各层单元。下降关键是整体代价函数 $J$ 对参数 $W$ 和 $b$ 的求导。</p>
-<p>对于单个样例 $(x,y)$，其代价函数为：<br>$$ J(W,b; x,y) = \frac{1}{2} \left| h_{W,b}(x) - y \right|^2 $$</p>
-<p>给定一个包含 $m$ 个样例的数据集，定义整体代价函数为：</p>
-<p>$$  J(W,b) = \frac{1}{m} \sum<em>{i=1}^m J(W,b;x^{(i)},y^{(i)}) + \frac{\lambda}{2} \sum (W^{(l)}</em>{ji})^2 $$</p>
+<p><span class="math display">\[z_i^{l+1} = b_i^{l} + \sum_{j=1}^{s_{l}} W_{ij}^{l} a_j^{l}\]</span></p>
+<p><span class="math display">\[a_i^l = f(z_i^l)\]</span></p>
+<h3 id="前向传播forward-propagation">前向传播（forward propagation）</h3>
+<p>从输入层单元开始，逐层计算下层单元，直到求得输出层。可以说就是神经网络由输入预测输出的整个过程。</p>
+<h3 id="反向传播">反向传播</h3>
+<p>反向传播运用梯度下降试图寻找最优模型参数，即 <span class="math inline">\(W_{ij}^l\)</span> 与 <span class="math inline">\(b_i^l\)</span>，使得代价函数最小。梯度下降开始前给参数随机赋值，用前向传播计算出各层单元。下降关键是整体代价函数 <span class="math inline">\(J\)</span> 对参数 <span class="math inline">\(W\)</span> 和 <span class="math inline">\(b\)</span> 的求导。</p>
+<p>对于单个样例 <span class="math inline">\((x,y)\)</span>，其代价函数为： <span class="math display">\[ J(W,b; x,y) = \frac{1}{2} \left\| h_{W,b}(x) - y \right\|^2 \]</span></p>
+<p>给定一个包含 <span class="math inline">\(m\)</span> 个样例的数据集，定义整体代价函数为：</p>
+<p><span class="math display">\[  J(W,b) = \frac{1}{m} \sum_{i=1}^m J(W,b;x^{(i)},y^{(i)}) + \frac{\lambda}{2} \sum (W^{(l)}_{ji})^2 \]</span></p>
 <p>第一项是对所有样例的代价求和取平均，而第二项作为规则化项，防止过拟合。因为第二项求导简单，不再赘述。对第二项只关心单个样例求导，即</p>
-<p>$$ \frac{\partial J(W,b;x,y)}{\partial W_{ij}^l}\;\; and \;\; \frac{\partial J(W,b;x,y)}{\partial b_i^l} $$</p>
+<p><span class="math display">\[ \frac{\partial J(W,b;x,y)}{\partial W_{ij}^l}\;\; and \;\; \frac{\partial J(W,b;x,y)}{\partial b_i^l} \]</span></p>
 <p>首先有：</p>
-<p>$$\frac{\partial J}{\partial W_{ij}^l} = \frac{\partial J}{\partial z_i^{l+1}} \frac{\partial z<em>i^{l+1}}{\partial W</em>{ij}^l} = \frac{\partial J}{\partial z_i^{l+1}} a_j^l$$</p>
+<p><span class="math display">\[\frac{\partial J}{\partial W_{ij}^l} = \frac{\partial J}{\partial z_i^{l+1}} \frac{\partial z_i^{l+1}}{\partial W_{ij}^l} = \frac{\partial J}{\partial z_i^{l+1}} a_j^l\]</span></p>
 <p>同理：</p>
-<p>$$\frac{\partial J}{\partial b_i^l} = \frac{\partial J}{\partial z_i^{l+1}} \frac{\partial z_i^{l+1}}{\partial b_i^l} = \frac{\partial J}{\partial z_i^{l+1}} $$</p>
+<p><span class="math display">\[\frac{\partial J}{\partial b_i^l} = \frac{\partial J}{\partial z_i^{l+1}} \frac{\partial z_i^{l+1}}{\partial b_i^l} = \frac{\partial J}{\partial z_i^{l+1}} \]</span></p>
 <p>所以，关键是求解：</p>
-<p>$$  \delta^{(l+1)}_i = \frac{\partial J}{\partial z_i^{l+1}}$$</p>
-<h4 id="当-l-n-l"><a href="#当-l-n-l" class="headerlink" title="当 $l=n_l$"></a>当 $l=n_l$</h4><p>$$  \delta^{(n_l)}_i<br>= \frac{\partial}{\partial z^{n_l}<em>i}\frac{1}{2} \left| y - h</em>{W,b}(x) \right|^2<br>= \frac{\partial}{\partial z^{n_l}<em>i}\frac{1}{2} \sum</em>{j=1}^{S_{n_l}} (y_j-f(z_j^{(n_l)}))^2  \<br>= - (y_i - f(z_i^{(n_l)})) \cdot f’(z^{(n_l)}_i) = - (y_i - a^{(n_l)}_i) \cdot f’(z^{(n_l)}_i) $$</p>
-<h4 id="当-l-lt-n-l"><a href="#当-l-lt-n-l" class="headerlink" title="当 $l&lt;n_l$"></a>当 $l&lt;n_l$</h4><p>$$\delta^{(l)}_i = \frac{\partial J}{\partial z<em>i^{l}}<br>= \sum</em>{k=1}^{s_{l+1}} \frac{\partial J}{\partial z_k^{l+1}}  \frac{\partial z_k^{l+1}}{\partial a_i^l}   \frac{\partial a_i^l}{\partial z<em>i^l} \<br>= \sum</em>{k=1}^{s_{l+1}} \delta^{(l+1)}<em>k W</em>{ki}^l  f’(z^{(l)}_i)<br>$$</p>
-<p>这里用了链式求导法则， $a_i^l$ 是 $z_i^l$ 的函数，而 $l+1$ 层的所有 $z_k^{l+1}$ 都是 $a_i^l$ 的函数且作为 $J$ 的自变量。</p>
-<p>可见求解 $\delta^{(l)}_i$ 需要用到 $l+1$ 层的 $\delta$，所以迭代过程从输出层“反向”向输入层渐进。</p>
-<h3 id="自编码器与稀疏性"><a href="#自编码器与稀疏性" class="headerlink" title="自编码器与稀疏性"></a>自编码器与稀疏性</h3><p>自编码器是一种输入作为输出进行训练的神经网络。通常会给隐藏层神经元添加限制，比如要求100维输入样本只能使用50个隐藏神经元，由于最终训练出的模型能“还原”输入，所以这50个隐藏神经元能“压缩”表示这100维的样本。<a href="http://deeplearning.stanford.edu/wiki/index.php/%E8%87%AA%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E4%B8%8E%E7%A8%80%E7%96%8F%E6%80%A7" target="_blank" rel="noopener">稀疏性</a>限制也可被用于这样的目的。</p>
+<p><span class="math display">\[  \delta^{(l+1)}_i = \frac{\partial J}{\partial z_i^{l+1}}\]</span></p>
+<h4 id="当-ln_l">当 <span class="math inline">\(l=n_l\)</span></h4>
+<p><span class="math display">\[  \delta^{(n_l)}_i
+= \frac{\partial}{\partial z^{n_l}_i}\frac{1}{2} \left\| y - h_{W,b}(x) \right\|^2
+= \frac{\partial}{\partial z^{n_l}_i}\frac{1}{2} \sum_{j=1}^{S_{n_l}} (y_j-f(z_j^{(n_l)}))^2  \\
+= - (y_i - f(z_i^{(n_l)})) \cdot f&#39;(z^{(n_l)}_i) = - (y_i - a^{(n_l)}_i) \cdot f&#39;(z^{(n_l)}_i) \]</span></p>
+<h4 id="当-ln_l-1">当 <span class="math inline">\(l&lt;n_l\)</span></h4>
+<p><span class="math display">\[\delta^{(l)}_i = \frac{\partial J}{\partial z_i^{l}}
+= \sum_{k=1}^{s_{l+1}} \frac{\partial J}{\partial z_k^{l+1}}  \frac{\partial z_k^{l+1}}{\partial a_i^l}   \frac{\partial a_i^l}{\partial z_i^l} \\
+= \sum_{k=1}^{s_{l+1}} \delta^{(l+1)}_k W_{ki}^l  f&#39;(z^{(l)}_i)
+\]</span></p>
+<p>这里用了链式求导法则， <span class="math inline">\(a_i^l\)</span> 是 <span class="math inline">\(z_i^l\)</span> 的函数，而 <span class="math inline">\(l+1\)</span> 层的所有 <span class="math inline">\(z_k^{l+1}\)</span> 都是 <span class="math inline">\(a_i^l\)</span> 的函数且作为 <span class="math inline">\(J\)</span> 的自变量。</p>
+<p>可见求解 <span class="math inline">\(\delta^{(l)}_i\)</span> 需要用到 <span class="math inline">\(l+1\)</span> 层的 <span class="math inline">\(\delta\)</span>，所以迭代过程从输出层“反向”向输入层渐进。</p>
+<h3 id="自编码器与稀疏性">自编码器与稀疏性</h3>
+<p>自编码器是一种输入作为输出进行训练的神经网络。通常会给隐藏层神经元添加限制，比如要求100维输入样本只能使用50个隐藏神经元，由于最终训练出的模型能“还原”输入，所以这50个隐藏神经元能“压缩”表示这100维的样本。<a href="http://deeplearning.stanford.edu/wiki/index.php/%E8%87%AA%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E4%B8%8E%E7%A8%80%E7%96%8F%E6%80%A7" target="_blank" rel="noopener">稀疏性</a>限制也可被用于这样的目的。</p>
 <blockquote>
 <p>稀疏性可以被简单地解释如下。如果当神经元的输出接近于1的时候我们认为它被激活，而输出接近于0的时候认为它被抑制，那么使得神经元大部分的时间都是被抑制的限制则被称作稀疏性限制。</p>
 </blockquote>
@@ -486,7 +499,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -503,7 +516,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -532,7 +545,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符号"><span class="nav-number">2.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前向传播（forward-propagation）"><span class="nav-number">3.</span> <span class="nav-text">前向传播（forward propagation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向传播"><span class="nav-number">4.</span> <span class="nav-text">反向传播</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当-l-n-l"><span class="nav-number">4.1.</span> <span class="nav-text">当 $l=n_l$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当-l-lt-n-l"><span class="nav-number">4.2.</span> <span class="nav-text">当 $l&lt;n_l$</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自编码器与稀疏性"><span class="nav-number">5.</span> <span class="nav-text">自编码器与稀疏性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符号"><span class="nav-number">2.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前向传播forward-propagation"><span class="nav-number">3.</span> <span class="nav-text">前向传播（forward propagation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向传播"><span class="nav-number">4.</span> <span class="nav-text">反向传播</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#当-ln_l"><span class="nav-number">4.1.</span> <span class="nav-text">当 \(l=n_l\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当-ln_l-1"><span class="nav-number">4.2.</span> <span class="nav-text">当 \(l&lt;n_l\)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自编码器与稀疏性"><span class="nav-number">5.</span> <span class="nav-text">自编码器与稀疏性</span></a></li></ol></div>
             
           </div>
         </section>

@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="矩阵相关\超平面 平面平面有两个自由度 平面表示方法点法式方程$$ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 $$ 其中 $M_0(x_0,y_0,z_0)$ 为平面上一点， $\mathbf{n}=(a,b,c)$ 为平面法向量 一般式方程$$ ax + by + cz + d = 0 $$ 其中 $\mathbf{n}=(a,b,c)$ 为平面法向量。若 $d=0$">
+<meta name="description" content="矩阵相关  超平面 平面 平面有两个自由度 平面表示方法 点法式方程 \[ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 \] 其中 \(M_0(x_0,y_0,z_0)\) 为平面上一点， \(\mathbf{n}=(a,b,c)\) 为平面法向量 一般式方程 \[ ax + by + cz + d = 0 \] 其中 \(\mathbf{n}=(a">
 <meta name="keywords" content="Math,Linear Algebra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="空间解析几何">
 <meta property="og:url" content="http://yoursite.com/2016/09/28/Math-LinAlg-analyticGeometry/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="矩阵相关\超平面 平面平面有两个自由度 平面表示方法点法式方程$$ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 $$ 其中 $M_0(x_0,y_0,z_0)$ 为平面上一点， $\mathbf{n}=(a,b,c)$ 为平面法向量 一般式方程$$ ax + by + cz + d = 0 $$ 其中 $\mathbf{n}=(a,b,c)$ 为平面法向量。若 $d=0$">
+<meta property="og:description" content="矩阵相关  超平面 平面 平面有两个自由度 平面表示方法 点法式方程 \[ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 \] 其中 \(M_0(x_0,y_0,z_0)\) 为平面上一点， \(\mathbf{n}=(a,b,c)\) 为平面法向量 一般式方程 \[ ax + by + cz + d = 0 \] 其中 \(\mathbf{n}=(a">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-19T04:50:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="空间解析几何">
-<meta name="twitter:description" content="矩阵相关\超平面 平面平面有两个自由度 平面表示方法点法式方程$$ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 $$ 其中 $M_0(x_0,y_0,z_0)$ 为平面上一点， $\mathbf{n}=(a,b,c)$ 为平面法向量 一般式方程$$ ax + by + cz + d = 0 $$ 其中 $\mathbf{n}=(a,b,c)$ 为平面法向量。若 $d=0$">
+<meta name="twitter:description" content="矩阵相关  超平面 平面 平面有两个自由度 平面表示方法 点法式方程 \[ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 \] 其中 \(M_0(x_0,y_0,z_0)\) 为平面上一点， \(\mathbf{n}=(a,b,c)\) 为平面法向量 一般式方程 \[ ax + by + cz + d = 0 \] 其中 \(\mathbf{n}=(a">
 
 
 
@@ -298,42 +298,67 @@
       
 
       
-        <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>\<br><a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a>
-<h3 id="平面"><a href="#平面" class="headerlink" title="平面"></a>平面</h3><p>平面有两个自由度</p>
-<h4 id="平面表示方法"><a href="#平面表示方法" class="headerlink" title="平面表示方法"></a>平面表示方法</h4><h5 id="点法式方程"><a href="#点法式方程" class="headerlink" title="点法式方程"></a>点法式方程</h5><p>$$ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 $$</p>
-<p>其中 $M_0(x_0,y_0,z_0)$ 为平面上一点， $\mathbf{n}=(a,b,c)$ 为平面法向量</p>
-<h5 id="一般式方程"><a href="#一般式方程" class="headerlink" title="一般式方程"></a>一般式方程</h5><p>$$ ax + by + cz + d = 0 $$</p>
-<p>其中 $\mathbf{n}=(a,b,c)$ 为平面法向量。若 $d=0$，平面过原点；若 $a=0$ 且 $d\ne0$， 法向量正交 x 轴，故平面平行于 x 轴。</p>
-<h4 id="平面间位置关系"><a href="#平面间位置关系" class="headerlink" title="平面间位置关系"></a>平面间位置关系</h4><ul>
-<li>平行 $\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}\ne\frac{d_1}{d_2}$</li>
-<li>重合 $\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}=\frac{d_1}{d_2}$</li>
-<li>相交 $\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}$ 不成立</li>
-</ul>
-<h4 id="点到平面距离"><a href="#点到平面距离" class="headerlink" title="点到平面距离"></a>点到平面距离</h4><p>点 $(x_0,y_0,z_0)$， 平面 $Ax+By+Cz+D=0$</p>
-<p>$$ d=\frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}} $$</p>
-<h3 id="直线"><a href="#直线" class="headerlink" title="直线"></a>直线</h3><p>直线只有一个自由度</p>
-<h4 id="直线表示方法"><a href="#直线表示方法" class="headerlink" title="直线表示方法"></a>直线表示方法</h4><h5 id="点向式方程"><a href="#点向式方程" class="headerlink" title="点向式方程"></a>点向式方程</h5><p>$$ \frac{x-x_0}{m}=\frac{y-y_0}{n}=\frac{z-z_0}{p} $$</p>
-<p>其中 $M_0(x_0,y_0,z_0)$ 为直线上一点， $\mathbf{s}=(m,n,p)$ 为直线的 <strong>方向向量</strong>。 如果 $m=0$， 应该转化为 $x=x_0$。</p>
-<h5 id="参数式方程"><a href="#参数式方程" class="headerlink" title="参数式方程"></a>参数式方程</h5><p>$$ \left{ \begin{array}{l}<br>x=\lambda m + x_0\<br>y=\lambda n + y_0\<br>z=\lambda p + z_0<br>\end{array} \right. $$</p>
-<p>其中 $M_0(x_0,y_0,z_0)$ 为直线上一点， $\mathbf{s}=(m,n,p)$ 为直线的 <strong>方向向量</strong>。</p>
-<h5 id="一般式方程-1"><a href="#一般式方程-1" class="headerlink" title="一般式方程"></a>一般式方程</h5><p>$$ \left{ \begin{array}{l}<br>a_1 x+ b_1 y + c_1 z+ d_1 = 0\<br>a_2 x+ b_2 y + c_2 z+ d_2 = 0<br>\end{array} \right. $$</p>
-<p>两平面相交的直线方程。</p>
-<h4 id="直线间位置关系"><a href="#直线间位置关系" class="headerlink" title="直线间位置关系"></a>直线间位置关系</h4><p>$\mathbf{s}_1$ 与 $\mathbf{s}_2$ 分别为两直线的方向向量， $M_1$ 与 $M_2$ 分别为其上两点。</p>
+        <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>
+<p><br>
+<a href="/2016/05/23/Math-LinAlg-hyperplane/" title="超平面">超平面</a></p>
+<h3 id="平面">平面</h3>
+<p>平面有两个自由度</p>
+<h4 id="平面表示方法">平面表示方法</h4>
+<h5 id="点法式方程">点法式方程</h5>
+<p><span class="math display">\[ a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 \]</span></p>
+<p>其中 <span class="math inline">\(M_0(x_0,y_0,z_0)\)</span> 为平面上一点， <span class="math inline">\(\mathbf{n}=(a,b,c)\)</span> 为平面法向量</p>
+<h5 id="一般式方程">一般式方程</h5>
+<p><span class="math display">\[ ax + by + cz + d = 0 \]</span></p>
+<p>其中 <span class="math inline">\(\mathbf{n}=(a,b,c)\)</span> 为平面法向量。若 <span class="math inline">\(d=0\)</span>，平面过原点；若 <span class="math inline">\(a=0\)</span> 且 <span class="math inline">\(d\ne0\)</span>， 法向量正交 x 轴，故平面平行于 x 轴。</p>
+<h4 id="平面间位置关系">平面间位置关系</h4>
 <ul>
-<li>两直线平行 $\Leftrightarrow$ 方向向量平行且不平行于 ${M_1M_2}$</li>
-<li>两直线重合 $\Leftrightarrow$ 方向向量平行且平行于 ${M_1M_2}$</li>
-<li>两直线相交 $\Leftrightarrow$ 方向向量不平行且与 ${M_1M_2}$ 混合积为零（共面）</li>
-<li>两直线异面 $\Leftrightarrow$ 方向向量不平行且与 ${M_1M_2}$ 混合积不为零（非共面）</li>
+<li>平行 <span class="math inline">\(\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}\ne\frac{d_1}{d_2}\)</span></li>
+<li>重合 <span class="math inline">\(\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}=\frac{d_1}{d_2}\)</span></li>
+<li>相交 <span class="math inline">\(\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}\)</span> 不成立</li>
 </ul>
-<h4 id="直线与平面的位置关系"><a href="#直线与平面的位置关系" class="headerlink" title="直线与平面的位置关系"></a>直线与平面的位置关系</h4><ul>
-<li>平行 $\Leftrightarrow$ 方向向量与平面法向量正交，且直线至少有一点不在平面上</li>
-<li>直线在平面上 $\Leftrightarrow$ 方向向量与平面法向量正交，且直线至少有一点在平面上</li>
-<li>相交 $\Leftrightarrow$ 方向向量与平面法向量非正交</li>
+<h4 id="点到平面距离">点到平面距离</h4>
+<p>点 <span class="math inline">\((x_0,y_0,z_0)\)</span>， 平面 <span class="math inline">\(Ax+By+Cz+D=0\)</span></p>
+<p><span class="math display">\[ d=\frac{|Ax_0+By_0+Cz_0+D|}{\sqrt{A^2+B^2+C^2}} \]</span></p>
+<h3 id="直线">直线</h3>
+<p>直线只有一个自由度</p>
+<h4 id="直线表示方法">直线表示方法</h4>
+<h5 id="点向式方程">点向式方程</h5>
+<p><span class="math display">\[ \frac{x-x_0}{m}=\frac{y-y_0}{n}=\frac{z-z_0}{p} \]</span></p>
+<p>其中 <span class="math inline">\(M_0(x_0,y_0,z_0)\)</span> 为直线上一点， <span class="math inline">\(\mathbf{s}=(m,n,p)\)</span> 为直线的 <strong>方向向量</strong>。 如果 <span class="math inline">\(m=0\)</span>， 应该转化为 <span class="math inline">\(x=x_0\)</span>。</p>
+<h5 id="参数式方程">参数式方程</h5>
+<p><span class="math display">\[ \left\{ \begin{array}{l}
+x=\lambda m + x_0\\
+y=\lambda n + y_0\\
+z=\lambda p + z_0
+\end{array} \right. \]</span></p>
+<p>其中 <span class="math inline">\(M_0(x_0,y_0,z_0)\)</span> 为直线上一点， <span class="math inline">\(\mathbf{s}=(m,n,p)\)</span> 为直线的 <strong>方向向量</strong>。</p>
+<h5 id="一般式方程-1">一般式方程</h5>
+<p><span class="math display">\[ \left\{ \begin{array}{l}
+a_1 x+ b_1 y + c_1 z+ d_1 = 0\\
+a_2 x+ b_2 y + c_2 z+ d_2 = 0
+\end{array} \right. \]</span></p>
+<p>两平面相交的直线方程。</p>
+<h4 id="直线间位置关系">直线间位置关系</h4>
+<p><span class="math inline">\(\mathbf{s}_1\)</span> 与 <span class="math inline">\(\mathbf{s}_2\)</span> 分别为两直线的方向向量， <span class="math inline">\(M_1\)</span> 与 <span class="math inline">\(M_2\)</span> 分别为其上两点。</p>
+<ul>
+<li>两直线平行 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量平行且不平行于 <span class="math inline">\({M_1M_2}\)</span></li>
+<li>两直线重合 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量平行且平行于 <span class="math inline">\({M_1M_2}\)</span></li>
+<li>两直线相交 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量不平行且与 <span class="math inline">\({M_1M_2}\)</span> 混合积为零（共面）</li>
+<li>两直线异面 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量不平行且与 <span class="math inline">\({M_1M_2}\)</span> 混合积不为零（非共面）</li>
+</ul>
+<h4 id="直线与平面的位置关系">直线与平面的位置关系</h4>
+<ul>
+<li>平行 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量与平面法向量正交，且直线至少有一点不在平面上</li>
+<li>直线在平面上 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量与平面法向量正交，且直线至少有一点在平面上</li>
+<li>相交 <span class="math inline">\(\Leftrightarrow\)</span> 方向向量与平面法向量非正交</li>
 </ul>
 <p>对直线：</p>
-<p>$$ \left{ \begin{array}{l}<br>a_1 x+ b_1 y + c_1 z+ d_1 = 0\<br>a_2 x+ b_2 y + c_2 z+ d_2 = 0<br>\end{array} \right. $$</p>
+<p><span class="math display">\[ \left\{ \begin{array}{l}
+a_1 x+ b_1 y + c_1 z+ d_1 = 0\\
+a_2 x+ b_2 y + c_2 z+ d_2 = 0
+\end{array} \right. \]</span></p>
 <p>则过直线的平面方程可表示为：</p>
-<p>$$ \alpha(a_1 x+ b_1 y + c_1 z+ d_1) + \beta (a_2 x+ b_2 y + c_2 z+ d_2) = 0 $$</p>
+<p><span class="math display">\[ \alpha(a_1 x+ b_1 y + c_1 z+ d_1) + \beta (a_2 x+ b_2 y + c_2 z+ d_2) = 0 \]</span></p>
 
       
     </div>
@@ -445,7 +470,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -462,7 +487,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

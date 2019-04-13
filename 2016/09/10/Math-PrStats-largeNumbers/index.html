@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="概率论与数理统计 参考： 中心极限定律 - Vamei 随机变量序列收敛的定义依概率收敛有随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$， 和随机变量（或常数） X，如果对任意给定的正数 $\epsilon$， 有 $$ \lim_{n\rightarrow \infty} P{ |X_n-X| &amp;lt; \epsilon } = 1 $$ 则称 $X_1,\;X_2,\;X_3">
+<meta name="description" content="概率论与数理统计 参考： 中心极限定律 - Vamei 随机变量序列收敛的定义 依概率收敛 有随机变量序列 \(X_1,\;X_2,\;X_3,...,X_n,...\)， 和随机变量（或常数） X，如果对任意给定的正数 \(\epsilon\)， 有 \[ \lim_{n\rightarrow \infty} P\{ |X_n-X| &amp;lt; \epsilon \} = 1 \] 则">
 <meta name="keywords" content="Math,概率统计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数定律与中心极限定理">
 <meta property="og:url" content="http://yoursite.com/2016/09/10/Math-PrStats-largeNumbers/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="概率论与数理统计 参考： 中心极限定律 - Vamei 随机变量序列收敛的定义依概率收敛有随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$， 和随机变量（或常数） X，如果对任意给定的正数 $\epsilon$， 有 $$ \lim_{n\rightarrow \infty} P{ |X_n-X| &amp;lt; \epsilon } = 1 $$ 则称 $X_1,\;X_2,\;X_3">
+<meta property="og:description" content="概率论与数理统计 参考： 中心极限定律 - Vamei 随机变量序列收敛的定义 依概率收敛 有随机变量序列 \(X_1,\;X_2,\;X_3,...,X_n,...\)， 和随机变量（或常数） X，如果对任意给定的正数 \(\epsilon\)， 有 \[ \lim_{n\rightarrow \infty} P\{ |X_n-X| &amp;lt; \epsilon \} = 1 \] 则">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-19T04:55:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数定律与中心极限定理">
-<meta name="twitter:description" content="概率论与数理统计 参考： 中心极限定律 - Vamei 随机变量序列收敛的定义依概率收敛有随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$， 和随机变量（或常数） X，如果对任意给定的正数 $\epsilon$， 有 $$ \lim_{n\rightarrow \infty} P{ |X_n-X| &amp;lt; \epsilon } = 1 $$ 则称 $X_1,\;X_2,\;X_3">
+<meta name="twitter:description" content="概率论与数理统计 参考： 中心极限定律 - Vamei 随机变量序列收敛的定义 依概率收敛 有随机变量序列 \(X_1,\;X_2,\;X_3,...,X_n,...\)， 和随机变量（或常数） X，如果对任意给定的正数 \(\epsilon\)， 有 \[ \lim_{n\rightarrow \infty} P\{ |X_n-X| &amp;lt; \epsilon \} = 1 \] 则">
 
 
 
@@ -300,33 +300,45 @@
       
         <a href="/2016/09/02/Math-PrStats-cheatSheet/" title="概率论与数理统计">概率论与数理统计</a>
 <p>参考： <a href="http://www.cnblogs.com/vamei/p/3460965.html" target="_blank" rel="noopener">中心极限定律 - Vamei</a></p>
-<h3 id="随机变量序列收敛的定义"><a href="#随机变量序列收敛的定义" class="headerlink" title="随机变量序列收敛的定义"></a>随机变量序列收敛的定义</h3><h4 id="依概率收敛"><a href="#依概率收敛" class="headerlink" title="依概率收敛"></a>依概率收敛</h4><p>有随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$， 和随机变量（或常数） X，如果对任意给定的正数 $\epsilon$， 有</p>
-<p>$$ \lim_{n\rightarrow \infty} P{ |X_n-X| &lt; \epsilon } = 1 $$</p>
-<p>则称 $X_1,\;X_2,\;X_3,…,X_n,…$ 依概率收敛于 $X$</p>
-<h4 id="依分布收敛"><a href="#依分布收敛" class="headerlink" title="依分布收敛"></a>依分布收敛</h4><p>有随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$， 和随机变量（或常数） X，分别对应分布函数 $F_n(x)$ 和 $F(x)$， 如果在 $F(x)$ 的连续点 $x$ 处均有：</p>
-<p>$$ \lim_{n\rightarrow \infty} F_n(x) = F(x) $$</p>
-<p>则称 $X_1,\;X_2,\;X_3,…,X_n,…$ 依分布收敛于 $X$</p>
-<h3 id="大数定律"><a href="#大数定律" class="headerlink" title="大数定律"></a>大数定律</h3><p>随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$ 对应期望 $E(X_i)$ 都存在，对任意正实数 $\epsilon$ 有</p>
-<p>$$ \lim_{n\rightarrow \infty} P{|\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i) | &lt; \epsilon } = 1 $$</p>
-<p>即 $Y_n=\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i)$ （n=1, 2, 3…）依概率收敛于零，则称该随机变量序列服从大数定律。</p>
-<h4 id="切比雪夫大数定律"><a href="#切比雪夫大数定律" class="headerlink" title="切比雪夫大数定律"></a>切比雪夫大数定律</h4><p>随机变量序列中每个变量期望与方差存在，且方差有界，则该随机变量序列服从大数定律</p>
-<h4 id="辛软大数定律"><a href="#辛软大数定律" class="headerlink" title="辛软大数定律"></a>辛软大数定律</h4><p>随机变量序列 <strong>相互独立同分布</strong> (IID, Independent and Identically Distributed)，数学期望存在，则该随机变量序列服从大数定律</p>
-<h4 id="伯努利大数定律"><a href="#伯努利大数定律" class="headerlink" title="伯努利大数定律"></a>伯努利大数定律</h4><p>设 m 是 n 重伯努利试验中事件 A 出现的次数， p 是 A 在每次试验中发生的频率，则对任意给定的正数 $\epsilon$， 有</p>
-<p>$$ \lim_{n \rightarrow \infty} P{ |\frac{m}{n} - p| &lt; \epsilon } = 1 $$</p>
+<h3 id="随机变量序列收敛的定义">随机变量序列收敛的定义</h3>
+<h4 id="依概率收敛">依概率收敛</h4>
+<p>有随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span>， 和随机变量（或常数） X，如果对任意给定的正数 <span class="math inline">\(\epsilon\)</span>， 有</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} P\{ |X_n-X| &lt; \epsilon \} = 1 \]</span></p>
+<p>则称 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 依概率收敛于 <span class="math inline">\(X\)</span></p>
+<h4 id="依分布收敛">依分布收敛</h4>
+<p>有随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span>， 和随机变量（或常数） X，分别对应分布函数 <span class="math inline">\(F_n(x)\)</span> 和 <span class="math inline">\(F(x)\)</span>， 如果在 <span class="math inline">\(F(x)\)</span> 的连续点 <span class="math inline">\(x\)</span> 处均有：</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} F_n(x) = F(x) \]</span></p>
+<p>则称 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 依分布收敛于 <span class="math inline">\(X\)</span></p>
+<h3 id="大数定律">大数定律</h3>
+<p>随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 对应期望 <span class="math inline">\(E(X_i)\)</span> 都存在，对任意正实数 <span class="math inline">\(\epsilon\)</span> 有</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} P\{|\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i) | &lt; \epsilon \} = 1 \]</span></p>
+<p>即 <span class="math inline">\(Y_n=\frac{1}{n}\sum X_i - \frac{1}{n} \sum E(X_i)\)</span> （n=1, 2, 3…）依概率收敛于零，则称该随机变量序列服从大数定律。</p>
+<h4 id="切比雪夫大数定律">切比雪夫大数定律</h4>
+<p>随机变量序列中每个变量期望与方差存在，且方差有界，则该随机变量序列服从大数定律</p>
+<h4 id="辛软大数定律">辛软大数定律</h4>
+<p>随机变量序列 <strong>相互独立同分布</strong> (IID, Independent and Identically Distributed)，数学期望存在，则该随机变量序列服从大数定律</p>
+<h4 id="伯努利大数定律">伯努利大数定律</h4>
+<p>设 m 是 n 重伯努利试验中事件 A 出现的次数， p 是 A 在每次试验中发生的频率，则对任意给定的正数 <span class="math inline">\(\epsilon\)</span>， 有</p>
+<p><span class="math display">\[ \lim_{n \rightarrow \infty} P\{ |\frac{m}{n} - p| &lt; \epsilon \} = 1 \]</span></p>
 <p>其实是随机变量服从伯努利分布的辛软大数定律的形式</p>
-<h3 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h3><p>随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$ 的 <strong>标准化随机变量序列</strong> 通项为</p>
-<p>$$ Z_n = \frac{\sum X_i - \sum E(X_i)}{\sqrt{\sum D(X_i)}},\quad (n = 1,\;2,\;…) $$</p>
-<p>记 $Z_n$ 的分布函数为 $F_n(z)$， 如果满足</p>
-<p>$$ \lim_{n\rightarrow \infty} F_n(z) = \Phi(z) $$</p>
-<p>即随机变量序列 <strong>${Z_n}$ 依分布收敛于标准正态分布</strong>，则称随机变量序列 $X_1,\;X_2,\;X_3,…,X_n,…$ 服从中心极限定理。</p>
-<h4 id="独立同分布中心极限定理"><a href="#独立同分布中心极限定理" class="headerlink" title="独立同分布中心极限定理"></a>独立同分布中心极限定理</h4><p>随机变量序列相互独立同分布，且期望与方差存在，则服从中心极限定理。</p>
-<p>$E(X)=\mu,\;D(x)=\sigma$， 常用计算公式：</p>
-<p>$$ P{ x<em>1 \le \sum</em>{i=1}^n X_i \le x_2 } = P{ \frac{x_1 - n\mu}{\sqrt{n\sigma}} \le Z_n \le \frac{x_2 - n\mu}{\sqrt{n\sigma}}} \approx \Phi(\frac{x_2 - n\mu}{\sqrt{n\sigma}}) - \Phi(\frac{x_1 - n\mu}{\sqrt{n\sigma}}) $$</p>
-<h4 id="棣莫弗——拉普拉斯中心极限定理"><a href="#棣莫弗——拉普拉斯中心极限定理" class="headerlink" title="棣莫弗——拉普拉斯中心极限定理"></a>棣莫弗——拉普拉斯中心极限定理</h4><p>随机变量 $Y_n \sim B(n,p),\; (n=1,\;2,…)$， 则对任意实数 $x$ 有</p>
-<p>$$ \lim_{n \rightarrow \infty} P{ \frac{Y_n - np}{\sqrt{np(1-p)}} \le x} = \Phi(x) $$</p>
+<h3 id="中心极限定理">中心极限定理</h3>
+<p>随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 的 <strong>标准化随机变量序列</strong> 通项为</p>
+<p><span class="math display">\[ Z_n = \frac{\sum X_i - \sum E(X_i)}{\sqrt{\sum D(X_i)}},\quad (n = 1,\;2,\;...) \]</span></p>
+<p>记 <span class="math inline">\(Z_n\)</span> 的分布函数为 <span class="math inline">\(F_n(z)\)</span>， 如果满足</p>
+<p><span class="math display">\[ \lim_{n\rightarrow \infty} F_n(z) = \Phi(z) \]</span></p>
+<p>即随机变量序列 <strong><span class="math inline">\(\{Z_n\}\)</span> 依分布收敛于标准正态分布</strong>，则称随机变量序列 <span class="math inline">\(X_1,\;X_2,\;X_3,...,X_n,...\)</span> 服从中心极限定理。</p>
+<h4 id="独立同分布中心极限定理">独立同分布中心极限定理</h4>
+<p>随机变量序列相互独立同分布，且期望与方差存在，则服从中心极限定理。</p>
+<p><span class="math inline">\(E(X)=\mu,\;D(x)=\sigma\)</span>， 常用计算公式：</p>
+<p><span class="math display">\[ P\{ x_1 \le \sum_{i=1}^n X_i \le x_2 \} = P\{ \frac{x_1 - n\mu}{\sqrt{n\sigma}} \le Z_n \le \frac{x_2 - n\mu}{\sqrt{n\sigma}}\} \approx \Phi(\frac{x_2 - n\mu}{\sqrt{n\sigma}}) - \Phi(\frac{x_1 - n\mu}{\sqrt{n\sigma}}) \]</span></p>
+<h4 id="棣莫弗拉普拉斯中心极限定理">棣莫弗——拉普拉斯中心极限定理</h4>
+<p>随机变量 <span class="math inline">\(Y_n \sim B(n,p),\; (n=1,\;2,...)\)</span>， 则对任意实数 <span class="math inline">\(x\)</span> 有</p>
+<p><span class="math display">\[ \lim_{n \rightarrow \infty} P\{ \frac{Y_n - np}{\sqrt{np(1-p)}} \le x\} = \Phi(x) \]</span></p>
 <p>其实是随机变量序列相互独立同伯努利分布的中心极限定理表现形式</p>
-<h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><h4 id="切比雪夫不等式"><a href="#切比雪夫不等式" class="headerlink" title="切比雪夫不等式"></a>切比雪夫不等式</h4><p>随机变量 X 的期望与方差存在，则对任意正常数 $\epsilon$， 下列不等式成立：</p>
-<p>$$ P{ |X - E(x)| \ge \epsilon } \le \frac{D(X)}{\epsilon^2}, \quad 即\; P{ |X - E(x)| &lt; \epsilon } \ge 1 - \frac{D(X)}{\epsilon^2} $$</p>
+<h3 id="相关">相关</h3>
+<h4 id="切比雪夫不等式">切比雪夫不等式</h4>
+<p>随机变量 X 的期望与方差存在，则对任意正常数 <span class="math inline">\(\epsilon\)</span>， 下列不等式成立：</p>
+<p><span class="math display">\[ P\{ |X - E(x)| \ge \epsilon \} \le \frac{D(X)}{\epsilon^2}, \quad 即\; P\{ |X - E(x)| &lt; \epsilon \} \ge 1 - \frac{D(X)}{\epsilon^2} \]</span></p>
 
       
     </div>
@@ -438,7 +450,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -455,7 +467,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -484,7 +496,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#随机变量序列收敛的定义"><span class="nav-number">1.</span> <span class="nav-text">随机变量序列收敛的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#依概率收敛"><span class="nav-number">1.1.</span> <span class="nav-text">依概率收敛</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依分布收敛"><span class="nav-number">1.2.</span> <span class="nav-text">依分布收敛</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数定律"><span class="nav-number">2.</span> <span class="nav-text">大数定律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#切比雪夫大数定律"><span class="nav-number">2.1.</span> <span class="nav-text">切比雪夫大数定律</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#辛软大数定律"><span class="nav-number">2.2.</span> <span class="nav-text">辛软大数定律</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伯努利大数定律"><span class="nav-number">2.3.</span> <span class="nav-text">伯努利大数定律</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中心极限定理"><span class="nav-number">3.</span> <span class="nav-text">中心极限定理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#独立同分布中心极限定理"><span class="nav-number">3.1.</span> <span class="nav-text">独立同分布中心极限定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#棣莫弗——拉普拉斯中心极限定理"><span class="nav-number">3.2.</span> <span class="nav-text">棣莫弗——拉普拉斯中心极限定理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关"><span class="nav-number">4.</span> <span class="nav-text">相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#切比雪夫不等式"><span class="nav-number">4.1.</span> <span class="nav-text">切比雪夫不等式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#随机变量序列收敛的定义"><span class="nav-number">1.</span> <span class="nav-text">随机变量序列收敛的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#依概率收敛"><span class="nav-number">1.1.</span> <span class="nav-text">依概率收敛</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依分布收敛"><span class="nav-number">1.2.</span> <span class="nav-text">依分布收敛</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数定律"><span class="nav-number">2.</span> <span class="nav-text">大数定律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#切比雪夫大数定律"><span class="nav-number">2.1.</span> <span class="nav-text">切比雪夫大数定律</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#辛软大数定律"><span class="nav-number">2.2.</span> <span class="nav-text">辛软大数定律</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伯努利大数定律"><span class="nav-number">2.3.</span> <span class="nav-text">伯努利大数定律</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中心极限定理"><span class="nav-number">3.</span> <span class="nav-text">中心极限定理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#独立同分布中心极限定理"><span class="nav-number">3.1.</span> <span class="nav-text">独立同分布中心极限定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#棣莫弗拉普拉斯中心极限定理"><span class="nav-number">3.2.</span> <span class="nav-text">棣莫弗——拉普拉斯中心极限定理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关"><span class="nav-number">4.</span> <span class="nav-text">相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#切比雪夫不等式"><span class="nav-number">4.1.</span> <span class="nav-text">切比雪夫不等式</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

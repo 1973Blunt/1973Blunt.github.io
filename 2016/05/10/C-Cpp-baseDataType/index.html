@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="整型占用 bits char $\leq$ short $\leq$ int $\leq$ long $\leq$ long long char 占用1字节，unsigned最大值255 short 至少占用16 bit，unsigned最大值65535，6万多 long 至少占用32 bit，unsigned最大值4294967295，40多亿  相关库用\, \头文件查看最值1234#incl">
+<meta name="description" content="整型 占用 bits  char \(\leq\) short \(\leq\) int \(\leq\) long \(\leq\) long long char 占用1字节，unsigned最大值255 short 至少占用16 bit，unsigned最大值65535，6万多 long 至少占用32 bit，unsigned最大值4294967295，40多亿  相关库 用">
 <meta name="keywords" content="C&#x2F;C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C&#x2F;C++ 基本数据类型">
 <meta property="og:url" content="http://yoursite.com/2016/05/10/C-Cpp-baseDataType/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="整型占用 bits char $\leq$ short $\leq$ int $\leq$ long $\leq$ long long char 占用1字节，unsigned最大值255 short 至少占用16 bit，unsigned最大值65535，6万多 long 至少占用32 bit，unsigned最大值4294967295，40多亿  相关库用\, \头文件查看最值1234#incl">
+<meta property="og:description" content="整型 占用 bits  char \(\leq\) short \(\leq\) int \(\leq\) long \(\leq\) long long char 占用1字节，unsigned最大值255 short 至少占用16 bit，unsigned最大值65535，6万多 long 至少占用32 bit，unsigned最大值4294967295，40多亿  相关库 用">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-03-15T03:05:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C&#x2F;C++ 基本数据类型">
-<meta name="twitter:description" content="整型占用 bits char $\leq$ short $\leq$ int $\leq$ long $\leq$ long long char 占用1字节，unsigned最大值255 short 至少占用16 bit，unsigned最大值65535，6万多 long 至少占用32 bit，unsigned最大值4294967295，40多亿  相关库用\, \头文件查看最值1234#incl">
+<meta name="twitter:description" content="整型 占用 bits  char \(\leq\) short \(\leq\) int \(\leq\) long \(\leq\) long long char 占用1字节，unsigned最大值255 short 至少占用16 bit，unsigned最大值65535，6万多 long 至少占用32 bit，unsigned最大值4294967295，40多亿  相关库 用">
 
 
 
@@ -298,28 +298,39 @@
       
 
       
-        <h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><h4 id="占用-bits"><a href="#占用-bits" class="headerlink" title="占用 bits"></a>占用 bits</h4><ul>
-<li>char $\leq$ short $\leq$ int $\leq$ long $\leq$ long long</li>
+        <h3 id="整型">整型</h3>
+<h4 id="占用-bits">占用 bits</h4>
+<ul>
+<li>char <span class="math inline">\(\leq\)</span> short <span class="math inline">\(\leq\)</span> int <span class="math inline">\(\leq\)</span> long <span class="math inline">\(\leq\)</span> long long</li>
 <li>char 占用1字节，unsigned最大值255</li>
 <li>short 至少占用16 bit，unsigned最大值65535，6万多</li>
 <li>long 至少占用32 bit，unsigned最大值4294967295，40多亿</li>
 </ul>
-<h4 id="相关库"><a href="#相关库" class="headerlink" title="相关库"></a>相关库</h4><p>用\<climits\>, \<limits.h\>头文件查看最值<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;limits.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> max = INT_MAX;</span><br><span class="line"><span class="keyword">int</span> min = INT_MIN;</span><br></pre></td></tr></table></figure></limits.h\></climits\></p>
-<h4 id="signed-与-unsigned"><a href="#signed-与-unsigned" class="headerlink" title="signed 与 unsigned"></a>signed 与 unsigned</h4><p>整型默认signed，只有char由实现定义</p>
-<h4 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h4><ul>
+<h4 id="相关库">相关库</h4>
+<p>用&lt;climits&gt;, &lt;limits.h&gt;头文件查看最值 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;limits.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> max = INT_MAX;</span><br><span class="line"><span class="keyword">int</span> min = INT_MIN;</span><br></pre></td></tr></table></figure></p>
+<h4 id="signed-与-unsigned">signed 与 unsigned</h4>
+<p>整型默认signed，只有char由实现定义</p>
+<h4 id="其它">其它</h4>
+<ul>
 <li>int 被编译器认为是“最自然”的整型。在运算时，比 int “低级”的类型会转换成int类型处理</li>
 <li>% 运算符，对于负整数的处理，可视为：a % b = a - (a/b) * b</li>
 </ul>
-<h3 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h3><h4 id="占用-bits-1"><a href="#占用-bits-1" class="headerlink" title="占用 bits"></a>占用 bits</h4><ul>
+<h3 id="浮点数">浮点数</h3>
+<h4 id="占用-bits-1">占用 bits</h4>
+<ul>
 <li>浮点数的指数部分至少从-37取到37，也就是取值范围（正数）至少是E-37 ~ E+37</li>
-<li>float $\leq$ double $\leq$ long double</li>
+<li>float <span class="math inline">\(\leq\)</span> double <span class="math inline">\(\leq\)</span> long double</li>
 <li>float 至少占用32 bit</li>
 <li>double 至少占用48 bit</li>
 </ul>
-<h4 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h4><p>分为2部分，一是指数部分 $e$，二是尾数部分 $r$，所表示的值为 $r \times 10^e$，这就像把 $r$ 作为整数的小数点移动 $e$ 位一样，所以称为浮点数。</p>
-<h4 id="相关库-1"><a href="#相关库-1" class="headerlink" title="相关库"></a>相关库</h4><p>\<cfloat\>, \<float.h\>对浮点数有相关限定<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;float.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> max = FLT_MAX; <span class="comment">// double: DBL_MAX, long dboule: LDBL_MAX</span></span><br><span class="line"><span class="keyword">float</span> min = FLT_MIN; <span class="comment">// double: DBL_MIN, long dboule: LDBL_MIN</span></span><br></pre></td></tr></table></figure></float.h\></cfloat\></p>
-<h4 id="其它-1"><a href="#其它-1" class="headerlink" title="其它"></a>其它</h4><p>常量小数默认为 double，如需float加f或F，需long double加L</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<h4 id="存储结构">存储结构</h4>
+<p>分为2部分，一是指数部分 <span class="math inline">\(e\)</span>，二是尾数部分 <span class="math inline">\(r\)</span>，所表示的值为 <span class="math inline">\(r \times 10^e\)</span>，这就像把 <span class="math inline">\(r\)</span> 作为整数的小数点移动 <span class="math inline">\(e\)</span> 位一样，所以称为浮点数。</p>
+<h4 id="相关库-1">相关库</h4>
+<p>&lt;cfloat&gt;, &lt;float.h&gt;对浮点数有相关限定 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;float.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> max = FLT_MAX; <span class="comment">// double: DBL_MAX, long dboule: LDBL_MAX</span></span><br><span class="line"><span class="keyword">float</span> min = FLT_MIN; <span class="comment">// double: DBL_MIN, long dboule: LDBL_MIN</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="其它-1">其它</h4>
+<p>常量小数默认为 double，如需float加f或F，需long double加L</p>
+<h3 id="参考">参考</h3>
+<ul>
 <li>《C++ primer plus》 6th Edition by Stephen Prata.</li>
 <li><a href="http://en.cppreference.com/w/cpp/language/types" target="_blank" rel="noopener">cppreference.com: Fundamental types</a></li>
 </ul>
@@ -432,7 +443,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -449,7 +460,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
