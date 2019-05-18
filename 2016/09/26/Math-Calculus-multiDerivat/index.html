@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="微积分笔记 多元函数极值 存在的必要条件 多元函数在极值点处若存在偏导数，则必为零。 存在的充分条件 若 \(f(x,y)\) 在 \((x_0, y_0)\) 存在二阶偏导，一阶偏导为零， 黑塞矩阵 为： \[ H = \begin{bmatrix}         f_{xx} &amp;amp; f_{xy} \\         f_{yx} &amp;amp; f_{yy} \\">
+<meta name="description" content="微积分笔记 多元函数极值存在的必要条件多元函数在极值点处若存在偏导数，则必为零。 存在的充分条件若 $f(x,y)$ 在 $(x_0, y_0)$ 存在二阶偏导，一阶偏导为零， 黑塞矩阵 为： $$ H = \begin{bmatrix}        f{xx} &amp;amp; f{xy} \        f{yx} &amp;amp; f{yy} \        \end{bmatrix}$$ 则有以">
 <meta name="keywords" content="Math,Calculus">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多元函数最值">
 <meta property="og:url" content="http://yoursite.com/2016/09/26/Math-Calculus-multiDerivat/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="微积分笔记 多元函数极值 存在的必要条件 多元函数在极值点处若存在偏导数，则必为零。 存在的充分条件 若 \(f(x,y)\) 在 \((x_0, y_0)\) 存在二阶偏导，一阶偏导为零， 黑塞矩阵 为： \[ H = \begin{bmatrix}         f_{xx} &amp;amp; f_{xy} \\         f_{yx} &amp;amp; f_{yy} \\">
+<meta property="og:description" content="微积分笔记 多元函数极值存在的必要条件多元函数在极值点处若存在偏导数，则必为零。 存在的充分条件若 $f(x,y)$ 在 $(x_0, y_0)$ 存在二阶偏导，一阶偏导为零， 黑塞矩阵 为： $$ H = \begin{bmatrix}        f{xx} &amp;amp; f{xy} \        f{yx} &amp;amp; f{yy} \        \end{bmatrix}$$ 则有以">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-15T11:03:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多元函数最值">
-<meta name="twitter:description" content="微积分笔记 多元函数极值 存在的必要条件 多元函数在极值点处若存在偏导数，则必为零。 存在的充分条件 若 \(f(x,y)\) 在 \((x_0, y_0)\) 存在二阶偏导，一阶偏导为零， 黑塞矩阵 为： \[ H = \begin{bmatrix}         f_{xx} &amp;amp; f_{xy} \\         f_{yx} &amp;amp; f_{yy} \\">
+<meta name="twitter:description" content="微积分笔记 多元函数极值存在的必要条件多元函数在极值点处若存在偏导数，则必为零。 存在的充分条件若 $f(x,y)$ 在 $(x_0, y_0)$ 存在二阶偏导，一阶偏导为零， 黑塞矩阵 为： $$ H = \begin{bmatrix}        f{xx} &amp;amp; f{xy} \        f{yx} &amp;amp; f{yy} \        \end{bmatrix}$$ 则有以">
 
 
 
@@ -299,40 +299,25 @@
 
       
         <a href="/2016/06/30/Math-Calculus-cheatSheet/" title="微积分笔记">微积分笔记</a>
-<h3 id="多元函数极值">多元函数极值</h3>
-<h4 id="存在的必要条件">存在的必要条件</h4>
-<p>多元函数在极值点处若存在偏导数，则必为零。</p>
-<h4 id="存在的充分条件">存在的充分条件</h4>
-<p>若 <span class="math inline">\(f(x,y)\)</span> 在 <span class="math inline">\((x_0, y_0)\)</span> 存在二阶偏导，一阶偏导为零， <strong>黑塞矩阵</strong> 为：</p>
-<p><span class="math display">\[ H = \begin{bmatrix}
-        f_{xx} &amp; f_{xy} \\
-        f_{yx} &amp; f_{yy} \\
-        \end{bmatrix}
-\]</span></p>
+<h3 id="多元函数极值"><a href="#多元函数极值" class="headerlink" title="多元函数极值"></a>多元函数极值</h3><h4 id="存在的必要条件"><a href="#存在的必要条件" class="headerlink" title="存在的必要条件"></a>存在的必要条件</h4><p>多元函数在极值点处若存在偏导数，则必为零。</p>
+<h4 id="存在的充分条件"><a href="#存在的充分条件" class="headerlink" title="存在的充分条件"></a>存在的充分条件</h4><p>若 $f(x,y)$ 在 $(x_0, y_0)$ 存在二阶偏导，一阶偏导为零， <strong>黑塞矩阵</strong> 为：</p>
+<p>$$ H = \begin{bmatrix}<br>        f<em>{xx} &amp; f</em>{xy} \<br>        f<em>{yx} &amp; f</em>{yy} \<br>        \end{bmatrix}<br>$$</p>
 <p>则有以下结论：</p>
 <ul>
-<li>若 <span class="math inline">\(f_{xx}f_{yy}-f_{xy}f_{yx}&gt;0\)</span> 且 <span class="math inline">\(f_{xx}&gt;0\)</span>， 则 <span class="math inline">\(H\)</span> 为正定矩阵，故 <span class="math inline">\(f(x_0,y_0)\)</span> 为极小值</li>
-<li>若 <span class="math inline">\(f_{xx}f_{yy}-f_{xy}f_{yx}&gt;0\)</span> 且 <span class="math inline">\(f_{xx}&lt;0\)</span>， 则 <span class="math inline">\(H\)</span> 为负定矩阵，故 <span class="math inline">\(f(x_0,y_0)\)</span> 为极大值</li>
-<li>若 <span class="math inline">\(f_{xx}f_{yy}-f_{xy}f_{yx}&lt;0\)</span>， 则 <span class="math inline">\(H\)</span> 为不定矩阵，故 <span class="math inline">\(f(x_0,y_0)\)</span> 不是极值</li>
+<li>若 $f<em>{xx}f</em>{yy}-f<em>{xy}f</em>{yx}&gt;0$ 且 $f_{xx}&gt;0$， 则 $H$ 为正定矩阵，故 $f(x_0,y_0)$ 为极小值</li>
+<li>若 $f<em>{xx}f</em>{yy}-f<em>{xy}f</em>{yx}&gt;0$ 且 $f_{xx}&lt;0$， 则 $H$ 为负定矩阵，故 $f(x_0,y_0)$ 为极大值</li>
+<li>若 $f<em>{xx}f</em>{yy}-f<em>{xy}f</em>{yx}&lt;0$， 则 $H$ 为不定矩阵，故 $f(x_0,y_0)$ 不是极值</li>
 </ul>
-<h3 id="有界闭区域上的最值">有界闭区域上的最值</h3>
-<p><span class="math inline">\(f(x,y)\)</span> 在某一有界闭区域上连续，则 <span class="math inline">\(f(x,y)\)</span> 必定有最大最小值。最值可能是区域内极值及边界上的最值。求最值的一般步骤：</p>
-<ol type="1">
-<li>求 <span class="math inline">\(f(x,y)\)</span> 在区域内所有驻点（偏导为零）及其函数值</li>
-<li>求 <span class="math inline">\(f(x,y)\)</span> 在边界上的最值</li>
+<h3 id="有界闭区域上的最值"><a href="#有界闭区域上的最值" class="headerlink" title="有界闭区域上的最值"></a>有界闭区域上的最值</h3><p>$f(x,y)$ 在某一有界闭区域上连续，则 $f(x,y)$ 必定有最大最小值。最值可能是区域内极值及边界上的最值。求最值的一般步骤：</p>
+<ol>
+<li>求 $f(x,y)$ 在区域内所有驻点（偏导为零）及其函数值</li>
+<li>求 $f(x,y)$ 在边界上的最值</li>
 <li>比较前两步的函数值，得出最值</li>
 </ol>
 <p>求边界上的最值，直接将边界函数代入目标函数或使用拉格朗日乘数法。</p>
-<h3 id="条件极值与拉格朗日乘数法">条件极值与拉格朗日乘数法</h3>
-<p>求目标函数极值： <span class="math inline">\(u=f(x,y)\)</span><br>
-约束函数： <span class="math inline">\(\varphi(x,y)=0\)</span><br>
-拉格朗日函数： <span class="math inline">\(F(x,y,\lambda)=f(x,y)+\lambda\varphi(x,y)\)</span></p>
+<h3 id="条件极值与拉格朗日乘数法"><a href="#条件极值与拉格朗日乘数法" class="headerlink" title="条件极值与拉格朗日乘数法"></a>条件极值与拉格朗日乘数法</h3><p>求目标函数极值： $u=f(x,y)$\<br>约束函数： $\varphi(x,y)=0$\<br>拉格朗日函数： $F(x,y,\lambda)=f(x,y)+\lambda\varphi(x,y)$</p>
 <p>目标函数极值点满足（必要条件）拉格朗日函数偏导为零：</p>
-<p><span class="math display">\[ \left\{ \begin{array}{l}
-F_x = 0 \\
-F_y = 0 \\
-F_\lambda = \varphi(x,y) = 0
-\end{array} \right. \]</span></p>
+<p>$$ \left{ \begin{array}{l}<br>F_x = 0 \<br>F<em>y = 0 \<br>F</em>\lambda = \varphi(x,y) = 0<br>\end{array} \right. $$</p>
 <p>可推广到多元函数多约束函数情况。</p>
 
       
@@ -445,7 +430,7 @@ F_\lambda = \varphi(x,y) = 0
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -462,7 +447,7 @@ F_\lambda = \varphi(x,y) = 0
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

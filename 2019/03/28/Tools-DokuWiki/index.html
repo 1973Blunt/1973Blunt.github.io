@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="安装 参考： + Install DokuWiki Wiki Software On Ubuntu 16.04 / 18.04 / 18.10 With Apache2, PHP 7.2 + 在Ubuntu上使用DokuWiki构建你自己的wiki 安装 Apache 我们需要一台用于我们 wiki 的 web 服务器。我们在本教程中使用 Apache，但你也可以使用 Nginx 或任何其他">
+<meta name="description" content="安装参考：  Install DokuWiki Wiki Software On Ubuntu 16.04 / 18.04 / 18.10 With Apache2, PHP 7.2 在Ubuntu上使用DokuWiki构建你自己的wiki  安装 Apache我们需要一台用于我们 wiki 的 web 服务器。我们在本教程中使用 Apache，但你也可以使用 Nginx 或任何其他 web 服务">
 <meta name="keywords" content="Tools,Ubuntu,DokuWiki">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tools-DokuWiki">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/Tools-DokuWiki/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="安装 参考： + Install DokuWiki Wiki Software On Ubuntu 16.04 / 18.04 / 18.10 With Apache2, PHP 7.2 + 在Ubuntu上使用DokuWiki构建你自己的wiki 安装 Apache 我们需要一台用于我们 wiki 的 web 服务器。我们在本教程中使用 Apache，但你也可以使用 Nginx 或任何其他">
+<meta property="og:description" content="安装参考：  Install DokuWiki Wiki Software On Ubuntu 16.04 / 18.04 / 18.10 With Apache2, PHP 7.2 在Ubuntu上使用DokuWiki构建你自己的wiki  安装 Apache我们需要一台用于我们 wiki 的 web 服务器。我们在本教程中使用 Apache，但你也可以使用 Nginx 或任何其他 web 服务">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-03-29T02:40:39.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tools-DokuWiki">
-<meta name="twitter:description" content="安装 参考： + Install DokuWiki Wiki Software On Ubuntu 16.04 / 18.04 / 18.10 With Apache2, PHP 7.2 + 在Ubuntu上使用DokuWiki构建你自己的wiki 安装 Apache 我们需要一台用于我们 wiki 的 web 服务器。我们在本教程中使用 Apache，但你也可以使用 Nginx 或任何其他">
+<meta name="twitter:description" content="安装参考：  Install DokuWiki Wiki Software On Ubuntu 16.04 / 18.04 / 18.10 With Apache2, PHP 7.2 在Ubuntu上使用DokuWiki构建你自己的wiki  安装 Apache我们需要一台用于我们 wiki 的 web 服务器。我们在本教程中使用 Apache，但你也可以使用 Nginx 或任何其他 web 服务">
 
 
 
@@ -298,14 +298,14 @@
       
 
       
-        <h3 id="安装">安装</h3>
-<p>参考： + <a href="https://websiteforstudents.com/install-dokuwiki-wiki-software-on-ubuntu-16-04-18-04-18-10-with-apache2-php-7-2/" target="_blank" rel="noopener">Install DokuWiki Wiki Software On Ubuntu 16.04 / 18.04 / 18.10 With Apache2, PHP 7.2</a> + <a href="https://linux.cn/article-8178-1.html" target="_blank" rel="noopener">在Ubuntu上使用DokuWiki构建你自己的wiki</a></p>
-<h4 id="安装-apache">安装 Apache</h4>
-<p>我们需要一台用于我们 wiki 的 web 服务器。我们在本教程中使用 Apache，但你也可以使用 Nginx 或任何其他 web 服务器。用下面的命令安装apache： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get install apache2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动停止</span></span><br><span class="line">sudo systemctl stop apache2.service</span><br><span class="line">sudo systemctl start apache2.service</span><br></pre></td></tr></table></figure></p>
-<h4 id="安装-php7-和模块">安装 PHP7 和模块</h4>
-<p>接下来，如果你还没有安装 PHP，你应该先安装 PHP。在本教程中，我们使用 PHP7。所以请使用下面的命令安装 PHP7 和一些其他 PHP 模块： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install php7.0-fpm php7.0-cli php-apcu php7.0-gd php7.0-xml php7.0-curl php7.0-json php7.0-mcrypt php7.0-cgi php7.0 libapache2-mod-php7.0</span><br></pre></td></tr></table></figure></p>
-<h4 id="下载安装-dokuwiki">下载安装 DokuWiki</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz</span><br><span class="line">tar xvf dokuwiki-stable.tgz</span><br><span class="line"></span><br><span class="line">sudo mv dokuwiki-2018-04-22b/ /var/www/html/dokuwiki/</span><br><span class="line"></span><br><span class="line">sudo chown -R www-data:www-data /var/www/html/dokuwiki/</span><br><span class="line">sudo chmod -R 755 /var/www/html/dokuwiki/</span><br></pre></td></tr></table></figure>
+        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>参考：</p>
+<ul>
+<li><a href="https://websiteforstudents.com/install-dokuwiki-wiki-software-on-ubuntu-16-04-18-04-18-10-with-apache2-php-7-2/" target="_blank" rel="noopener">Install DokuWiki Wiki Software On Ubuntu 16.04 / 18.04 / 18.10 With Apache2, PHP 7.2</a></li>
+<li><a href="https://linux.cn/article-8178-1.html" target="_blank" rel="noopener">在Ubuntu上使用DokuWiki构建你自己的wiki</a></li>
+</ul>
+<h4 id="安装-Apache"><a href="#安装-Apache" class="headerlink" title="安装 Apache"></a>安装 Apache</h4><p>我们需要一台用于我们 wiki 的 web 服务器。我们在本教程中使用 Apache，但你也可以使用 Nginx 或任何其他 web 服务器。用下面的命令安装apache：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get install apache2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动停止</span></span><br><span class="line">sudo systemctl stop apache2.service</span><br><span class="line">sudo systemctl start apache2.service</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装-PHP7-和模块"><a href="#安装-PHP7-和模块" class="headerlink" title="安装 PHP7 和模块"></a>安装 PHP7 和模块</h4><p>接下来，如果你还没有安装 PHP，你应该先安装 PHP。在本教程中，我们使用 PHP7。所以请使用下面的命令安装 PHP7 和一些其他 PHP 模块：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install php7.0-fpm php7.0-cli php-apcu php7.0-gd php7.0-xml php7.0-curl php7.0-json php7.0-mcrypt php7.0-cgi php7.0 libapache2-mod-php7.0</span><br></pre></td></tr></table></figure></p>
+<h4 id="下载安装-DokuWiki"><a href="#下载安装-DokuWiki" class="headerlink" title="下载安装 DokuWiki"></a>下载安装 DokuWiki</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz</span><br><span class="line">tar xvf dokuwiki-stable.tgz</span><br><span class="line"></span><br><span class="line">sudo mv dokuwiki-2018-04-22b/ /var/www/html/dokuwiki/</span><br><span class="line"></span><br><span class="line">sudo chown -R www-data:www-data /var/www/html/dokuwiki/</span><br><span class="line">sudo chmod -R 755 /var/www/html/dokuwiki/</span><br></pre></td></tr></table></figure>
 <p>访问<code>http://服务器的IP/dokuwiki/install.php</code>进行配置，其中ACL是访问控制表，完成后删除install.php文件，<code>sudo rm /var/www/html/dokuwiki/install.php</code></p>
 
       
@@ -349,6 +349,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/13/Web-Neo4j/" rel="prev" title="Neo4j相关操作">
+                Neo4j相关操作 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -416,7 +420,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -433,7 +437,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -462,7 +466,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-apache"><span class="nav-number">1.1.</span> <span class="nav-text">安装 Apache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-php7-和模块"><span class="nav-number">1.2.</span> <span class="nav-text">安装 PHP7 和模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载安装-dokuwiki"><span class="nav-number">1.3.</span> <span class="nav-text">下载安装 DokuWiki</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-Apache"><span class="nav-number">1.1.</span> <span class="nav-text">安装 Apache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-PHP7-和模块"><span class="nav-number">1.2.</span> <span class="nav-text">安装 PHP7 和模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载安装-DokuWiki"><span class="nav-number">1.3.</span> <span class="nav-text">下载安装 DokuWiki</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

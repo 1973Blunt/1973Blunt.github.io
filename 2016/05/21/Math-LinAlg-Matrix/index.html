@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="系列笔记  行列式 矩阵的秩 线性方程组的解 向量组 矩阵特征值、正交化与对角化 二次型 向量空间 空间解析几何  参考  Wikipedia 行列式  各种矩阵 单位矩阵 \(\mathbf{I}\) 数量矩阵 \(k\mathbf{I}\) 对角矩阵 三角矩阵 对称方阵 对称矩阵 —— \(\mathbf{A^T}=\mathbf{A}\)， 反对称矩">
+<meta name="description" content="系列笔记 行列式 矩阵的秩 线性方程组的解 向量组 矩阵特征值、正交化与对角化 二次型 向量空间 空间解析几何   参考 Wikipedia 行列式  各种矩阵单位矩阵 $\mathbf{I}$数量矩阵 $k\mathbf{I}$对角矩阵三角矩阵对称方阵对称矩阵 —— $\mathbf{A^T}=\mathbf{A}$， 反对称矩阵 —— $\mathbf{A^T}=-\mathbf{A}$, 有">
 <meta name="keywords" content="Math,Linear Algebra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="矩阵相关">
 <meta property="og:url" content="http://yoursite.com/2016/05/21/Math-LinAlg-Matrix/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="系列笔记  行列式 矩阵的秩 线性方程组的解 向量组 矩阵特征值、正交化与对角化 二次型 向量空间 空间解析几何  参考  Wikipedia 行列式  各种矩阵 单位矩阵 \(\mathbf{I}\) 数量矩阵 \(k\mathbf{I}\) 对角矩阵 三角矩阵 对称方阵 对称矩阵 —— \(\mathbf{A^T}=\mathbf{A}\)， 反对称矩">
+<meta property="og:description" content="系列笔记 行列式 矩阵的秩 线性方程组的解 向量组 矩阵特征值、正交化与对角化 二次型 向量空间 空间解析几何   参考 Wikipedia 行列式  各种矩阵单位矩阵 $\mathbf{I}$数量矩阵 $k\mathbf{I}$对角矩阵三角矩阵对称方阵对称矩阵 —— $\mathbf{A^T}=\mathbf{A}$， 反对称矩阵 —— $\mathbf{A^T}=-\mathbf{A}$, 有">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2016/05/21/Math-LinAlg-Matrix/determinant-calc.png">
 <meta property="og:updated_time" content="2016-10-15T15:52:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="矩阵相关">
-<meta name="twitter:description" content="系列笔记  行列式 矩阵的秩 线性方程组的解 向量组 矩阵特征值、正交化与对角化 二次型 向量空间 空间解析几何  参考  Wikipedia 行列式  各种矩阵 单位矩阵 \(\mathbf{I}\) 数量矩阵 \(k\mathbf{I}\) 对角矩阵 三角矩阵 对称方阵 对称矩阵 —— \(\mathbf{A^T}=\mathbf{A}\)， 反对称矩">
+<meta name="twitter:description" content="系列笔记 行列式 矩阵的秩 线性方程组的解 向量组 矩阵特征值、正交化与对角化 二次型 向量空间 空间解析几何   参考 Wikipedia 行列式  各种矩阵单位矩阵 $\mathbf{I}$数量矩阵 $k\mathbf{I}$对角矩阵三角矩阵对称方阵对称矩阵 —— $\mathbf{A^T}=\mathbf{A}$， 反对称矩阵 —— $\mathbf{A^T}=-\mathbf{A}$, 有">
 <meta name="twitter:image" content="http://yoursite.com/2016/05/21/Math-LinAlg-Matrix/determinant-calc.png">
 
 
@@ -300,8 +300,7 @@
       
 
       
-        <h3 id="系列笔记">系列笔记</h3>
-<ul>
+        <h3 id="系列笔记"><a href="#系列笔记" class="headerlink" title="系列笔记"></a>系列笔记</h3><ul>
 <li><a href="/2016/08/26/Math-LinAlg-determinant/" title="行列式">行列式</a></li>
 <li><a href="/2016/08/28/Math-LinAlg-rank/" title="矩阵的秩">矩阵的秩</a></li>
 <li><a href="/2016/08/28/Math-LinAlg-equationsSolution/" title="线性方程组的解">线性方程组的解</a></li>
@@ -309,160 +308,107 @@
 <li><a href="/2016/09/17/Math-LinAlg-eigenOrthDiag/" title="矩阵特征值、正交化与对角化">矩阵特征值、正交化与对角化</a></li>
 <li><a href="/2016/09/18/Math-LinAlg-quadraticForm/" title="二次型">二次型</a></li>
 <li><a href="/2016/05/17/Math-LinAlg-LinearSpace/" title="向量空间">向量空间</a></li>
-<li><a href="/2016/09/28/Math-LinAlg-analyticGeometry/" title="空间解析几何">空间解析几何</a></li>
+<li><a href="/2016/09/28/Math-LinAlg-analyticGeometry/" title="空间解析几何">空间解析几何</a>
+</li>
 </ul>
-<h3 id="参考">参考</h3>
-<ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://zh.wikipedia.org/wiki/%E8%A1%8C%E5%88%97%E5%BC%8F" target="_blank" rel="noopener">Wikipedia 行列式</a></li>
 </ul>
-<h3 id="各种矩阵">各种矩阵</h3>
-<h4 id="单位矩阵-mathbfi">单位矩阵 <span class="math inline">\(\mathbf{I}\)</span></h4>
-<h4 id="数量矩阵-kmathbfi">数量矩阵 <span class="math inline">\(k\mathbf{I}\)</span></h4>
-<h4 id="对角矩阵">对角矩阵</h4>
-<h4 id="三角矩阵">三角矩阵</h4>
-<h4 id="对称方阵">对称方阵</h4>
-<p>对称矩阵 —— <span class="math inline">\(\mathbf{A^T}=\mathbf{A}\)</span>， <strong>反对称矩阵</strong> —— <span class="math inline">\(\mathbf{A^T}=-\mathbf{A}\)</span>, 有 <strong><span class="math inline">\(a_{i,i}=0\)</span></strong></p>
-<h4 id="初等矩阵elementary-m">初等矩阵（Elementary M）</h4>
-<p>单位矩阵作一次初等变换得到的方阵。 <strong>左乘初等矩阵</strong> 相当于做行初等变换， <strong>右乘初等矩阵</strong> 相当于做列初等变换</p>
-<h4 id="伴随矩阵-mathbfa">伴随矩阵 <span class="math inline">\(\mathbf{A}^{ * }\)</span></h4>
-<p><span class="math inline">\(n\)</span> 阶方阵 <span class="math inline">\(\mathbf{A}=(a_{i,j})_{n \times n}\)</span> 的伴随矩阵为 <span class="math inline">\(\mathbf{A}^{ * } = (\mathbf{A}_{j,i})_{n\times n}\)</span>, 其中 <span class="math inline">\(\mathbf{A}_{j,i}\)</span> 为 <span class="math inline">\(\det \mathbf{A}\)</span> 中元 <span class="math inline">\(a_{j,i}\)</span> 的代数余子式。注意非 <span class="math inline">\(\mathbf{A}_{i,j}\)</span>， 例如 <span class="math inline">\(\mathbf{A}^{ * }\)</span> 的第一行二列的元素等于 <span class="math inline">\(\mathbf{A}_{2,1}\)</span>。</p>
-<p>对所有 n 阶方阵 <span class="math inline">\(\mathbf{A}\)</span>，有 <strong><span class="math inline">\(\mathbf{A}\mathbf{A}^{ * }=\mathbf{A}^{ * }\mathbf{A}=(\det \mathbf{A}) \mathbf{I}\)</span></strong></p>
+<h3 id="各种矩阵"><a href="#各种矩阵" class="headerlink" title="各种矩阵"></a>各种矩阵</h3><h4 id="单位矩阵-mathbf-I"><a href="#单位矩阵-mathbf-I" class="headerlink" title="单位矩阵 $\mathbf{I}$"></a>单位矩阵 $\mathbf{I}$</h4><h4 id="数量矩阵-k-mathbf-I"><a href="#数量矩阵-k-mathbf-I" class="headerlink" title="数量矩阵 $k\mathbf{I}$"></a>数量矩阵 $k\mathbf{I}$</h4><h4 id="对角矩阵"><a href="#对角矩阵" class="headerlink" title="对角矩阵"></a>对角矩阵</h4><h4 id="三角矩阵"><a href="#三角矩阵" class="headerlink" title="三角矩阵"></a>三角矩阵</h4><h4 id="对称方阵"><a href="#对称方阵" class="headerlink" title="对称方阵"></a>对称方阵</h4><p>对称矩阵 —— $\mathbf{A^T}=\mathbf{A}$， <strong>反对称矩阵</strong> —— $\mathbf{A^T}=-\mathbf{A}$, 有 <strong>$a_{i,i}=0$</strong></p>
+<h4 id="初等矩阵（Elementary-M）"><a href="#初等矩阵（Elementary-M）" class="headerlink" title="初等矩阵（Elementary M）"></a>初等矩阵（Elementary M）</h4><p>单位矩阵作一次初等变换得到的方阵。 <strong>左乘初等矩阵</strong> 相当于做行初等变换， <strong>右乘初等矩阵</strong> 相当于做列初等变换</p>
+<h4 id="伴随矩阵-mathbf-A"><a href="#伴随矩阵-mathbf-A" class="headerlink" title="伴随矩阵 $\mathbf{A}^{ * }$"></a>伴随矩阵 $\mathbf{A}^{ * }$</h4><p>$n$ 阶方阵 $\mathbf{A}=(a<em>{i,j})</em>{n \times n}$ 的伴随矩阵为 $\mathbf{A}^{ <em> } = (\mathbf{A}<em>{j,i})</em>{n\times n}$, 其中 $\mathbf{A}<em>{j,i}$ 为 $\det \mathbf{A}$ 中元 $a</em>{j,i}$ 的代数余子式。注意非 $\mathbf{A}_{i,j}$， 例如 $\mathbf{A}^{ </em> }$ 的第一行二列的元素等于 $\mathbf{A}_{2,1}$。</p>
+<p>对所有 n 阶方阵 $\mathbf{A}$，有 <strong>$\mathbf{A}\mathbf{A}^{ <em> }=\mathbf{A}^{ </em> }\mathbf{A}=(\det \mathbf{A}) \mathbf{I}$</strong></p>
 <ul>
-<li><span class="math inline">\(r(\mathbf{A}) = n\)</span> 时， <span class="math inline">\(r(\mathbf{A}^{ * })=n\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A}) = n-1\)</span> 时， <span class="math inline">\(r(\mathbf{A}^{ * })=1\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A}) &lt; n-1\)</span> 时， <span class="math inline">\(r(\mathbf{A}^{ * })=0\)</span></li>
-<li><span class="math inline">\(\det \mathbf{A}^{ * } = (\det \mathbf{A})^{n-1}\)</span></li>
-<li><span class="math inline">\((k\mathbf{A})^{ * } = k^{n-1} \mathbf{A}^{ * }\)</span></li>
+<li>$r(\mathbf{A}) = n$ 时， $r(\mathbf{A}^{ * })=n$</li>
+<li>$r(\mathbf{A}) = n-1$ 时， $r(\mathbf{A}^{ * })=1$</li>
+<li>$r(\mathbf{A}) &lt; n-1$ 时， $r(\mathbf{A}^{ * })=0$</li>
+<li>$\det \mathbf{A}^{ * } = (\det \mathbf{A})^{n-1}$</li>
+<li>$(k\mathbf{A})^{ <em> } = k^{n-1} \mathbf{A}^{ </em> }$</li>
 </ul>
-<h4 id="可交换方阵">可交换方阵</h4>
-<p>满足交换律。 <span class="math inline">\(\mathbf{A}\mathbf{B}=\mathbf{B}\mathbf{A}\)</span> 可推出 <span class="math inline">\(\mathbf{A}\)</span> 与 <span class="math inline">\(\mathbf{B}\)</span> 为同阶方阵。 <strong>单位矩阵与所有方阵可交换，互逆矩阵可交换</strong>。 可交换在计算与证明中很有用。</p>
-<h4 id="标准形">标准形</h4>
-<p><span class="math display">\[
-        \begin{bmatrix}
-        \mathbf{I}_r &amp; \mathbf{O}\\
-        \mathbf{O} &amp; \mathbf{O}\\
-        \end{bmatrix}_{m \times n}
-\]</span></p>
-<p>为矩阵 <span class="math inline">\(\mathbf{A}_{m \times n}\)</span> 的标准形，其中 <span class="math inline">\(r = R(\mathbf{A})\)</span>, <strong>矩阵与其标准形等价</strong> 。</p>
-<h4 id="正交向量组">正交向量组</h4>
-<p>两两正交且不含零向量的向量组。如果正交向量组的所有向量模为1，则称为 <strong>标准（规范）正交向量组</strong>。</p>
-<h4 id="正交方阵orthogonal-matrix">正交方阵（Orthogonal matrix）</h4>
-<p>满足 <span class="math inline">\(\mathbf{A}^{-1}=\mathbf{A^T}\)</span>。 也即 <span class="math inline">\(\mathbf{A}\mathbf{A^T}=\mathbf{A^T}\mathbf{A}=\mathbf{I}\)</span>， 矩阵的行（列）向量组是标准正交向量组。</p>
-<h4 id="实二次型及其矩阵">实二次型及其矩阵</h4>
-<p>实二次型 <span class="math inline">\(f(\mathbf{X})\)</span> 即系数为实数的 n 元二次 <strong>齐次</strong> 多项式。<br>
-其对应 <strong>实对称方阵</strong> <span class="math inline">\(\mathbf{A}=(a_{i,j})_{n\times n}\)</span> 的元素 <span class="math inline">\(a_{i,j}\)</span> 为二次型 <span class="math inline">\(x_i x_j\)</span> 的系数， 有 <span class="math inline">\(f(\mathbf{X})=\mathbf{X^T A X}\)</span>。<br>
-<span class="math inline">\(\mathbf{A}\)</span> 的秩称为 <strong>二次型的秩</strong>。</p>
-<h4 id="正定二次型">正定二次型</h4>
-<p>二次型的取值部大于零为正定二次型，总小于零为负定二次型，总大于等于零为半正定，总小于等于零为半负定</p>
-<h3 id="矩阵操作">矩阵操作</h3>
-<h4 id="初等变换">初等变换</h4>
-<ul>
+<h4 id="可交换方阵"><a href="#可交换方阵" class="headerlink" title="可交换方阵"></a>可交换方阵</h4><p>满足交换律。 $\mathbf{A}\mathbf{B}=\mathbf{B}\mathbf{A}$ 可推出 $\mathbf{A}$ 与 $\mathbf{B}$ 为同阶方阵。 <strong>单位矩阵与所有方阵可交换，互逆矩阵可交换</strong>。 可交换在计算与证明中很有用。</p>
+<h4 id="标准形"><a href="#标准形" class="headerlink" title="标准形"></a>标准形</h4><p>$$<br>        \begin{bmatrix}<br>        \mathbf{I}<em>r &amp; \mathbf{O}\<br>        \mathbf{O} &amp; \mathbf{O}\<br>        \end{bmatrix}</em>{m \times n}<br>$$</p>
+<p>为矩阵 $\mathbf{A}_{m \times n}$ 的标准形，其中 $r = R(\mathbf{A})$, <strong>矩阵与其标准形等价</strong> 。</p>
+<h4 id="正交向量组"><a href="#正交向量组" class="headerlink" title="正交向量组"></a>正交向量组</h4><p>两两正交且不含零向量的向量组。如果正交向量组的所有向量模为1，则称为 <strong>标准（规范）正交向量组</strong>。</p>
+<h4 id="正交方阵（Orthogonal-matrix）"><a href="#正交方阵（Orthogonal-matrix）" class="headerlink" title="正交方阵（Orthogonal matrix）"></a>正交方阵（Orthogonal matrix）</h4><p>满足 $\mathbf{A}^{-1}=\mathbf{A^T}$。 也即 $\mathbf{A}\mathbf{A^T}=\mathbf{A^T}\mathbf{A}=\mathbf{I}$， 矩阵的行（列）向量组是标准正交向量组。</p>
+<h4 id="实二次型及其矩阵"><a href="#实二次型及其矩阵" class="headerlink" title="实二次型及其矩阵"></a>实二次型及其矩阵</h4><p>实二次型 $f(\mathbf{X})$ 即系数为实数的 n 元二次 <strong>齐次</strong> 多项式。\<br>其对应 <strong>实对称方阵</strong> $\mathbf{A}=(a<em>{i,j})</em>{n\times n}$ 的元素 $a_{i,j}$ 为二次型 $x_i x_j$ 的系数， 有 $f(\mathbf{X})=\mathbf{X^T A X}$。\<br>$\mathbf{A}$ 的秩称为 <strong>二次型的秩</strong>。</p>
+<h4 id="正定二次型"><a href="#正定二次型" class="headerlink" title="正定二次型"></a>正定二次型</h4><p>二次型的取值部大于零为正定二次型，总小于零为负定二次型，总大于等于零为半正定，总小于等于零为半负定</p>
+<h3 id="矩阵操作"><a href="#矩阵操作" class="headerlink" title="矩阵操作"></a>矩阵操作</h3><h4 id="初等变换"><a href="#初等变换" class="headerlink" title="初等变换"></a>初等变换</h4><ul>
 <li>交换两行（列）位置</li>
 <li>非零数乘某一行（列）</li>
 <li>把某行的倍数加到另一行</li>
 </ul>
-<h4 id="计算">计算</h4>
-<h5 id="数乘">数乘</h5>
-<p>矩阵数乘计算类似一个数</p>
+<h4 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h4><h5 id="数乘"><a href="#数乘" class="headerlink" title="数乘"></a>数乘</h5><p>矩阵数乘计算类似一个数</p>
 <ul>
-<li><span class="math inline">\(k(\mathbf{A} +\mathbf{B}) = k\mathbf{A} + k\mathbf{B}\)</span></li>
-<li><span class="math inline">\((k+l)\mathbf{A} = k \mathbf{A} + l \mathbf{A}\)</span></li>
+<li>$k(\mathbf{A} +\mathbf{B}) = k\mathbf{A} + k\mathbf{B}$</li>
+<li>$(k+l)\mathbf{A} = k \mathbf{A} + l \mathbf{A}$</li>
 </ul>
-<h5 id="向量内积">向量内积</h5>
-<p>又称 <strong>数量积</strong>， <strong>点乘</strong>，值为对应元素乘积的和，是一个数值。在空间中， <span class="math inline">\(\mathbf{a}\cdot \mathbf{b} = ||\mathbf{a}||\,||\mathbf{b}||\cos &lt;\mathbf{a},\mathbf{b}&gt;\)</span> 有性质：</p>
+<h5 id="向量内积"><a href="#向量内积" class="headerlink" title="向量内积"></a>向量内积</h5><p>又称 <strong>数量积</strong>， <strong>点乘</strong>，值为对应元素乘积的和，是一个数值。在空间中， $\mathbf{a}\cdot \mathbf{b} = ||\mathbf{a}||\,||\mathbf{b}||\cos &lt;\mathbf{a},\mathbf{b}&gt;$<br>有性质：</p>
 <ul>
-<li><span class="math inline">\(|\mathbf{a}\cdot\mathbf{b}|\le||\mathbf{a}||\,||\mathbf{b}||\)</span></li>
-<li><span class="math inline">\(||\mathbf{a}+\mathbf{b}||\le ||\mathbf{a}|| + ||\mathbf{b}||\)</span></li>
-<li><strong>正交</strong> <span class="math inline">\(\mathbf{a}\bot\mathbf{b} \Leftrightarrow \mathbf{a}\cdot\mathbf{b}\)</span></li>
+<li>$|\mathbf{a}\cdot\mathbf{b}|\le||\mathbf{a}||\,||\mathbf{b}||$</li>
+<li>$||\mathbf{a}+\mathbf{b}||\le ||\mathbf{a}|| + ||\mathbf{b}||$</li>
+<li><strong>正交</strong> $\mathbf{a}\bot\mathbf{b} \Leftrightarrow \mathbf{a}\cdot\mathbf{b}$</li>
 </ul>
-<p><span class="math inline">\(\mathbf{b}\)</span> 在 <span class="math inline">\(\mathbf{a}\)</span> 上的 <strong>投影</strong>：</p>
-<p><span class="math display">\[ ||\mathbf{b}||\cos&lt;\mathbf{a},\mathbf{b}&gt;=\frac{\mathbf{a}\times\mathbf{b}}{||\mathbf{a}||} \]</span></p>
-<h5 id="向量外积">向量外积</h5>
-<p>又称 <strong>向量积</strong>， <strong>叉乘</strong>， 记作 <span class="math inline">\(\mathbf{a}\times\mathbf{b}\)</span>， 结果为一个向量，模为 <span class="math inline">\(||\mathbf{a}\times\mathbf{b}||=||\mathbf{a}||\,||\mathbf{b}||\cos&lt;\mathbf{a},\mathbf{b}&gt;\)</span>， 方向符合右手法则，以拳为起点，四指沿 <span class="math inline">\(\mathbf{a}\)</span> 指向，臂沿 <span class="math inline">\(\mathbf{b}\)</span> 指向，外积方向为拇指指向。 <strong>外积只作用于三维向量</strong>。 外积与相乘向量正交，可用于求解 <strong>平面法向量</strong>。</p>
-<p><span class="math display">\[ \mathbf{a}\times\mathbf{b} =
-        \left|\begin{array}{}
-        \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
-        a_1 &amp; a_2 &amp; a_3 \\
-        b_1 &amp; b_2 &amp; b_3
-        \end{array}\right|
-\]</span></p>
-<p><strong>混合积</strong>： <span class="math inline">\((\mathbf{a}\times\mathbf{b})\cdot\mathbf{c}\)</span>。 结果为数值，也仅用于三维向量，如果混合积为零，三向量共面。</p>
-<h5 id="矩阵相乘">矩阵相乘</h5>
-<p><strong>没有交换律</strong></p>
+<p>$\mathbf{b}$ 在 $\mathbf{a}$ 上的 <strong>投影</strong>：</p>
+<p>$$ ||\mathbf{b}||\cos&lt;\mathbf{a},\mathbf{b}&gt;=\frac{\mathbf{a}\times\mathbf{b}}{||\mathbf{a}||} $$</p>
+<h5 id="向量外积"><a href="#向量外积" class="headerlink" title="向量外积"></a>向量外积</h5><p>又称 <strong>向量积</strong>， <strong>叉乘</strong>， 记作 $\mathbf{a}\times\mathbf{b}$， 结果为一个向量，模为 $||\mathbf{a}\times\mathbf{b}||=||\mathbf{a}||\,||\mathbf{b}||\cos&lt;\mathbf{a},\mathbf{b}&gt;$， 方向符合右手法则，以拳为起点，四指沿 $\mathbf{a}$ 指向，臂沿 $\mathbf{b}$ 指向，外积方向为拇指指向。 <strong>外积只作用于三维向量</strong>。 外积与相乘向量正交，可用于求解 <strong>平面法向量</strong>。</p>
+<p>$$ \mathbf{a}\times\mathbf{b} =<br>        \left|\begin{array}{}<br>        \mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \<br>        a_1 &amp; a_2 &amp; a_3 \<br>        b_1 &amp; b_2 &amp; b_3<br>        \end{array}\right|<br>$$</p>
+<p><strong>混合积</strong>： $(\mathbf{a}\times\mathbf{b})\cdot\mathbf{c}$。 结果为数值，也仅用于三维向量，如果混合积为零，三向量共面。</p>
+<h5 id="矩阵相乘"><a href="#矩阵相乘" class="headerlink" title="矩阵相乘"></a>矩阵相乘</h5><p><strong>没有交换律</strong></p>
 <ul>
-<li>结合律 <span class="math inline">\((\mathbf{A}\mathbf{B})\mathbf{C}=\mathbf{A}(\mathbf{B}\mathbf{C})\)</span></li>
-<li>分配律 <span class="math inline">\(\mathbf{A}(\mathbf{B}+\mathbf{C}) = \mathbf{A}\mathbf{B} + \mathbf{A}\mathbf{C}\)</span></li>
+<li>结合律 $(\mathbf{A}\mathbf{B})\mathbf{C}=\mathbf{A}(\mathbf{B}\mathbf{C})$</li>
+<li>分配律 $\mathbf{A}(\mathbf{B}+\mathbf{C}) = \mathbf{A}\mathbf{B} + \mathbf{A}\mathbf{C}$</li>
 </ul>
-<h5 id="转置">转置</h5>
-<p><strong>行列互换</strong> 。注意矩阵乘积的转置，检查行列数</p>
+<h5 id="转置"><a href="#转置" class="headerlink" title="转置"></a>转置</h5><p><strong>行列互换</strong> 。注意矩阵乘积的转置，检查行列数</p>
 <ul>
-<li><span class="math inline">\((\mathbf{A}\mathbf{B})^\mathbf{T} = \mathbf{B^T}\mathbf{A^T}\)</span></li>
-<li><span class="math inline">\((\mathbf{A}+\mathbf{B})^\mathbf{T} = \mathbf{A^T} + \mathbf{B^T}\)</span></li>
-<li><span class="math inline">\((\mathbf{A^T})^T = \mathbf{A}\)</span></li>
-<li><span class="math inline">\((k\mathbf{A})^\mathbf{T} = k \mathbf{A^T}\)</span></li>
+<li>$(\mathbf{A}\mathbf{B})^\mathbf{T} = \mathbf{B^T}\mathbf{A^T}$</li>
+<li>$(\mathbf{A}+\mathbf{B})^\mathbf{T} = \mathbf{A^T} + \mathbf{B^T}$</li>
+<li>$(\mathbf{A^T})^T = \mathbf{A}$</li>
+<li>$(k\mathbf{A})^\mathbf{T} = k \mathbf{A^T}$</li>
 </ul>
-<p><span class="math inline">\(\mathbf{A^T}\mathbf{A}\)</span> 得到列向量的两两乘积矩阵，<span class="math inline">\(\mathbf{A}\mathbf{A^T}\)</span> 得到行向量的两两乘积矩阵</p>
-<h5 id="行列式">行列式</h5>
-<ul>
-<li><span class="math inline">\(\det (\mathbf{A} \mathbf{B}) = \det \mathbf{A} \det \mathbf{B}\)</span></li>
-<li><span class="math inline">\(\det (k \mathbf{A}) = k^n \det \mathbf{A}\)</span></li>
-<li><span class="math inline">\(\det (\mathbf{A} + \mathbf{B}) \ne \det \mathbf{A} + \det \mathbf{B}\)</span></li>
+<p>$\mathbf{A^T}\mathbf{A}$ 得到列向量的两两乘积矩阵，$\mathbf{A}\mathbf{A^T}$ 得到行向量的两两乘积矩阵</p>
+<h5 id="行列式"><a href="#行列式" class="headerlink" title="行列式"></a>行列式</h5><ul>
+<li>$\det (\mathbf{A} \mathbf{B}) = \det \mathbf{A} \det \mathbf{B}$</li>
+<li>$\det (k \mathbf{A}) = k^n \det \mathbf{A}$</li>
+<li>$\det (\mathbf{A} + \mathbf{B}) \ne \det \mathbf{A} + \det \mathbf{B}$</li>
 </ul>
-<h3 id="矩阵特征">矩阵特征</h3>
-<h4 id="行列式-1">行列式</h4>
-<p>对 n 阶 <strong>方阵</strong> <span class="math inline">\(\mathbf{A}\)</span> 的行列式 <span class="math inline">\(\det \mathbf{A}\)</span> 为</p>
-<p><span class="math display">\[ \det \mathbf{A} = \sum_{j=1}^n a_{i,j}\mathbf{A}_{i,j} \]</span></p>
-<p>其中，i 为任意一行编号， <span class="math inline">\(A_{i,j}\)</span> 为代数余子式，参考以下定义：<br>
-<strong>余子式</strong>：元素 <span class="math inline">\(a_{i,j}\)</span> 的余子式为除去第 i 行 j 列的方阵的行列式，记作 <span class="math inline">\(M_{i,j}\)</span>。<br>
-<strong>代数余子式</strong>： <span class="math inline">\(A_{i,j}=(-1)^{i+j}M_{i,j}\)</span></p>
+<h3 id="矩阵特征"><a href="#矩阵特征" class="headerlink" title="矩阵特征"></a>矩阵特征</h3><h4 id="行列式-1"><a href="#行列式-1" class="headerlink" title="行列式"></a>行列式</h4><p>对 n 阶 <strong>方阵</strong> $\mathbf{A}$ 的行列式 $\det \mathbf{A}$ 为</p>
+<p>$$ \det \mathbf{A} = \sum<em>{j=1}^n a</em>{i,j}\mathbf{A}_{i,j} $$</p>
+<p>其中，i 为任意一行编号， $A<em>{i,j}$ 为代数余子式，参考以下定义：\<br><strong>余子式</strong>：元素 $a</em>{i,j}$ 的余子式为除去第 i 行 j 列的方阵的行列式，记作 $M<em>{i,j}$。\<br><strong>代数余子式</strong>： $A</em>{i,j}=(-1)^{i+j}M_{i,j}$</p>
 <p>很明显，行列式的计算是一个递归的过程。特别 <strong>用于二三阶行列式</strong> 的简便计算方法：</p>
 <img src="/2016/05/21/Math-LinAlg-Matrix/determinant-calc.png" title="Third-Order Determinant">
 <p>三阶矩阵的行列式为每条红线上的元素的乘积之和，减去蓝线上元素乘积之和。(参考 <a href="https://zh.wikipedia.org/wiki/%E8%A1%8C%E5%88%97%E5%BC%8F" target="_blank" rel="noopener">Wikipedia 行列式</a>)</p>
-<h4 id="秩">秩</h4>
-<p>最高阶非零行列式的阶数。即，对矩阵 A，存在一个非零 r 阶子式，且任意 r+1 阶子式都为 0，则 A 的秩 R(A) = r<br>
-<strong>k 阶子式</strong>： 矩阵取 k 行 k 列，其 <span class="math inline">\(k^2\)</span> 个交点按原来的相对位置构成 k 阶 <strong>行列式</strong>， 称其为 k 阶子式。</p>
-<h4 id="特征值eigenvalue">特征值（Eigenvalue）</h4>
-<p>对 <strong>方阵 A</strong> ，存在数 <span class="math inline">\(\lambda\)</span> 和 <strong>非零向量</strong> <span class="math inline">\(\mathbf{\alpha}\)</span> 使得</p>
-<p><span class="math display">\[ \mathbf{A\alpha} =  \lambda \mathbf{\alpha} \]</span></p>
-<p>也即 <span class="math inline">\((\lambda \mathbf{I} - \mathbf{A})\mathbf{\alpha} = \mathbf{0}\)</span>， 则称 <span class="math inline">\(\lambda,\;\mathbf{\alpha}\)</span> 分别为方阵 <span class="math inline">\(\mathbf{A}\)</span> 的特征值和特征向量。</p>
-<h3 id="矩阵性质">矩阵性质</h3>
-<h4 id="可逆">可逆</h4>
-<p><span class="math display">\[\mathbf{A}\mathbf{B}=\mathbf{B}\mathbf{A}=\mathbf{I}\]</span></p>
-<p>满足该条件的 <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(\mathbf{B}\)</span> 为可逆矩阵，互为对方的逆矩阵，记 <span class="math inline">\(\mathbf{A}^{-1} = \mathbf{B}\)</span></p>
-<h5 id="充要条件">充要条件</h5>
-<ul>
-<li><span class="math inline">\(\mathbf{A}\)</span> 为方阵且 <span class="math inline">\(\mathbf{A}\mathbf{B}=\mathbf{I}\)</span></li>
-<li><span class="math inline">\(\det \mathbf{A} \ne 0\)</span></li>
-<li><span class="math inline">\(r(\mathbf{A})=n\)</span></li>
+<h4 id="秩"><a href="#秩" class="headerlink" title="秩"></a>秩</h4><p>最高阶非零行列式的阶数。即，对矩阵 A，存在一个非零 r 阶子式，且任意 r+1 阶子式都为 0，则 A 的秩 R(A) = r \<br><strong>k 阶子式</strong>： 矩阵取 k 行 k 列，其 $k^2$ 个交点按原来的相对位置构成 k 阶 <strong>行列式</strong>， 称其为 k 阶子式。</p>
+<h4 id="特征值（Eigenvalue）"><a href="#特征值（Eigenvalue）" class="headerlink" title="特征值（Eigenvalue）"></a>特征值（Eigenvalue）</h4><p>对 <strong>方阵 A</strong> ，存在数 $\lambda$ 和 <strong>非零向量</strong> $\mathbf{\alpha}$ 使得</p>
+<p>$$ \mathbf{A\alpha} =  \lambda \mathbf{\alpha} $$</p>
+<p>也即 $(\lambda \mathbf{I} - \mathbf{A})\mathbf{\alpha} =  \mathbf{0}$， 则称 $\lambda,\;\mathbf{\alpha}$ 分别为方阵 $\mathbf{A}$ 的特征值和特征向量。</p>
+<h3 id="矩阵性质"><a href="#矩阵性质" class="headerlink" title="矩阵性质"></a>矩阵性质</h3><h4 id="可逆"><a href="#可逆" class="headerlink" title="可逆"></a>可逆</h4><p>$$\mathbf{A}\mathbf{B}=\mathbf{B}\mathbf{A}=\mathbf{I}$$</p>
+<p>满足该条件的 $\mathbf{A}$, $\mathbf{B}$ 为可逆矩阵，互为对方的逆矩阵，记 $\mathbf{A}^{-1} = \mathbf{B}$</p>
+<h5 id="充要条件"><a href="#充要条件" class="headerlink" title="充要条件"></a>充要条件</h5><ul>
+<li>$\mathbf{A}$ 为方阵且 $\mathbf{A}\mathbf{B}=\mathbf{I}$</li>
+<li>$\det \mathbf{A} \ne 0$</li>
+<li>$r(\mathbf{A})=n$</li>
 <li>可表为有限个初等矩阵的乘积</li>
 <li>所有特征值全不为零</li>
 </ul>
-<h5 id="性质">性质</h5>
-<ul>
-<li><span class="math inline">\((\mathbf{A}\mathbf{B})^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}\)</span></li>
-<li><span class="math inline">\((\lambda\mathbf{A})^{-1}=\mathbf{A}^{-1}\lambda^{-1}\)</span></li>
-<li><span class="math inline">\((\mathbf{A^T})^{-1} = (\mathbf{A}^{-1})^\mathbf{T}\)</span></li>
-<li><span class="math inline">\(\mathbf{A}^{-1} = (\det \mathbf{A})^{-1} \mathbf{A}^{ * }\)</span></li>
-<li><span class="math inline">\(\det \mathbf{A} \det \mathbf{A}^{-1}=1\)</span></li>
+<h5 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h5><ul>
+<li>$(\mathbf{A}\mathbf{B})^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}$</li>
+<li>$(\lambda\mathbf{A})^{-1}=\mathbf{A}^{-1}\lambda^{-1}$</li>
+<li>$(\mathbf{A^T})^{-1} = (\mathbf{A}^{-1})^\mathbf{T}$</li>
+<li>$\mathbf{A}^{-1} = (\det \mathbf{A})^{-1} \mathbf{A}^{ * }$</li>
+<li>$\det \mathbf{A} \det \mathbf{A}^{-1}=1$</li>
 </ul>
-<h5 id="用行初等变换求逆矩阵">用行初等变换求逆矩阵</h5>
-<p>将矩阵施以行初等变换化为单位矩阵，同时将整个变化过程运用于单位矩阵得到逆矩阵</p>
-<h4 id="同型">同型</h4>
-<p>两矩阵行列数相等</p>
-<h4 id="等价">等价</h4>
-<p>对矩阵 A 施以初等变换能转化成 B，称二者等价。也即，存在可逆矩阵 P、Q，使得</p>
-<p><span class="math display">\[ \mathbf{B} = \mathbf{P}\mathbf{A}\mathbf{Q} \]</span></p>
+<h5 id="用行初等变换求逆矩阵"><a href="#用行初等变换求逆矩阵" class="headerlink" title="用行初等变换求逆矩阵"></a>用行初等变换求逆矩阵</h5><p>将矩阵施以行初等变换化为单位矩阵，同时将整个变化过程运用于单位矩阵得到逆矩阵</p>
+<h4 id="同型"><a href="#同型" class="headerlink" title="同型"></a>同型</h4><p>两矩阵行列数相等</p>
+<h4 id="等价"><a href="#等价" class="headerlink" title="等价"></a>等价</h4><p>对矩阵 A 施以初等变换能转化成 B，称二者等价。也即，存在可逆矩阵 P、Q，使得</p>
+<p>$$ \mathbf{B} = \mathbf{P}\mathbf{A}\mathbf{Q} $$</p>
 <p>性质： <strong>等价矩阵同型等秩同标准形</strong></p>
-<h4 id="相似">相似</h4>
-<p>对于 <strong>n 阶方阵</strong> A，B，如果存在可逆矩阵 P，使得</p>
-<p><span class="math display">\[ \mathbf{P}^{-1}\mathbf{A}\mathbf{P}=\mathbf{B} \]</span></p>
-<p>则称 A 与 B 相似，记为 <span class="math inline">\(\mathbf{A} \sim \mathbf{B}\)</span>。 <strong>相似矩阵的特征值相同</strong>。</p>
-<h4 id="向量正交">向量正交</h4>
-<p>两向量内积为零则正交</p>
-<h4 id="合同">合同</h4>
-<p>对方阵 <span class="math inline">\(\mathbf{A},\,\mathbf{B}\)</span>， 若存在可逆矩阵 <span class="math inline">\(\mathbf{C}\)</span>， 使得</p>
-<p><span class="math display">\[ \mathbf{B} = \mathbf{C^T A C} \]</span></p>
-<p>则称 <span class="math inline">\(\mathbf{A},\,\mathbf{B}\)</span> 合同。</p>
+<h4 id="相似"><a href="#相似" class="headerlink" title="相似"></a>相似</h4><p>对于 <strong>n 阶方阵</strong> A，B，如果存在可逆矩阵 P，使得</p>
+<p>$$ \mathbf{P}^{-1}\mathbf{A}\mathbf{P}=\mathbf{B} $$</p>
+<p>则称 A 与 B 相似，记为 $\mathbf{A} \sim \mathbf{B}$。 <strong>相似矩阵的特征值相同</strong>。</p>
+<h4 id="向量正交"><a href="#向量正交" class="headerlink" title="向量正交"></a>向量正交</h4><p>两向量内积为零则正交</p>
+<h4 id="合同"><a href="#合同" class="headerlink" title="合同"></a>合同</h4><p>对方阵 $\mathbf{A},\,\mathbf{B}$， 若存在可逆矩阵 $\mathbf{C}$， 使得</p>
+<p>$$ \mathbf{B} = \mathbf{C^T A C} $$</p>
+<p>则称 $\mathbf{A},\,\mathbf{B}$ 合同。</p>
 
       
     </div>
@@ -574,7 +520,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -591,7 +537,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -620,7 +566,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#系列笔记"><span class="nav-number">1.</span> <span class="nav-text">系列笔记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种矩阵"><span class="nav-number">3.</span> <span class="nav-text">各种矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单位矩阵-mathbfi"><span class="nav-number">3.1.</span> <span class="nav-text">单位矩阵 \(\mathbf{I}\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数量矩阵-kmathbfi"><span class="nav-number">3.2.</span> <span class="nav-text">数量矩阵 \(k\mathbf{I}\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对角矩阵"><span class="nav-number">3.3.</span> <span class="nav-text">对角矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三角矩阵"><span class="nav-number">3.4.</span> <span class="nav-text">三角矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对称方阵"><span class="nav-number">3.5.</span> <span class="nav-text">对称方阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初等矩阵elementary-m"><span class="nav-number">3.6.</span> <span class="nav-text">初等矩阵（Elementary M）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伴随矩阵-mathbfa"><span class="nav-number">3.7.</span> <span class="nav-text">伴随矩阵 \(\mathbf{A}^{ * }\)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可交换方阵"><span class="nav-number">3.8.</span> <span class="nav-text">可交换方阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标准形"><span class="nav-number">3.9.</span> <span class="nav-text">标准形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正交向量组"><span class="nav-number">3.10.</span> <span class="nav-text">正交向量组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正交方阵orthogonal-matrix"><span class="nav-number">3.11.</span> <span class="nav-text">正交方阵（Orthogonal matrix）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实二次型及其矩阵"><span class="nav-number">3.12.</span> <span class="nav-text">实二次型及其矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正定二次型"><span class="nav-number">3.13.</span> <span class="nav-text">正定二次型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵操作"><span class="nav-number">4.</span> <span class="nav-text">矩阵操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初等变换"><span class="nav-number">4.1.</span> <span class="nav-text">初等变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算"><span class="nav-number">4.2.</span> <span class="nav-text">计算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数乘"><span class="nav-number">4.2.1.</span> <span class="nav-text">数乘</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#向量内积"><span class="nav-number">4.2.2.</span> <span class="nav-text">向量内积</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#向量外积"><span class="nav-number">4.2.3.</span> <span class="nav-text">向量外积</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#矩阵相乘"><span class="nav-number">4.2.4.</span> <span class="nav-text">矩阵相乘</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#转置"><span class="nav-number">4.2.5.</span> <span class="nav-text">转置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#行列式"><span class="nav-number">4.2.6.</span> <span class="nav-text">行列式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵特征"><span class="nav-number">5.</span> <span class="nav-text">矩阵特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#行列式-1"><span class="nav-number">5.1.</span> <span class="nav-text">行列式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#秩"><span class="nav-number">5.2.</span> <span class="nav-text">秩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征值eigenvalue"><span class="nav-number">5.3.</span> <span class="nav-text">特征值（Eigenvalue）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵性质"><span class="nav-number">6.</span> <span class="nav-text">矩阵性质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可逆"><span class="nav-number">6.1.</span> <span class="nav-text">可逆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#充要条件"><span class="nav-number">6.1.1.</span> <span class="nav-text">充要条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#性质"><span class="nav-number">6.1.2.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用行初等变换求逆矩阵"><span class="nav-number">6.1.3.</span> <span class="nav-text">用行初等变换求逆矩阵</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同型"><span class="nav-number">6.2.</span> <span class="nav-text">同型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等价"><span class="nav-number">6.3.</span> <span class="nav-text">等价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相似"><span class="nav-number">6.4.</span> <span class="nav-text">相似</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量正交"><span class="nav-number">6.5.</span> <span class="nav-text">向量正交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合同"><span class="nav-number">6.6.</span> <span class="nav-text">合同</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#系列笔记"><span class="nav-number">1.</span> <span class="nav-text">系列笔记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种矩阵"><span class="nav-number">3.</span> <span class="nav-text">各种矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单位矩阵-mathbf-I"><span class="nav-number">3.1.</span> <span class="nav-text">单位矩阵 $\mathbf{I}$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数量矩阵-k-mathbf-I"><span class="nav-number">3.2.</span> <span class="nav-text">数量矩阵 $k\mathbf{I}$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对角矩阵"><span class="nav-number">3.3.</span> <span class="nav-text">对角矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三角矩阵"><span class="nav-number">3.4.</span> <span class="nav-text">三角矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对称方阵"><span class="nav-number">3.5.</span> <span class="nav-text">对称方阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初等矩阵（Elementary-M）"><span class="nav-number">3.6.</span> <span class="nav-text">初等矩阵（Elementary M）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伴随矩阵-mathbf-A"><span class="nav-number">3.7.</span> <span class="nav-text">伴随矩阵 $\mathbf{A}^{ * }$</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可交换方阵"><span class="nav-number">3.8.</span> <span class="nav-text">可交换方阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标准形"><span class="nav-number">3.9.</span> <span class="nav-text">标准形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正交向量组"><span class="nav-number">3.10.</span> <span class="nav-text">正交向量组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正交方阵（Orthogonal-matrix）"><span class="nav-number">3.11.</span> <span class="nav-text">正交方阵（Orthogonal matrix）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实二次型及其矩阵"><span class="nav-number">3.12.</span> <span class="nav-text">实二次型及其矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正定二次型"><span class="nav-number">3.13.</span> <span class="nav-text">正定二次型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵操作"><span class="nav-number">4.</span> <span class="nav-text">矩阵操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初等变换"><span class="nav-number">4.1.</span> <span class="nav-text">初等变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算"><span class="nav-number">4.2.</span> <span class="nav-text">计算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数乘"><span class="nav-number">4.2.1.</span> <span class="nav-text">数乘</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#向量内积"><span class="nav-number">4.2.2.</span> <span class="nav-text">向量内积</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#向量外积"><span class="nav-number">4.2.3.</span> <span class="nav-text">向量外积</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#矩阵相乘"><span class="nav-number">4.2.4.</span> <span class="nav-text">矩阵相乘</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#转置"><span class="nav-number">4.2.5.</span> <span class="nav-text">转置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#行列式"><span class="nav-number">4.2.6.</span> <span class="nav-text">行列式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵特征"><span class="nav-number">5.</span> <span class="nav-text">矩阵特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#行列式-1"><span class="nav-number">5.1.</span> <span class="nav-text">行列式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#秩"><span class="nav-number">5.2.</span> <span class="nav-text">秩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征值（Eigenvalue）"><span class="nav-number">5.3.</span> <span class="nav-text">特征值（Eigenvalue）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵性质"><span class="nav-number">6.</span> <span class="nav-text">矩阵性质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可逆"><span class="nav-number">6.1.</span> <span class="nav-text">可逆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#充要条件"><span class="nav-number">6.1.1.</span> <span class="nav-text">充要条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#性质"><span class="nav-number">6.1.2.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用行初等变换求逆矩阵"><span class="nav-number">6.1.3.</span> <span class="nav-text">用行初等变换求逆矩阵</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同型"><span class="nav-number">6.2.</span> <span class="nav-text">同型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等价"><span class="nav-number">6.3.</span> <span class="nav-text">等价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相似"><span class="nav-number">6.4.</span> <span class="nav-text">相似</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向量正交"><span class="nav-number">6.5.</span> <span class="nav-text">向量正交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合同"><span class="nav-number">6.6.</span> <span class="nav-text">合同</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

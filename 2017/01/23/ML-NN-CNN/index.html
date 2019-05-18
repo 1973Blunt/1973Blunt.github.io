@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="学习 UFLDL教程 “处理大型图像”部分的笔记。 参考  建立分类用深度网络 神经网络之反向传播与自编码器 深度网络笔记  卷积特征 把大型原始图像作为输入直接训练神经网络难以实现，因为数据向量维度太大。一种解决办法是用原始图像的小块来训练神经网络模型，再用这个模型提取整个图像的特征。特征提取用卷积，参见《卷积特征提取》。将图像分成小块输入模型得到输出，将所有小块的输出组合成一个">
+<meta name="description" content="学习 UFLDL教程 “处理大型图像”部分的笔记。 参考 建立分类用深度网络 神经网络之反向传播与自编码器 深度网络笔记   卷积特征把大型原始图像作为输入直接训练神经网络难以实现，因为数据向量维度太大。一种解决办法是用原始图像的小块来训练神经网络模型，再用这个模型提取整个图像的特征。特征提取用卷积，参见《卷积特征提取》。将图像分成小块输入模型得到输出，将所有小块的输出组合成一个向量，作为整个图像">
 <meta name="keywords" content="ML,机器学习技法,NN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="卷积神经网络笔记">
 <meta property="og:url" content="http://yoursite.com/2017/01/23/ML-NN-CNN/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="学习 UFLDL教程 “处理大型图像”部分的笔记。 参考  建立分类用深度网络 神经网络之反向传播与自编码器 深度网络笔记  卷积特征 把大型原始图像作为输入直接训练神经网络难以实现，因为数据向量维度太大。一种解决办法是用原始图像的小块来训练神经网络模型，再用这个模型提取整个图像的特征。特征提取用卷积，参见《卷积特征提取》。将图像分成小块输入模型得到输出，将所有小块的输出组合成一个">
+<meta property="og:description" content="学习 UFLDL教程 “处理大型图像”部分的笔记。 参考 建立分类用深度网络 神经网络之反向传播与自编码器 深度网络笔记   卷积特征把大型原始图像作为输入直接训练神经网络难以实现，因为数据向量维度太大。一种解决办法是用原始图像的小块来训练神经网络模型，再用这个模型提取整个图像的特征。特征提取用卷积，参见《卷积特征提取》。将图像分成小块输入模型得到输出，将所有小块的输出组合成一个向量，作为整个图像">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-01-23T05:09:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络笔记">
-<meta name="twitter:description" content="学习 UFLDL教程 “处理大型图像”部分的笔记。 参考  建立分类用深度网络 神经网络之反向传播与自编码器 深度网络笔记  卷积特征 把大型原始图像作为输入直接训练神经网络难以实现，因为数据向量维度太大。一种解决办法是用原始图像的小块来训练神经网络模型，再用这个模型提取整个图像的特征。特征提取用卷积，参见《卷积特征提取》。将图像分成小块输入模型得到输出，将所有小块的输出组合成一个">
+<meta name="twitter:description" content="学习 UFLDL教程 “处理大型图像”部分的笔记。 参考 建立分类用深度网络 神经网络之反向传播与自编码器 深度网络笔记   卷积特征把大型原始图像作为输入直接训练神经网络难以实现，因为数据向量维度太大。一种解决办法是用原始图像的小块来训练神经网络模型，再用这个模型提取整个图像的特征。特征提取用卷积，参见《卷积特征提取》。将图像分成小块输入模型得到输出，将所有小块的输出组合成一个向量，作为整个图像">
 
 
 
@@ -299,16 +299,14 @@
 
       
         <p>学习 <a href="http://ufldl.stanford.edu/wiki/index.php/UFLDL%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">UFLDL教程</a> “处理大型图像”部分的笔记。</p>
-<h3 id="参考">参考</h3>
-<ul>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="http://ufldl.stanford.edu/wiki/index.php/UFLDL%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">建立分类用深度网络</a></li>
 <li><a href="/2017/01/18/ML-NN-backpropagation/" title="神经网络之反向传播与自编码器">神经网络之反向传播与自编码器</a></li>
-<li><a href="/2017/01/23/ML-NN-DeepNet/" title="深度网络笔记">深度网络笔记</a></li>
+<li><a href="/2017/01/23/ML-NN-DeepNet/" title="深度网络笔记">深度网络笔记</a>
+</li>
 </ul>
-<h3 id="卷积特征">卷积特征</h3>
-<p>把大型原始图像作为输入直接训练神经网络难以实现，因为数据向量维度太大。一种解决办法是用原始图像的小块来训练神经网络模型，再用这个模型提取整个图像的特征。特征提取用卷积，参见<a href="http://ufldl.stanford.edu/wiki/index.php/%E5%8D%B7%E7%A7%AF%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96" target="_blank" rel="noopener">《卷积特征提取》</a>。将图像分成小块输入模型得到输出，将所有小块的输出组合成一个向量，作为整个图像的特征向量。</p>
-<h3 id="池化">池化</h3>
-<p>卷积特征提取解决了神经网络模型训练的问题，提取出有效的特征，但当训练分类器时，特征向量维度也太大，解决方法是计算图像每个区域上的每个特定特征的平均值 (或最大值，或其他统计量)作为新的特征向量，这被称为池化。</p>
+<h3 id="卷积特征"><a href="#卷积特征" class="headerlink" title="卷积特征"></a>卷积特征</h3><p>把大型原始图像作为输入直接训练神经网络难以实现，因为数据向量维度太大。一种解决办法是用原始图像的小块来训练神经网络模型，再用这个模型提取整个图像的特征。特征提取用卷积，参见<a href="http://ufldl.stanford.edu/wiki/index.php/%E5%8D%B7%E7%A7%AF%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96" target="_blank" rel="noopener">《卷积特征提取》</a>。将图像分成小块输入模型得到输出，将所有小块的输出组合成一个向量，作为整个图像的特征向量。</p>
+<h3 id="池化"><a href="#池化" class="headerlink" title="池化"></a>池化</h3><p>卷积特征提取解决了神经网络模型训练的问题，提取出有效的特征，但当训练分类器时，特征向量维度也太大，解决方法是计算图像每个区域上的每个特定特征的平均值 (或最大值，或其他统计量)作为新的特征向量，这被称为池化。</p>
 
       
     </div>
@@ -422,7 +420,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -439,7 +437,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

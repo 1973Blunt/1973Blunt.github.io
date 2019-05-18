@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="矩阵相关 参考： 向量空间 向量空间 设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “\(\cdot\)”， 且满足八条运算规则（参考： 向量空间）,则称系统 \((\mathbf{V},\mathbf{P},+,\cdot)\) 为线性空间。关键词：向量集合，加法数乘运算，八条规则。 基与维数 向量空间所有向量的一组最大线性无">
+<meta name="description" content="矩阵相关 参考： 向量空间 向量空间设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “$\cdot$”， 且满足八条运算规则（参考： 向量空间）,则称系统 $(\mathbf{V},\mathbf{P},+,\cdot)$ 为线性空间。关键词：向量集合，加法数乘运算，八条规则。 基与维数向量空间所有向量的一组最大线性无关组称为一组基，基向量">
 <meta name="keywords" content="Math,Linear Algebra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="向量空间">
 <meta property="og:url" content="http://yoursite.com/2016/05/17/Math-LinAlg-LinearSpace/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="矩阵相关 参考： 向量空间 向量空间 设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “\(\cdot\)”， 且满足八条运算规则（参考： 向量空间）,则称系统 \((\mathbf{V},\mathbf{P},+,\cdot)\) 为线性空间。关键词：向量集合，加法数乘运算，八条规则。 基与维数 向量空间所有向量的一组最大线性无">
+<meta property="og:description" content="矩阵相关 参考： 向量空间 向量空间设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “$\cdot$”， 且满足八条运算规则（参考： 向量空间）,则称系统 $(\mathbf{V},\mathbf{P},+,\cdot)$ 为线性空间。关键词：向量集合，加法数乘运算，八条规则。 基与维数向量空间所有向量的一组最大线性无关组称为一组基，基向量">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-10-01T14:47:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="向量空间">
-<meta name="twitter:description" content="矩阵相关 参考： 向量空间 向量空间 设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “\(\cdot\)”， 且满足八条运算规则（参考： 向量空间）,则称系统 \((\mathbf{V},\mathbf{P},+,\cdot)\) 为线性空间。关键词：向量集合，加法数乘运算，八条规则。 基与维数 向量空间所有向量的一组最大线性无">
+<meta name="twitter:description" content="矩阵相关 参考： 向量空间 向量空间设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “$\cdot$”， 且满足八条运算规则（参考： 向量空间）,则称系统 $(\mathbf{V},\mathbf{P},+,\cdot)$ 为线性空间。关键词：向量集合，加法数乘运算，八条规则。 基与维数向量空间所有向量的一组最大线性无关组称为一组基，基向量">
 
 
 
@@ -300,31 +300,17 @@
       
         <a href="/2016/05/21/Math-LinAlg-Matrix/" title="矩阵相关">矩阵相关</a>
 <p>参考： <a href="https://zh.wikipedia.org/wiki/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4" target="_blank" rel="noopener">向量空间</a></p>
-<h3 id="向量空间">向量空间</h3>
-<p>设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “<span class="math inline">\(\cdot\)</span>”， 且满足八条运算规则（参考： <a href="https://zh.wikipedia.org/wiki/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4" target="_blank" rel="noopener">向量空间</a>）,则称系统 <span class="math inline">\((\mathbf{V},\mathbf{P},+,\cdot)\)</span> 为线性空间。关键词：向量集合，加法数乘运算，八条规则。</p>
-<h3 id="基与维数">基与维数</h3>
-<p>向量空间所有向量的一组最大线性无关组称为一组基，基向量的个数为空间维数。如果一组基是规范正交向量组，则称为 <strong>规范正交基</strong>。</p>
-<h3 id="坐标">坐标</h3>
-<p>向量空间一组基： <span class="math inline">\(\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,...,\mathbf{\varepsilon}_n\)</span>， 对 <span class="math inline">\(\alpha\)</span> 有：</p>
-<p><span class="math display">\[ \mathbf{\alpha} = a_1 \mathbf{\varepsilon}_1 + a_2 \mathbf{\varepsilon}_2 + ... + a_n \mathbf{\varepsilon}_n \]</span></p>
-<p>称数组 <span class="math inline">\((a_1,a_2,...,a_n)\)</span> 为 <span class="math inline">\(\mathbf{\alpha}\)</span> 在基 <span class="math inline">\(\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,...,\mathbf{\varepsilon}_n\)</span> 下的坐标。</p>
-<p>求解坐标，一般思路是求解方程组 <span class="math inline">\([\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,...,\mathbf{\varepsilon}_n] \mathbf{X} =\mathbf{\alpha}\)</span>， 而当基为规范正交基时可简化成 <span class="math inline">\(a_i=\mathbf{\alpha} \cdot \mathbf{\varepsilon}_i\)</span></p>
-<h3 id="基变换与坐标变换">基变换与坐标变换</h3>
-<p>旧基变换到新基：</p>
-<p><span class="math display">\[ (\mathbf{\varepsilon}_1&#39;,\mathbf{\varepsilon}_2&#39;,...,\mathbf{\varepsilon}_n&#39;) = (\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,...,\mathbf{\varepsilon}_n) \mathbf{A} \]</span></p>
-<p><span class="math inline">\(\mathbf{A}\)</span> 称为 <strong>过渡矩阵</strong>， 可逆。</p>
+<h3 id="向量空间"><a href="#向量空间" class="headerlink" title="向量空间"></a>向量空间</h3><p>设 V 是一个非空集合，P 是一个数域。如果在 V 中定义了加法运算 “+”，P 与 V 定义了数乘运算 “$\cdot$”， 且满足八条运算规则（参考： <a href="https://zh.wikipedia.org/wiki/%E5%90%91%E9%87%8F%E7%A9%BA%E9%97%B4" target="_blank" rel="noopener">向量空间</a>）,则称系统 $(\mathbf{V},\mathbf{P},+,\cdot)$ 为线性空间。关键词：向量集合，加法数乘运算，八条规则。</p>
+<h3 id="基与维数"><a href="#基与维数" class="headerlink" title="基与维数"></a>基与维数</h3><p>向量空间所有向量的一组最大线性无关组称为一组基，基向量的个数为空间维数。如果一组基是规范正交向量组，则称为 <strong>规范正交基</strong>。</p>
+<h3 id="坐标"><a href="#坐标" class="headerlink" title="坐标"></a>坐标</h3><p>向量空间一组基： $\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,…,\mathbf{\varepsilon}_n$， 对 $\alpha$ 有：</p>
+<p>$$ \mathbf{\alpha} = a_1 \mathbf{\varepsilon}_1 + a_2 \mathbf{\varepsilon}_2 + … + a_n \mathbf{\varepsilon}_n $$</p>
+<p>称数组 $(a_1,a_2,…,a_n)$ 为 $\mathbf{\alpha}$ 在基 $\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,…,\mathbf{\varepsilon}_n$ 下的坐标。</p>
+<p>求解坐标，一般思路是求解方程组 $[\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,…,\mathbf{\varepsilon}_n] \mathbf{X} =\mathbf{\alpha}$， 而当基为规范正交基时可简化成 $a_i=\mathbf{\alpha} \cdot \mathbf{\varepsilon}_i$</p>
+<h3 id="基变换与坐标变换"><a href="#基变换与坐标变换" class="headerlink" title="基变换与坐标变换"></a>基变换与坐标变换</h3><p>旧基变换到新基：</p>
+<p>$$ (\mathbf{\varepsilon}_1’,\mathbf{\varepsilon}_2’,…,\mathbf{\varepsilon}_n’) = (\mathbf{\varepsilon}_1,\mathbf{\varepsilon}_2,…,\mathbf{\varepsilon}_n) \mathbf{A} $$</p>
+<p>$\mathbf{A}$ 称为 <strong>过渡矩阵</strong>， 可逆。</p>
 <p>对应旧坐标变换到新坐标：</p>
-<p><span class="math display">\[ \begin{bmatrix}
-        a_1&#39; \\
-        a_2&#39; \\
-        \vdots \\
-        a_n&#39; \end{bmatrix}
-  = \mathbf{A}^{-1} \begin{bmatrix}
-          a_1 \\
-          a_2 \\
-          \vdots \\
-          a_n \end{bmatrix}
-\]</span></p>
+<p>$$ \begin{bmatrix}<br>        a_1’ \<br>        a_2’ \<br>        \vdots \<br>        a_n’ \end{bmatrix}<br>  = \mathbf{A}^{-1} \begin{bmatrix}<br>          a_1 \<br>          a_2 \<br>          \vdots \<br>          a_n \end{bmatrix}<br>$$</p>
 
       
     </div>
@@ -436,7 +422,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -453,7 +439,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="参考 pip 更换仓库源 1pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ # 临时用中科大源安装numpy pip 下载安装包并离线安装 1234# 只下载包pip download -d ./download_packs_dir -r ./requirements.txt# 只安装pip install --no">
+<meta name="description" content="参考pip 更换仓库源1pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ # 临时用中科大源安装numpy pip 下载安装包并离线安装1234# 只下载包pip download -d ./download_packs_dir -r ./requirements.txt# 只安装pip install --no-index">
 <meta name="keywords" content="Cheat Sheet,Python,Tools">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pip 杂记">
 <meta property="og:url" content="http://yoursite.com/2019/03/21/Python-pip/index.html">
 <meta property="og:site_name" content="HotSummer">
-<meta property="og:description" content="参考 pip 更换仓库源 1pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ # 临时用中科大源安装numpy pip 下载安装包并离线安装 1234# 只下载包pip download -d ./download_packs_dir -r ./requirements.txt# 只安装pip install --no">
+<meta property="og:description" content="参考pip 更换仓库源1pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ # 临时用中科大源安装numpy pip 下载安装包并离线安装1234# 只下载包pip download -d ./download_packs_dir -r ./requirements.txt# 只安装pip install --no-index">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-04-13T03:13:58.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pip 杂记">
-<meta name="twitter:description" content="参考 pip 更换仓库源 1pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ # 临时用中科大源安装numpy pip 下载安装包并离线安装 1234# 只下载包pip download -d ./download_packs_dir -r ./requirements.txt# 只安装pip install --no">
+<meta name="twitter:description" content="参考pip 更换仓库源1pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ # 临时用中科大源安装numpy pip 下载安装包并离线安装1234# 只下载包pip download -d ./download_packs_dir -r ./requirements.txt# 只安装pip install --no-index">
 
 
 
@@ -298,19 +298,13 @@
       
 
       
-        <h3 id="参考">参考</h3>
-<h4 id="pip-更换仓库源">pip 更换仓库源</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ <span class="comment"># 临时用中科大源安装numpy</span></span><br></pre></td></tr></table></figure>
-<h4 id="pip-下载安装包并离线安装">pip 下载安装包并离线安装</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 只下载包</span><br><span class="line">pip download -d ./download_packs_dir -r ./requirements.txt</span><br><span class="line"># 只安装</span><br><span class="line">pip install --no-index --find-links=./download_packs_dir -r ./requirements.txt</span><br></pre></td></tr></table></figure>
-<h4 id="模块安装">模块安装</h4>
-<p>三种方式：</p>
-<p>进入下载安装包目录，运行 setup.py 程序： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码安装</span></span><br><span class="line">cd download_dir</span><br><span class="line">python setup.py install <span class="comment"># 运行 setup.py 安装程序</span></span><br><span class="line"><span class="comment"># 用 pip 安装，自动安装依赖包</span></span><br><span class="line">pip install PackageName</span><br><span class="line"><span class="comment"># 用 easy_install 安装，不推荐使用</span></span><br><span class="line">easy_install PackageName</span><br></pre></td></tr></table></figure></p>
-<h4 id="win下-anaconda-安装依赖包">win下 Anaconda 安装依赖包</h4>
-<p>进入Anaconda安装目录 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Scripts</span><br><span class="line">pip install PackageName -i https://pypi.tuna.tsinghua.edu.cn/simple/</span><br><span class="line"># -i 后接国内镜像地址url，提升速度</span><br></pre></td></tr></table></figure></p>
-<p>更换conda源（清华）： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls yes</span><br></pre></td></tr></table></figure></p>
-<h4 id="虚拟环境">虚拟环境</h4>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install virtualenv</span><br><span class="line"><span class="comment"># 创建虚拟环境，python3，无已安装包</span></span><br><span class="line">virtualenv -p python3 --no-site-packages venv</span><br><span class="line"><span class="built_in">source</span> venv/bin/activate <span class="comment"># 激活</span></span><br><span class="line">pip freeze &gt; requirement <span class="comment"># pip freeze</span></span><br><span class="line">deactivate <span class="comment"># 退出虚拟环境</span></span><br></pre></td></tr></table></figure>
+        <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><h4 id="pip-更换仓库源"><a href="#pip-更换仓库源" class="headerlink" title="pip 更换仓库源"></a>pip 更换仓库源</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install numpy -i http://pypi.mirrors.ustc.edu.cn/simple/ <span class="comment"># 临时用中科大源安装numpy</span></span><br></pre></td></tr></table></figure>
+<h4 id="pip-下载安装包并离线安装"><a href="#pip-下载安装包并离线安装" class="headerlink" title="pip 下载安装包并离线安装"></a>pip 下载安装包并离线安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 只下载包</span><br><span class="line">pip download -d ./download_packs_dir -r ./requirements.txt</span><br><span class="line"># 只安装</span><br><span class="line">pip install --no-index --find-links=./download_packs_dir -r ./requirements.txt</span><br></pre></td></tr></table></figure>
+<h4 id="模块安装"><a href="#模块安装" class="headerlink" title="模块安装"></a>模块安装</h4><p>三种方式：</p>
+<p>进入下载安装包目录，运行 setup.py 程序：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源码安装</span></span><br><span class="line">cd download_dir</span><br><span class="line">python setup.py install <span class="comment"># 运行 setup.py 安装程序</span></span><br><span class="line"><span class="comment"># 用 pip 安装，自动安装依赖包</span></span><br><span class="line">pip install PackageName</span><br><span class="line"><span class="comment"># 用 easy_install 安装，不推荐使用</span></span><br><span class="line">easy_install PackageName</span><br></pre></td></tr></table></figure></p>
+<h4 id="win下-Anaconda-安装依赖包"><a href="#win下-Anaconda-安装依赖包" class="headerlink" title="win下 Anaconda 安装依赖包"></a>win下 Anaconda 安装依赖包</h4><p>进入Anaconda安装目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Scripts</span><br><span class="line">pip install PackageName -i https://pypi.tuna.tsinghua.edu.cn/simple/</span><br><span class="line"># -i 后接国内镜像地址url，提升速度</span><br></pre></td></tr></table></figure></p>
+<p>更换conda源（清华）：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls yes</span><br></pre></td></tr></table></figure></p>
+<h4 id="虚拟环境"><a href="#虚拟环境" class="headerlink" title="虚拟环境"></a>虚拟环境</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install virtualenv</span><br><span class="line"><span class="comment"># 创建虚拟环境，python3，无已安装包</span></span><br><span class="line">virtualenv -p python3 --no-site-packages venv</span><br><span class="line"><span class="built_in">source</span> venv/bin/activate <span class="comment"># 激活</span></span><br><span class="line">pip freeze &gt; requirement <span class="comment"># pip freeze</span></span><br><span class="line">deactivate <span class="comment"># 退出虚拟环境</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -346,16 +340,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/03/Tools-CUDAInstallation/" rel="next" title="CUDA安装">
-                <i class="fa fa-chevron-left"></i> CUDA安装
+              <a href="/2019/03/21/Python-conda/" rel="next" title="Conda杂记">
+                <i class="fa fa-chevron-left"></i> Conda杂记
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/21/Python-conda/" rel="prev" title="Conda杂记">
-                Conda杂记 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/26/Ubuntu-svn/" rel="prev" title="Ubuntu-svn">
+                Ubuntu-svn <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -424,7 +418,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -441,7 +435,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -470,7 +464,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pip-更换仓库源"><span class="nav-number">1.1.</span> <span class="nav-text">pip 更换仓库源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pip-下载安装包并离线安装"><span class="nav-number">1.2.</span> <span class="nav-text">pip 下载安装包并离线安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模块安装"><span class="nav-number">1.3.</span> <span class="nav-text">模块安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#win下-anaconda-安装依赖包"><span class="nav-number">1.4.</span> <span class="nav-text">win下 Anaconda 安装依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟环境"><span class="nav-number">1.5.</span> <span class="nav-text">虚拟环境</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pip-更换仓库源"><span class="nav-number">1.1.</span> <span class="nav-text">pip 更换仓库源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pip-下载安装包并离线安装"><span class="nav-number">1.2.</span> <span class="nav-text">pip 下载安装包并离线安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模块安装"><span class="nav-number">1.3.</span> <span class="nav-text">模块安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#win下-Anaconda-安装依赖包"><span class="nav-number">1.4.</span> <span class="nav-text">win下 Anaconda 安装依赖包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟环境"><span class="nav-number">1.5.</span> <span class="nav-text">虚拟环境</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
